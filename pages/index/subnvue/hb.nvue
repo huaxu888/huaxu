@@ -1,0 +1,51 @@
+<template>
+	<div class="example" @click="noclose">
+		<div class="example" style=" z-index:0; position: relative;">
+			<image style="width:525upx;height:700upx; " class="flex justify-center align-center" resize="stretch" src="https://img.huaxuapp.com/xfjl.png"></image>
+			<div style="position: absolute; z-index: 3; top: 0; left:0;right:0upx;bottom:0upx;display: flex; align-items: center; justify-content: center;flex-direction: column;">
+				<text style="font-size:80upx;margin-top:240upx;color:yellow;">{{Scores}}元</text>
+				<text class="text-red" style="font-size:35upx;margin-top: 100upx;color:#de1a27;font-weight: 600;">{{XFStore}}</text>
+			</div>
+			<div @click="receive" >
+				<image style="width:260upx;height:70upx;margin-top:40upx;" resize="stretch" src="http://img.huaxuapp.com/xfjllq.png"></image>
+			</div>
+		
+		</div>
+	</div>
+</template>
+
+<script>
+	const globalEvent = weex.requireModule('globalEvent');
+	export default {
+		data() {
+			return {
+				Scores: '',
+				XFUser:'',
+				XFStore:''
+			}
+		},
+		created() {
+			globalEvent.addEventListener("plusMessage", e => {
+				this.Scores = e.data.Scores;
+				this.XFUser = e.data.XFUser;
+				this.XFStore = e.data.XFStore;
+			});
+		},
+		methods: {
+			receive(e) {
+				uni.postMessage({
+					value: "hb",
+				});
+			},noclose(){
+				
+			}
+		}
+	}
+</script>
+<style>
+	.example {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>

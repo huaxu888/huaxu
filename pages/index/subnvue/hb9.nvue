@@ -1,0 +1,51 @@
+<template>
+	<div class="example"  @click="noclose">
+		<div style="width:480upx;height:650upx;display: flex; align-items: center;">
+			
+			<image style="width:480upx;height:650upx;" resize="stretch" src="https://img.huaxuapp.com/yhqhb.png"></image>
+			
+			<div class="flex align-center justify-center" style="position: absolute; z-index: 3; top:410upx;" @click="receive">
+				<text style="color: #FFFFFF;font-size: 30upx;">价值{{Total}}的店铺优惠券</text>
+			</div>
+			
+			<div class="flex align-center justify-center" style="position: absolute; z-index: 3; top:540upx;" @click="receive">
+				<image style="width: 266upx; height: 66upx;" resize="stretch" src="https://img.huaxuapp.com/yhqhblq2.png"></image>
+			</div> 
+			
+		</div>
+	</div>
+</template>
+
+<script>
+	const globalEvent = weex.requireModule('globalEvent');
+	export default {
+		data() {
+			return {
+				Total: ''
+			}
+		},
+		created() {
+			globalEvent.addEventListener("plusMessage", e => {
+				this.Total = e.data.Total;
+
+			});
+		},
+		methods: {
+			receive() {
+				uni.postMessage({
+					value: "hb2",
+				});
+			},
+			noclose(){
+				
+			}
+		}
+	}
+</script>
+<style>
+	.example {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>

@@ -1,0 +1,1 @@
+export const updateurl = 'https://newsapp.huaxuapp.com/Content/update.json';

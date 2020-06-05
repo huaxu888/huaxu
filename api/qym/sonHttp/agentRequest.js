@@ -1,0 +1,44 @@
+const ary = {
+	isAgenttype:{//判断代理类型	
+		id:'agent/isagenttype',
+		name:'getIsagenttype'
+	},			
+	agentPerson:{//个人代理详情
+		id:'agent/newagentperson',
+		name:'getAgentperson'
+	},               
+	agentPout:{//个人代理提现  
+		id:'agent/newagentpout',
+		name:'getAgentpout'
+	},           
+	agentPoutDet:{//个人代理提现明细	
+		id:'agent/agentpoutdetail',
+		name:'getAgentpoutdetail'
+	},			
+	agentPoutMember:{//个人代理团队	
+		id:'agent/agentpoutmember',
+		name:'getAgentpoutmember'
+	},							
+	agenTareaes:{//区域代理详情
+		id:'agent/agentareaes',
+		name:'getAgentareaes'
+	},					
+	agenTareaOut:{//区域代理提现	
+		id:'agent/agentareaout',
+		name:'getAgentareaout'
+	},	
+	agentareaOutDetail:{//区域代理提现明细	
+		id:'agent/agentareaoutdetail',
+		name:'getAgentareaoutdetail'
+	},				
+	getagenTareamember:{//区域代理商家队伍	
+		id:'agent/getagentareamember',
+		name:'getagentareamember'
+	},
+	getAgentpmemberdetail:{//个人代理的商家详情
+		id:'agent/agentpmemberdetail',
+		name:'getAgentpmemberdetail'
+	}
+}
+
+export default ary

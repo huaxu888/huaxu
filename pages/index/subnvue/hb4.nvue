@@ -1,0 +1,65 @@
+<template>
+	<!-- 推荐红包 -->
+	<div class="example" @click="noclose">
+		<div style="width:712upx;height:670upx;display: flex; align-items: center;  ">
+			<image style="width:712upx;height:670upx; " resize="stretch" src="https://img.huaxuapp.com/qdhb1.png"></image>
+			<!-- border-width: 1upx; border-color: #007AFF; border-style: solid; -->
+			<div style="position: absolute;top: 345upx;width:600upx;display: flex;flex-direction: row;   ">
+				<div style="position: relative; top:12upx; left: 40upx; display: flex; flex-direction: row;align-items: flex-end; justify-content: flex-end;     ">
+					<div style="display: flex; flex-direction: row;">
+						<text style="color:#e34c36;font-size:38upx;   font-weight: bold;  line-height: 70upx;">&yen;</text>
+					</div>
+					<div style="display: flex;align-items: flex-end; justify-content: flex-end; flex-direction: row;   margin-left: 3upx;  ">
+						<text style="color:#e34c36;font-size:88upx;align-items: auto;">{{Scores}}</text>
+					</div>
+				</div>
+				<div style="position: relative;left: 140upx;  display: flex; align-items: flex-start; justify-content: flex-end;">
+					<div style="display: flex; flex-direction: row;">
+						<text style="font-size:38upx;color: #333333; font-weight: bold; ">全场可消费红包</text>
+					</div>
+					<div style="display: flex;align-items: flex-end; justify-content: flex-end; flex-direction: row;">
+						<text style="font-size:24upx; align-items: auto;margin-top: 15upx;">已放入【我的余额-可消费余额】</text>
+					</div>
+				</div>
+			</div>
+			
+			<div  @click="receive"  style="position: absolute;bottom: 36upx; width: 500upx; height: 95upx; display: flex;align-items: center; text-align: center; justify-content: center;backgroundColor: #fcf17b;border-radius: 10upx;">
+				<text  style="font-size:34upx;color: #6b470f;font-weight: bold;">立即收下</text>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	const globalEvent = weex.requireModule('globalEvent');
+	export default {
+		data() {
+			return {
+				Scores: ''
+			}
+		},
+		created() {
+			globalEvent.addEventListener("plusMessage", e => {
+				this.Scores = e.data.Total;
+			});
+		},
+		methods: {
+			receive() {
+				const subNVue = uni.getSubNVueById('hb4');
+				subNVue.hide('zoom-in', 300);
+			},
+			noclose() {
+
+			}
+		}
+	}
+</script>
+
+
+<style>
+	.example {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>

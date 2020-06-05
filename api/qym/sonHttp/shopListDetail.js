@@ -1,0 +1,57 @@
+const ary = {
+	listbysort:{//根据店铺分类获取列表
+		id:'store/listbysort',
+		name:'getListbysort'
+	},
+	shopList:{//获取所有的商铺信息
+		id:'store/shoplist',
+		name:'getShoplist'
+	},
+	getstoresortList:{//获取店铺分类信息
+		id:'store/getstoresortlist',
+		name:'getStoresortList'
+	},
+	qxsc:{//取消店铺收藏
+		id:'store/qxsc',
+		name:'getQxsc'
+	},
+	scShop:{//收藏店铺
+		id:"store/sc",
+		name:'getSc'
+	},
+	shopDetail:{//店铺详情
+		id:'store/detail',
+		name:'getShopDetail'
+	},
+	getlistbykeyword:{//搜索结果请求接口
+		id:'store/getlistbykeyword',
+		name:'getlistbykeyword'
+	},
+	isGetsc:{//当前用户是否收藏了该店铺
+		id:"store/getsc",
+		name:'getsc'
+	},
+	isSqdp:{//判断是否申请店铺
+		id:'membertoshop/sqdppre',
+		name:'getSqdppre'
+	},
+	scores:{
+		id:'scores/js',
+		name:'scores'
+	},
+	huaxucommonproblem:{//常见问题
+		id:'news/huaxucommonproblem',
+		name:'getHuaxucommonproblem'
+	},
+	huaxumustsee:{//新手必看
+		id:'news/huaxumustsee',
+		name:'getHuaxumustsee'
+	},
+	huaxudetail:{
+		id:'news/huaxudetail',
+		name:'getHuaxudetailUrl'
+	}
+}
+
+
+export default ary

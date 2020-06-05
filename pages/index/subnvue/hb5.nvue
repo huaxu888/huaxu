@@ -1,0 +1,47 @@
+<template>
+	<!-- 推荐红包 -->
+	<div class="example" @click="noclose">
+		<div style="width:520upx;height:650upx;display: flex; align-items: center;">
+			<image style="width:520upx;height:650upx; " class="flex justify-center align-center" resize="stretch" src="https://img.huaxuapp.com/tjhb_kek1.png"></image>
+			<div style="position: absolute; z-index: 3; top:220upx; display: flex;align-items: center;">
+				<text style="font-weight: 600; color: #F43F3B;font-size: 78upx;">&yen;{{Scores}}</text>
+			</div>
+			<div class="flex justify-center align-center" style="position: absolute; z-index: 3; top:560upx;" @click="receive">
+				<image style="width:300upx;height:80upx;" resize="stretch" src="https://img.huaxuapp.com/%E6%8E%A8%E8%8D%90%E7%BA%A2%E5%8C%85%E6%8C%89%E9%92%AE_03.png"></image>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	const globalEvent = weex.requireModule('globalEvent');
+	export default {
+		data() {
+			return {
+				Scores: ''
+			}
+		},
+		created() {
+			globalEvent.addEventListener("plusMessage", e => {
+				this.Scores = e.data.Scores;
+			});
+		},
+		methods: {
+			receive() {
+				uni.postMessage({
+					value: "hb5",
+				});
+			},
+			noclose(){
+				
+			}
+		}
+	}
+</script>
+<style>
+	.example {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>

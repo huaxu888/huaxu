@@ -1,0 +1,41 @@
+<template>
+	<!-- 新人红包 -->
+	<div class="example"  @click="noclose">
+		<image :src="XRHBurl" resize="stretch" style="width:450upx;height:440upx;margin-left: 60uupx;"></image>
+		<image @click="receive" src="https://img.huaxuapp.com/xrhb_lq.png" resize="stretch" style="width: 426upx; height: 96upx;margin-top: 60upx;"></image>
+	</div>
+</template>
+
+<script>
+	const globalEvent = weex.requireModule('globalEvent');
+	export default {
+		data() {
+			return {
+				XRHBurl:''
+			}
+		},
+		created() {
+			
+			globalEvent.addEventListener("plusMessage", e => {
+				this.XRHBurl = 'https://img.huaxuapp.com/xrhb_'+Number(e.data.Scores)+'.png';
+			});
+		},
+		methods: {
+			receive() {
+				const subNVue = uni.getSubNVueById('hb7');
+				subNVue.hide('zoom-in', 500);
+			},
+			noclose(){
+				
+			}
+		}
+	}
+</script>
+<style>
+	.example {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+</style>

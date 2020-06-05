@@ -1,0 +1,1301 @@
+{
+    "pages" : [
+        //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        // #ifdef APP-PLUS || H5
+        // {
+        // 	"path": "pages/index/indexPre", //每次打开app的开屏
+        // 	"style": {
+        // 		"app-plus": {
+        // 			"scrollIndicator": "none",
+        // 			"titleNView": false
+        // 		}
+        // 	}
+        // },
+        // #endif
+        {
+            "path" : "pages/index/index",
+            "style" : {
+                "enablePullDownRefresh" : true,
+                "navigationStyle" : "custom",
+                "navigationBarTextStyle" : "black",
+                "app-plus" : {
+                    "subNVues" : [
+                        {
+                            "id" : "hb", // 唯一标识  
+                            "path" : "pages/index/subnvue/hb", // 页面路径  
+                            "type" : "popup",
+                            "style" : {
+                                "position" : "absolute",
+                                "width" : "100%",
+                                "height" : "100%",
+                                "margin" : "auto",
+                                "background" : "transparent"
+                            }
+                        },
+                        {
+                            "id" : "hb4", // 登录红包
+                            "path" : "pages/index/subnvue/hb4", // 页面路径  
+                            "type" : "popup",
+                            "style" : {
+                                "position" : "absolute",
+                                "width" : "100%",
+                                "height" : "100%",
+                                "margin" : "auto",
+                                "background" : "transparent"
+                            }
+                        },
+                        {
+                            "id" : "hb5", // 唯一标识  
+                            "path" : "pages/index/subnvue/hb5", // 页面路径  
+                            "type" : "popup",
+                            "style" : {
+                                "position" : "absolute",
+                                "width" : "100%",
+                                "height" : "100%",
+                                "margin" : "auto",
+                                "background" : "transparent"
+                            }
+                        },
+                        {
+                            "id" : "hb7", // 新人红包
+                            "path" : "pages/index/subnvue/hb7", // 页面路径  
+                            "type" : "popup",
+                            "style" : {
+                                "position" : "absolute",
+                                "width" : "100%",
+                                "height" : "100%",
+                                "margin" : "auto",
+                                "background" : "transparent"
+                            }
+                        },
+                        {
+                            "id" : "hb9", // 优惠券红包 
+                            "path" : "pages/index/subnvue/hb9", // 页面路径  
+                            "type" : "popup",
+                            "style" : {
+                                "position" : "absolute",
+                                "width" : "100%",
+                                "height" : "100%",
+                                "margin" : "auto",
+                                "background" : "transparent"
+                            }
+                        }
+                    ],
+                    "scrollIndicator" : "none",
+                    "titleNView" : false,
+                    "pullToRefresh" : {
+                        "support" : true,
+                        "style" : "circle",
+                        "color" : "#ec3a46",
+                        "offset" : "80px"
+                    },
+                    "onReachBottomDistance" : "50px"
+                }
+            }
+        },
+        {
+            "path" : "pages/menuSort/sort", //分类列表
+            "style" : {
+                "enablePullDownRefresh" : true,
+                "app-plus" : {
+                    "titleNView" : false,
+                    "scrollIndicator" : "none",
+                    "pullToRefresh" : {
+                        "support" : true,
+                        "style" : "circle",
+                        "color" : "#ec3a46",
+                        "offset" : "100px"
+                    },
+                    "onReachBottomDistance" : "50px"
+                }
+            }
+        },
+        {
+            "path" : "pages/index/topList/topList", //头条页面
+            "style" : {
+                "enablePullDownRefresh" : true,
+                "app-plus" : {
+                    "scrollIndicator" : "none",
+                    "titleNView" : false,
+                    "pullToRefresh" : {
+                        "support" : true,
+                        "style" : "circle",
+                        "color" : "#ec3a46",
+                        "offset" : "70px"
+                    },
+                    "onReachBottomDistance" : "50px"
+                }
+            }
+        },
+        {
+            "path" : "pages/agency/applicationAgency", //代理页面
+            "style" : {
+                "app-plus" : {
+                    "scrollIndicator" : "none",
+                    "titleNView" : false
+                }
+            }
+        },
+        {
+            "path" : "pages/agency/agencyPay", //代理页面
+            "style" : {
+                "app-plus" : {
+                    "scrollIndicator" : "none",
+                    "titleNView" : false
+                }
+            }
+        },
+        {
+            "path" : "pages/index/topList/topListDetailed", //头条详情页面
+            "style" : {
+                "app-plus" : {
+                    "titleNView" : false,
+                    "scrollIndicator" : "none"
+                }
+            }
+        },
+        {
+            "path" : "pages/messageList/message",
+            "style" : {
+                "enablePullDownRefresh" : true,
+                "app-plus" : {
+                    "titleNView" : false,
+                    "scrollIndicator" : "none",
+                    "pullToRefresh" : {
+                        "support" : true,
+                        "style" : "circle",
+                        "color" : "#ec3a46",
+                        "offset" : "20px"
+                    },
+                    "onReachBottomDistance" : "50px"
+                }
+            }
+        },
+        {
+            "path" : "pages/scan/pay",
+            "style" : {
+                "app-plus" : {
+                    "scrollIndicator" : "none",
+                    "titleNView" : false
+                }
+            }
+        },
+        {
+            "path" : "pages/index/bannerDietail",
+            "style" : {
+                "app-plus" : {
+                    "scrollIndicator" : "none",
+                    "titleNView" : false
+                }
+            }
+        },
+        {
+            "path" : "pages/scan/paySuccess",
+            "style" : {
+                "app-plus" : {
+                    "scrollIndicator" : "none"
+                }
+            }
+        },
+        {
+            "path" : "pages/index/person",
+            "style" : {
+                "app-plus" : {
+                    "titleNView" : false,
+                    "scrollIndicator" : "none"
+                }
+            }
+        },
+        {
+            "path" : "pages/find/findPage",
+            "style" : {
+                "enablePullDownRefresh" : true,
+                "app-plus" : {
+                    "scrollIndicator" : "none",
+                    "pullToRefresh" : {
+                        "support" : true,
+                        "style" : "circle",
+                        "color" : "#ec3a46",
+                        "offset" : "100px"
+                    },
+                    "onReachBottomDistance" : "50px"
+                }
+            }
+        },
+        {
+            "path" : "pages/searchResult/searcResulthPage", //搜索之后跳转的页面
+            "style" : {
+                "app-plus" : {
+                    "scrollIndicator" : "none"
+                }
+            }
+        },
+        {
+            "path" : "pages/searchResult/searchRouter/searchRouterPage", //搜索的路由页面
+            "style" : {
+                // #ifdef APP-PLUS || H5
+                "navigationBarTextStyle" : "black",
+                // #endif
+                "app-plus" : {
+                    "scrollIndicator" : "none"
+                }
+            }
+        },
+        {
+            "path" : "pages/menuSort/classIfication/classIficationPage", //首页分类图标点击进来以后的分类功能页面
+            "style" : {
+                "app-plus" : {
+                    "scrollIndicator" : "none"
+                }
+            }
+        },
+        {
+            "path" : "pages/findDetail/findDetailPage", //发现的详情页
+            "style" : {
+                "app-plus" : {
+                    "titleNView" : false,
+                    "scrollIndicator" : "none"
+                }
+            }
+        },
+        {
+            "path" : "pages/prestoreDetail/isSuccess", //交易成功的页面
+            "style" : {
+                "app-plus" : {
+                    "scrollIndicator" : "none"
+                }
+            }
+        },
+        {
+            "path" : "pages/personalAgent/personalAgentPage", //个人/区域 代理（审核成功后）
+            "style" : {
+                "enablePullDownRefresh" : true,
+                "app-plus" : {
+                    "titleNView" : false,
+                    "scrollIndicator" : "none",
+                    "pullToRefresh" : {
+                        "support" : true,
+                        "style" : "circle",
+                        "color" : "#ec3a46",
+                        "offset" : "50px"
+                    }
+                }
+            }
+        },
+        {
+            "path" : "pages/personalAgent/sonPage/myBusiness", //代理我的商家
+            "style" : {
+                "enablePullDownRefresh" : true,
+                "app-plus" : {
+                    "scrollIndicator" : "none",
+                    "pullToRefresh" : {
+                        "support" : true,
+                        "style" : "circle",
+                        "color" : "#ec3a46",
+                        "offset" : "70px"
+                    },
+                    "onReachBottomDistance" : "50px"
+                }
+            }
+        },
+        {
+            "path" : "pages/index/guide",
+            "style" : {}
+        },
+        {
+            "path" : "pages/personalAgent/sonPage/performanceDetails" //代理我的商家 商家详情
+        },
+        {
+            "path" : "pages/busineCssircleShopList/busineCssList",
+            "style" : {
+                "app-plus" : {
+                    "titleNView" : {
+                        "type" : "transparent"
+                    },
+                    "scrollIndicator" : "none"
+                },
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            //商圈进入的商家列表
+            "path" : "pages/busineCssircleShopList/busineCssircleShopList",
+            "style" : {
+                "enablePullDownRefresh" : true,
+                // #ifdef APP-PLUS
+                "navigationBarTextStyle" : "black",
+                // #endif
+                "app-plus" : {
+                    "scrollIndicator" : "none",
+                    "titleNView" : {
+                        "type" : "transparent",
+                        //"backgroundColor":"white",
+                        "titleColor" : "#000000",
+                        "titleText" : "商圈详情"
+                    },
+                    "pullToRefresh" : {
+                        "support" : true,
+                        "style" : "circle",
+                        "color" : "#ec3a46",
+                        "offset" : "50px"
+                    }
+                }
+            }
+        }
+        ,{
+            "path" : "pages/ad/ad",
+            "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+        }
+        ,{
+            "path" : "pages/index/robStamps",
+            "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+        }
+        ,{
+            "path" : "pages/ad/common",
+            "style" : {
+            	"navigationStyle":"default",
+            	"navigationBarTitleText":"广告页",
+            	"navigationBarTextStyle":"black",
+            	"navigationBarBackgroundColor":"#FFFFFF"
+            }
+        }
+        ,{
+            "path" : "pages/ad/couponRedemption",
+            "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"pullToRefresh": {
+						"offset":"75"
+					}
+				}
+			}
+        }
+    ],
+    "subPackages" : [
+        {
+            "root" : "pages/shopManagement",
+            "pages" : [
+                {
+                    "path" : "sonPage/changeShopBusineInfo",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/goodsManagmentPage", // 商品管理
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "50px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "shopManagmentPage", //商家管理
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "50px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/orderManager", // 订单管理
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "50px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/receivablesCodePage", //商家收款付款码
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/jionrunscores/jionrunscoresOnepage", //申请预存的第一个页面
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/jionrunscores/jionrunscoresTwoPage", //申请预存的第二个页面
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/jionrunscores/jionrunscoresThreePage", //申请预存的第三个页面
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/billDetails", //账单明细
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "200px"
+                            },
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/yearMonthBillDetail", //账单明细（月份）
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "200px"
+                            },
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/transactionDetailsPage", //交易详情
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/addShopInfo/addShopInfoPage", //添加商铺信息
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/myMember", //我的会员
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "220px"
+                            },
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/myMemberDetail/myMemberDetail",
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "40px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/balanceWithdrawal", //消费提现
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/msgAllSend/msgAllSendOne", //短信群发第一个页面
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "100px"
+                            },
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/msgAllSend/msgAllSendTwo", //短信群发第二个页面
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/bindingCashier/bindingCashierPage", //添加营业员列表
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/bindingCashier/addBinding", //添加营业员
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/bindingCashier/bindingDetail", //营业员详情
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/myCoupon/myCouponPage", //商铺我的优惠卷
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "70px"
+                            },
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/myCoupon/addMyCouponPage", //添加优惠卷
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/addShopInfo/addShopContent", //添加商铺内容(带描述)
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/addShopInfo/addShopImage", //添加商铺图片信息
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/balanceDetailPage", //商家提现明细
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "50px"
+                            },
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/gongMaBand"
+                },
+                {
+                    "path" : "sonPage/saoMaSuccess"
+                },
+                {
+                    "path" : "sonPage/shopBank/addBank"
+                },
+                {
+                    "path" : "sonPage/shopBank/bankList"
+                },
+                {
+                    "path" : "sonPage/poster/posterPage" //制作海报
+                },
+                {
+                    "path" : "sonPage/shujuFenxi/shujuFenxi",
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "50px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "sonPage/verifyOrder",
+                    "style" : {
+                        "navigationBarTextStyle" : "black"
+                    }
+                },
+                {
+                    "path" : "sonPage/orderDetail",
+                    "style" : {
+                        "navigationBarTextStyle" : "black"
+                    }
+                }
+            ]
+        },
+        {
+            "root" : "pages/person",
+            "pages" : [
+                {
+                    "path" : "txProgress",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "titleNView" : false
+                        }
+                    }
+                },
+                {
+                    "path" : "reservationsListPage",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "titleNView" : false
+                        }
+                    }
+                },
+                {
+                    "path" : "myAlipay",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "titleNView" : false
+                        }
+                    }
+                },
+                {
+                    "path" : "bindBank",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "titleNView" : false
+                        }
+                    }
+                },
+				{
+				    "path" : "jifenguize",
+				    "style" : {
+				        "app-plus" : {
+				            "scrollIndicator" : "none",
+				            "titleNView" : false
+				        }
+				    }
+				},
+                {
+                    "path" : "collectStore",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "titleNView" : false
+                        }
+                    }
+                },
+                {
+                    "path" : "share",
+                    "style" : {
+                        "navigationStyle" : "custom",
+                        "navigationBarTextStyle" : "black",
+                        "navigationBarTitleText" : "分享",
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "titleNView" : {
+                                "type" : "transparent" //透明渐变导航栏
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "myTeam",
+                    "style" : {
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "paymentCode" //付款码
+                },
+                {
+                    "path" : "setting/setting",
+                    "style" : {
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "setting/userInfo",
+                    "style" : {
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "setting/nick",
+                    "style" : {}
+                },
+                {
+                    "path" : "setting/phone",
+                    "style" : {}
+                },
+                {
+                    "path" : "setting/verifyCode",
+                    "style" : {
+                        "navigationBarTextStyle" : "black"
+                    }
+                },
+                {
+                    "path" : "setting/pass",
+                    "style" : {}
+                },
+                {
+                    "path" : "setting/payPass",
+                    "style" : {}
+                },
+                {
+                    "path" : "aboutUs",
+                    "style" : {}
+                },
+                {
+                    "path" : "setting/auth",
+                    "style" : {}
+                },
+                {
+                    "path" : "balance",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "transactionRecord",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "myBenefits",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "bounce" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "recharge",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "newRecharge",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "withdrawal",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "transfer",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "newTransfer",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "assistant",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "assistantDetail",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "orderList",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "bookOrderList",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "orderEvaluation",
+                    "style" : {
+                        "navigationStyle" : "custom"
+                    }
+                },
+                {
+                    "path" : "myCoupon/myCouponPage", //我的优惠卷
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "70px"
+                            },
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                },
+                {
+                    "path" : "strategy/strategyPage", //攻略列首页
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "170px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "strategy/help", //攻略列首页
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "navigationStyle" : "default",
+                        "navigationBarTitleText" : "玩转花蓄",
+                        "navigationBarBackgroundColor" : "#fff",
+                        "navigationBarTextStyle" : "black",
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "170px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "strategy/sonPage/newsList", //攻略列表
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "70px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "strategy/sonPage/strategyDetail", //攻略详情
+                    "style" : {
+                        "enablePullDownRefresh" : true
+                    }
+                },
+                {
+                    "path" : "rechargeCard"
+                },
+                {
+                    "path" : "setting/addAddr"
+                },
+                {
+                    "path" : "setting/toPointPage"
+                }
+                ,{
+                    "path" : "historyConsumption",
+                    "style" : {
+						"navigationStyle":"default",
+						"navigationBarTextStyle":"black",
+						"navigationBarBackgroundColor":"#FFFFFF",
+						"navigationBarTitleText":"消费历史"
+					}
+                }
+            ]
+        },
+        {
+            "root" : "pages/shopDetail",
+            "pages" : [
+                {
+                    "path" : "shopDetailPage", //店铺详情
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        // #ifdef APP-PLUS
+                        "navigationBarTextStyle" : "black",
+                        // #endif
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "titleNView" : {
+                                "type" : "transparent",
+                                // "backgroundColor":"white",
+                                "titleColor" : "#000000",
+                                "titleText" : "店铺详情"
+                            },
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "180px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "reservation",
+                    "style" : {
+                        "navigationStyle" : "custom",
+                        "app-plus" : {
+                            "titleNView" : false
+                        }
+                    }
+                },
+                {
+                    "path" : "submitOrder",
+                    "style" : {
+                        "navigationStyle" : "custom",
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "orderFood/productDetails",
+                    "style" : {
+                        "navigationStyle" : "custom",
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "orderFood/newOrderFood",
+                    "style" : {
+                        "navigationStyle" : "custom",
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "preOrderPage",
+                    "style" : {
+                        "navigationStyle" : "custom",
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "root" : "pages/changeBusiness",
+            "pages" : [
+                {
+                    "path" : "changeBusinessPage", //转商家
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                },
+                {
+                    "path" : "waitSubmit", //转商家之后的等待审核页面	
+                    "style" : {
+                        "navigationBarTextStyle" : "black",
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "changeBusinessList/changeBusinPage", ///转商家的列表页面
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "50px"
+                            },
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                },
+                {
+                    "path" : "changeBusinessList/addBusinessList", ///添加或者切换转商家的列表页面
+                    "style" : {
+                        "enablePullDownRefresh" : true,
+                        "app-plus" : {
+                            "scrollIndicator" : "none",
+                            "pullToRefresh" : {
+                                "support" : true,
+                                "style" : "circle",
+                                "color" : "#ec3a46",
+                                "offset" : "50px"
+                            },
+                            "onReachBottomDistance" : "50px"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "root" : "pages/common",
+            "pages" : [
+                {
+                    "path" : "bindAlipay",
+                    "style" : {
+                        "app-plus" : {
+                            "titleNView" : false,
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "login", // 登录
+                    "style" : {}
+                },
+                {
+                    "path" : "loginWithPass", // 登录页面
+                    "style" : {}
+                },
+                {
+                    "path" : "confirmPhone", // 确认登录电话
+                    "style" : {
+                        "navigationBarTextStyle" : "black"
+                    }
+                },
+                {
+                    "path" : "webview/webview",
+                    "style" : {
+                        "navigationBarBackgroundColor" : "#eb5245",
+                        "app-plus" : {
+                            "titleNView" : {
+                                "backgroundColor" : "#eb5245"
+                            }
+                        }
+                    }
+                },
+                {
+                    "path" : "chagePhone", // 更换登录电话
+                    "style" : {
+                        "navigationBarTextStyle" : "black"
+                    }
+                },
+                {
+                    "path" : "phoneRegister/phoneRegisterPage", //微信登陆手机注册页面
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+                {
+                    "path" : "phoneRegister/phoneRegisterPageTwo",
+                    "style" : {
+                        "app-plus" : {
+                            "scrollIndicator" : "none"
+                        }
+                    }
+                },
+				{
+				    "path" : "toSignUp",
+				    "style" : {
+						"navigationBarBackgroundColor":"#FFFFFF",
+						"navigationBarTitleText":"国际小姐报名~",
+						"navigationBarTextStyle":"black",
+						"navigationStyle":"default",
+				        "app-plus" : {
+				            "scrollIndicator" : "none"
+				        }
+				    }
+				}
+            ]
+        }
+    ],
+    "preloadRule" : {
+        "pages/index/person" : {
+            "packages" : [ "pages/shopManagement" ],
+            "network" : "wifi"
+        },
+        "pages/index/index" : {
+            "packages" : [
+                "pages/person",
+                "pages/shopDetail",
+                "pages/changeBusiness",
+                "pages/common"
+            ],
+            "network" : "all"
+        }
+    },
+    "globalStyle" : {
+        "navigationStyle" : "custom",
+        "navigationBarTextStyle" : "white"
+    },
+    "tabBar" : {
+        "backgroundColor" : "#f8f8f8",
+        "color" : "#424242",
+        "selectedColor" : "#ec3a46",
+        "list" : [
+            {
+                "iconPath" : "static/sy.png",
+                "selectedIconPath" : "static/syh.png",
+                "pagePath" : "pages/index/index",
+                "text" : "首页"
+            },
+            {
+                "iconPath" : "static/gl.png",
+                "selectedIconPath" : "static/glh.png",
+                "pagePath" : "pages/find/findPage",
+                "text" : "花蓄攻略"
+            },
+            {
+                "iconPath" : "static/wode.png",
+                "selectedIconPath" : "static/wodeh.png",
+                "pagePath" : "pages/index/person",
+                "text" : "我的花蓄"
+            }
+        ]
+    },
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	}
+}
