@@ -8,7 +8,12 @@
 				</view>
 			</view>
 			<view class="padding-lr flex flex-direction align-start" style=" overflow: auto; height: 780upx;text-align: left;">
-				<rich-text :nodes="Content_"></rich-text>
+				<rich-text :nodes="Content_" v-if="isRich"></rich-text>
+				<scroll-view scroll-y="true" v-else>
+					<view>
+						<image class="img" :src="Content_" mode="aspectFill" ></image>
+					</view>
+				</scroll-view>
 			</view>
 			<view class="cu-bar bg-white">
 				<view class="action margin-0 flex-sub text-green solid-left " style="color:red" @tap="hideModal(-1)" v-if="showFail">{{failLabel}}</view>
@@ -49,17 +54,28 @@
 			showSuccess:{//显示同意
 				type:Boolean,
 				default:true
+			},
+			isRich: {
+				type: Boolean,
+				default: true
 			}
 		},
 		computed: {
 			Content_() {
-				return htmlParser(this.Content)
+				if (this.isRich) {
+					return htmlParser(this.Content)
+				} else if(this.Content){
+					let a = /http(s?):\/\/\S*.[png|jpg]/i
+					return this.Content.match(a)[0];
+				} else {
+					return ''
+				}
 			}
 		},
 		methods: {
 			hideModal(i) {
 				if (i > 0) {
-					this.$emit('hidden',true)//同意
+					this.$emit('success',true)//同意
 				} else {
 					this.$emit('hidden',false)//取消或者点X
 				}
@@ -125,5 +141,10 @@
 		&.normal {
 			opacity: .3
 		}
+	}
+	
+	.img {
+		width: 650rpx;
+		height: 1799rpx;
 	}
 </style>

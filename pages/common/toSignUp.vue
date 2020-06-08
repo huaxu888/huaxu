@@ -74,12 +74,16 @@
 			<text>报 名</text>
 		</view>
 		
+		<modal :showModal="showModal" @hidden="hidden" @success="success" :isRich="false" :Title="title" :Content="content"></modal>
+		
 	</view>
 </template>
 
 <script>
 	import { registrationPayment } from '@/common/handle.js'
+	import modal from '@/components/modal.vue'
 	export default {
+		components: { modal },
 		data() {
 			return {
 				data: {
@@ -87,7 +91,7 @@
 					Name: '',
 					Birth: '请选择出生日期',
 					BigHeadPhoto: '',
-					Area: '请选择参赛区域'
+					Area: '请选择参赛区域',
 				},
 				areaList: [
 					[
@@ -133,8 +137,12 @@
 					]
 				],
 				currentSelect: [0, 0],
-				updateToken: ''
-			};
+				updateToken: '',
+				title: '',
+				content: '',
+				isAgree: false,
+				showModal: true
+			}
 		},
 		onShow() {
 			if (!this.$store.state.userInfo) {
@@ -162,6 +170,11 @@
 				}
 			})
 			this.$set(this.areaList, 1, this.cityList[0])
+			this.$http.applicationConditions()
+				.then(res => {
+					this.title = res.Title
+					this.content = res.Content
+				})
 		},
 		methods: {
 			selectBirth: function (e) {
@@ -242,6 +255,20 @@
 					})
 					return
 				}
+				if (!this.isAgree) {
+					uni.showModal({
+						title: '报名须知',
+						content: '请先阅读并统一报名须知',
+						showCancel: false,
+						confirmText: '阅读',
+						success: res => {
+							if (res.confirm) {
+								this.showModal = true
+							}
+						}
+					})
+					return
+				}
 				this.data.UserID = this.$store.state.userInfo.ID
 				if (this.data.Name && this.data.Birth && this.data.Phone && 
 					this.data.BigHeadPhoto && this.data.Area) {
@@ -272,6 +299,19 @@
 						showCancel: false
 					})
 				}
+			},
+			hidden: function (e) {
+				console.log(e, 'hidden')
+				this.showModal = false
+				this.isAgree = false
+				uni.reLaunch({
+					url: '/pages/index/index'
+				})
+			},
+			success: function (e) {
+				console.log(e, 'success');	
+				this.showModal = false
+				this.isAgree = true
 			}
 		},
 		computed: {

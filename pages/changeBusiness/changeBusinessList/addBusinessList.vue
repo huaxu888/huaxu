@@ -31,7 +31,7 @@
 				</text>
 			</view>
 		</view>
-		<modal :showModal="showModal" @hidden="hidden" @success="success" :Content="Content" :Title="Title"></modal>
+		<modal :showModal="showModal" @hidden="hidden" @success="hidden" :Content="Content" :Title="Title"></modal>
 	</view>
 </template>
 

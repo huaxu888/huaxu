@@ -319,7 +319,8 @@
 				info: '',
 				zk: 1,
 				isSy: false,				// 是否是指定店铺
-				canSelectPaymentWay: true
+				canSelectPaymentWay: true,
+				SortID: 0
 			};
 		},
 		async onShow() {
@@ -368,6 +369,7 @@
 							_self.LogoPic = res.Data.LogoPic
 							_self.zk = res.Data.zk
 							_self.isSY = res.Data.IsSY
+							_self.SortID = res.Data.SortID
 							await _self.getBalance()
 							await _self.getCoupons()
 						}
@@ -946,7 +948,11 @@
 													obj.Num2 = item.Num2
 													obj.info = '满' + item.Num1 + '减' + item.Num2 + tmp
 													console.log('优惠券', obj);
-													_self.YHQlist.push(obj);
+													if (this.SortID == 3 && item.Num2 === 50) {
+														
+													} else {
+														_self.YHQlist.push(obj);
+													}
 													break
 												case 2:
 													obj.Num2 = item.Num2

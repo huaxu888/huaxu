@@ -805,11 +805,25 @@ export function ofThe(out_trade_no, total_amount, body, openid, userid, price, N
 	)
 }
 
+/**
+ * @description 				国际小姐报名
+ * 
+ * @param {Object} params	
+ */
 export function signUp (params) {
 	return fly.post(
 	'signup/register',
 	{
 		...params
 	}
+	)
+}
+
+export function applicationConditions () {
+	return fly.get(
+		'news/missagree', 
+		{
+			siteid: 0
+		}
 	)
 }

@@ -125,9 +125,9 @@
 					console.log('查找优惠券', res);
 					if (res.IsSuccess) {
 						res.Data.forEach( item => {
-							if ( item.StoreID === 0 && item.Num1 === 200 && item.Num2 === 50 ) {
+							if ( item.StoreID === 0 && item.Num1 === 200 && item.Num2 === 30 ) {
 								this.conpons50 = item
-							} else if( item.StoreID === 0 && item.Num1 === 200 && item.Num2 === 30 ) {
+							} else if( item.StoreID === 0 && item.Num1 === 200 && item.Num2 === 50 ) {
 								this.conpons30 = item
 							}
 						})
@@ -148,7 +148,7 @@
 		.bg {
 			width: 750rpx;
 			height: 2000rpx;
-			background: url(https://img.huaxuapp.com/525beijing.png) no-repeat;
+			background: url(https://img.huaxuapp.com/2020-06-05new.png) no-repeat;
 			background-position: center;
 			background-size: cover;
 		}
@@ -156,7 +156,7 @@
 		.wushi {
 			width: 598rpx;
 			height: 291rpx;
-			background: url(https://img.huaxuapp.com/2020-05-25_03.png) no-repeat;
+			background: url(https://img.huaxuapp.com/2020-06-05_03new.png) no-repeat;
 			background-position: center;
 			background-size: cover;
 			position: absolute;
@@ -167,7 +167,7 @@
 		.sanshi {
 			width: 598rpx;
 			height: 293rpx;
-			background: url(https://img.huaxuapp.com/2020-05-25_07.png) no-repeat;
+			background: url(https://img.huaxuapp.com/2020-06-05_06new.png) no-repeat;
 			background-position: center;
 			background-size: cover;
 			position: absolute;
