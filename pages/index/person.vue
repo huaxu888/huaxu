@@ -80,8 +80,12 @@
 				</view>
 			</view>
 
+
+			<view class="margin" @tap="personRouter('/pages/person/strategy/help')" style="margin-bottom: 30upx; margin-top: 30upx; height: 180upx;border-radius: 20upx; background: url('https://img.huaxuapp.com/sygl_03.png') no-repeat; background-size: cover;">
+
+			</view>
 			<!-- 消费总额 -->
-			<view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 40upx;" >
+			<!-- <view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 40upx;" >
 				<view class="padding flex" style=" justify-content:space-between; border-bottom: 0.7px solid #e4e4e4;;padding:15upx 20upx;padding-bottom: 14upx;margin-bottom: 18upx;padding-left: 0;">
 					<text class="hxIcon-gerenzhongxin" style="color: rgb(255,65,48);font-size: 36upx;"><text style="font-size: 30upx;font-weight: 700;color: #333333;margin-left: 14upx;">消费总额</text></text>
 					<text style="color: red;font-size: 40upx;font-weight: 600;"><text style="font-size: 24upx;">￥</text>{{changeMoney(TotalXiaoFei || 0)}}</text>
@@ -108,10 +112,10 @@
 						<view class="yangshi yangshis" style="font-weight:600;" @tap="withdrawal('promotion')">{{changeMoney(TuiGuang || 0)}}</view>
 					</view>
 				</view>	
-			</view>
+			</view> -->
 			
 			<!-- 营业总额 -->
-			<view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 40upx;" >
+			<!-- <view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 40upx;" >
 				<view class="padding flex" style=" justify-content:space-between;border-bottom: 1upx solid #d4d4d4;padding:15upx 20upx;padding-bottom: 14upx; margin-bottom: 18upx;padding-left: 0;">
 					<text class="hxIcon-shangjia" style="color: rgb(241,181,86); font-size: 36upx;"><text style="font-size: 30upx;font-weight: 700;color: #333333;margin-left: 14upx;">自营总额</text></text>
 					<text style="color: rgb(255, 0, 0); font-size: 40upx;font-weight: 600;"><text style="font-size: 24upx;">￥</text>{{changeMoney(StoreToatl || 0)}}</text>
@@ -138,7 +142,7 @@
 						<view class="yangshi yangshis" style="font-weight:600;" @tap="withdrawal('store')">{{changeMoney(StorePoint || 0)}}</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			
 			<!-- 我的订单 -->
 			<view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 40upx;padding-bottom:38upx" >

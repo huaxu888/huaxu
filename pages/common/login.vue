@@ -3,7 +3,7 @@
 		<cu-custom bgColor="bg-transparent" :isBack="true" class="text-white"></cu-custom>
 		<view class="cover flex-direction" :style="{ paddingTop: `${pdTop}px` }">
 			<view class="info">
-				<view class="hx-avatar" style="background-image: url(https://img.huaxuapp.com/huaxulogo.jpg);"></view>
+				<view class="hx-avatar" style="background-image: url(../../static/logo.png);"></view>
 				<text class="text-xxl text-white" style="display: flex; justify-content: center;">实体企业O2O</text>
 				<text class="text-xxl text-white" style="display: flex; justify-content: center;">会员营销体系平台</text>
 			</view>
@@ -651,7 +651,7 @@
 		left: 0;
 		bottom: 0;
 		right: 0;
-		background: rgba(0, 0, 0, 0.3);
+		background: rgba(0, 0, 0, 0.6);
 	}
 
 	.hx-avatar {
@@ -737,7 +737,7 @@
 			color: #ffffff;
 			background: #FF3000;
 			transition: all .3s ease-in-out;
-			opacity: .5;
+			opacity: .9;
 		}
 
 		.active {

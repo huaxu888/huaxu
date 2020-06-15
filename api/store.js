@@ -98,14 +98,15 @@ export function getJXBusiness(siteid,page = 1,pagesize = 10) {
     })
 }
 
-export function getNewJXBusiness(siteid, Location, page = 1, pagesize = 10){
+export function getNewJXBusiness(siteid, Location, page = 1, pagesize = 10,getsort){
 	return fly.get({
 		url: 'store/newlistbusinessnosort',
 		params: {
 		    siteid: siteid,
 			page:page,
 			Location: Location,
-			pagesize:pagesize
+			pagesize:pagesize,
+			getsort:getsort
 		}
 	})
 }

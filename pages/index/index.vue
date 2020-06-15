@@ -204,6 +204,17 @@
 				</view>
 			</view>
 				
+			<!-- 商圈轮播图	 -->
+			<!-- <view class="padding-lr margin-top" style="width: 100%;background-color: #FFFFFF;margin-top: 0;padding-bottom: 30upx;">
+				<swiper style="height: 200upx;width: 100%" :indicator-dots="false" :circular="true" :autoplay="true" interval="6000"
+				 duration="800"  display-multiple-items="3" @change="big" class="imgs" >
+					<swiper-item v-for="(centerSwiperItem,centerSwiperIndex) in centerLBLlit" :key="centerSwiperIndex">
+						<image :class="kfindex+1 == centerSwiperIndex?'active':''" :src="centerSwiperItem.GGPicUrl" 
+						style="padding: 20upx; height: 200upx;border-radius: 15upx;width: 240upx;"></image>
+					</swiper-item>
+				</swiper>
+			</view> -->	
+				
 			<!-- 轮播图 -->
 			<view class="padding-lr margin-top" style="width: 100%;background-color: #FFFFFF;margin-top: 0;padding-bottom: 30upx;">
 				<swiper style="height: 200upx;width: 100%" :indicator-dots="false" :circular="true" :autoplay="true" interval="6000"
@@ -223,20 +234,14 @@
 				</swiper>
 			</view>
 			
-		
+			<!-- <view class="wrap">
+				<u-swiper :list="lists" mode="none" :effect3d="true" img-mode="aspectFit"></u-swiper>
+			</view> -->
 			
 			<!-- 精选商家标题 -->
-			<view class="" style="height: 30upx;padding-top: 40upx;padding-bottom: 60upx;background-color: #FFFFFF;" v-if="!isChristmas && !isYD && !isXN">
-				<view class="margin-lr padding-lr flex  align-center justify-center">
-					<view class="flex  justify-center align-center">
-						<view style="width: 2upx; height: 2upx;background: #f34e2d;border-radius: 50%;"></view>
-						<view style="width: 140upx; height: 2upx;background: #f34e2d;margin-left: 10upx;"></view>
-					</view>
-					<view class="text-bold" style="color: #f34e2d;line-height: 1em;font-size: 26upx;margin-left: 40upx;margin-right: 40upx;">政府惠民消费券专区</view>
-					<view class="flex  justify-center align-center">
-						<view style="width: 140upx;height: 2upx;background: #f34e2d;"></view>
-						<view style="width: 2upx; height: 2upx;background: #f34e2d;margin-left: 10upx;border-radius: 50%;"></view>
-					</view>
+			<view class="" style="height: 30upx;padding-top: 30upx;padding-bottom: 50upx;background-color: #FFFFFF;" v-if="!isChristmas && !isYD && !isXN">
+				<view class=" padding-lr align-center justify-center">
+					<view class="text-bold" style="font-size: 40upx;">附近商家</view>
 				</view>
 			</view>
 			<view v-if="isChristmas && !isYD" class="margin-lr margin-top" style="height: 80upx;background: url('https://img.huaxuapp.com/huaxujingxuanshangjia_03.png') no-repeat; background-size: cover;">
@@ -249,6 +254,36 @@
 				<view class="margin-top" style="height: 80upx;background: url('https://img.huaxuapp.com/nyjxsj.png') no-repeat; background-size: cover;position: relative;top: 0;"></view>
 			</view>
 			<!-- 精选商铺list -->
+					
+			<!-- <scroll-view scroll-x class="bg-white nav">
+				<view class="flex text-center" >
+					<view class="cu-item flex-sub " @tap="tabSelect" v-for="(item,index) in kexuan" :key="index" :data-id="index" >
+						<view  :class="index==TabCurs?'text-orange cur':''">
+							<text :class="index==TabCurs?'borders':''" style="padding-bottom: 20upx;">
+							{{ item.title }}
+							</text>
+						</view>
+					</view>
+				</view>
+			</scroll-view> -->
+			
+			<!-- <u-tabs name="cate_name" :list="list" :is-scroll="false" :current="current" @change="change" :duration="0.1" inactive-color="rgb(51, 51, 51)" active-color="rgb(243, 78, 45)" 
+			style="margin-bottom: 20upx;" bar-width="35" bar-height="8"></u-tabs> -->
+			<view style="height: 80upx;padding-top: 26upx;background-color: #FFFFFF;">
+				<view class="flex">
+					<view :class="[current==0?'liss':'lis']" @tap="change(0)"><text>综合排序</text></view>
+					<view :class="[current==1?'liss':'lis']" @tap="change(1)"><text>距离最近</text></view>
+					<view :class="[current==2?'liss':'lis']" @tap="change(2)"><text>销量最高</text></view>
+					<view :class="[current==3?'liss':'lis']" @tap="change(3)"><text>新店推荐</text></view>
+				</view>
+				<view class="flex">
+					<view class="flex justify-center" style="flex: 1;"><view class="xian" :style="{transform:`translateX(${current * 187.5}rpx)`}"></view></view>
+					<view class="flex justify-center" style="flex: 1;"></view>
+					<view class="flex justify-center" style="flex: 1;"></view>
+					<view class="flex justify-center" style="flex: 1;"></view>
+				</view>
+			</view>
+			
 			<view class="flex flex-wrap">
 				<view style=" width: 750rpx; overflow: hidden;" >
 					<view class="shadow" style="position: relative;" v-for="(item,index) in StoreList" :key="index"  @tap="goToDetail(item)">
@@ -283,6 +318,8 @@
 											</view>
 											<view style="color: red;margin-left: 8upx;">{{item.StoreStart}}.0</view>
 										</view>
+										<!-- 月售 -->
+										<!-- <view style="margin-left: 15upx;font-size: 26upx;color: #5e5e5e;"><text style="color: #c7c7c7;margin-right: 15upx;">|</text>月售123</view> -->
 										<!-- 距离   -->
 										<view style="position: absolute;right: 30upx;color: #999999;font-size: 20upx;">{{getDistance(item.distance)}}</view>
 									</view>
@@ -300,7 +337,7 @@
 								<view style="padding-bottom: 20upx;">
 									<view class="text-df map_info flex" style="margin-top: 15upx;">
 										<view  style="color: #999999;margin-top: 6upx;font-size: 24upx;"><text class="cuIcon-locationfill marghin-right-sm"></text></view>
-										<view style="width:800upx;text-overflow :ellipsis;white-space :nowrap; overflow : hidden; ">
+										<view style="width:800upx;text-overflow :ellipsis;white-space :nowrap; overflow : hidden;font-size: 24upx; ">
 											{{dizhiff(item.StoreAddress)}}
 										</view>
 									</view>
@@ -386,9 +423,39 @@
 				amapPlugin: null, //高德的配置
 				key: '2b60666c9954c824e769604cbeb61457',
 				adcode: '610702' ,//区划码  默认是汉台
-				imgIsLoad:false,
-				imgLoadSum:0,
-				isCos: false			// 是否有新优惠券
+				imgIsLoad: false,
+				imgLoadSum: 0,
+				isCos: false,// 是否有新优惠券
+				TabCurs: 0,
+				scrollLeft: 0,
+				list: [{
+					cate_name: '综合排序'
+				}, 
+				{
+					cate_name: '距离最近'
+				}, 
+				{
+					cate_name: '销量最高'
+				},
+				{
+					cate_name: '新店推荐'
+				}],
+				current: 0,
+				lists: [{
+						image: '../../static/logo.png',
+						title: '蒹葭苍苍，白露为霜。所谓伊人，在水一方'
+					},
+					{
+						image: '../../static/gl.png',
+						title: '溯洄从之，道阻且长。溯游从之，宛在水中央'
+					},
+					{
+						image: '../../static/logo.png',
+						title: '蒹葭萋萋，白露未晞。所谓伊人，在水之湄'
+					}
+				],
+				kfindex: 0,
+				getsort: 1
 			}
 		},
 		async onShow() {
@@ -420,7 +487,6 @@
 					// this.isChristmas = false;
 				}
 
-
 				if (timestamp >= 1577894400000 && timestamp < 1581782399000) {
 					this.isXN = true;
 					this.isYD = false;
@@ -428,6 +494,7 @@
 				}
 
 			}, 500)
+			
 		},
 		async onLoad(options) {
 			// #ifdef APP-PLUS
@@ -507,6 +574,8 @@
 			//头条
 			await this.getTopList();
 			uni.stopPullDownRefresh();
+			this.current = 0
+			this.getsort = 1
 		},
 		async onReachBottom() {
 			this.page += 1;
@@ -523,9 +592,32 @@
 					this.$api.msg('已经到最底啦~')
 				}
 				uni.hideLoading()
+				this.page = 1
 			});
 		},
 		methods: {
+			big(e) {
+				console.log(e);
+				console.log(e.detail.current);
+				if(e.detail.current == 3) {
+					this.kfindex = -1
+				} else {
+					this.kfindex = e.detail.current
+				}
+			},
+			async change(index) {
+				this.current = index;
+				this.getsort = this.current + 1
+				await this.$http.getNewJXBusiness(this.site_.SiteID,this.location,this.page,10,this.getsort).then(res => {
+					this.StoreList = res;
+					console.log(this.StoreList);
+				});
+				
+			},
+			tabSelect(e) {
+				this.TabCurs = e.currentTarget.dataset.id;
+				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+			},
 			dizhiff(e){
 				var a = parseInt(e.indexOf(";"));
 				var c = parseInt(e.indexOf("；"))
@@ -699,6 +791,7 @@
 			},
 			async getJXBusiness(siteid) {
 				await this.$http.getNewJXBusiness(siteid,this.location,this.page).then(res => {
+					console.log(res)
 					this.StoreList = res;
 				});
 			},
@@ -862,6 +955,8 @@
 				/*获取商圈列表*/
 				await this.getBusinessCircleList();
 				// 插眼 在选择站点时候要刷新 商圈列表 以及 精选商家  记得轮播图给上siteid
+				this.current = 0
+				this.getsort = 1 
 			},
 			toScan() {
 				//二维码
@@ -1257,7 +1352,9 @@
 				this.showKaiPing = false
 			},
 		},
-		components: {},
+		components: {
+			
+		},
 		onShareAppMessage(obj) {
 			return {
 				title: '您有一个VIP待领取，注册有惊喜！',
@@ -1754,4 +1851,57 @@
 		color: #ef5028;
 	}
 	
+	.borders {
+		height: 10upx;
+		border-bottom: 3px solid #ffaa00;
+	}
+	
+	.wrap {
+		padding: 40rpx;
+	}
+	
+	.imgs {
+		transform: none;
+		transition: all 0.2s ease-in 0s;
+		/* transform: scale(0.5);
+		transition: all .2s ease 0s;
+		border-radius: 4px; */
+	}
+	
+	.active {
+		/* transform: none;
+		transition: all 0.2s ease-in 0s; */
+		transform: scale(1.5);
+		transition: all .2s ease 0s;
+		border-radius: 4px;
+	}
+	
+	.lis {
+		flex: 1;
+		text-align: center;
+		font-size: 28upx;
+	}
+	
+	.liss {
+		flex: 1;
+		text-align: center;
+		font-size: 28upx;
+		font-weight: 600;
+		color: rgb(243, 78, 45);
+	}
+	
+	.xian {
+		margin-top: 12upx;
+		width: 45upx;
+		height: 8upx;
+		background-color: rgb(243, 78, 45);
+		transform: translateX(0);
+		transition: transform .3s ease-in-out; 
+	}
+	
+	.xians {
+		width: 40upx;
+		height: 26upx;
+		background-color: rgb(255, 255, 255);
+	}
 </style>

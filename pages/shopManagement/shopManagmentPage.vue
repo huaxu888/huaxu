@@ -31,15 +31,15 @@
 							</view>
 						</view>
 					</view>
-					<view style="height: 130upx;position: absolute;right: 120upx;">
+					<!-- <view style="height: 130upx;position: absolute;right: 120upx;">
 						<view class="flex justify-center align-center " style="position: relative;">
 							<view class="flex align-center justify-center" style="height: 46upx;width: 46upx;border: 1.8px solid #f1b556;border-radius: 50%;background: #FFFFFF;position: relative; z-index: 14; ">
 								<text :class="'hxIcon-shangpu' " style="font-size: 26upx;color: #f1b556;"></text>
-							</view>
+							</view> -->
 						<!-- <switch class='brown switch-status' @change="SwitchB" :class="switchB?'checked':''" :checked="switchB?true:false"
 						 style="margin-top: 23upx;"></switch> -->
-						 <view class="flex align-center justify-center" style="height: 36upx;width: 140upx; padding-left: 13upx; border-radius:1000upx;background: #f1b556;position: absolute;left: 20upx; z-index: 10;">
-						 	<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;">{{ '联盟商家' }}</text>
+						 <!-- <view class="flex align-center justify-center" style="height: 36upx;width: 140upx; padding-left: 13upx; border-radius:1000upx;background: #f1b556;position: absolute;left: 20upx; z-index: 10;"> -->
+						 	<!-- <text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;">{{ '联盟商家' }}</text> -->
 						 	<!-- <text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 0">{{ '一级商家' }}</text>
 						 	<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 1">{{ '二级商家' }}</text>
 						 	<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 2">{{ '三级商家' }}</text>
@@ -49,9 +49,9 @@
 							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 6">{{ '七级商家' }}</text>
 							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 7">{{ '八级商家' }}</text>
 							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 8">{{ '九级商家' }}</text> -->
-						 </view>
-						 </view>
-					</view>
+						 <!-- </view> -->
+						 <!-- </view>
+					</view> -->
 				</view>
 				<view class="flex align-center justify-center margin-top-sm" style="background: url('https://img.huaxuapp.com/sjxym.png') no-repeat; height: 150upx;  background-size: 100% 100%;">
 					<view class=" flex align-center" style="width: 100%;height: 120upx;margin-bottom: 28upx; margin-left: 60upx; margin-right: 60upx;">

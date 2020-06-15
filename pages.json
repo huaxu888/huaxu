@@ -1284,7 +1284,7 @@
                 "iconPath" : "static/wode.png",
                 "selectedIconPath" : "static/wodeh.png",
                 "pagePath" : "pages/index/person",
-                "text" : "我的花蓄"
+                "text" : "我的"
             }
         ]
     },
