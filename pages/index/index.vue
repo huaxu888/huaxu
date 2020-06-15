@@ -321,7 +321,7 @@
 										<!-- 月售 -->
 										<!-- <view style="margin-left: 15upx;font-size: 26upx;color: #5e5e5e;"><text style="color: #c7c7c7;margin-right: 15upx;">|</text>月售123</view> -->
 										<!-- 距离   -->
-										<view style="position: absolute;right: 30upx;color: #999999;font-size: 20upx;">{{getDistance(item.distance)}}</view>
+										<view style="position: absolute;right: 30upx;color: #999999;font-size: 20upx;" v-if="item.distance != 0">{{getDistance(item.distance)}}</view>
 									</view>
 									<!-- <view style="line-height: 1em;color: #999999;font-size: 24upx;">
 										<text class="hxIcon-huo"></text> <text class="margin-left-xs" style="font-size: 26upx;">{{item.ReadCount==null?0:item.ReadCount}}</text>
@@ -516,7 +516,7 @@
 				// 通过行政区划获取站点
 				await this.newGetSite();
 			// #endif
-		
+
 			//  获取站点 ,没有传参的
 			// await this.getSite();
 			// 获取顶部部轮播图

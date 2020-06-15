@@ -1259,7 +1259,7 @@
 				var self = this;
 				if (pwd != '' && IsSuccess) {
 					if (this.radio == 1) { //余额
-						this.$Request_.get("https://newsapp.huaxuapp.com/api/scores/newjs", {
+						this.$Request_.get("https://newsapp.huaxuapp.com/api/scores/newapplejs", {
 							userid: self.userInfo.ID,
 							yyyid: self.yyyid,
 							storeid: self.StoreID,
