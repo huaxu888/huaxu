@@ -95,7 +95,11 @@
 					return 
 			},
 			addShop() {
-				this.showModal = true
+				// this.showModal = true
+				uni.navigateTo({
+					url: '/pages/changeBusiness/changeBusinessPage'
+				})
+				return
 				this.$Request.get(this.$store.state.storeagreeUrl, {}).then(res => {
 					if (Object.prototype.toString.call(res) === "[object Null]") {
 						this.showModal = false

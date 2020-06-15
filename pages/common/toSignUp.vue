@@ -21,6 +21,7 @@
 				<input 
 					v-model="data.Phone"
 					type="number"
+					maxlength="11"
 					placeholder="请填写手机号"
 					placeholder-class="placeholder" />
 			</view>
@@ -272,6 +273,14 @@
 				this.data.UserID = this.$store.state.userInfo.ID
 				if (this.data.Name && this.data.Birth && this.data.Phone && 
 					this.data.BigHeadPhoto && this.data.Area) {
+						if (!/^1[3456789]\d{9}$/.test(this.data.Phone)) {
+							uni.showModal({
+								title: '格式错误',
+								content: '您输入的手机号有误，请确认',
+								showCancel: false
+							})
+							return
+						}
 						registrationPayment( this.data.UserID, this.data.Name, this.data.Birth,
 							this.data.Phone, this.data.BigHeadPhoto, this.data.Area)
 							.then( res => {

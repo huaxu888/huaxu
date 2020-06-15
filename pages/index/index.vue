@@ -232,7 +232,7 @@
 						<view style="width: 2upx; height: 2upx;background: #f34e2d;border-radius: 50%;"></view>
 						<view style="width: 140upx; height: 2upx;background: #f34e2d;margin-left: 10upx;"></view>
 					</view>
-					<view class="text-bold" style="color: #f34e2d;line-height: 1em;font-size: 26upx;margin-left: 40upx;margin-right: 40upx;">政府惠民消费券专区</view>
+					<view class="text-bold" style="color: #f34e2d;line-height: 1em;font-size: 26upx;margin-left: 40upx;margin-right: 40upx;">精选商家</view>
 					<view class="flex  justify-center align-center">
 						<view style="width: 140upx;height: 2upx;background: #f34e2d;"></view>
 						<view style="width: 2upx; height: 2upx;background: #f34e2d;margin-left: 10upx;border-radius: 50%;"></view>
@@ -284,7 +284,7 @@
 											<view style="color: red;margin-left: 8upx;">{{item.StoreStart}}.0</view>
 										</view>
 										<!-- 距离   -->
-										<view style="position: absolute;right: 30upx;color: #999999;font-size: 20upx;">{{getDistance(item.distance)}}</view>
+										<view style="position: absolute;right: 30upx;color: #999999;font-size: 20upx;" v-if="item.distance != 0">{{getDistance(item.distance)}}</view>
 									</view>
 									<!-- <view style="line-height: 1em;color: #999999;font-size: 24upx;">
 										<text class="hxIcon-huo"></text> <text class="margin-left-xs" style="font-size: 26upx;">{{item.ReadCount==null?0:item.ReadCount}}</text>
@@ -449,7 +449,7 @@
 				// 通过行政区划获取站点
 				await this.newGetSite();
 			// #endif
-		
+
 			//  获取站点 ,没有传参的
 			// await this.getSite();
 			// 获取顶部部轮播图

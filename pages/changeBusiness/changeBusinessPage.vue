@@ -104,6 +104,12 @@
 					<text class="hxIcon-dingwei padding-lr text-df" style="font-size:32upx;"></text>
 				</view>
 				
+				<view style="flex: 1; display: flex; align-items: center; border-top: 1rpx solid #eee;
+					justify-content: space-between; min-height: 100rpx; margin: 0 30rpx; background-color: #FFFFFF;">
+					<view class="title">返还比例</view>
+					<tui-numberbox :min="5" :max="100" :value="FanHuanBL" @change="setFanHuanBL"></tui-numberbox>
+				</view>
+				
 			</form>
 		</view>
 		
@@ -140,7 +146,8 @@
 			@confirm="onConfirm" 
 			ref="region" 
 			themeColor="#f00"
-		></w-picker>	
+		></w-picker>
+		<modal :showModal="showModal" :Title="'商家入驻说明'" :Content="agreement" @success="hidden" @hidden="back"></modal>
 	</view>
 </template>
 
@@ -150,6 +157,8 @@
 	//import wPicker from "../../components/w-picker/w-picker.vue"
 	import wPicker from "@/components/w-picker/w-picker.vue";
 	import {validatePhone} from '../../common/handle.js'
+	import tuiNumberbox from "@/components/numberbox/numberbox"
+	import modal from '@/components/modal.vue'
 	let getData ={}
 	export default{
 		data(){
@@ -168,6 +177,7 @@
 				mode:'region',
 				valuePhone:'',//电话
 				valueMap:'',//地址
+				FanHuanBL: 5, 		// 返还比例
 				placeholderTitle:'请输入',
 				inputAry:[
 					{
@@ -192,12 +202,12 @@
 				StoreSortID:0,//店铺分类的id
 				shopPickerInfo:[],
 				valuePhoneZuoji:'',
-				
-				
 				siteList:[],//所有的站点列表
 				siteIndex:0,//站点的下标
 				siteID:0,
-				storeSort: '0'
+				storeSort: '0',
+				showModal: true,
+				agreement: '<p style="margin-top:15px">您同意并认可您在注册店铺时所填写的让利和优惠比例，该比例的构成为两部分:</p><br /><p>第一部分为您支付给“花蓄”平台的技术服务费，不得低于优惠前营业额的5%；</p><br /><p>第二部分为您向消费者的让利，该部分由您确定，无论盈亏均与“花蓄”平台无关，该部分让利您可以向“花蓄”平台申请投放优惠券供消费者领取并使用。</p><br />因此，您所填写的“比例”总额为<strong>“技术服务费+向消费者让利”</strong>的总比例。'
 			}
 		},
 		onLoad(){
@@ -207,9 +217,18 @@
 			console.log(this.siteID)
 		},
 		components: {
-			wPicker
+			wPicker, tuiNumberbox, modal
 		},
 		methods:{
+			hidden: function () {
+				this.showModal = false
+			},
+			back: function () {
+				this.showModal = false
+				uni.navigateBack({
+					delta: 1
+				})
+			},
 			chooseClass(){
 				let itemList = this.shopPicker.map(it=>it.StoreSortName)
 				uni.showActionSheet({
@@ -382,6 +401,9 @@
 				// console.log(this.siteID,this.siteList[this.siteIndex].SiteID)
 			},
 			
+			setFanHuanBL: function (e) {
+				this.FanHuanBL = e.value
+			},
 			
 			submit(){//提交审核
 				return Promise.resolve(true).then((res)=>{
@@ -430,7 +452,8 @@
 						shi:this.shi,//encodeURIComponent(this.shi),
 						xian:this.xian,//encodeURIComponent(this.xian)
 						siteID:this.siteID,//站点id
-						storesort: this.storeSort
+						storesort: this.storeSort,
+						FanHuanBL: this.FanHuanBL
 					}
 					let promiseAry=[]//异步上传
 					
