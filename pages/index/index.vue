@@ -583,7 +583,7 @@
 				title: '加载中',
 				mask: false
 			});
-			await this.$http.getNewJXBusiness(this.site_.SiteID,this.location,this.page, 10).then(res => {
+			await this.$http.getNewJXBusiness(this.site_.SiteID,this.location,this.page, 10, this.getsort).then(res => {
 				
 				if (res.length > 0) {
 					this.StoreList = this.StoreList.concat(res);
@@ -592,7 +592,6 @@
 					this.$api.msg('已经到最底啦~')
 				}
 				uni.hideLoading()
-				this.page = 1
 			});
 		},
 		methods: {
@@ -608,6 +607,7 @@
 			async change(index) {
 				this.current = index;
 				this.getsort = this.current + 1
+				this.page = 1
 				await this.$http.getNewJXBusiness(this.site_.SiteID,this.location,this.page,10,this.getsort).then(res => {
 					this.StoreList = res;
 					console.log(this.StoreList);
@@ -741,7 +741,7 @@
 				});
 			},
 			async getCenterLBLlit() {
-				await this.$http.getCenterLBLlit().then(res => {
+				await this.$http.getCenterLBLlit(this.site_.SiteID).then(res => {
 					console.log('轮播图', res);
 					if (res.IsSuccess) {
 						this.centerLBLlit = res.Data;
@@ -749,7 +749,7 @@
 				});
 			},
 			async getTopBanner() {
-				await this.$http.getTopBanner().then(res => {
+				await this.$http.getTopBanner(this.site_.SiteID).then(res => {
 					if (res.IsSuccess) {
 						this.topLBLlit = res.Data;
 					}
@@ -957,6 +957,10 @@
 				// 插眼 在选择站点时候要刷新 商圈列表 以及 精选商家  记得轮播图给上siteid
 				this.current = 0
 				this.getsort = 1 
+				// 获取顶部部轮播图
+				await this.getTopBanner();
+				// 获取中部轮播图
+				await this.getCenterLBLlit();
 			},
 			toScan() {
 				//二维码
@@ -1374,9 +1378,9 @@
 	
 	/* 领取优惠券 */
 	.coupons {
-		width: 150rpx;
-		height: 146rpx;
-		background: url(https://img.huaxuapp.com/qiangxfq.png) no-repeat;
+		width: 170rpx;
+		height: 166rpx;
+		background: url(https://img.huaxuapp.com/qyhq_03.png) no-repeat;
 		background-position: center;
 		background-size: cover;
 		position: fixed;

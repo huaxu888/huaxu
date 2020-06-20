@@ -8,14 +8,29 @@
 			<block slot="backText"><text>我的订单</text></block>
 			<!-- #endif -->
 		</cu-custom>
-		<scroll-view scroll-x class="bg-white nav shadow" style="position: fixed; z-index: 99;" v-if="storeSort != 1">
-			<view class="flex text-center">
-				<view class="cu-item flex-sub" :class="index == TabCur ? 'tab-active' : ''"
-				 v-for="(item,index) in tabList" :key="index" @tap="tabSelect(index)"  style="margin: 0">
-					{{item}}
+		
+		<!-- #ifdef MP-WEIXIN || H5 || APP-PLUS -->
+			<scroll-view scroll-x class="bg-white nav shadow" style="position: fixed; z-index: 99;" v-if="storeSort != 1">
+				<view class="flex text-center">
+					<view class="cu-item flex-sub" :class="index == TabCur ? 'tab-active' : ''"
+					 v-for="(item,index) in tabList" :key="index" @tap="tabSelect(index)"  style="margin: 0">
+						{{item}}
+					</view>
 				</view>
-			</view>
-		</scroll-view>
+			</scroll-view>
+		<!-- #endif -->
+		
+		<!-- #ifdef MP-ALIPAY -->
+			<scroll-view scroll-x class="bg-white nav shadow" style="z-index: 99;" v-if="storeSort != 1">
+				<view class="flex text-center">
+					<view class="cu-item flex-sub" :class="index == TabCur ? 'tab-active' : ''"
+					 v-for="(item,index) in tabList" :key="index" @tap="tabSelect(index)"  style="margin: 0">
+						{{item}}
+					</view>
+				</view>
+			</scroll-view>
+		<!-- #endif -->
+		
 		
 		<view class="order-list">
 			<view class="order-item" style="margin: 0 30upx;margin-top: 30upx;" v-for="(item, index) in ordersList" :key="index" @tap="detail(item)">

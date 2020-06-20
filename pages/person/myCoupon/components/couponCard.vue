@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="padding-lr padding-tb-sm flex-direction align-center bg-white" style="border-radius: 10upx;" v-if="itemObj.Sort == 1 && type === 'noShop' && itemObj.SortID == 0">
+		<view class="padding-lr padding-tb-sm flex-direction align-center bg-white" style="border-radius: 10upx;" v-if="itemObj.Sort == 1 && type === 'noShop' && itemObj.SortID == 0 && itemObj.SiteID == 0">
 			<view style="width:100%" class="flex align-center" v-if="itemObj.Sort == 1 && type === 'noShop'">
 				<view style="padding-left:2upx;padding-right: 2upx;border-radius: 5upx;" class="margin-lr-sm" :style="{background: color}">
 					<text class="text-sm text-white" v-if="!StoreName" >{{SortName}}</text>
@@ -60,7 +60,15 @@
 		</view>
 		
 		<view class="flex flex-direction align-center justify-between" style="border-radius: 10upx 10upx 20upx 20upx;width: 696upx; overflow: hidden;" v-if="itemObj.SortID == 3 && type === 'noShop'">
-		    <image src="https://img.huaxuapp.com/zsyzxq_03new.png" style="width: 696rpx ;height: 236rpx;"  mode="widthFix"></image>
+		    <image src="https://img.huaxuapp.com/jyzxq622_03.png" style="width: 696rpx ;height: 236rpx;"  mode="widthFix"></image>
+			<view class="flex align-center justify-between padding-tb-sm padding-lr-xs bg-white" style="width: 100%;" >
+				<view class="text-sm text-gray">使用期限：{{BDate}} - {{EDate}}</view>
+				<text class="padding-lr-sm padding-tb-xs btn_coupon"  style="font-size: 24upx;" :class="state.class"   @tap="goToDetail">{{state.text}}</text>
+			</view>
+		</view>
+		
+		<view class="flex flex-direction align-center justify-between" style="border-radius: 10upx 10upx 20upx 20upx;width: 696upx; overflow: hidden;" v-if="itemObj.SortID == 0 && type === 'noShop' && itemObj.SiteID == 9">
+		    <image src="https://img.huaxuapp.com/jyzcw_03.png" style="width: 699rpx ;height: 255rpx;"  mode="widthFix"></image>
 			<view class="flex align-center justify-between padding-tb-sm padding-lr-xs bg-white" style="width: 100%;" >
 				<view class="text-sm text-gray">使用期限：{{BDate}} - {{EDate}}</view>
 				<text class="padding-lr-sm padding-tb-xs btn_coupon"  style="font-size: 24upx;" :class="state.class"   @tap="goToDetail">{{state.text}}</text>
@@ -74,7 +82,7 @@
 		mame: 'itemCard',
 		data(){
 			return {
-
+				
 			}
 		},
 		props:{
@@ -201,7 +209,7 @@
 		border-radius: 50upx;
 	}
 	.success{/*未使用*/
-		background:red;
+		background:#fd542c;
 		color:white
 	}
 	.success-djq {
@@ -209,7 +217,7 @@
 		color:white
 	}
 	.success-zd {
-		background-color: #feab47;
+		background-color: #fd542c;
 		color: white;
 	}
 	.fail{

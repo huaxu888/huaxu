@@ -19,10 +19,10 @@
 				<view class="flex align-center flex-direction margin-bottom">
 					
 					<!-- #ifdef MP-WEIXIN -->
-						<image :src="ewmLink" mode="scaleToFill" style="width:360rpx;height:400rpx;margin-top: 440rpx;"></image>
+						<image :src="ewmLink" mode="scaleToFill" style="width:340rpx;height:380rpx;margin-top: 457rpx;"></image>
 					<!-- #endif -->
 					
-					<!-- #ifdef APP-PLUS || H5 || MP-ALIPAY -->
+					<!-- #ifdef APP-PLUS -->
 					<image :src="ewmLink" mode="scaleToFill" style="width:320upx;height:320upx;margin-top: 100upx;"></image>
 					<!-- #endif -->
 				</view>
@@ -216,7 +216,7 @@
 
 <style>
 	.bg {
-		background-image: url('https://img.huaxuapp.com/518haibao.png') ;
+		background-image: url('https://img.huaxuapp.com/622ctggg.png') ;
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 750rpx;

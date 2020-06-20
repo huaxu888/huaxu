@@ -11,16 +11,17 @@
 			<!-- #ifdef MP-WEIXIN -->
 			<view v-if="scrollTop < 600" class="animate flex align-center justify-center flex-direction fenxiang">
 				<button open-type="share" class="no-btn">
-					<text class="hxIcon-xinbaniconshangchuan-"  style="color: #FFFFFF; font-size: 44upx;line-height: 1.3em;"></text>
+					<text class="hxIcon-xinbanshangchuan-"  style="color: #FFFFFF; font-size: 44upx;line-height: 1.3em;"></text>
 				</button>
 			</view>
 			
 			<view v-if="scrollTop > 600" class="animate flex align-center justify-center flex-direction fenxiangs">
 				<button open-type="share" class="no-btn">
-					<text class="hxIcon-xinbaniconshangchuan-"  style="color: #FFFFFF; font-size: 44upx;line-height: 1.3em;"></text>
+					<text class="hxIcon-xinbanshangchuan-"  style="color: #FFFFFF; font-size: 44upx;line-height: 1.3em;"></text>
 				</button>
 			</view>
 			<!-- #endif -->
+
 
 			<view  v-if="scrollTop > 600" @tap="backtop" class="flex align-center justify-center flex-direction huiqu">
 				<text class="cuIcon-top"  style="color: #FFFFFF; font-size: 44upx;line-height: 1.3em;"></text>

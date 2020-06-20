@@ -1,4 +1,7 @@
 {
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
     "pages" : [
         //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
         // #ifdef APP-PLUS || H5
@@ -360,7 +363,17 @@
 				"navigationBarBackgroundColor":"#FFFFFF"
 			}
         }
-        ,{
+        ,
+		{
+		    "path" : "pages/index/robStampslb",
+		    "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+		}
+		,{
             "path" : "pages/ad/common",
             "style" : {
             	"navigationStyle":"default",
@@ -604,13 +617,21 @@
                     }
                 },
                 {
-                    "path" : "sonPage/bindingCashier/bindingDetail", //营业员详情
+                    "path" : "sonPage/bindingCashier/bindingDetail", //营业员详情店长
                     "style" : {
                         "app-plus" : {
                             "scrollIndicator" : "none"
                         }
                     }
                 },
+				{
+				    "path" : "sonPage/bindingCashier/bindingDetails", //营业员详情收银员
+				    "style" : {
+				        "app-plus" : {
+				            "scrollIndicator" : "none"
+				        }
+				    }
+				},
                 {
                     "path" : "sonPage/myCoupon/myCouponPage", //商铺我的优惠卷
                     "style" : {

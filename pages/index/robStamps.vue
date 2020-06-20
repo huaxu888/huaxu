@@ -148,7 +148,7 @@
 		.bg {
 			width: 750rpx;
 			height: 2000rpx;
-			background: url(https://img.huaxuapp.com/2020-06-05new.png) no-repeat;
+			background: url(https://img.huaxuapp.com/2020-06-22bg.png) no-repeat;
 			background-position: center;
 			background-size: cover;
 		}
@@ -156,7 +156,7 @@
 		.wushi {
 			width: 598rpx;
 			height: 291rpx;
-			background: url(https://img.huaxuapp.com/2020-06-05_03new.png) no-repeat;
+			background: url(https://img.huaxuapp.com/2020-06-22jy.png) no-repeat;
 			background-position: center;
 			background-size: cover;
 			position: absolute;

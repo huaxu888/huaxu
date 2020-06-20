@@ -4,6 +4,8 @@ import App from './App'
 import './api'
 import { mapState } from 'vuex'
 
+import uView from "uview-ui";
+Vue.use(uView);
 Vue.config.devtools = true;
 
 /*全局的导航栏组件*/

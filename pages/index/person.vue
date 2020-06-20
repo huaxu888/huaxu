@@ -153,7 +153,7 @@
 				<view class=" flex align-center justify-between" style="height: 100%;padding: 0 26upx;">
 					<view class="flex align-center justify-between flex-direction" v-for="(centerItem, centerIndex) of centerCardList"
 					 :key="centerIndex" @tap="tiaozhuan(centerIndex)">
-						<view style="height: 58upx; width: 58upx; background-size: 100% 100%;"
+						<view style="height: 58upx; width: 58upx;"
 						 :style="{background :  'url('+centerItem.picUrl+') no-repeat' , backgroundSize : 'cover'} "></view>
 						<text class="margin-top-sm" style="font-size: 24upx;">{{centerItem.title}}</text>
 					</view>

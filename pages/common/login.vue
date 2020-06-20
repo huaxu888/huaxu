@@ -3,7 +3,7 @@
 		<cu-custom bgColor="bg-transparent" :isBack="true" class="text-white"></cu-custom>
 		<view class="cover flex-direction" :style="{ paddingTop: `${pdTop}px` }">
 			<view class="info">
-				<view class="hx-avatar" style="background-image: url(../../static/logo.png);"></view>
+				<view class="hx-avatar" style="background-image: url(https://img.huaxuapp.com/huaxulogo0830.png);"></view>
 				<text class="text-xxl text-white" style="display: flex; justify-content: center;">实体企业O2O</text>
 				<text class="text-xxl text-white" style="display: flex; justify-content: center;">会员营销体系平台</text>
 			</view>
@@ -20,7 +20,7 @@
 						<text class="hxIcon-weixin margin-right-xs" style="font-size: 1.3em;"></text>
 						微信登录
 					</button> -->
-					<button class="cu-btn radius flex shadow large text-white" style="background: rgba(63, 179, 79, .8); "
+					<button class="cu-btn radius flex shadow large text-white" style="background: rgba(63, 179, 79, .9); "
 					 open-type="getPhoneNumber" @getphonenumber="phonenumber">
 						<text class="hxIcon-weixin margin-right-xs" style="font-size: 1.3em;"></text>
 						微信登录

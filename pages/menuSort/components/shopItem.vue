@@ -9,7 +9,16 @@
 			<view class="info_ padding-lr-sm">
 				<view class="shop_name text-df text-bold padding-sx">
 					<text>{{itemObj.StoreName}}</text> 
-					<text v-if="defaultDiscount != 1 || itemObj.IsZK" class="text-white bg-orange radius" style="margin-left: 4upx;font-size: 6upx; padding: 4upx;font-size: .6rem;">{{ itemObj.IsZK && itemObj.zk != 1 ? itemObj.zk * 10 : defaultDiscount * 10 }}折</text>
+					
+					<!-- #ifdef MP-WEIXIN || H5 || APP-PLUS -->
+						<text v-if="defaultDiscount != 1 || itemObj.IsZK" class="text-white bg-orange radius" style="margin-left: 4upx;font-size: 6upx; padding: 4upx;font-size: .6rem;">{{ itemObj.IsZK && itemObj.zk != 1 ? itemObj.zk * 10 : defaultDiscount * 10 }}折</text>
+					<!-- #endif -->
+					
+					<!-- #ifdef MP-ALIPAY -->
+						<text v-if="defaultDiscount != 1 || itemObj.IsZK" class="text-white bg-orange radius" style="margin-left: 4upx;font-size: 6upx; padding: 4upx;font-size: .2rem;">{{ itemObj.IsZK && itemObj.zk != 1 ? itemObj.zk * 10 : defaultDiscount * 10 }}折</text>
+					<!-- #endif -->
+					
+					
 				</view>
 				
 				<view>

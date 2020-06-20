@@ -57,7 +57,8 @@
 						this.koufeiBL = (1 * 1000 - this.fanhuanBL * 1000) / 1000
 						this.IsBank = res.IsBank
 						this.wxf = res.Wxf
-						this.StoreRest_ = Math.abs(this.wxf)
+						
+						this.StoreRest_ = this.wxf
 					} else {
 						this.$api.msg(res.Msg)
 					}

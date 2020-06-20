@@ -452,9 +452,12 @@ export function getAlipayPhone(encryData) {
  * 首页顶部轮播图
  * @param {Object} params
  */
-export function getTopBanner() {
+export function getTopBanner(siteID) {
 	return fly.get({
-		url: 'advert/adverttoplist'
+		url: 'advert/adverttoplist',
+		params: {
+			siteID: siteID
+		}
 	})
 }
 
@@ -463,9 +466,12 @@ export function getTopBanner() {
  * 首页中部轮播图
  * @param {Object} params
  */
-export function getCenterLBLlit() {
+export function getCenterLBLlit(siteID) {
     return fly.get({
         url: 'advert/advertcentrallist',
+		params: {
+			siteID: siteID
+		}
     })
 }
 
@@ -680,6 +686,10 @@ export function findConponsGov () {
 	return fly.get('coupons/findconponsbypt')
 }
 
+
+export function liubaqiangquan () {
+	return fly.get('coupons/findconponsbysite')
+}
 /**
  * 抢优惠券
  * 
@@ -708,6 +718,7 @@ export function canRobCouponsList(page = 1, pageSize = 10) {
 		}
 	)
 }
+
 
 /**
  * @description 						领取店铺优惠券
