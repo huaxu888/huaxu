@@ -53,10 +53,13 @@
 					</view>
 					<!-- #endif -->
 					<!-- <text class="hxIcon-saoyisao1 margin-right-xs" style="font-size: 50upx; color: #808080;" @tap="toScan()"></text> -->
-					<view class="" style="margin-left: 10upx;margin-right:20upx;" @tap="showMsg">
-						<text class="hxIcon-xiaoxi3 " style="font-size: 50upx;color: #808080;"></text>
+					<view class="flex" style="margin-left: 10upx;margin-right:20upx;" @tap="showMsg">
+						<text class="hxIcon-xiaoxi3 " style="font-size: 50upx;color: #808080;">
+							
+						</text>
+						 <view class=" cu-tag badge " v-if="tagID > 0 " style="background: #f34e2d;color:#FFFFFF; display: flex; justify-content: center; align-items: center; border-radius: 50%; width:28upx; height: 28upx;font-size: 18upx;position: absolute; z-index: 50; top: 22upx; right: 14upx;">{{tagID}}</view>
 						<!--tagID > 0  -->
-						<view class=" cu-tag badge " v-if="tagID > 0 " style="background: #f34e2d; display: flex; justify-content: center; align-items: center; border-radius: 50%; width:28upx; height: 28upx;font-size: 22upx;position: absolute; z-index: 50; top: 22upx; right: 14upx;">{{tagID}}</view>
+						
 					</view>
 				</view>
 			</view>
@@ -612,7 +615,6 @@
 					this.StoreList = res;
 					console.log(this.StoreList);
 				});
-				
 			},
 			tabSelect(e) {
 				this.TabCurs = e.currentTarget.dataset.id;
@@ -704,7 +706,8 @@
 			async getMsgCount() {
 				await this.$http.getMsgCount(this.userInfo.ID).then(res => {
 					if (res.IsSuccess) {
-						this.tagID = res.data.Data;
+						console.log(res,709);
+						this.tagID = res.Data;
 					} else {
 						this.tagID = 0;
 					}

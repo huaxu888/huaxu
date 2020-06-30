@@ -18,8 +18,8 @@
 		},
 		onShareAppMessage() {
 			return {
-				title:'留坝消费券，点击领取！',
-				path:'/pages/index/robStampslb',
+				title:'留坝学生专属券，点击领取！',
+				path:'/pages/ad/ads',
 				imageUrl:''
 			}
 		},
@@ -76,6 +76,10 @@
 // 				}
 // 			},
 			sanshi: function () {
+				// uni.navigateTo({
+				// 	url:`/pages/common/webview/webview?url=https://m.10010.com/scaffold-show/Alicard?channel=08-2278-8462-9999&referrerCode=8411868030`
+				// })
+				// return
 				if (this.canTap) {
 					this.canTap = false
 					setTimeout( () => {
@@ -128,13 +132,11 @@
 			}
 		},
 		onShow() {
-			this.$http.liubaqiangquan()
+			this.$http.liubaxueshengquan()
 				.then(res => {
 					console.log('查找优惠券', res);
 					if (res.IsSuccess) {
-						res.Data.forEach( item => {
-							this.conpons30 = item
-						})
+						this.conpons30 = res.Data
 					}
 				})
 				.catch(err => {
@@ -151,7 +153,7 @@
 		.bg {
 			width: 750upx;
 			height: 1800upx;
-			background: url(https://img.huaxuapp.com/lllbbb.png) no-repeat;
+			background: url(https://img.huaxuapp.com/lbxszs.png) no-repeat;
 			background-position: center;
 			background-size: cover;
 		}

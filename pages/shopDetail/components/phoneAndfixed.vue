@@ -23,6 +23,11 @@
 		      <view class=" " style="font-size: 24upx;">收藏</view>
 		    </view>
 		  </view>
+		  <view class="flex align-center justify-center " >
+				<view class="flex align-center justify-center bg-red padding-lr-sm margin-lr-xs" style="width: 190upx;height: 70upx;border-radius: 300upx;background: linear-gradient(to right, #fdbb00, #fea900);" @tap="gotoreservation">
+					 <text>预约订单</text>
+				</view>
+		  </view>
 		 <view class="flex align-center justify-center " >
 			 <view @tap="goToShopping" class="flex align-center justify-center bg-blue margin-lr-xs padding-lr-sm"  style="width: 190upx;height: 70upx;border-radius: 300upx;background:  linear-gradient(to right, #f34e2d, #f12400);">
 			 	 <text>消费买单</text>
@@ -237,6 +242,11 @@
 			},
 			gotoReservation: function (event) {
 				this.$emit('gotoReservation', event)
+			},
+			gotoreservation() {
+				uni.navigateTo({
+					url:`/pages/shopDetail/reservation?storeid=${this.infoObject.StoreID}`
+				})
 			},
 			beCollection() {
 				this.$emit('beCollection', this.collectionFlag)

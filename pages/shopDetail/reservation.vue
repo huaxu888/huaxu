@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<view class="reservation-page">
 		<cu-custom bgColor="bg-white" :isBack="true" class="solid-bottom">
 			<block slot="content">在线预约</block>
@@ -73,6 +73,83 @@
 			</view>
 		</tui-modal>
 	</view>
+</template> -->
+
+<template>
+	<view class="reservation-page">
+		<cu-custom bgColor="bg-white" :isBack="true" class="solid-bottom">
+			<block slot="content">在线预约</block>
+		</cu-custom>
+		<form>
+			<view class="cu-form-group">
+				<view class="title">
+					预约人数
+				</view>
+				<input type="number" v-model="number" name="number" placeholder="请输入人数" class="aligen-right">
+			</view>
+			<view class="cu-form-group">
+				<view class="title">预约日期</view>
+				<picker mode="date" :value="date" :start="dateRange[0]" :end="dateRange[1]" @change="selectDate">
+					<view class="picker">
+						{{ date }}
+					</view>
+				</picker>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">预约时间</view>
+				<picker mode="time" :value="time" start="11:30" end="22:00" @change="selectTime">
+					<view class="picker">
+						{{ time }}
+					</view>
+				</picker>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">
+					联系人
+				</view>
+				<input type="text" v-model="name" name="phone" placeholder="请输入联系人姓名" class="aligen-right">
+				<view class="cu-capsule margin-left">
+					<radio-group @change="selectSex">
+						<label class="radio">
+							<radio value="0" class="yellow" :class="sex === '0' ? 'checked': ''" :checked="sex === '0'" /><text class="margin-left-xs">先生</text>
+						</label>
+						<label class="radio margin-left-sm">
+							<radio value="1" class="yellow" :class="sex === '1' ? 'checked': ''" :checked="sex === '1'" /><text class="margin-left-xs">女士</text>
+						</label>
+					</radio-group>
+				</view>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">
+					联系电话
+				</view>
+				<input type="number" v-model="phone" name="phone" placeholder="请输入联系电话" maxlength="11" class="aligen-right">
+			</view>
+			<view class="cu-form-group" style="height:175upx;" >
+				<textarea v-if="showTextarea()"  maxlength="-1" v-model="notice"  placeholder="备注信息" style="border-bottom: 1upx solid rgba(0, 0, 0, .1);"></textarea>
+			</view>
+			<view class=" lg shadow margin flex align-center justify-center" style="background: linear-gradient(to right, #fdbb00, #fea900);height: 88upx;border-radius: 1000upx;"
+			 @tap="showconfirmTips()">
+				<text style="font-size: 33upx;color: #FFFFFF">提交预约信息</text>
+			</view>
+		</form>
+
+
+
+		<tui-modal :show="confirmTips" @click="toReservation" @cancel="hideconfirmTips" content="请确认信息是否正确" color="#333"
+		 :size="32" shape="circle" :button="tipBotton"></tui-modal>
+
+		<tui-modal :show="showTips" @cancel="hiedModel" :custom="true" :isPadding="true" :maskClosable="false">
+			<view class="flex align-center justify-center flex-direction">
+				<view class="margin-top" style="background: url(https://img.huaxuapp.com/xdcg_03.png) no-repeat; background-size: 100% 100%; width: 387upx;height: 285upx;"></view>
+				<text class="text-xxl text-bold margin-top-lg">预约成功</text>
+				<text class=" margin-top-lg text-gray" style="white-space: nowrap;font-size: 26upx;">请至【我的—预约订单】中查看详情</text>
+				<view @tap="hiedModel" class=" flex align-center justify-center  margin-top-xl" style="border-radius: 1000upx; width: 500upx;height: 88upx;background: #F8CD18;">
+					<text class="text-white" style="font-size: 33upx;">我知道了</text>
+				</view>
+			</view>
+		</tui-modal>
+	</view>
 </template>
 
 <script>
@@ -98,18 +175,22 @@
 				isHaveGoods: true,
 				showTips: false,
 				confirmTips: false,
-				tipBotton: [{
-					text: "不了，直接预约",
-					type: 'gray'
-				}, {
-					text: "继续选购商品",
+				tipBotton: [
+				{
+					text: "确定预约",
 					type: 'yellow'
-				}],
+				}, 
+				// {
+				// 	text: "继续选购商品",
+				// 	type: 'yellow'
+				// },
+				],
 			}
 		},
 		onLoad(option) {
+			console.log(option.storeid);
 			this.needRes = option.needRes;
-			this.storeId = option.storeId
+			this.storeId = option.storeid
 			this.storeName = option.storeName
 			this.isHaveGoods = option.isHaveGoods
 		},
@@ -175,6 +256,7 @@
 			},
 			toReservation: function(e) {
 				let index = e.index;
+				console.log(this.storeId)
 				let obj = {
 					UserID: this.$store.state.userInfo.ID,
 					StoreID: Number(this.storeId),

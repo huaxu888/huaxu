@@ -1,17 +1,6 @@
 <template>
-	<view class="reservation-list-page">
-		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
-			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content">我的订单</block>
-			<!-- #endif -->
-			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">我的订单</block>
-			<!-- #endif -->
-		</cu-custom>
-		<!-- #endif -->
-
-
+	<view class="reservation-list-page" style="margin-top: 80upx;">
+		
 		<!-- <view class="reservation-list-item" v-for="(item, index) in reservationList" :key="index" @tap="navList(item)"> -->
 		<view class="reservation-list-item" v-for="(item, index) in reservationList" :key="index" v-if="item.State == 7 && TabCur == 3">
 			<view class="flex align-center  padding-lr padding-tb-big-xs">
@@ -83,7 +72,77 @@
 		</view>
 		
 		
-		<view class="reservation-list-item" v-for="(item, index) in reservationList" :key="index"  v-if="TabCur==0 || TabCur==1">
+		<view class="reservation-list-item" v-for="(item, index) in reservationList" :key="index"  v-if="TabCur==1 && item.State == 5 ">
+			<view class="flex align-center  padding-lr padding-tb-big-xs">
+				<text class="hxIcon-rili icon-calendar"></text>
+				<text class="text-gray text-sm">{{ changeBeTime(item.BookAddDate || item.AddDate) }}</text>
+			</view>
+			<view class="reservation-cotent">
+				<view class="content-title flex align-center">
+					<view class="content-title-name flex align-center">
+						<view class="content-name-img" :style="{backgroundImage: 'url(' + item.LogoPic + ')'}"></view>
+						<view class="content-name-text">
+							{{ item.StoreName }}
+							<!-- <text class="margin-left-xs sm cu-tag round bg-yellow" v-if="item.ConsumedWay == 1">外卖</text> -->
+						</view>
+					</view>
+					<view class="state-text" :class="item.State == 5?'state-text-success':'text-black'" v-if="!item.IsCheck">
+						<text class="text-bold">{{ getStatus(item.State) }}</text>
+					</view>
+		
+					<view class="state-text" v-else>
+						<text>预约被拒绝</text>
+					</view>
+				</view>
+				<view class="content-content">
+					<view class="flex align-center margin-tb-sm" v-if="getType(item) != '点餐' && item.Num">
+						<text class="hxIcon-renshu margin-left-sm"></text>
+						<text class="margin-left-sm text-black text-bold">联系人：</text>
+						<text class="margin-left-sm text-bold">{{ item.Contacts }}{{ item.Sex == 0 ? '先生' : '女士' }}</text>
+					</view>
+					<view class="flex align-center margin-top-sm" v-if="getType(item) != '点餐' && item.YCDate">
+						<text class="hxIcon-yuyue margin-left-sm"></text>
+						<text class="margin-left-sm text-bold">{{ item.YCDate }} {{ item.YCTime }}</text>
+					</view>
+					<view class="flex align-center margin-tb-sm" v-if="getType(item) != '点餐' && item.Num">
+						<text class="hxIcon-renshu margin-left-sm"></text>
+						<text class="margin-left-sm text-bold">{{ item.Num }}人</text>
+					</view>
+					<view class="flex align-center margin-top-sm" v-if="getType(item) != '点餐' && item.Phone">
+						<text class="hxIcon-shouji2 margin-left-sm"></text>
+						<text class="margin-left-sm text-black text-bold">手机号：</text>
+						<text class="text-bold phone-text">{{ item.Phone }}</text>
+					</view>
+					<view class="flex align-center margin-tb-sm" v-if="getType(item) != '点餐' && item.Info">
+						<text class="hxIcon-pingjia margin-left-xss"></text>
+						<text class="margin-left-xss  text-bold flexss">备注信息：</text>
+						<text class="flexs text-bold">{{ item.Info }}</text>
+					</view>
+					<view class="flex align-center margin-top bottom-content" :class="[getType(item) === '预约' ? 'justify-end' : 'justify-between']">
+						<view class="reservation-info" v-if="getType(item) !== '预约'" >
+							<text class="text-gray margin-right-sm">共{{item.sum}}件商品</text>
+							<text class="text-gray">合计</text>
+							<text class="text-black text-sm margin-left-xs">&yen;</text>
+							<text class="text-bold text-lg margin-left-xxs">{{item.SalePrice?item.SalePrice:0}}</text>
+						</view>
+						<!-- <view class="reservation-info" v-if="item.sum <= 0"></view> -->
+						<view class="reservation-btn flex align-center justify-center cancle" @tap.stop="reservationCancle(item.YYID, index)"
+						 v-if="item.State == 5">
+							<text class="">取消预约</text>
+						</view>
+						<!-- <view v-if="getType(item) === '点餐'" class="reservation-btn flex align-center justify-center toPay">
+							<text>查看详情</text>
+						</view>
+						<view  v-if="getType(item) === '预点餐' && item.State == 0 " class="reservation-btn flex align-center justify-center toPay" @tap.stop="toPay(item.StoreID,item.StoreName,item.LogoPic)">
+							<text class="">去支付</text>
+						</view> -->
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		
+		<view class="reservation-list-item" v-for="(item, index) in reservationList" :key="index"  v-if="TabCur==0">
 			<view class="flex align-center  padding-lr padding-tb-big-xs">
 				<text class="hxIcon-rili icon-calendar"></text>
 				<text class="text-gray text-sm">{{ changeBeTime(item.BookAddDate || item.AddDate) }}</text>
@@ -163,12 +222,14 @@
 		},
 		props:{
 			TabCur:{
-				type:Number,
 				default:0
 			},
+			currentPage:{
+				default:0
+			}
 		},
 		mounted() {
-			this.$http.getReservitionList(this.$store.state.userInfo.ID).then(res => {
+			this.$http.getReservitionList(this.$store.state.userInfo.ID,this.TabCur,this.currentPage).then(res => {
 					if (res.IsSuccess) {
 						this.reservationList = res.Data
 						console.log(this.reservationList)

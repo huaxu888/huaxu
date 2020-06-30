@@ -64,10 +64,10 @@
 							<swiper class=" text-sm flex justify-center align-center" style="height:33upx;width:85%;" vertical="true"
 							 circular="true" autoplay="autoplay" interval="3000">
 								<swiper-item class="flex align-center">
-									<text class="text-cut" style="color: #edd7bd;line-height: 1em;font-size: 28upx;">预约功能即将上线</text>
+									<text class="text-cut" style="color: #edd7bd;line-height: 1em;font-size: 28upx;">预约功能已上线</text>
 								</swiper-item>
 								<swiper-item class="flex align-center">
-									<text class="text-cut" style="color: #edd7bd;line-height: 1em;font-size: 28upx;">敬请期待</text>
+									<text class="text-cut" style="color: #edd7bd;line-height: 1em;font-size: 28upx;">欢迎商家使用！</text>
 								</swiper-item>
 							</swiper>
 
@@ -79,31 +79,32 @@
 
 			<view class=" margin-lr margin-tb-sm-big  margin-bottom padding-lr-sm padding-tb-xs flex align-center justify-between revenue-block">
 				<view class="flex align-center justify-between padding-tb-xs  revenue-block-left">
-					<view class="flex align-center justify-between flex-direction" style="width: 25%;" @tap="personRouter('-1')">
+					<view class="flex align-center justify-between flex-direction" style="width: 25%;"  @tap="tiaozhuan(1)">
 						<text class="hxIcon-daifukuan" style="font-size: 54upx;color: #4a4a4a;">
 
 						</text>
-						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">待付款</text>
+						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">预约订单</text>
 					</view>
-					<view class="flex align-center justify-between flex-direction" style="width: 25%; position: relative;" @tap="personRouter('/pages/shopManagement/sonPage/orderManager?storeid=' + StoreID + '&TabCur=2&sort=' + storeObj.StoreSort)">
-						<view style="height: 28upx;width: 92upx;position: absolute;top: -20upx;right: -34upx;background: url('https://img.huaxuapp.com/jxxx_03.png') no-repeat; background-size: cover;">
-						</view>
+					<view class="flex align-center justify-between flex-direction" style="width: 25%; position: relative;"  @tap="tiaozhuan(2)">
+						<!-- <view style="height: 28upx;width: 92upx;position: absolute;top: -20upx;right: -34upx;background: url('https://img.huaxuapp.com/jxxx_03.png') no-repeat; background-size: cover;">
+						</view> -->
 						<text class="hxIcon-yuding" style="font-size: 54upx;color: #4a4a4a;">
 
 						</text>
-						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">{{ storeObj.StoreSort == 1 ? '待发货' : '预定' }}</text>
+						<!-- <text class="margin-top-sm" style="font-size: 24upx;color: #444444;">{{ storeObj.StoreSort == 1 ? '待发货' : '预定' }}</text> -->
+						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">待评价</text>
 					</view>
-					<view class="flex align-center justify-between flex-direction" style="width: 25%;" @tap="personRouter('-1')">
+					<view class="flex align-center justify-between flex-direction" style="width: 25%;"   @tap="tiaozhuan(3)">
 						<text class="hxIcon-pingjia" style="font-size: 54upx;color: #4a4a4a;">
 
 						</text>
-						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">评价</text>
+						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">已取消</text>
 					</view>
-					<view class="flex align-center justify-between flex-direction" style="width: 25%;" @tap="personRouter('-1')">
+					<view class="flex align-center justify-between flex-direction" style="width: 25%;" @tap="tiaozhuan(4)">
 						<text class="hxIcon-tuikuan" style="font-size: 54upx;color: #4a4a4a;">
 
 						</text>
-						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">退款/售后</text>
+						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">售后</text>
 					</view>
 				</view>
 				<view class="margin-left-xs" style="background: url('https://img.huaxuapp.com/dakuohao_03.png') no-repeat; background-size: 100% 100%;  width: 16upx; min-height: 110upx;"></view>
@@ -362,6 +363,14 @@
 			}
 		},
 		methods: {
+			tiaozhuan(e) {
+				uni.navigateTo({
+					url:'/pages/shopManagement/sonPage/orderManager?storeid=' + this.StoreID + '&sort='+ e,
+					success() {
+						console.log("1")
+					}
+				})
+			},
 			rounding(amount) {
 				return amount.toFixed(2);
 			},

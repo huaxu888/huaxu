@@ -3,7 +3,7 @@
 		<view class="bill_details">
 			<load-ing ref="loading"></load-ing>
 			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-			<cu-custom bgColor="balance-nav" class="text-white" :isBack="true">
+			<cu-custom bgColor="bg-white" class="text-white" :isBack="true">
 				<!-- #ifdef APP-PLUS || H5-->
 				<block slot="content">{{billType==='daili'?'提现':'账单'}}明细</block>
 				<!-- #endif -->
@@ -13,35 +13,26 @@
 			</cu-custom>
 			<!-- #endif -->
 		</view>
-		<view class=" flex justify-center align-center margin-top " style="width:100%;position: absolute;top: 60upx;margin-top:80upx">
-			<view class="bg_title flex flex-direction align-center justify-center">
-				<view class="flex align-center">
-					<text class="hxIcon-yue1 margin-right-sm" style="color:rgb(254,155,5);font-size: 50upx;"></text>
-					<text class="text-gray text-df">{{billType==='daili'?'当月提现总额(元)':'今日账单总额（元）'}}</text>
+		
+		<view>
+			<view class="flex  align-center justify-between  "  style="background: #ffffff;padding: 30upx 30upx; border-top: 1upx solid #dfdfdf;" :class="billType==='daili'?'padding-lr':''">
+				<view style="width: 280upx;">
+					<u-subsection :list="list" mode="subsection" :current="curNow" @change="sectionChange"  button-color="#e8b87f" 
+					active-color="#e8b87f"  inactive-color="#e8b87f" style="color: #e8b87f;"></u-subsection>
 				</view>
-				<text class="padding-top-sm" style="font-size:60upx">{{billType==='daili'?infoObj.agentperson:infoObj.jryye}}</text>
-			</view>
-		</view>
-		<!--style="margin-top:80upx"-->
-
-		<view class=" " >
-			<view class="flex  align-center justify-between  "  style="background: #F0F0F0;margin-top: 30upx; padding-top: 30upx;padding-bottom: 30upx;" :class="billType==='daili'?'padding-lr':''">
-				<view style="width:240upx;height:56upx;border-radius: 50upx;" class="bg-white flex justify-center align-center padding-sm"
-				 @tap="toggleTab">
-					<text class="margin-right-xs">{{days}}</text>
-					<text class="cuIcon-triangledownfill" style="font-size: 40upx;"></text>
+				
+				<view style="width:280upx;height:56upx;border-radius: 50upx;" class="flex justify-center align-center padding-sm">
+					<text class="cuIcon-back" style="margin-right: 24upx;margin-top: 2upx;"></text>
+					<text class="" @tap="toggleTab">{{days}}</text>
+					<text class="cuIcon-right" style="margin-left: 24upx;margin-top: 2upx;"></text>
 				</view>
-
-
-				<view style="width:220upx;height:56upx;border-radius: 50upx;" class="bg-white flex justify-center align-center padding-sm"
+			
+				<view style="width:150upx;height:56upx;border-radius: 50upx;" class="flex justify-center align-center padding-sm"
 				 v-if="billType==='daili'?false:yyyState===2?true:false">
 					<view class="text-df">
-						<!--分类的筛选-->
 						<picker @change="classPickerChange" :value="classIndex" range-key="info" :range="yYyList" mode="selector">
 							<view class="flex flex-wrap ">
 								<view class="flex justify-between">
-									<!-- <view>营业员:</view> -->
-									<!-- <view class="yyyName">{{yYyList[classIndex].Nick}}</view> -->
 									<view>{{yYyList[classIndex].Nick}}</view>
 									<text class="cuIcon-triangledownfill"></text>
 								</view>
@@ -49,51 +40,86 @@
 						</picker>
 					</view>
 				</view>
-
-
-				<view class="flex flex-direction align-end text-sm">
-					<view style="width:220upx;height:56upx;border-radius: 50upx;" class="bg-white flex justify-center align-center padding-sm"
-					 @tap="goToMonthDetail" v-if="billType==='daili'?false:true">
-						查看当月收入
+			</view>
+				
+			<view style="background-color: #f2f2f2;height: 30upx;">
+				
+			</view>
+			
+			<view style="width:100%;padding: 0 30upx;">
+				<view class="flex  align-center justify-between" style="background-color: #e8b87f;padding: 30upx 30upx;border-radius: 18upx;margin-top: 30upx;">
+					<view class="bg_title flex flex-direction align-center justify-center" style="width: 33%;">
+						<view class="flex align-center">
+							<text class="text-gray text-df" style="color: #f8e1c8;">{{billType==='daili'?'当月提现总额(元)':'本月营业总额'}}</text>
+						</view>
+						<text class="padding-top-sm" style="font-size:45upx;color:#ffffff">{{billType==='daili'?infoObj.agentperson:infoObj.jryye}}</text>
 					</view>
-					<!-- <text v-if="billType==='daili'?false:true">当月收入：{{infoObj.TotalOrder}} 笔</text> -->
-					<text v-if="billType==='daili'?true:false">共计：{{billType==='daili'?infoObj.agentperson:''}} 元</text>
+					<view class="bg_title flex flex-direction align-center justify-center" style="width: 33%;">
+						<view class="flex align-center">
+							<text class="text-gray text-df" style="color: #f8e1c8;">收款笔数</text>
+						</view>
+						<text class="padding-top-sm" style="font-size:45upx;color:#ffffff">{{billType==='daili'?infoObj.agentperson:infoObj.jryye}}</text>
+					</view>
+					<view class="bg_title flex flex-direction align-center justify-center" style="width: 33%;">
+						<view class="flex align-center">
+							<text class="text-gray text-df" style="color: #f8e1c8;">同比</text>
+						</view>
+						<text class="padding-top-sm" style="font-size:45upx;color:#ffffff">{{billType==='daili'?infoObj.agentperson:infoObj.jryye}}</text>
+					</view>
 				</view>
 			</view>
 
-			<view class="bill_list padding-lr bg-white" style="min-height:780upx;">
-
-				<view class="padding-tb-sm flex align-center justify-between border_bottom" @tap="goToDetail(item)" v-for="(item,i) of infoList"
-				 :key="i">
-
-					<view class="flex flex-direction align-start " style="width:25%">
-						<text class="margin-bottom-xs text-cut" style="width: 100%;">{{billType==='daili'?`提现到账`:phoneMosaic(item.Phone)}}</text>
-						<text class="text-sm ">{{beTime(item.AddDate)}}</text>
-					</view>
-
-					<view style="width:34%" class="flex flex-direction align-center">
-						<text class="margin-bottom-xs" v-if="billType==='daili'?false:true">收款人:{{ item.Name }}</text>
-						<text class="text-sm text-cut" v-if="billType==='daili'?false:true">{{showName(item)}}</text>
-						<text v-if="billType==='daili'?true:false">实际到账:{{item.Score}}元</text>
-					</view>
-
-
-					<!-- <view style="width:33%" class="flex justify-center">
-						<text class="margin-bottom-xs" v-if="billType==='daili'?false:true">{{item.Phone}}</text>
-					</view> -->
-
-					<view style="width:33%" class="flex justify-end ">
-						<text v-if="billType==='daili'?false:true" class="text-bold" :class="item.Sort===2?'text-black':'text-red'">{{item.Sort===2?'+':'-'}}{{item.XFJE}}</text>
-						<text v-if="billType==='daili'?true:true">{{item.TargetName}}</text>
-					</view>
-
-				</view>
-
-			</view>
+			<u-time-line style="margin: 30upx 30upx;">
+					<u-time-line-item nodeTop="0">
+						<!-- 此处自定义了左边内容，用一个图标替代 -->
+						<template v-slot:node>
+							<view class="u-node" style="color: #e8b87f;background-color: #FFFFFF;">
+								<!-- 此处为uView的icon组件 -->
+								<view class="hxIcon-shijian1" :size="28"></view>
+							</view>
+						</template>
+						<template v-slot:content>
+							<view style="height: 40upx;background-color: #FFFFFF">
+								
+							</view>
+						</template>
+					</u-time-line-item>
+					
+					<u-time-line-item>
+						<!-- 此处没有自定义左边的内容，会默认显示一个点 -->
+						<template v-slot:content>
+							<view>
+								<view class="u-order-desc">【深圳市】日照香炉生紫烟，遥看瀑布挂前川，飞流直下三千尺，疑是银河落九天。</view>
+								<view class="u-order-time">2019-12-06 22:30</view>
+							</view>
+						</template>
+					</u-time-line-item>
+					<u-time-line-item>
+						<!-- 此处没有自定义左边的内容，会默认显示一个点 -->
+						<template v-slot:content>
+							<view>
+								<view class="u-order-desc">【深圳市】日照香炉生紫烟，遥看瀑布挂前川，飞流直下三千尺，疑是银河落九天。</view>
+								<view class="u-order-time">2019-12-06 22:30</view>
+							</view>
+						</template>
+					</u-time-line-item>
+					<u-time-line-item>
+						<!-- 此处没有自定义左边的内容，会默认显示一个点 -->
+						<template v-slot:content>
+							<view>
+								<view class="u-order-desc">【深圳市】日照香炉生紫烟，遥看瀑布挂前川，飞流直下三千尺，疑是银河落九天。</view>
+								<view class="u-order-time">2019-12-06 22:30</view>
+							</view>
+						</template>
+					</u-time-line-item>
+				</u-time-line>
+			
+			<w-picker :mode="billTimeData.mode" :defaultVal="billTimeData.value" @confirm="onConfirm" themeColor="#f00" :ref="billTimeData.picker"
+			 :current="true">
+			</w-picker>
 		</view>
-		<w-picker :mode="billTimeData.mode" :defaultVal="billTimeData.value" @confirm="onConfirm" themeColor="#f00" :ref="billTimeData.picker"
-		 :current="true">
-		</w-picker>
+		
+		
 	</view>
 </template>
 
@@ -106,6 +132,15 @@
 		mixins: [mixins],
 		data() {
 			return {
+				list: [
+					{
+						name: '日报'
+					}, 
+					{
+						name: '月报'
+					}
+				],
+				curNow: 0,
 				billTimeData: {
 					mode: "yearMonth",
 					value: [20, 6],
@@ -129,7 +164,7 @@
 				billType: 'zhangdan',
 				state: 0,
 				yYyList: [{
-					Nick: '全部',
+					Nick: '筛选',
 					ID: 0,
 					FaceURL: 'https://img.huaxuapp.com/pig.png',
 					shouyingyuan: {
@@ -138,8 +173,11 @@
 					Phone: 'xxxxxx'
 				}],
 				classIndex: 0,
-				yearMonthPath: `/pages/shopManagement/sonPage/yearMonthBillDetail`,
+				yearMonthPath: `/pages/shopManagement/sonPage/yearMonthBillDetails`,
 			}
+		},
+		onShow() {
+			this.curNow = 0
 		},
 		onLoad(route) {
 			console.log(this.yyyState);
@@ -162,6 +200,14 @@
 			}
 		},
 		methods: {
+			sectionChange(index) {
+				this.curNow = index;
+				// if(index == 1){
+				// 	uni.navigateTo({
+				// 		url: this.yearMonthPath
+				// 	})
+				// }
+			},
 			showName(it) {
 				let id = it.CZYID
 				for (let val of this.yYyList) {
@@ -342,24 +388,6 @@
 		background: #FFFFFF;
 	}
 
-	.bill_details {
-		background-image: url('https://img.huaxuapp.com/BG.png');
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-		height: 382upx;
-		position: relative;
-	}
-
-	.bg_title {
-		width: 690upx;
-		height: 276upx;
-		background-image: url('https://img.huaxuapp.com/zhangdanPNG.png');
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-		position: relative;
-		top: 20upx;
-	}
-
 	.border_bottom {
 		position: relative;
 		border-bottom: 2upx solid #DDDDDD;
@@ -376,4 +404,31 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
+	
+	.u-node {
+			width: 44rpx;
+			height: 44rpx;
+			border-radius: 100rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: #d0d0d0;
+		}
+		
+		.u-order-title {
+			color: #333333;
+			font-weight: bold;
+			font-size: 32rpx;
+		}
+		
+		.u-order-desc {
+			color: rgb(150, 150, 150);
+			font-size: 28rpx;
+			margin-bottom: 6rpx;
+		}
+		
+		.u-order-time {
+			color: rgb(200, 200, 200);
+			font-size: 26rpx;
+		}
 </style>

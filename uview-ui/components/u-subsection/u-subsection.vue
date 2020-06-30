@@ -307,6 +307,7 @@
 		align-items: center;
 		overflow: hidden;
 		position: relative;
+		border-radius: 12upx;
 	}
 
 	.u-item {
@@ -319,7 +320,6 @@
 		justify-content: center;
 		color: $u-main-color;
 		display: inline-flex;
-		padding: 0 6rpx;
 	}
 
 	.u-item-bg {

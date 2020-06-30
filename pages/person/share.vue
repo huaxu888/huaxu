@@ -18,13 +18,10 @@
 				</view>
 				<view class="flex align-center flex-direction margin-bottom">
 					
-					<!-- #ifdef MP-WEIXIN -->
+					<!-- #ifdef MP-WEIXIN || APP-PLUS -->
 						<image :src="ewmLink" mode="scaleToFill" style="width:340rpx;height:380rpx;margin-top: 457rpx;"></image>
 					<!-- #endif -->
 					
-					<!-- #ifdef APP-PLUS -->
-					<image :src="ewmLink" mode="scaleToFill" style="width:320upx;height:320upx;margin-top: 100upx;"></image>
-					<!-- #endif -->
 				</view>
 				
 				<view style="margin-top:480upx; font-size: 32upx;font-weight: 600;color: #665A5A;" v-show="false">

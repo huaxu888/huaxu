@@ -61,7 +61,8 @@
 				showbg: false,
 				cur: 1,
 				userID: '', //用户id
-				MsgList:null
+				MsgList:null,
+				page: 1
 				// MsgList: [{
 				// 		Title: '111111',
 				// 		AddDate: '1111111111',
@@ -85,9 +86,90 @@
 			this.getMsg(0);
 		},
 		onPullDownRefresh() {
+			this.page = 1
+			this.cur = 1
 			this.userID = this.$store.state.userInfo.ID
 			this.getMsg(0);
 			uni.stopPullDownRefresh();
+		},
+		async onReachBottom() {
+			
+			this.page += 1;
+			uni.showLoading({
+				title: '加载中',
+				mask: false
+			});
+			
+			if(this.cur == 1){
+				if (this.$store.state.hasLogin) {
+					this.userID = this.$store.state.userInfo.ID
+					//说明登录了
+					uni.request({
+						url: "https://newsapp.huaxuapp.com/api/message/msglist",
+						//获取消息列表
+						data: {
+							userid: this.userID,
+							msgsortid: 0,
+							page: this.page,
+							pagesize: 10
+						},
+						method: "GET",
+						success: (res) => {
+							if (res.data.length > 0) {
+								if (res.data == null || res.data.length == 0) {
+									this.showbg = true;
+								} else {
+									this.showbg = false;
+									res.data.forEach(item => {
+										console.log(item);
+										item.AddDate = this.getLocalTime(item.AddDate);
+									});
+								}
+								this.MsgList = this.MsgList.concat( res.data);
+							} else {
+								this.$api.msg('已经到最底啦~')
+							}
+							uni.hideLoading()
+						}
+					});
+				}
+			}
+			
+			if(this.cur == 2){
+				if (this.$store.state.hasLogin) {
+					this.userID = this.$store.state.userInfo.ID
+					//说明登录了
+					uni.request({
+						url: "https://newsapp.huaxuapp.com/api/message/msglist",
+						//获取消息列表
+						data: {
+							userid: this.userID,
+							msgsortid: 1,
+							page: this.page,
+							pagesize: 10
+						},
+						method: "GET",
+						success: (res) => {
+							if (res.data.length > 0) {
+								if (res.data == null || res.data.length == 0) {
+									this.showbg = true;
+								} else {
+									this.showbg = false;
+									res.data.forEach(item => {
+										console.log(item);
+										item.AddDate = this.getLocalTime(item.AddDate);
+									});
+								}
+								this.MsgList = this.MsgList.concat( res.data);
+							} else {
+								this.$api.msg('已经到最底啦~')
+							}
+							uni.hideLoading()
+						}
+					});
+				}
+			}
+			
 		},
 		methods: {
 			getLocalTime(nS) {
@@ -111,21 +193,21 @@
 						data: {
 							userid: this.userID,
 							msgsortid: msgsortid,
-							page: 1,
+							page: this.page,
 							pagesize: 10
 						},
 						method: "GET",
 						success: (res) => {
-							this.MsgList = res.data;
-							console.log(this.MsgList);
-							if (this.MsgList == null || this.MsgList.length == 0) {
+							
+							if (res.data == null || res.data.length == 0) {
 								this.showbg = true;
 							} else {
 								this.showbg = false;
-								this.MsgList.forEach(item => {
+								res.data.forEach(item => {
 									item.AddDate = this.getLocalTime(item.AddDate);
 								});
 							}
+							this.MsgList = res.data;
 						}
 					});
 				}
@@ -133,9 +215,11 @@
 			toMsg(index) {
 				if (index === 1) {
 					this.cur = 1;
+					this.page = 1;
 					this.getMsg(0);
 				} else {
 					this.cur = 2;
+					this.page = 1;
 					this.getMsg(1);
 				}
 			}

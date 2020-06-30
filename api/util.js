@@ -690,6 +690,14 @@ export function findConponsGov () {
 export function liubaqiangquan () {
 	return fly.get('coupons/findconponsbysite')
 }
+
+export function liubaxueshengquan () {
+	return fly.get('coupons/findconponsbystu')
+}
+
+export function liubajiguanquan () {
+	return fly.get('coupons/findconponsbyorg')
+}
 /**
  * 抢优惠券
  * 

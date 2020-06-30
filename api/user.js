@@ -116,12 +116,14 @@ export function getMsgCount(userid) {
  * 
  * @param {Object} userid		用户 id
  */
-export function getReservitionList(userid,sort) {
+export function getReservitionList(userid, sort = 0, page = 1 , pageSize = 10) {
 	return fly.get({
 		url: 'book/booklist',
 		params: {
 			userid: userid,
 			sort: sort,
+			page: page,
+			pageSize: pageSize,
 		}
 	})
 }

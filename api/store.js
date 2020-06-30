@@ -326,6 +326,27 @@ export function getAllOrdersList(storeid, sort = 0, page = 1, pagesize = 10) {
 }
 
 
+/// <summary>
+        /// 通过商家查询预约订单
+        /// </summary>
+        /// <param name="storeid">商家id</param>
+        /// <param name="sort">订单状态（0:默认全部,1.预约订单，2.待评价，3.已取消）</param>
+        /// <param name="page"></param>
+        /// <param name="pagesize"></param>
+        /// <returns></returns>
+export function getyuyue(storeid, sort = 0, page = 1, pagesize = 10) {
+	return fly.get({
+		url: 'order/getbookbystoreid',
+		params: {
+			storeid,
+			sort,
+			page,
+			pagesize
+		}
+	})
+}
+
+
 /**
  * @description 				订单核销
  * 

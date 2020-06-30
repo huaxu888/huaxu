@@ -2,15 +2,15 @@
 	<view class="order-managment-page">
 		<cu-custom bgColor="bg-white" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content"><text>我的订单</text></block>
+			<block slot="content"><text>订单管理</text></block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText"><text>我的订单</text></block>
+			<block slot="backText"><text>订单管理</text></block>
 			<!-- #endif -->
 		</cu-custom>
 		
 		<!-- #ifdef MP-WEIXIN || H5 || APP-PLUS -->
-			<scroll-view scroll-x class="bg-white nav shadow" style="position: fixed; z-index: 99;" v-if="storeSort != 1">
+			<scroll-view scroll-x class="bg-white nav shadow" style="position: fixed; z-index: 99;">
 				<view class="flex text-center">
 					<view class="cu-item flex-sub" :class="index == TabCur ? 'tab-active' : ''"
 					 v-for="(item,index) in tabList" :key="index" @tap="tabSelect(index)"  style="margin: 0">
@@ -21,7 +21,7 @@
 		<!-- #endif -->
 		
 		<!-- #ifdef MP-ALIPAY -->
-			<scroll-view scroll-x class="bg-white nav shadow" style="z-index: 99;" v-if="storeSort != 1">
+			<scroll-view scroll-x class="bg-white nav shadow" style="z-index: 99;">
 				<view class="flex text-center">
 					<view class="cu-item flex-sub" :class="index == TabCur ? 'tab-active' : ''"
 					 v-for="(item,index) in tabList" :key="index" @tap="tabSelect(index)"  style="margin: 0">
@@ -31,33 +31,31 @@
 			</scroll-view>
 		<!-- #endif -->
 		
-		
 		<view class="order-list">
-			<view class="order-item" style="margin: 0 30upx;margin-top: 30upx;" v-for="(item, index) in ordersList" :key="index" @tap="detail(item)">
+			<view class="order-item" style="margin: 0 30upx;margin-top: 36upx;" v-for="(item, index) in ordersList" :key="index" v-if="item.Book">
 				<!-- <view class="order-date">
 					<text class="hxIcon-rili margin-right-sm"></text>
 					<text v-if="item.DingDan">{{ beTime(item.DingDan.AddDate) }}</text>
 					<text v-if="item.Book && !item.DingDan">{{ beTime(item.Book.AddDate) }}</text>
-					
 				</view> -->
 				
 				<view class="bg-white padding shadow radius">
 					<view class="order-item-buyer">
 						<view class="flex align-center">
 							
-							<view class="order-img" :style="{background: 'url(' + item.LogoPic + ') 0% 0% / cover'}"></view>
+							<view class="order-img" :style="{background: 'url(' + item.FaceURL + ') 0% 0% / cover'}"></view>
 							<text>{{item.StoreName}}</text>
-							<!-- <text>{{ item.Nick }}</text>
-							<text class="margin-left-xs cu-tag bg-yellow round sm" v-if="item.Book && item.Book.ConsumedWay == 1">外卖</text> -->
+							<text>{{ item.Nick }}</text>
+							<!-- <text class="margin-left-xs cu-tag bg-yellow round sm" v-if="item.Book && item.Book.ConsumedWay == 1">外卖</text> -->
 						</view>
-						<text class="state-text">{{ getStatus(item.State) }}</text>
-						<!-- <text class="state-text" v-if="item.Book && !item.DingDan">{{ item.Book.State }}</text> -->
+						<text class="state-text" v-if="item.Book && !item.DingDan && item.Book.State == 7">{{ getStatus(item.Book.State) }}</text>
+						<text class="state-texts" v-if="item.Book && !item.DingDan && item.Book.State != 7">{{ getStatus(item.Book.State) }}</text>
 					</view>
 					<view class="order-info">
 						<!-- <view class="flex flex-direction align-center margin" v-if="item && item.State == '待支付'">
 							<text>——</text>
 							<text>订单待支付</text>
-						</view>
+						</view> -->
 						<view class="flex flex-direction" v-if="item.Book">
 							<text class="text-black text-bold flex padding-tb-sm">
 								<text class="hxIcon-renshu"></text>
@@ -81,8 +79,8 @@
 								<text class="margin-left-xss text-bold flexss">备注信息：</text>
 								<text class="flexs text-bold">{{item.Book.Info || info}}</text>
 							</view>
-						</view> -->
-						<view class="card-body flex">
+						</view>
+						<!-- <view class="card-body flex">
 							<view class="cu-avatar radius lg" :style="{backgroundImage: item.LogoPic === '' ? 
 							'url(https://img.huaxuapp.com/huaxulogo.jpg)': 'url(' + tulist[index] + ')'}">
 							</view>
@@ -91,7 +89,7 @@
 								<text>下单时间：<text>{{ beTime(item.AddDate) }}</text></text>
 								<text>总价：￥{{ item.SalePrice }}</text>
 							</view>
-						</view>
+						</view> -->
 					</view>
 					<view class="order-sum flex justify-end align-center">
 						<!-- <view v-if="item" class="text-gray text-sm flex align-end flex-sub">
@@ -100,16 +98,16 @@
 								<text class="text-black text-bold text-lg">￥{{ item }}</text>
 							</text>
 						</view> -->
-						<!-- <view class="order-btns" v-if="item.Book">
-							<view class="cancle-btn" v-if="item.Book.State === '已预约'" @tap="refuseBook(item)">
+						<view class="order-btns" v-if="item.Book">
+							<view class="cancle-btn" v-if="getStatus(item.Book.State) === '已预约'" @tap="refuseBook(item)">
 								<text>拒绝预约</text>
 							</view>
-						</view> -->
-						<view class="card-footer flex justify-end">
+						</view>
+						<!-- <view class="card-footer flex justify-end">
 						    <view class="cu-btn"  @tap="gotoEvaluation(item.StoreID)" v-if="TabCur == 2">
 						        去评价
 						    </view>
-						</view>
+						</view> -->
 					</view>
 				</view>
 			</view>
@@ -126,10 +124,11 @@ export default {
 			ordersList: [],
 			TabCur: 0,
 			tabList: [
-				'全部订单',
+				'全部',
+				'预约订单',
 				'待评价',
-				'退款/售后',
-				'已取消'
+				'已取消',
+				'售后',
 			],
 			storeSort: 0,
 			tulist:[],
@@ -137,79 +136,69 @@ export default {
 		};
 	},
 	onLoad(option) {
-		this.TabCur = option.index
+		console.log(this.TabCur);
 		if (option.storeid) {
 			this.storeid = option.storeid;
 		}
 		if (option.sort) {
-			this.storeSort = option.sort
+			this.TabCur = option.sort
 		}
-		if (option.TabCur) {
-			this.TabCur = option.TabCur
-		}
+		
 		uni.showLoading({
 			title: '数据加载中',
 		})
-
-	},
-	onShow() {
-		// this.$http.getAllOrdersList(this.storeid, this.TabCur, this.currentPage)
-		// 	.then(res => {
-		// 		if (res.IsSuccess) {
-		// 			this.ordersList = res.Data
-		// 			this.ordersList.forEach(item => {
-		// 				if(item.DingDan) {
-		// 					item.DingDan.AddDate = this.getTime(item.DingDan.AddDate)
-		// 					item.DingDan.DDState = this.getStatus(item.DingDan.DDState)
-		// 					item.DingDan.Num = this.paraseContent(item.DingDan.ShopContent)
-		// 					item.DingDan.DDMoney = this.$api.formatAmount(item.DingDan.DDMoney)
-		// 				} else if (item.Book) {
-		// 					item.Book.AddDate = this.getTime(item.Book.AddDate)
-		// 					item.Book.State = this.getStatus(item.Book.State)
-		// 				}
-		// 			})
-		// 			;
-		// 			uni.hideLoading()
-		// 		}
-		// 	})
-		// 	.catch(err => {
-		// 		console.log(err);
-		// 	});
-		this.$http.getReservitionList(this.$store.state.userInfo.ID,this.TabCur + 1).then(res => {
-			if (res.IsSuccess) {
-				uni.hideLoading()
-				
-				res.Data.forEach(item => {
-					this.state.push(item.State)
-				})
-				
-				this.ordersList = res.Data
- 				    
-				console.log(this.ordersList)	
-				this.ordersList.forEach(item => {
-					
-
-					let tulists = JSON.parse(item.ShopContent)
-					this.tulist.push(tulists[0].PicUrl)
-					
-					let DDList = item.ShopContent;
-					let sum = 0;
-					if (DDList) {
-							let list = JSON.parse(DDList);
-							
-							list.forEach(dditem => {
-								
-							sum += dditem.selectCount;
-						});
-					}
-						this.$set(item, 'sum', sum)
-				})
-			}
-
+		
+		if(this.TabCur == 4) {
+			this.storeSort = this.TabCur - 2
+			this.$http.getyuyue(this.storeid, this.storeSort, this.currentPage)
+			.then(res => {
+				if (res.IsSuccess) {
+					this.ordersList = res.Data
+					this.ordersList.forEach(item => {
+						if(item.DingDan) {
+							// item.DingDan.AddDate = this.getTime(item.DingDan.AddDate)
+							item.DingDan.DDState = item.DingDan.DDState
+							item.DingDan.Num = this.paraseContent(item.DingDan.ShopContent)
+							item.DingDan.DDMoney = this.$api.formatAmount(item.DingDan.DDMoney)
+						} else if (item.Book) {
+							// item.Book.AddDate = this.getTime(item.Book.AddDate)
+							item.Book.State = item.Book.State
+						}
+					})
+					;
+					uni.hideLoading()
+				}
 			})
 			.catch(err => {
 				console.log(err);
-		})
+			});
+		} else {
+			this.$http.getyuyue(this.storeid, this.TabCur, this.currentPage)
+			.then(res => {
+				if (res.IsSuccess) {
+					this.ordersList = res.Data
+					this.ordersList.forEach(item => {
+						if(item.DingDan) {
+							// item.DingDan.AddDate = this.getTime(item.DingDan.AddDate)
+							item.DingDan.DDState = item.DingDan.DDState
+							item.DingDan.Num = this.paraseContent(item.DingDan.ShopContent)
+							item.DingDan.DDMoney = this.$api.formatAmount(item.DingDan.DDMoney)
+						} else if (item.Book) {
+							// item.Book.AddDate = this.getTime(item.Book.AddDate)
+							item.Book.State = item.Book.State
+						}
+					})
+					;
+					uni.hideLoading()
+				}
+			})
+			.catch(err => {
+				console.log(err);
+			});
+		}
+	},
+	onShow() {
+		
 	},
 	methods: {
 		gotoEvaluation: function(id) {
@@ -222,13 +211,14 @@ export default {
 				phoneNumber: phone
 			})
 		},
-		getTime: function (time) {
-			let date = (time.split('(')[1].split(")")[0]) * 1
-			return this.dateTimeFormatter(date)
-		},
+		// getTime: function (time) {
+		// 	console.log(item)
+		// 	let date = (time.split('(')[1].split(")")[0]) * 1
+		// 	return this.dateTimeFormatter(date)
+		// },
 		dateTimeFormatter(t) {
 			if (!t) return ''
-			t = new Date(t).getTime()
+			// t = new Date(t).getTime()
 			t = new Date(t)
 			var year = t.getFullYear()
 			var month = (t.getMonth() + 1)
@@ -275,148 +265,132 @@ export default {
 			// 		console.log(err);
 			// 		uni.hideLoading()
 			// 	})
-			// if(this.TabCur == 0){
-			this.$http.getReservitionList(this.$store.state.userInfo.ID,this.TabCur + 1).then(res => {
-				if (res.IsSuccess) {
-					uni.hideLoading()
-					this.ordersList = res.Data
-					
-					this.ordersList.forEach(item => {
-						
-						let tulists = JSON.parse(item.ShopContent)
-						this.tulist.push(tulists[0].PicUrl)
-						
-						let DDList = item.ShopContent;
-						let sum = 0;
-						if (DDList) {
-								let list = JSON.parse(DDList);
-								list.forEach(dditem => {
-								sum += dditem.selectCount;
-							});
+			this.currentPage = 1
+			
+			if(this.TabCur == 0){
+				this.currentPage = 1
+				this.$http.getyuyue(this.storeid, this.TabCur, this.currentPage)
+					.then(res => {
+						if (res.IsSuccess) {
+							this.ordersList = res.Data
+							this.ordersList.forEach(item => {
+								if(item.DingDan) {
+									// item.DingDan.AddDate = this.getTime(item.DingDan.AddDate)
+									item.DingDan.DDState = item.DingDan.DDState
+									item.DingDan.Num = this.paraseContent(item.DingDan.ShopContent)
+									item.DingDan.DDMoney = this.$api.formatAmount(item.DingDan.DDMoney)
+								} else if (item.Book) {
+									// item.Book.AddDate = this.getTime(item.Book.AddDate)
+									item.Book.State = item.Book.State
+								}
+							})
+							;
+							uni.hideLoading()
 						}
-							this.$set(item, 'sum', sum)
 					})
-				}
+					.catch(err => {
+						console.log(err);
+					});
+			};
+			if(this.TabCur == 1){
+				this.currentPage = 1
+				this.$http.getyuyue(this.storeid, this.TabCur, this.currentPage)
+				.then(res => {
+					if (res.IsSuccess) {
+						this.ordersList = res.Data
+						this.ordersList.forEach(item => {
+							if(item.DingDan) {
+								// item.DingDan.AddDate = this.getTime(item.DingDan.AddDate)
+								item.DingDan.DDState = item.DingDan.DDState
+								item.DingDan.Num = this.paraseContent(item.DingDan.ShopContent)
+								item.DingDan.DDMoney = this.$api.formatAmount(item.DingDan.DDMoney)
+							} else if (item.Book) {
+								// item.Book.AddDate = this.getTime(item.Book.AddDate)
+								item.Book.State = item.Book.State
+							}
+						})
+						;
+						uni.hideLoading()
+					}
 				})
 				.catch(err => {
 					console.log(err);
-			})
-			// };
-			return
-			if(this.TabCur == 1){
-
-				this.$http.getReservitionList(this.$store.state.userInfo.ID,this.TabCur).then(res => {
-					if (res.IsSuccess) {
-						uni.hideLoading()
-						this.ordersList = res.Data
-						
-						
-						this.ordersList.forEach(item => {
-							
-							let tulists = JSON.parse(item.ShopContent)
-							this.tulist.push(tulists[0].PicUrl)
-							
-							let DDList = item.ShopContent;
-							let sum = 0;
-							if (DDList) {
-									let list = JSON.parse(DDList);
-									list.forEach(dditem => {
-									sum += dditem.selectCount;
-								});
-							}
-								this.$set(item, 'sum', sum)
-						})
-					}
-					})
-					.catch(err => {
-						console.log(err);
-				})
-
+				});
 			};
 			if(this.TabCur == 2){
-				this.$http.getReservitionList(this.$store.state.userInfo.ID,this.TabCur).then(res => {
-					if (res.IsSuccess) {
-						uni.hideLoading()
-						this.ordersList = res.Data
-						
-						this.ordersList.forEach(item => {
-							
-							let tulists = JSON.parse(item.ShopContent)
-							this.tulist.push(tulists[0].PicUrl)
-							
-							
-							let DDList = item.ShopContent;
-							let sum = 0;
-							if (DDList) {
-									let list = JSON.parse(DDList);
-									list.forEach(dditem => {
-									sum += dditem.selectCount;
-								});
+				this.currentPage = 1
+				this.$http.getyuyue(this.storeid, this.TabCur, this.currentPage)
+						.then(res => {
+							if (res.IsSuccess) {
+								this.ordersList = res.Data
+								this.ordersList.forEach(item => {
+									if(item.DingDan) {
+										// item.DingDan.AddDate = this.getTime(item.DingDan.AddDate)
+										item.DingDan.DDState = item.DingDan.DDState
+										item.DingDan.Num = this.paraseContent(item.DingDan.ShopContent)
+										item.DingDan.DDMoney = this.$api.formatAmount(item.DingDan.DDMoney)
+									} else if (item.Book) {
+										// item.Book.AddDate = this.getTime(item.Book.AddDate)
+										item.Book.State = item.Book.State
+									}
+								})
+								;
+								uni.hideLoading()
 							}
-								this.$set(item, 'sum', sum)
 						})
-					}
-					})
-					.catch(err => {
-						console.log(err);
-				})
+						.catch(err => {
+							console.log(err);
+						});
 			};
 			if(this.TabCur == 3){
-				this.$http.getReservitionList(this.$store.state.userInfo.ID,this.TabCur).then(res => {
-					if (res.IsSuccess) {
-						uni.hideLoading()
-						this.ordersList = res.Data
-						
-						
-						this.ordersList.forEach(item => {
-							
-							let tulists = JSON.parse(item.ShopContent)
-							this.tulist.push(tulists[0].PicUrl)
-							
-							
-							let DDList = item.ShopContent;
-							let sum = 0;
-							if (DDList) {
-									let list = JSON.parse(DDList);
-									list.forEach(dditem => {
-									sum += dditem.selectCount;
-								});
+				this.currentPage = 1
+				this.$http.getyuyue(this.storeid, this.TabCur, this.currentPage)
+						.then(res => {
+							if (res.IsSuccess) {
+								this.ordersList = res.Data
+								this.ordersList.forEach(item => {
+									if(item.DingDan) {
+										// item.DingDan.AddDate = this.getTime(item.DingDan.AddDate)
+										item.DingDan.DDState = item.DingDan.DDState
+										item.DingDan.Num = this.paraseContent(item.DingDan.ShopContent)
+										item.DingDan.DDMoney = this.$api.formatAmount(item.DingDan.DDMoney)
+									} else if (item.Book) {
+										// item.Book.AddDate = this.getTime(item.Book.AddDate)
+										item.Book.State = item.Book.State
+									}
+								})
+								;
+								uni.hideLoading()
 							}
-								this.$set(item, 'sum', sum)
 						})
-					}
-					})
-					.catch(err => {
-						console.log(err);
-				})
+						.catch(err => {
+							console.log(err);
+						});
 			};
 			if(this.TabCur == 4){
-				this.$http.getReservitionList(this.$store.state.userInfo.ID,this.TabCur).then(res => {
-					if (res.IsSuccess) {
-						uni.hideLoading()
-						this.ordersList = res.Data
-						
-						this.ordersList.forEach(item => {
-							
-							let tulists = JSON.parse(item.ShopContent)
-							this.tulist.push(tulists[0].PicUrl)
-							
-							
-							let DDList = item.ShopContent;
-							let sum = 0;
-							if (DDList) {
-									let list = JSON.parse(DDList);
-									list.forEach(dditem => {
-									sum += dditem.selectCount;
-								});
+				this.currentPage = 1
+				this.$http.getyuyue(this.storeid, this.TabCur - 2, this.currentPage)
+						.then(res => {
+							if (res.IsSuccess) {
+								this.ordersList = res.Data
+								this.ordersList.forEach(item => {
+									if(item.DingDan) {
+										// item.DingDan.AddDate = this.getTime(item.DingDan.AddDate)
+										item.DingDan.DDState = item.DingDan.DDState
+										item.DingDan.Num = this.paraseContent(item.DingDan.ShopContent)
+										item.DingDan.DDMoney = this.$api.formatAmount(item.DingDan.DDMoney)
+									} else if (item.Book) {
+										// item.Book.AddDate = this.getTime(item.Book.AddDate)
+										item.Book.State = item.Book.State
+									}
+								})
+								;
+								uni.hideLoading()
 							}
-								this.$set(item, 'sum', sum)
 						})
-					}
-					})
-					.catch(err => {
-						console.log(err);
-				})
+						.catch(err => {
+							console.log(err);
+						});
 			};
 				this.tulist = [];
 		},
@@ -433,7 +407,7 @@ export default {
 			.then( res => {
 				if (res.IsSuccess) {
 					uni.showToast({
-						title: res.Msg,
+						title: '拒绝预约成功',
 						duration: 1500
 					})
 					// if (item.DingDan) {
@@ -450,6 +424,12 @@ export default {
 			console.log(item)
 			uni.navigateTo({
 				url: '/pages/person/bookOrderList?ddid=' + item.DDID
+			})
+		},
+		details: function (item) {
+			console.log(item)
+			uni.navigateTo({
+				url: '/pages/person/reservationsListPage'
 			})
 		},
 		getStatus: function (status) {
@@ -501,51 +481,49 @@ export default {
 	},
 	onReachBottom() {
 		uni.showLoading({
-			title: '数据加载中'
-		})
-		this.currentPage ++
-		this.$http.getAllOrdersList(this.storeid, this.TabCur + 1, this.currentPage)
-			.then( res => {
-				if (res.IsSuccess) {
-					this.ordersList.push(...res.Data)
-					uni.hideLoading()
-					if(res.Data.length == 0) {
-						this.currentPage --
-					}
+			title: '加载中',
+		});
+		this.currentPage += 1
+		this.$http.getyuyue(this.storeid, this.TabCur, this.currentPage).then( res => {
+			console.log(res);
+			if (res.IsSuccess) {
+				this.ordersList = this.ordersList.concat(res.Data)
+				if(res.Data.length == 0){
+					this.currentPage --
 				}
-			})
-			.catch( err => {
+			}
+			uni.hideLoading()
+		}).catch( err => {
 				console.log(err);
 			})
 	},
 	onPullDownRefresh() {
 		this.currentPage = 1
-		this.$http.getAllOrdersList(this.storeid, this.TabCur + 1, this.currentPage)
-			// .then( res => {
-			// 	if (res.IsSuccess) {
-			// 		this.ordersList = res.Data
-				
-			// 	}
-			// 	uni.stopPullDownRefresh()
-			// })
-			// .catch( err => {
-			// 	console.log(err);
-			// 	uni.stopPullDownRefresh()
-			// })
-			.then( res => {
-				if (res.IsSuccess) {
-					this.ordersList.push(...res.Data)
-					uni.hideLoading()
-					if(res.Data.length == 0) {
-						this.currentPage --
+		this.$http.getyuyue(this.storeid, this.TabCur, this.currentPage)
+		.then(res => {
+			if (res.IsSuccess) {
+				this.ordersList = res.Data
+				console.log(this.ordersList);
+				this.ordersList.forEach(item => {
+					if(item.DingDan) {
+						// item.DingDan.AddDate = this.getTime(item.DingDan.AddDate)
+						item.DingDan.DDState = item.DingDan.DDState
+						item.DingDan.Num = this.paraseContent(item.DingDan.ShopContent)
+						item.DingDan.DDMoney = this.$api.formatAmount(item.DingDan.DDMoney)
+					} else if (item.Book) {
+						// item.Book.AddDate = this.getTime(item.Book.AddDate)
+						item.Book.State = item.Book.State
 					}
-				}
-				uni.stopPullDownRefresh()
-			})
-			.catch( err => {
-				console.log(err);
-				uni.stopPullDownRefresh()
-			})
+				})
+				;
+				uni.hideLoading()
+			}
+		})
+		.catch(err => {
+			console.log(err);
+		});
+		uni.stopPullDownRefresh()
+		uni.hideLoading()
 	}
 };
 </script>
@@ -561,7 +539,7 @@ export default {
 	
 	.order-managment-page {
 		.order-list {
-			margin-top: 90upx;
+			margin-top: 110upx;
 		}
 		
 		.order-item {
@@ -606,6 +584,10 @@ export default {
 		}
 		
 		.state-text {
+			color: #666666;
+		}
+		
+		.state-texts {
 			color: #f04921;
 		}
 		

@@ -146,13 +146,14 @@
 			
 			<!-- 我的订单 -->
 			<view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 40upx;padding-bottom:38upx" >
-				<view class="padding flex" style=" justify-content:space-between; border-bottom: 0.7px solid #e4e4e4;;padding:15upx 20upx;padding-bottom: 20upx;padding-left: 0;margin-bottom: 30upx;padding-right: 0;">
+				<view class="padding flex" style=" justify-content:space-between; border-bottom: 0.7px solid #e4e4e4;;padding:15upx 20upx;padding-bottom: 20upx;padding-left: 0;margin-bottom: 30upx;padding-right: 0;" @tap="tiaozhuan(0)">
 					<text style="font-size: 30upx;font-weight: 700;color: #333333;">我的订单</text>
+					<text style="font-size: 24upx;color: #999999;">查看全部订单<text class="cuIcon-right"></text></text>
 				</view>
 
 				<view class=" flex align-center justify-between" style="height: 100%;padding: 0 26upx;">
 					<view class="flex align-center justify-between flex-direction" v-for="(centerItem, centerIndex) of centerCardList"
-					 :key="centerIndex" @tap="tiaozhuan(centerIndex)">
+					 :key="centerIndex" @tap="tiaozhuan(centerIndex+1)">
 						<view style="height: 58upx; width: 58upx;"
 						 :style="{background :  'url('+centerItem.picUrl+') no-repeat' , backgroundSize : 'cover'} "></view>
 						<text class="margin-top-sm" style="font-size: 24upx;">{{centerItem.title}}</text>
@@ -252,23 +253,23 @@
 				centerCardList: [
 					{
 						picUrl: 'https://img.huaxuapp.com/wdddd_10.png',
-						title: '全部订单',
-						navigate: '/pages/shopManagement/sonPage/orderManager'
+						title: '预约订单',
+						navigate: '/pages/shopManagement/sonPage/orderManagers'
 					},
 					{
 						picUrl: 'https://img.huaxuapp.com/wdddd_03.png',
 						title: '待评价',
-						navigate: '/pages/shopManagement/sonPage/orderManager'
-					},
-					{
-						picUrl: 'https://img.huaxuapp.com/wdddd_05.png',
-						title: '退款/售后',
-						navigate: '/pages/shopManagement/sonPage/orderManager'
+						navigate: '/pages/shopManagement/sonPage/orderManagers'
 					},
 					{
 						picUrl: 'https://img.huaxuapp.com/wdddd_07.png',
 						title: '已取消',
-						navigate: '/pages/shopManagement/sonPage/orderManager'
+						navigate: '/pages/shopManagement/sonPage/orderManagers'
+					},
+					{
+						picUrl: 'https://img.huaxuapp.com/wdddd_05.png',
+						title: '售后',
+						navigate: '/pages/shopManagement/sonPage/orderManagers'
 					},
 				],
 				string: 'cover',
@@ -391,7 +392,7 @@
 					_this.TotalXiaoFei = e.data.TotalXiaoFei;
 					_this.TuiGuang = e.data.TuiGuang;
 					_this.StoreTotallr = e.data.StoreTotallr;
-					_this.SavePoints = e.data.User.SavePoints;
+					
 					_this.SpreadPoints = e.data.User.SpreadPoints;
 					_this.ProfitPoints = e.data.User.ProfitPoints;
 					_this.MLLevel = e.data.User.MLLevel;
@@ -443,7 +444,7 @@
 					self.TotalXiaoFei = e.data.TotalXiaoFei;
 					self.TuiGuang = e.data.TuiGuang;
 					self.StoreTotallr = e.data.StoreTotallr;
-					self.SavePoints = e.data.User.SavePoints;
+					
 					self.SpreadPoints = e.data.User.SpreadPoints;
 					self.ProfitPoints = e.data.User.ProfitPoints;
 					self.MLLevel = e.data.User.MLLevel;
@@ -453,7 +454,7 @@
 		methods: {
 			tiaozhuan(e) {
 				uni.navigateTo({
-					url:'/pages/shopManagement/sonPage/orderManager?index=' + e,
+					url:'/pages/shopManagement/sonPage/orderManagers?index=' + e,
 					success() {
 						console.log("1")
 					}

@@ -11,13 +11,13 @@
 			<!-- #ifdef MP-WEIXIN -->
 			<view v-if="scrollTop < 600" class="animate flex align-center justify-center flex-direction fenxiang">
 				<button open-type="share" class="no-btn">
-					<text class="hxIcon-xinbanshangchuan-"  style="color: #FFFFFF; font-size: 44upx;line-height: 1.3em;"></text>
+					<text class="hxIcon-xinbaniconshangchuan-"  style="color: #FFFFFF; font-size: 44upx;line-height: 1.3em;"></text>
 				</button>
 			</view>
 			
 			<view v-if="scrollTop > 600" class="animate flex align-center justify-center flex-direction fenxiangs">
 				<button open-type="share" class="no-btn">
-					<text class="hxIcon-xinbanshangchuan-"  style="color: #FFFFFF; font-size: 44upx;line-height: 1.3em;"></text>
+					<text class="hxIcon-xinbaniconshangchuan-"  style="color: #FFFFFF; font-size: 44upx;line-height: 1.3em;"></text>
 				</button>
 			</view>
 			<!-- #endif -->
@@ -39,7 +39,12 @@
 			<view>
 				<!-- bottom: -210upx; -->
 				<view class="title_ padding bg-white" style="position: relative;bottom:00upx;">
-
+					<view class="zk flex flex-direction align-center justify-center" v-if="defaultDiscount != 1 || infoObject.IsZK">
+						<view class="zkBgi"></view>
+						<view style="font-size: 20upx;">
+							<view class="text-orange">劲爆 <text>{{infoObject.IsZK ? infoObject.zk*10 : defaultDiscount * 10 }}折</text> </view>
+						</view>
+					</view>
 					<view class="flex align-start" style="margin-bottom: 26upx;">
 						<view class="shop_img margin-right" style="position: relative;">
 							<image :lazy-load="lazyLoad" class="logo_img" :src="infoObject.LogoPic===''?'https://img.huaxuapp.com/pig.png':infoObject.LogoPic"

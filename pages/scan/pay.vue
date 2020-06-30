@@ -409,12 +409,16 @@
 			// #ifdef MP-WEIXIN
 			if (_self.userInfo.ID) {
 				//如果用户登录的，那就不需要授权
-
+				
 				_self.needWxVerify = false;
-
+				
 			} else {
-				//如果用户没有登录，所以需要微信授权
 				_self.needWxVerify = true
+				//如果用户没有登录，所以需要微信授权
+				uni.navigateTo({
+					url:`/pages/common/login?isBack=back`
+					
+				})
 			}
 			// #endif
 
@@ -622,6 +626,7 @@
 						//有微信参与支付
 						// #ifdef MP-WEIXIN
 						//如果在小程序端 判断有没有授权
+						console.log(this.userInfo.UnionID);
 						if (this.userInfo.UnionID) {
 							//授权了。可以正常支付
 							console.log('授权了。可以正常支付');
@@ -629,11 +634,12 @@
 						} else {
 							//未授权，弹窗进行授权
 							console.log('未授权，弹窗进行授权');
-							this.loginPanle = true;
-							this.loginbyPhone = false;
-							//授权时候将账号密码登录进行屏蔽
-							this.showChangeFunc = false;
-							return
+							// this.loginPanle = true;
+							// this.loginbyPhone = false;
+							// //授权时候将账号密码登录进行屏蔽
+							// this.showChangeFunc = false;
+							// return
+							this.newToPay();
 						}
 						// #endif
 
@@ -706,6 +712,7 @@
 				}
 				switch (paymentWay) {
 					case '微信':
+					console.log(this.CCouponsIDStore);
 						// #ifdef MP-WEIXIN
 						wxAppletsPay(this.toformatAmount(this.needPay), `付款给${this.StoreName}`, this.out_trade_no, this.StoreID, this.yyyid, this.CCouponsIDStore, dkmoney, this.toformatAmount(this.money))
 							.then(res => {
@@ -1158,6 +1165,7 @@
 								realPay = 0;
 							}
 							this.CCouponsID = this.CCouponsIDStore;
+							console.log(this.CCouponsID);
 						} else {
 							this.CCouponsID = 0;
 							realPay = this.money;
