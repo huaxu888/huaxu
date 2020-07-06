@@ -439,5 +439,31 @@ export function myStore(userid, storeid) {
 	)
 }
 
+// 商家日报
+export function ribao(StoreID, yyyid, day, page = 1, pagesize = 10) {
+	return fly.get(
+		'mystore/xstorexxnyr',
+		{
+			StoreID,
+			yyyid,
+			day,
+			page,
+			pagesize
+		}
+	)
+}
 
+// 商家月报
+export function yuebao(StoreID, day, yyyid, page = 1, pagesize = 10) {
+	return fly.get(
+		'mystore/xxstorexxjemon',
+		{
+			StoreID,
+			day,
+			yyyid,
+			page,
+			pagesize
+		}
+	)
+}
 

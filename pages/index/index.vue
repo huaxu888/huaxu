@@ -497,7 +497,9 @@
 				}
 
 			}, 500)
-			
+			if (this.$store.state.userInfo.ID) {
+				await this.getMsgCount()
+			}
 		},
 		async onLoad(options) {
 			// #ifdef APP-PLUS
@@ -535,7 +537,7 @@
 			await this.getStoreSortList();
 			//头条
 			await this.getTopList();
-
+			
 			if (this.$store.state.userInfo.ID) {
 				//以下是登录后的赋值
 				this.userInfo = this.$store.state.userInfo;

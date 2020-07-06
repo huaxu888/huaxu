@@ -135,9 +135,9 @@
 				<view class="margin-left-xs" style="background: url('https://img.huaxuapp.com/dakuohao_03.png') no-repeat; background-size: 100% 100%;  width: 16upx; min-height: 110upx;"></view>
 
 				<view class="flex align-center justify-center flex-direction padding-sm " style="min-height:110upx;padding-left: 10upx;padding-right: 10upx;"
-				 @tap="personRouter('/pages/shopManagement/sonPage/billDetails','营收概览')">
+				 @tap="personRouter('/pages/shopManagement/sonPage/billDetailss','营收概览')">
 					<view style="background: url('https://img.huaxuapp.com/ysgailan_07.png') no-repeat; background-size: 100% 100%;  width: 54upx; height: 54upx;"></view>
-					<text style="font-size: 24upx;margin-top: 10upx;color: #444444;">营收概览</text>
+					<text style="font-size: 24upx;margin-top: 10upx;color: #444444;">营收明细</text>
 				</view>
 			</view>
 

@@ -378,7 +378,7 @@
 		    "path" : "pages/ad/adlt",
 		    "style" : {
 				"navigationStyle":"default",
-				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTitleText":"联通充值送豪礼",
 				"navigationBarTextStyle":"black",
 				"navigationBarBackgroundColor":"#FFFFFF"
 			}
@@ -606,6 +606,14 @@
                         }
                     }
                 },
+				{
+				    "path" : "sonPage/transactionDetailsPages", //xin交易详情
+				    "style" : {
+				        "app-plus" : {
+				            "scrollIndicator" : "none"
+				        }
+				    }
+				},
                 {
                     "path" : "sonPage/addShopInfo/addShopInfoPage", //添加商铺信息
                     "style" : {

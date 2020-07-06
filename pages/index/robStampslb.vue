@@ -151,7 +151,7 @@
 		.bg {
 			width: 750upx;
 			height: 1800upx;
-			background: url(https://img.huaxuapp.com/lllbbb.png) no-repeat;
+			background: url(https://img.huaxuapp.com/100jian300707.png) no-repeat;
 			background-position: center;
 			background-size: cover;
 		}

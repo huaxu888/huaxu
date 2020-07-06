@@ -59,7 +59,7 @@
 			// 字体大小，单位rpx
 			fontSize: {
 				type: [Number, String],
-				default: 28
+				default: 26
 			},
 			// 是否开启动画效果
 			animation: {
@@ -69,7 +69,7 @@
 			// 组件的高度，单位rpx
 			height: {
 				type: [Number, String],
-				default: 70
+				default: 60
 			},
 			// 激活tab的字体是否加粗
 			bold: {
@@ -179,7 +179,7 @@
 					if (this.mode == 'subsection') {
 						// 设置border的样式
 						style.borderColor = this.activeColor;
-						style.borderWidth = '1px';
+						style.borderWidth = '2px';
 						style.borderStyle = 'solid';
 					}
 					return style;

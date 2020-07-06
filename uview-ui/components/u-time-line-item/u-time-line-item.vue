@@ -1,6 +1,5 @@
 <template>
 	<view class="u-time-axis-item">
-		<view class="triangle"></view>
 		<slot name="content" />
 		<view class="u-time-axis-node" :style="[nodeStyle]">
 			<slot name="node">
@@ -60,22 +59,12 @@
 		width: 100%;
 		position: relative;
 		margin-bottom: 32rpx;
-		background-color: #EEEEEE;
-		padding: 30upx 30upx;
-		border: 30upx;
+		background-color: rgb(242, 242, 242); ;
+		border-radius: 8upx;
+		padding: 30upx;
 	}
 	
-	.triangle{
-	    width: 0;
-	    height: 0;
-	    border-top: 10px solid transparent ;
-	    border-right: 10px solid #EEEEEE;
-	    border-bottom: 10px solid transparent;
-	    border-left: 10px solid transparent;
-		position: absolute;
-		top: 12upx;
-		left: -40upx;
-	}
+	
 
 	.u-time-axis-node {
 		position: absolute;
@@ -96,8 +85,8 @@
 		border-radius: 100rpx;
 		background: #e8b87f;
 		position: absolute;
-		top: 7upx;
-		left: 7upx;
+		top: 8upx;
+		left: 8upx;
 	}
 	
 	.u-dots {

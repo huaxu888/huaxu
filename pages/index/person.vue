@@ -392,10 +392,6 @@
 					_this.TotalXiaoFei = e.data.TotalXiaoFei;
 					_this.TuiGuang = e.data.TuiGuang;
 					_this.StoreTotallr = e.data.StoreTotallr;
-					
-					_this.SpreadPoints = e.data.User.SpreadPoints;
-					_this.ProfitPoints = e.data.User.ProfitPoints;
-					_this.MLLevel = e.data.User.MLLevel;
 				}
 			});
 			
@@ -444,10 +440,6 @@
 					self.TotalXiaoFei = e.data.TotalXiaoFei;
 					self.TuiGuang = e.data.TuiGuang;
 					self.StoreTotallr = e.data.StoreTotallr;
-					
-					self.SpreadPoints = e.data.User.SpreadPoints;
-					self.ProfitPoints = e.data.User.ProfitPoints;
-					self.MLLevel = e.data.User.MLLevel;
 				}
 			});
 		},

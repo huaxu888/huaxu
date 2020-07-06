@@ -249,10 +249,8 @@
 </template>
 
 <script>
-import reservationsListPages from "../common/reservationsListPages"
 export default {
 	components:{
-		reservationsListPages
 	},
 	data() {
 		return {

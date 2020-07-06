@@ -334,7 +334,7 @@
 	@import "uview-ui/index.scss";
 	@import url('colorui/main.css');
 	@import url("common/hx.css");
-	@import url("common/hxicon.css");
 	@import url('colorui/icon.css');
+	@import url("common/hxicon.css");
 	@import url("common/animate.css");
 </style>
