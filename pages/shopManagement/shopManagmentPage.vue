@@ -262,7 +262,7 @@
 							// },
 							{
 								picUrl: 'https://img.huaxuapp.com/wdfw_05.jpg',
-								title: '我的会员',
+								title: '亲密用户',
 								navigate: '/pages/shopManagement/sonPage/myMember', //StoreID
 								size:74
 							},

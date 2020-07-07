@@ -15,34 +15,21 @@
 		</view>
 		
 		<view v-if="curNow==0" style="background-color: #FFFFFF;">
-			<view class="flex  align-center justify-between  "  style="background: #ffffff;padding: 30upx 30upx; border-top: 1upx solid #dfdfdf;" :class="billType==='daili'?'padding-lr':''" >
+			<view class="flex  align-center justify-between  "  style="background: #ffffff;padding: 30upx 30upx; border-top: 1upx solid #dfdfdf;padding-right: 0;" :class="billType==='daili'?'padding-lr':''" >
 				<view class="flex" style=" width:240upx;">
-					<!-- <u-subsection :list="list" mode="subsection" :current="curNow" @change="sectionChange"  button-color="#e8b87f" 
-					active-color="#e8b87f"  inactive-color="#e8b87f" style="color: #e8b87f;"></u-subsection> -->
+					<!-- <u-subsection :list="list" mode="subsection" :current="curNow" @change="sectionChange"  button-color="#e9a555" 
+					active-color="#e9a555"  inactive-color="#e9a555" style="color: #e9a555;"></u-subsection> -->
 					
 					<view :class="[curNow == 0 ? 'baos' : '']">日报</view>
 					<view :class="[curNow == 1 ? '' : 'bao']"  @tap="sectionChange">月报</view>
 				</view>
 				
-				<view style="width:340upx;height:56upx;border-radius: 50upx;" class="flex justify-center align-center padding-sm">
-					<text class="cuIcon-back" style="margin-top: 4upx;color: #999999;padding: 8upx;" @tap="getBefOrAft(0,datas)"></text>
-					<!-- <text class="" @tap="toggleTab" style="padding: 10upx 20upx;color: #333333;">{{datas}}</text> -->
-					<view class="bg-white flex justify-center align-center padding-sm">
-						<picker mode="date" fields="day" start="1990-01-01" end="2040-01-01" @change="changeDay"  style="padding: 10upx 0<strong></strong>upx;color: #333333;">
-							<text>
-								{{datas}}
-							</text>
-						</picker>
-					</view>
-					<text class="cuIcon-right" style="margin-top: 4upx;color: #999999;padding: 8upx;" @tap="getBefOrAft(1,datas)"></text>
-				</view>
-			
-				<view style="width:150upx;height:56upx;border-radius: 50upx;padding-right: 0;" class="flex justify-center align-center padding-sm"
+				<view style="width:260upx;height:56upx;border-radius: 50upx;padding-right: 0;" class="flex justify-center align-center padding-sm"
 				 v-if="billType==='daili'?false:yyyState===2?true:false">
 					<view class="text-df">
 						<picker @change="classPickerChange" :value="classIndex" range-key="info" :range="yYyList" mode="selector">
 							<view class="flex flex-wrap ">
-								<view class="flex justify-center"  style="color: #999999;">
+								<view class="flex justify-center"  style="color: #666666;">
 									<view>{{yYyList[classIndex].Nick}}</view>
 									<text class="cuIcon-triangledownfill" style="font-size: 36upx;"></text>
 								</view>
@@ -52,13 +39,28 @@
 				</view>
 			</view>
 			
-			
-			<view style="background-color: #f2f2f2;height: 30upx;">
+			<view style="background-color: #f2f2f2;height: 15upx;">
 				
 			</view>
 			
-			<view style="width:100%;padding: 0 30upx;">
-				<view class="flex  align-center justify-between" style="background-color: #e8b87f;padding: 30upx 30upx;border-radius: 18upx;margin-top: 30upx;">
+			<view style="height:56upx;border-radius: 50upx;margin-top: 20upx;" class="flex  padding-sm ">
+				<text class="cuIcon-back" style="margin-top: 4upx;color: #666666;padding: 8upx;" @tap="getBefOrAft(0,datas)"><text style="color: #666666;margin-left: 10upx;">前一天</text></text>
+				
+				<!-- <text class="" @tap="toggleTab" style="padding: 10upx 20upx;color: #333333;">{{datas}}</text> -->
+				<view class="bg-white flex  align-center" style="margin-left: 20upx;padding: 30upx 20upx; border: 1upx solid #999999;border-radius: 10upx;">
+					<picker mode="date" fields="day" start="1990-01-01" end="2040-01-01" @change="changeDay"  style="padding: 10upx 0upx;color: #333333;">
+						<text>
+							{{datas}}
+						</text>
+					</picker>
+				</view>
+				<text  style="margin-top: 4upx;color: #666666;padding: 8upx;margin-left: 20upx;" @tap="getBefOrAft(1,datas)">后一天
+					<text class="cuIcon-right" style="margin-left: 10upx;"></text>
+				</text>
+			</view>
+			
+			<view style="width:100%;padding: 0 30upx;margin-top: 70upx;">
+				<view class="flex  align-center justify-between" style="background-color: #e9a555;padding: 30upx 30upx;border-radius: 18upx;margin-top: 30upx;">
 					<view class="bg_title flex flex-direction align-center justify-center" style="width: 33%;">
 						<view class="flex align-center" style="margin-bottom: 4upx;">
 							<text class="text-gray text-df" style="color: #f8e1c8;font-size: 26upx;">{{billType==='daili'?'当月提现总额(元)':'今日营业总额'}}</text>
@@ -75,20 +77,17 @@
 						<view class="flex align-center" style="margin-bottom: 4upx;">
 							<text class="text-gray text-df" style="color: #f8e1c8;font-size: 26upx;" @click="showTips">环比<text class="hxIcon-wenhao3" style="font-size: 30upx;margin-left: 10upx;"></text></text>
 						</view>
-						<view  style="padding: 6upx 16upx;margin-top: 28upx; background-color: #cf9958;border-radius: 26upx;" :class="[inx == 0 ? 'xiao' : 'da']">
+						<view  style="padding: 6upx 16upx;margin-top: 28upx; background-color: #ce8d40;border-radius: 26upx;" class="da">
 							<text :class="[ZZLS<0 ? 'hxIcon-xiangxia' : 'hxIcon-xiangshang']" style="font-size:28upx;color:#ffffff"></text>
 							<text class="padding-top-sm" style="color:#ffffff;margin-left: 10upx;">{{xiaoshu(ZZL)}}</text>
 						</view>
 					</view>
 				</view>
 			</view>
-			<view style="padding: 0 30upx;">
-				
-				
-					
+			<view style="padding: 0 30upx;padding-bottom: 800upx;" >
 				<u-time-line style="margin: 30upx 30upx;">
-					<u-time-line-item v-for="(item,i) of infoObjs" :key="i">
-						<template v-slot:content>
+					<u-time-line-item v-for="(item,i) of infoObjs" :key="i" >
+						<template v-slot:content >
 							<view class="flex"  @tap="goToDetail(item)">
 								<view class="triangle"></view>
 								<image :src="item.PicUrl" mode="aspectFit" style="width: 80upx;height: 80upx;border-radius: 8upx;"></image>
@@ -102,40 +101,35 @@
 							</view>
 						</template>
 					</u-time-line-item>
-					
 				</u-time-line>
+				<view v-if="infoObjs.length == 0">
+					<view style="text-align: center;margin-top: 110upx;">
+						<image src="https://img.huaxuapp.com/kbsj.png" mode="aspectFill" style="width: 238upx;height: 276upx;color: #ce8d40;"></image>
+						<view><text style="color: #999999;">暂无数据~</text></view>
+					</view>
+					
+				</view>
 			</view>
 			<w-picker :mode="billTimeData.mode" :defaultVal="billTimeData.value" @confirm="onConfirm" themeColor="#f00" :ref="billTimeData.picker"
 			 :current="true">
 			</w-picker>
 		</view>
 		
-		
 		<view  v-if="curNow==1"  style="background-color: #FFFFFF;">
-			<view class="flex  align-center justify-between"  style="background: #ffffff;padding: 30upx 30upx; border-top: 1upx solid #dfdfdf;" :class="billType==='daili'?'padding-lr':''">
+			<view class="flex  align-center justify-between"  style="background: #ffffff;padding: 30upx 30upx; border-top: 1upx solid #dfdfdf;padding-right: 0;" :class="billType==='daili'?'padding-lr':''">
 				<view  class="flex" style="width:240upx;">
-					<!-- <u-subsection :list="list" mode="subsection" :current="curNow" @change="sectionChanges"  button-color="#e8b87f" 
-					active-color="#e8b87f" :animation="false" inactive-color="#e8b87f" style="color: #e8b87f;"></u-subsection> -->
+					<!-- <u-subsection :list="list" mode="subsection" :current="curNow" @change="sectionChanges"  button-color="#e9a555" 
+					active-color="#e9a555" :animation="false" inactive-color="#e9a555" style="color: #e9a555;"></u-subsection> -->
 					<view :class="[curNow == 0 ? '' : 'baosss' ]"  @tap="sectionChanges">日报</view>
 					<view :class="[curNow == 1 ? 'baoss' : '']" >月报</view>
 				</view>
-				<view style="width:350upx;height:56upx;border-radius: 50upx;" class="flex justify-center align-center padding-sm">
-					<text class="cuIcon-back" style="margin-top: 4upx;color: #999999;padding: 8upx;" @tap="getBefOrAfts(0,timeValue)"></text>
-					<view class="bg-white flex justify-center align-center padding-sm">
-						<picker mode="date" fields="month" start="1990-01-01" end="2040-01-01" @change="changeDays"  style="padding: 10upx 10upx;color: #333333;">
-							<text>
-								{{timeValue}}
-							</text>
-						</picker>
-					</view>
-					<text class="cuIcon-right" style="margin-top: 4upx;color: #999999;padding: 8upx;" @tap="getBefOrAfts(1,timeValue)"></text>
-				</view>
-				<view style="width:150upx;height:56upx;border-radius: 50upx;padding-right: 0;" class="flex justify-center align-center padding-sm"
+				
+				<view style="width:260upx;height:56upx;border-radius: 50upx;padding-right: 0;" class="flex justify-center align-center padding-sm"
 				 v-if="billType==='daili'?false:yyyState===2?true:false">
 					<view class="text-df">
 						<picker @change="classPickerChange" :value="classIndex" range-key="info" :range="yYyList" mode="selector">
 							<view class="flex flex-wrap ">
-								<view class="flex justify-center" style="color: #999999;">
+								<view class="flex justify-center" style="color: #666666;">
 									<view>{{yYyList[classIndex].Nick}}</view>
 									<text class="cuIcon-triangledownfill"  style="font-size: 36upx;"></text>
 								</view>
@@ -145,12 +139,25 @@
 				</view>
 			</view>
 				
-			<view style="background-color: #f2f2f2;height: 30upx;">
+			<view style="background-color: #f2f2f2;height: 15upx;">
 				
 			</view>
 			
-			<view style="width:100%;padding: 0 30upx;">
-				<view class="flex  align-center justify-between" style="background-color: #e8b87f;padding: 30upx 30upx;border-radius: 18upx;margin-top: 30upx;">
+			<view style="height:56upx;border-radius: 50upx;margin-top: 20upx;" class="flex padding-sm">
+				<text class="cuIcon-back" style="margin-top: 4upx;color: #999999;padding: 8upx;" @tap="getBefOrAfts(0,timeValue)"><text style="color: #666666;margin-left: 10upx;">前一月</text></text>
+				<view class="bg-white flex  align-center " style="margin-left: 20upx;padding: 30upx 20upx; border: 1upx solid #999999;border-radius: 10upx;">
+					<picker mode="date" fields="month" start="1990-01-01" end="2040-01-01" @change="changeDays"  style="padding: 10upx 10upx;color: #333333;">
+						<text>
+							{{timeValue}}
+						</text>
+					</picker>
+				</view>
+				<text  style="margin-top: 4upx;color: #666666;padding: 8upx;margin-left: 20upx;" @tap="getBefOrAfts(1,timeValue)">后一月<text class="cuIcon-right" style="margin-left: 10upx;"></text>
+				</text>
+			</view>
+			
+			<view style="width:100%;padding: 0 30upx;margin-top: 70upx;">
+				<view class="flex  align-center justify-between" style="background-color: #e9a555;padding: 30upx 30upx;border-radius: 18upx;margin-top: 30upx;">
 					<view class="bg_title flex flex-direction align-center justify-center" style="width: 33%;">
 						<view class="flex align-center" style="margin-bottom: 4upx;">
 							<text class="text-gray text-df" style="color: #f8e1c8;font-size: 26upx;">本月营业总额</text>
@@ -167,7 +174,7 @@
 						<view class="flex align-center" style="margin-bottom: 4upx;">
 							<text class="text-gray text-df" style="color: #f8e1c8;font-size: 26upx;" @click="showTipss">环比<text class="hxIcon-wenhao3" style="font-size: 30upx;margin-left: 10upx;"></text></text>
 						</view>
-						<view  style="padding: 6upx 16upx;margin-top: 28upx; background-color: #cf9958;border-radius: 26upx;" :class="[inx == 0 ? 'xiao' : 'da']">
+						<view  style="padding: 6upx 16upx;margin-top: 28upx; background-color: #ce8d40;border-radius: 26upx;"  class="da">
 							<text  :class="[ZZLSS<0 ? 'hxIcon-xiangxia' : 'hxIcon-xiangshang']"  style="font-size:28upx;color:#ffffff"></text>
 							<text class="padding-top-sm" style="color:#ffffff;margin-left: 10upx;">{{xiaoshu(ZZLs)}}</text>
 						</view>
@@ -175,15 +182,9 @@
 				</view>
 			</view>
 		
-			<view  style="padding: 0 30upx;">
-				
-				
-				
+			<view  style="padding: 0 30upx;padding-bottom: 800upx;">
 				<u-time-line style="margin: 30upx 30upx;">
-					
 					<u-time-line-item v-for="(item,i) of infoObjss" :key="i" >
-						<!-- 此处没有自定义左边的内容，会默认显示一个点 -->
-						
 						<template v-slot:content>
 							<view class="flex" @tap="goToDetail(item)" >
 								<view class="triangle"></view>
@@ -198,15 +199,18 @@
 							</view>
 						</template>
 					</u-time-line-item>
-					
 				</u-time-line>
+				<view v-if="infoObjss.length == 0" >
+					<view style="text-align: center;margin-top: 110upx;">
+						<image src="https://img.huaxuapp.com/kbsj.png" mode="aspectFill" style="width: 238upx;height: 276upx;color: #ce8d40;"></image>
+						<view><text style="color: #999999;">暂无数据~</text></view>
+					</view>
+				</view>
 			</view>
 			<w-picker :mode="billTimeData.mode" :defaultVal="billTimeData.value" @confirm="onConfirm" themeColor="#f00" :ref="billTimeData.picker"
 			 :current="true">
 			</w-picker>
 		</view>
-		
-		
 	</view>
 </template>
 
@@ -252,7 +256,7 @@
 				billType: 'zhangdan',
 				state: 0,
 				yYyList: [{
-					Nick: '筛选',
+					Nick: '全部收银员',
 					ID: 0,
 					FaceURL: 'https://img.huaxuapp.com/pig.png',
 					shouyingyuan: {
@@ -325,6 +329,8 @@
 			this.days()
 			this.inx = 1
 			this.curNow = 0
+			this.riqir = this.formatDate(this.riqi, -1 )
+			this.riqiy = this.formatDate(this.riqi, -1 )
 		},
 		methods: {
 			 tapInfo(e) {
@@ -337,7 +343,7 @@
 				}
 			},
 			showTips() {
-				this.riqir = this.formatDate(this.riqi, -1 )
+				
 				uni.showToast({
 					icon:'none',
 				    title: `这里与${this.riqir}相比${this.ZZLS >= 0 ? '上升了' : '下降了'}${this.xiaoshu(this.ZZL)}`,
@@ -345,7 +351,7 @@
 				});
 			},
 			showTipss() {
-				this.riqiy = this.formatDate(this.riqi, -1)
+				
 				uni.showToast({
 					icon:'none',
 				    title: `这里与${this.riqiy}相比${this.ZZLSS >= 0 ? '上升了' : '下降了'}${this.xiaoshu(this.ZZLs)}`,
@@ -408,13 +414,15 @@
 					this.inx = 1
 				} else {
 					tmp = (num / 10000).toFixed(2)
-					result = `${tmp}万`
+					result = '> 999.99'
 					this.inx = 0
 				}
 				return result
 			},
 			changeDay(e) {
 				this.datas = e.detail.value
+				this.riqir = this.formatDate(this.datas, -1 )
+				this.classIndex = 0
 				this.$http.ribao(this.getData.StoreID,0,this.datas,this.page,this.pagesize)
 				.then(res => {
 					console.log(res);
@@ -431,9 +439,11 @@
 			},
 			changeDays(e) {
 				let time = e.detail.value
+				this.classIndex = 0
 				time = time.split('-')
 				time = `${time[0]}-${time[1]}`
 				this.timeValue = time;
+				this.riqiy = this.formatDate(this.timeValue, -1 )
 				this.getData.day = time
 				this.getData.page = 1
 				this.getCurryInfo()
@@ -468,6 +478,7 @@
 				d = new Date(d)
 				this.datas = this.dateFormat(d)
 				this.riqi = this.datas
+				this.riqir = this.formatDate(this.riqi, -1 )
 				this.classIndex = 0
 				this.$http.ribao(this.getData.StoreID,0,this.datas,this.page,this.pagesize)
 				.then(res => {
@@ -496,6 +507,7 @@
 					console.log(this.timeValue);
 				}
 				this.riqi = this.timeValue
+				this.riqiy = this.formatDate(this.riqi, -1)
 				this.classIndex = 0
 				this.$http.yuebao(this.getData.StoreID,this.timeValue,0,this.page,this.pagesize)
 				.then(res => {
@@ -690,6 +702,8 @@
 			classPickerChange(e) {
 				this.classIndex = e.detail.value
 				let value = this.yYyList[this.classIndex]
+				
+				
 				if ('ID' in value) {
 					this.getData.yyyid = value.ID
 				} else {
@@ -867,9 +881,7 @@
 			}
 			this.getTime();
 			this.billTimeData.mode = 'date'
-			this.getYyY().then(res => {
-				this.getCurryInfo(false)
-			})
+			this.classIndex = 0
 			this.days()
 			this.$http.ribao(this.getData.StoreID,0, this.getData.day,this.page,this.pagesize)
 			.then(res => {
@@ -933,8 +945,8 @@
 <style scoped>
 	.bao {
 		width: 100%;
-		color:#e8b87f;
-		border:1upx solid #e8b87f;
+		color:#e9a555;
+		border:1upx solid #e9a555;
 		text-align: center;
 		padding: 8upx 0;
 		border-radius: 0 12upx 12upx 0;
@@ -943,8 +955,8 @@
 	.baos {
 		width: 100%;
 		color: #FFFFFF;
-		border:1upx solid #e8b87f;
-		background-color: #e8b87f;
+		border:1upx solid #e9a555;
+		background-color: #e9a555;
 		padding: 8upx 0;
 		text-align: center;
 		border-radius: 12upx 0 0 12upx;
@@ -952,8 +964,8 @@
 	
 	.baosss {
 		width: 100%;
-		color:#e8b87f;
-		border:1upx solid #e8b87f;
+		color:#e9a555;
+		border:1upx solid #e9a555;
 		padding: 8upx 0;
 		text-align: center;
 		border-radius: 12upx 0 0 12upx;
@@ -962,8 +974,8 @@
 	.baoss {
 		width: 100%;
 		color: #FFFFFF;
-		border:1upx solid #e8b87f;
-		background-color: #e8b87f;
+		border:1upx solid #e9a555;
+		background-color: #e9a555;
 		text-align: center;
 		padding: 8upx 0;
 		border-radius: 0 12upx 12upx 0;
