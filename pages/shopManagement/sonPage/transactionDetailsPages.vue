@@ -13,7 +13,12 @@
 		
 		<view style="padding-left: 57upx;padding-top: 30upx;">
 			<view class="flex flex-direction align-center bill_details">
+				<!-- #ifdef MP-WEIXIN -->
 				<view style="font-weight: 600;font-size: 44upx;position: absolute;left: 290upx;top: 418upx;"><text>收款成功</text></view>
+				<!-- #endif -->
+				<!-- #ifdef APP-PLUS || H5 || MP-ALIPAY -->
+				<view style="font-weight: 600;font-size: 44upx;position: absolute;left: 290upx;top: 260upx;"><text>收款成功</text></view>
+				<!-- #endif -->
 				<!-- <view class="flex justify-center align-center margin-tb-xs  text-cut">
 					<view  :class="typeFlag?'hxIcon-zhifuchenggong text-white':'text-yellow hxIcon-tui'"  style="font-size:50upx"></view>
 					<view class="text-white text-lg margin-left-sm">{{phoneMosaic(Nick)}}</view>

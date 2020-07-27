@@ -171,6 +171,7 @@
 					// this.imgUrl = res.Data.split('?')[0]
 					this.imgUrl = res.Data
 					this.showModal = true
+					console.log(res.Data);
 				}else{
 					this.$api.msg(res.Msg)
 				}

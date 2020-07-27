@@ -69,7 +69,7 @@
 			// 组件的高度，单位rpx
 			height: {
 				type: [Number, String],
-				default: 60
+				default: 70
 			},
 			// 激活tab的字体是否加粗
 			bold: {

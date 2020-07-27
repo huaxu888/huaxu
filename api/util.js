@@ -691,12 +691,24 @@ export function liubaqiangquan () {
 	return fly.get('coupons/findconponsbysite')
 }
 
+export function liubaqiangquanThree () {
+	return fly.get('coupons/findconponsbytythr')
+}
+
 export function liubaxueshengquan () {
 	return fly.get('coupons/findconponsbystu')
 }
 
+export function liubaxueshengquans () {
+	return fly.get('coupons/findconponsbystutwo')
+}
+
 export function liubajiguanquan () {
 	return fly.get('coupons/findconponsbyorg')
+}
+
+export function liubajiguanquans () {
+	return fly.get('coupons/findconponsbyorgtwo')
 }
 /**
  * 抢优惠券

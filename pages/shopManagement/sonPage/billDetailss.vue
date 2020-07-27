@@ -84,7 +84,12 @@
 					</view>
 				</view>
 			</view>
-			<view style="padding: 0 30upx;padding-bottom: 800upx;" >
+				<!-- #ifdef MP-WEIXIN || APP-PLUS || H5  -->
+				<view  style="padding: 0 30upx;padding-bottom: 800upx;">
+				<!-- #endif -->
+				<!-- #ifdef MP-ALIPAY  -->
+				<view  style="padding: 0 30upx;padding-bottom: 800upx;margin-top: 50upx;">
+				<!-- #endif -->
 				<u-time-line style="margin: 30upx 30upx;">
 					<u-time-line-item v-for="(item,i) of infoObjs" :key="i" >
 						<template v-slot:content >
@@ -181,8 +186,12 @@
 					</view>
 				</view>
 			</view>
-		
+			<!-- #ifdef MP-WEIXIN || APP-PLUS || H5  -->
 			<view  style="padding: 0 30upx;padding-bottom: 800upx;">
+			<!-- #endif -->
+			<!-- #ifdef MP-ALIPAY  -->
+			<view  style="padding: 0 30upx;padding-bottom: 800upx;margin-top: 50upx;">
+			<!-- #endif -->
 				<u-time-line style="margin: 30upx 30upx;">
 					<u-time-line-item v-for="(item,i) of infoObjss" :key="i" >
 						<template v-slot:content>
@@ -897,6 +906,7 @@
 			}).catch(err => {
 				console.log(err);
 			})
+			
 		},
 		onReachBottom() { //上拉加载
 			this.page += 1;
@@ -912,6 +922,7 @@
 						uni.hideLoading()
 					} else {
 						this.$api.msg('已经到最底啦~',2000)
+						uni.hideLoading()
 					}
 					
 				}).catch(err => {
@@ -925,6 +936,7 @@
 						uni.hideLoading()
 					} else {
 						this.$api.msg('已经到最底啦~',2000)
+						uni.hideLoading()
 					}
 					
 					

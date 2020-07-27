@@ -18,7 +18,17 @@
 		 <view class="margin-top-sm bg-white padding-tb">
 			 <!--标签-->
 			 <view>
-			 	<hx-tab :showTabFlag="getData.getsort" @tabSelect="tabSelect"></hx-tab>
+			 	<view class="hx_tab flex  padding-lr">
+			 		<view class="flex justify-center align-center padding-sx tab_item" @tap="tabSelects" :class="index===0?'tapClass':''">
+			 			<view class="text-sm">全部</view>
+			 		</view>
+			 		<view v-for="(item,i) of tabList" :key="i" style="margin-left: 20upx;" class="flex justify-center align-center padding-sx tab_item" @tap="tabSelect(item,i)" :class="index===i+1?'tapClass':''">
+			 			<view class="text-sm">{{item.StoreSortName}}</view>
+			 		</view>
+			 	</view>
+				
+				
+				<!-- <hx-tab :tabSelects="tabSelects" :infoList="infoList" :tabList="tabList" :getData="getData" :showTabFlag="index" @tabSelect="tabSelect"></hx-tab> -->
 			 </view>
 			 <!--内容-->
 			 <view class="content_ margin-top padding-lr flex justify-between "
@@ -71,6 +81,11 @@
 				getData:{
 					
 				},
+				tabList:[
+					
+				],
+				StoreSortID:[],
+				index:0
 			}
 		},
 		components:{
@@ -82,6 +97,7 @@
 		// onShow(){
 		// 	this.changeAnimateFlag()
 		// },
+		
 		onLoad(option){
 			
 			uni.getLocation({
@@ -148,7 +164,12 @@
 				this.getData.storesortid=res//获取分类的id
 				return
 			}).then(res=>{
-				return this.getCurrentPageInfo(false,false)//发送请求	
+				this.$http.fenLei(this.getData.storesortid).then(res=>{
+					this.tabList = res
+				})
+				this.$http.fenLeis(this.getData.storesortid,0,this.getData.siteid,this.getData.getsort = 1,this.getData.page = 1,this.getData.pagesize =10,this.getData.Location).then(res=>{
+					this.infoList = res
+				})
 			})
 			
 		},
@@ -183,6 +204,12 @@
 			}
 		},
 		methods:{
+			tabSelects(){
+				this.index = 0
+				this.$http.fenLeis(this.getData.storesortid,0,this.getData.siteid,1,this.getData.page,10,this.getData.Location).then(res=>{
+					this.infoList = res
+				})
+			},
 			changInconList(){//去掉’分类图标‘
 				let ary = this.inconList.filter((it,i)=>{
 					if(it.StoreSortID!=0){
@@ -202,24 +229,41 @@
 				resolve(option.StoreSortID)//promise吐出去，方便链式调用
 				})
 			},
-			tabSelect(obj){//tab选择事件
+			tabSelect(obj,i){//tab选择事件
+				console.log(obj);
+				this.index = i + 1
 				this.changeAnimateFlag()
 				this.getData.page=1//初始化页面page
 				this.getData.getsort=obj.id//获取getsortID
-				this.getCurrentPageInfo(false,false)//发送请求
+				
+				this.$http.fenLeis(this.getData.storesortid,obj.StoreSortID,this.getData.siteid,this.getData.getsort = 1,this.getData.page = 1,this.getData.pagesize =10,this.getData.Location).then(res=>{
+					console.log(res); 
+					this.infoList = res
+				})
 			},
 			iconTap(infoObj){//图标点击选择事件
-			this.changeAnimateFlag()
-			let obj = infoObj.item
-			obj.indexId = infoObj.index
-			console.log(obj)
+				this.changeAnimateFlag()
+				this.index = 0
+				
+				let obj = infoObj.item
+				obj.indexId = infoObj.index
+				console.log(obj)
 				this.getData.page=1//初始化页面page
 				this.getData.storesortid=obj.StoreSortID*1//初始化分类的storesortid
 				this.getData.getsort=1//初始化getsortID
 				this.judge=obj.indexId//计算图标的index
 				this.scrollLeft=(obj.indexId)*40//计算图标位置
 				console.log(this.getData)
-				this.getCurrentPageInfo(false,false)//发送请求
+				
+				this.$http.fenLei(this.getData.storesortid).then(res=>{
+					console.log(res); 
+					this.tabList = res
+				})
+				
+				this.$http.fenLeis(this.getData.storesortid,obj.StoreSortID,this.getData.siteid,this.getData.getsort = 1,this.getData.page = 1,this.getData.pagesize =10,this.getData.Location).then(res=>{
+					console.log(res); 
+					this.infoList = res
+				})
 			},
 			goToDetails(objInfo){//详情页面的路由跳转
 				if (getApp().globalData.isAudit) {
@@ -265,12 +309,23 @@
 			},
 		},
 		onPullDownRefresh(){//下拉时刷新
-			this.refresGetInfo()
+			this.index = 0
+			this.$http.fenLeis(this.getData.storesortid,this.getData.StoreSortID = 0,this.getData.siteid,this.getData.getsort = 1,this.getData.page,10,this.getData.Location).then(res=>{
+				this.infoList = res
+			})
 			uni.stopPullDownRefresh();
 		},
 		onReachBottom(){//上拉加载
 			this.getData.page+=1
-			this.getCurrentPageInfo()
+			this.$http.fenLeis(this.getData.storesortid,this.getData.StoreSortID,this.getData.siteid,this.getData.getsort = 1,this.getData.page,10,this.getData.Location).then(res=>{
+				if (res.length > 0) {
+					this.infoList = this.infoList.concat(res);
+					console.log(this.infoList);
+				} else {
+					this.$api.msg('已经到最底啦~')
+				}
+				uni.hideLoading()
+			})
 		}
 	}
 </script>
@@ -283,4 +338,24 @@
 		width:48%
 	}
 	.animate2{animation:bounceInRight  0.8s 1;}
+	
+	
+	.tab_item{
+		width:20%;
+		border-radius: 80upx;
+		color:black;
+		background-color:rgb(240,240,239) ;
+		border:1px solid rgba(0,0,0,0);
+		transition:background-color 0.3s;color:0.3s;border-color:0.5s;
+	}
+	.tab_item:active{
+		border:1px solid red;
+		background-color:white;
+		color: red;
+	}
+	.tapClass{
+		background-color:white;
+		color:red;
+		border:1px solid red;
+	}
 </style>

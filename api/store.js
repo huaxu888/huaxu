@@ -164,12 +164,35 @@ export function getBusinessListByShopSort(sortId, busId, sort, page = 1, locatio
 	})
 }
 
+export function fenLeis(storesortid,sortid,siteid,getsort=1,page = 1,pageSize = 10,Location) {
+	return fly.get({
+		url: 'store/listbysort',
+		params: {
+			storesortid:storesortid,
+			sortid:sortid,
+			siteid:siteid,
+			getsort:getsort,
+			page:page,
+			pageSize:pageSize,
+			Location:Location
+		}
+	})
+}
 
-export function getWmList(storeid) {
+export function fenLei(sortid) {
+	return fly.get({
+		url: 'store/getstoresortbysortid',
+		params: {
+			sortid: sortid,
+		}
+	})
+}
+
+export function getWmList(sortid) {
     return fly.get({
         url: 'wm/wmlist',
         params: {
-            storeid: storeid
+            sortid: sortid
         }
     })
 }
@@ -467,3 +490,23 @@ export function yuebao(StoreID, day, yyyid, page = 1, pagesize = 10) {
 	)
 }
 
+export function shangjia(StoreID, userid) {
+	return fly.get(
+		'store/newdetail',
+		{
+			StoreID,
+			userid
+		}
+	)
+}
+
+export function baobiao(storeid, day, sort) {
+	return fly.get(
+		'mystore/toretodayjyfx',
+		{
+			storeid,
+			day,
+			sort
+		}
+	)
+}

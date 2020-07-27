@@ -42,7 +42,7 @@
 					<view class="zk flex flex-direction align-center justify-center" v-if="defaultDiscount != 1 || infoObject.IsZK">
 						<view class="zkBgi"></view>
 						<view style="font-size: 20upx;">
-							<view class="text-orange">劲爆 <text>{{infoObject.IsZK ? infoObject.zk*10 : defaultDiscount * 10 }}折</text> </view>
+							<view class="text-orange">劲爆 <text>{{infoObject.IsZK ? infoObject.zk * 10000 / 1000 : defaultDiscount * 10 }}折</text> </view>
 						</view>
 					</view>
 					<view class="flex align-start" style="margin-bottom: 26upx;">
@@ -221,6 +221,7 @@
 			this.scrollTop = Object.scrollTop;
 		},
 		onLoad(option) {
+			
 			this.getRouterInfo(option).then(res => {
 				console.log(res);
 				// console.log(res.Data)
@@ -238,6 +239,7 @@
 				return
 			}).then(res => {
 				let UserID = this.$store.state.userInfo.ID
+				
 				if (UserID) {
 					userScData = {
 						StoreID: this.getData.StoreID,
@@ -249,15 +251,27 @@
 						UserID: 0
 					}
 				}
-
 				return this.$Request.get(this.$store.state.isGetscUrl, userScData, false) //查看当前用户是否收藏了当前店铺
 			}).then(res => {
 				if (res.IsSuccess) {
 					this.collectionFlag = res.IsSuccess
-
+					this.$http.shangjia(this.getData.StoreID, this.$store.state.userInfo.ID)
+						.then(res => {
+							console.log(res);
+							this.infoObject = res
+							console.log(this.infoObject);
+						})
 				} else {
 					this.collectionFlag = false
+					this.$http.shangjia(this.getData.StoreID, this.$store.state.userInfo.ID)
+						.then(res => {
+							console.log(res);
+							this.infoObject = res
+							console.log(this.infoObject);
+						})
+					
 				}
+				
 			})
 			this.$http.getDefaultDiscount()
 				.then(res => {

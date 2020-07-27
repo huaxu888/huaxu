@@ -213,11 +213,11 @@
 
 <style>
 	.bg {
-		background-image: url('https://img.huaxuapp.com/622ctggg.png') ;
+		background-image: url('https://img.huaxuapp.com/713tjewm.png') ;
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 750rpx;
-		height: 4600rpx;
+		height: 4800rpx;
 	}
 
 	.Card-banner {

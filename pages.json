@@ -372,8 +372,34 @@
 				"navigationBarTextStyle":"black",
 				"navigationBarBackgroundColor":"#FFFFFF"
 			}
-		}
-		,
+		},
+		{
+		    "path" : "pages/ad/lbJiguan",
+		    "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+		},
+		{
+		    "path" : "pages/ad/lbThree",
+		    "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+		},
+		{
+		    "path" : "pages/ad/lbXs",
+		    "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+		},
 		{
 		    "path" : "pages/ad/adlt",
 		    "style" : {
@@ -803,6 +829,21 @@
                         }
                     }
                 },
+				{
+				    "path" : "sonPage/shujuFenxi/shuJu",
+				    "style" : {
+				        "enablePullDownRefresh" : true,
+				        "app-plus" : {
+				            "scrollIndicator" : "none",
+				            "pullToRefresh" : {
+				                "support" : true,
+				                "style" : "circle",
+				                "color" : "#ec3a46",
+				                "offset" : "50px"
+				            }
+				        }
+				    }
+				},
                 {
                     "path" : "sonPage/verifyOrder",
                     "style" : {
@@ -950,6 +991,10 @@
                     "path" : "aboutUs",
                     "style" : {}
                 },
+				{
+				    "path" : "qiChe",
+				    "style" : {}
+				},
                 {
                     "path" : "setting/auth",
                     "style" : {}

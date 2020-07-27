@@ -280,8 +280,8 @@
 							},
 							{
 								picUrl: 'https://img.huaxuapp.com/wdfw_07.jpg',
-								title: '财务概览',
-								navigate: '/pages/shopManagement/sonPage/billDetails', //billType state StoreID myStoreID
+								title: '经营分析',
+								navigate: '/pages/shopManagement/sonPage/shujuFenxi/shuJu', //billType state StoreID myStoreID
 								size:74
 							},
 							{

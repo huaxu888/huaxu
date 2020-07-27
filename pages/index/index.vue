@@ -54,7 +54,7 @@
 					<!-- #endif -->
 					<!-- <text class="hxIcon-saoyisao1 margin-right-xs" style="font-size: 50upx; color: #808080;" @tap="toScan()"></text> -->
 					<view class="flex" style="margin-left: 10upx;margin-right:20upx;" @tap="showMsg">
-						<text class="hxIcon-xiaoxi3 " style="font-size: 50upx;color: #808080;">
+						<text class="hxIcon-xiaoxi3 " style="font-size: 50upx;color: #ffffff;">
 							
 						</text>
 						 <view class=" cu-tag badge " v-if="tagID > 0 " style="background: #f34e2d;color:#FFFFFF; display: flex; justify-content: center; align-items: center; border-radius: 50%; width:28upx; height: 28upx;font-size: 18upx;position: absolute; z-index: 50; top: 22upx; right: 14upx;">{{tagID}}</view>
@@ -148,37 +148,41 @@
 
 			<!--  =======================页面的开始==上面是红包=========================== -->
 			<view style="position: relative;">
-				<scroll-view scroll-x class="bg-white nav text-bold" scroll-with-animation>
-					<view class="lastmargin cur-text-red text-bold" >
+				<scroll-view scroll-x class=" nav text-bold" scroll-with-animation style="background-color: #fa5837;">
+					<view class="lastmargin cur-text-red text-bold" style="color: #ffffff;font-weight: 600;font-size: 32upx;">
+						<text style="position: absolute;top:20upx;left: 50upx;color: #FFFFFF;">__</text>
 						精选
 					</view>
 					<view class="cur-text-black lastmargin" v-for="(topSliderItem,topSliderIndex) in tradingAreaList" :key="topSliderIndex"
-					 @tap="topTabSelect(topSliderItem)" style="margin-left: 16upx;margin-right: 16upx;">
+					 @tap="topTabSelect(topSliderItem)"  style="margin-left: 16upx;margin-right: 16upx;color: #FFFFFF;">
 						{{topSliderItem.BusName}}
 					</view>
 				</scroll-view>
-				<view class="flex align-center justify-center" style="width: 90upx; height: 87upx; background:#FFFFFF; position: absolute;right: 0;top: 0;"
+				<view class="flex align-center justify-center" style="width: 90upx; height: 87upx; background:#FFFFFF; position: absolute;right: 0;top: 0;background-color: #fa5837;"
 				 @tap="toBusineCssList()">
-					<text class="hxIcon-fenlei1 " style="color:#f34e2d;line-height: 1em; font-size: 32upx;"></text>
+					<text class="hxIcon-fenlei1 " style="line-height: 1em; font-size: 32upx;color: #FFFFFF;"></text>
 				</view>
 			</view>
 			<!-- 上方轮播图 -->
-			<view class="padding-lr bg-white" style="width: 100%;">
-				<swiper style="height: 250upx;width: 100%" :indicator-dots="false" :circular="true" :autoplay="true" interval="3000"
+			<view class=" bg-white" style="width: 750upx;background-color: #fa5837;">
+				<swiper style="height: 310upx;width: 100%" :indicator-dots="false" :circular="true" :autoplay="true" interval="3000"
 				 duration="1000">
 				 <!-- #ifdef MP-ALIPAY -->
 				 <swiper-item v-for="(topSwiperItem,topSwiperIndex) in topLBLlit" :key="topSwiperIndex">
 				 	<navigator :url="topSwiperItem.GGContent">
-						<image :src="topSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 100%; height: 250upx;border-radius: 15upx;"></image>
+						<image :src="topSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 100%; height: 310upx;"></image>
 					</navigator>
 				 </swiper-item>
 				 <!-- #endif -->
 					<!-- #ifndef MP-ALIPAY -->
 					<swiper-item v-for="(topSwiperItem,topSwiperIndex) in topLBLlit" :key="topSwiperIndex" @tap="LBTnavigate(topSwiperItem.GGContent)">
-						<image :src="topSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 100%; height: 250upx;border-radius: 15upx;"></image>
+						<image :src="topSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 100%; height: 310upx;"></image>
 					</swiper-item>
 					<!-- #endif -->
 				</swiper>
+			</view>
+			<view style="background-color: #FFFFFF;width: 750upx;">
+				<image src="https://img.huaxuapp.com/sybanner_02.png" mode="" style="height: 90upx;width: 750upx;" ></image>
 			</view>
 			<view class="padding-lr padding-bottom-xs flex align-center bg-white " style="padding-top: 40upx;">
 				<text style="white-space: nowrap;margin-right: 15upx;margin-left: 20upx;line-height: 1em;">花蓄</text>
@@ -369,6 +373,7 @@
 			</view>
 		</view>
 		<!-- #endif -->
+		 
 		
 		<navigator url="/pages/ad/couponRedemption">
 			<view class="coupons shake"></view>
@@ -502,16 +507,15 @@
 			}
 		},
 		async onLoad(options) {
-			// #ifdef APP-PLUS
+			
 			// this.showKaiPing = true
 			// this.loadExecution()
-			// #endif
 			if (options.tjrid) {
 				this.$store.commit('setTjrid', options.tjrid)
 			}
 			//获取地址 接着获取站点
 			// await this.getSiteLocation();
-			// #ifdef H5 || MP-ALIPAY
+			// #ifdef H5 || MP-ALIPAY  || APP-PLUS
 				await this.getSite();
 			// #endif
 			
@@ -522,6 +526,7 @@
 				await this.newGetSite();
 			// #endif
 
+			
 			//  获取站点 ,没有传参的
 			// await this.getSite();
 			// 获取顶部部轮播图
@@ -553,7 +558,7 @@
 			//下拉刷新
 			
 			//获取地址 接着获取站点
-			// #ifdef H5 || MP-ALIPAY
+			// #ifdef H5 || MP-ALIPAY || APP-PLUS
 				await this.getSite();
 			// #endif
 			
@@ -1569,6 +1574,8 @@
 		width: 100%;
 		background: white;
 		z-index: 1;
+		background-color: #fa5837;
+		color: #FFFFFF;
 	}
 
 	.before {
@@ -1631,11 +1638,11 @@
 	}
 
 	.cu-bar .search-form {
-		background-color: #F1F1F1;
+		background-color: #ffffff;
 		height: 64upx;
 		width: 5upx;
 		font-size: 24upx;
-		color: #333333;
+		color: #999999;
 		flex: 1;
 		display: flex;
 		align-items: center;
