@@ -401,7 +401,34 @@
 			}
 		},
 		{
+		    "path" : "pages/ad/jfsk",
+		    "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+		},
+		{
+		    "path" : "pages/ad/kb",
+		    "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"领优惠券啦~",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+		},
+		{
 		    "path" : "pages/ad/adlt",
+		    "style" : {
+				"navigationStyle":"default",
+				"navigationBarTitleText":"联通充值送豪礼",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+		}
+		,{
+		    "path" : "pages/ad/ltgg",
 		    "style" : {
 				"navigationStyle":"default",
 				"navigationBarTitleText":"联通充值送豪礼",

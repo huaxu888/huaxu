@@ -710,6 +710,14 @@ export function liubajiguanquan () {
 export function liubajiguanquans () {
 	return fly.get('coupons/findconponsbyorgtwo')
 }
+
+export function jfskquan () {
+	return fly.get('coupons/findconponsbystore')
+}
+
+export function zykb () {
+	return fly.get('coupons/findconponsbystorezy')
+}
 /**
  * 抢优惠券
  * 

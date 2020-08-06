@@ -379,6 +379,13 @@
 			<view class="coupons shake"></view>
 		</navigator>
 		
+		<!-- #ifdef APP-PLUS -->
+		<navigator url="/pages/ad/couponRedemption">
+			<view class="dong shake" style="width: 170rpx;height: 166rpx;background: url(https://img.huaxuapp.com/qyhq_03.png) no-repeat;background-position: center;
+			background-size: cover;position: fixed;bottom: 50upx;right: 30rpx;animation-timing-function: ease-in-out;animation-iteration-count: infinite;animation-duration: 3s;
+		"></view>
+		</navigator>
+		<!-- #endif -->
 	</view>
 
 </template>
@@ -685,8 +692,9 @@
 				this.showIncomeWayPanel = !this.showIncomeWayPanel
 			},
 			async getRegeo() {
-				
+				console.log('44444444444444444444444444444444445454');
 				let res = await this.adcodePromise().then(res=>{
+					console.log(res);
 					this.location = res.location;
 					let r = this.location.split(',')
 					this.$store.commit('setLocation', {longitude: r[0], latitude: r[1]})
@@ -696,7 +704,7 @@
 			},
 			adcodePromise() {
 				return  new Promise((resolve, reject) => {
-					new amap.AMapWX({
+					new amap.AMapWX({ 
 						key: this.key
 					}).getRegeo({
 						success: (data) => {
@@ -706,6 +714,7 @@
 							}
 							resolve(locathinData)
 						},fail: (err) => { 
+							console.log(err);
 						}
 					});
 				})

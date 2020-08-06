@@ -3,7 +3,7 @@
     "appid" : "__UNI__F118E50",
     "description" : "",
     "versionName" : "1.0.26",
-    "versionCode" : 102,
+    "versionCode" : 101,
     "transformPx" : false,
     "app-plus" : {
         /* 5+App特有相关 */
@@ -21,7 +21,9 @@
         "modules" : {
             "Payment" : {},
             "Maps" : {},
-            "Push" : {}
+            "Push" : {},
+            "OAuth" : {},
+            "Share" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -36,15 +38,26 @@
                     "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_LOCATION_EXTRA_COMMANDS\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>",
                     "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
                     "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
                     "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>"
-                ]
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>"
+                ],
+                "autoSdkPermissions" : true
             },
             "ios" : {
                 "idfa" : false
@@ -63,7 +76,27 @@
                         "appid" : "wxc5e37f442ed9bfd8"
                     }
                 },
-                "ad" : {}
+                "ad" : {},
+                "geolocation" : {
+                    "amap" : {
+                        "__platform__" : [ "android" ],
+                        "appkey_ios" : "1757bc7907708f6dc88f4a14cb4aa652",
+                        "appkey_android" : "6bbf6619ef73ee96cc3cf805b60650b3"
+                    }
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wxc5e37f442ed9bfd8",
+                        "UniversalLinks" : ""
+                    }
+                },
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "wxc5e37f442ed9bfd8",
+                        "appsecret" : "59675e97cf48c21f2f9f49399d5581ac",
+                        "UniversalLinks" : ""
+                    }
+                }
             },
             "icons" : {
                 "android" : {

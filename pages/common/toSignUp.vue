@@ -219,6 +219,7 @@
 							},
 							success: res => {
 								let data = JSON.parse(res.data)
+								console.log(data);
 								let url = `https://img.huaxuapp.com/${data.key}`
 								this.data.BigHeadPhoto = url
 								uni.hideLoading()
