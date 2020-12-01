@@ -7,7 +7,7 @@
 				<block slot="content">海报设计</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">海报设计</block>
+				<block slot="content">海报设计</block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->
@@ -77,7 +77,7 @@
 				</view> -->
 			</view>
 			
-			<view style="width:74%;height:100%;" :style="{'background':titleIndex!=3?'#e8c091':'#f34e2d'}"  class="  flex justify-center align-center" @tap="kaitong">
+			<view style="width:74%;height:100%;" :style="{'background':titleIndex!=3?'#e8c091':'#fe4e01'}"  class="  flex justify-center align-center" @tap="kaitong">
 				<text style="font-size: 33upx;" :style="{color:titleIndex!=3?'#8d5b20':'white'}">{{titleIndex!=3?'立即开通':'在线生成'}}</text>
 			</view>
 		</view>

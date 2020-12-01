@@ -6,7 +6,7 @@
 			<block slot="content">收银员收款码</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">收银员收款码</block>
+			<block slot="content">收银员收款码</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

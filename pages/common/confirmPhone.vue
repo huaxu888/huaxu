@@ -5,7 +5,7 @@
             <block slot="content">一键登录</block>
             <!-- #endif -->
             <!-- #ifdef MP-ALIPAY || MP-WEIXIN -->
-            <block slot="backText">一键登录</block>
+            <block slot="content">一键登录</block>
             <!-- #endif -->
         </cu-custom>
         <view class="cover flex-direction" :style="{ paddingTop: `${pdTop}px` }">

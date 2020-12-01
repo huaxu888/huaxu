@@ -6,7 +6,7 @@
 			<block slot="content">交易详情</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">交易详情</block>
+			<block slot="content">交易详情</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -79,7 +79,7 @@
 					// },
 					{
 						text:'消费类型',
-						value:'正常消费',
+						value:'买单',
 						key:'Sort'
 					},
 					// {
@@ -153,7 +153,7 @@
 								}
 								if(key === 'Sort'){
 									if(value === 2){
-										value='正常消费'
+										value='买单'
 									}else{
 										value = '退款'
 									}

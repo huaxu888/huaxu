@@ -1,26 +1,26 @@
 <template>
-	<view class="btn_  text-df ">
+	<view class="btn_  text-df " style="z-index: 99;">
 		<view class="tui-operation tui-top40">
 		  <view class="tui-operation-left tui-col-5">
 		    <view class="tui-operation-item"  @tap="backIndex" >
-		      	<view style="font-size:50upx" class="cuIcon-home"  hover-class="tui-opcity" :hover-stay-time="150"></view>
-		      <view class=" " style="font-size: 24upx;">首页</view>
+		      	<view style="font-size:44upx;color: #777777;" class="hxIcon-shouye1"  hover-class="tui-opcity" :hover-stay-time="150"></view>
+		      <view class=" " style="font-size: 22upx;">首页</view>
 		    </view>
 			<!-- #ifdef MP-WEIXIN -->
 			<button open-type="contact" class="contact tui-operation-item" style="height: 100%;">
-					<view style="font-size:50upx" class="hxIcon-kefu1" hover-class="tui-opcity" :hover-stay-time="150"></view>
-					<view class=" " style="font-size: 24upx;margin-top: 8upx;">客服</view>
+					<view style="font-size:44upx;color: #777777;" class="hxIcon-zhinengkefu1" hover-class="tui-opcity" :hover-stay-time="150"></view>
+					<view class=" " style="font-size: 22upx;margin-top: 8upx;">客服</view>
 			</button>
 			<!-- #endif -->
 			<!-- #ifndef MP-WEIXIN -->
 			<!-- <view class="tui-operation-item"  @tap="toShare" >
 			  	<view style="font-size:50upx" class="hxIcon-xinbaniconshangchuan-"  hover-class="tui-opcity" :hover-stay-time="150"></view>
-			  <view class=" " style="font-size: 24upx;">分享</view>
+			  <view class=" " style="font-size: 22upx;">分享</view>
 			</view> -->
 			<!-- #endif -->
 		    <view class="tui-operation-item"  @tap="beCollection">
-		      	<view style="font-size:50upx" :class="collectionFlag?'hxIcon-shoucang3-fill shouchang':'hxIcon-shoucang3'" hover-class="tui-opcity" :hover-stay-time="150"></view>
-		      <view class=" " style="font-size: 24upx;">收藏</view>
+		      	<view style="font-size:44upx;" :class="collectionFlag?'hxIcon-shoucang3-fill shouchang':'hxIcon-shoucang2 shoucs'" hover-class="tui-opcity" :hover-stay-time="150"></view>
+		      <view class=" " style="font-size: 22upx;">收藏</view>
 		    </view>
 		  </view>
 		  <view class="flex align-center justify-center " >
@@ -29,13 +29,31 @@
 				</view>
 		  </view>
 		 <view class="flex align-center justify-center " >
-			 <view @tap="goToShopping" class="flex align-center justify-center bg-blue margin-lr-xs padding-lr-sm"  style="width: 190upx;height: 70upx;border-radius: 300upx;background:  linear-gradient(to right, #f34e2d, #f12400);">
+			 <view @tap="goToShopping" class="flex align-center justify-center bg-blue margin-lr-xs padding-lr-sm"  style="width: 190upx;height: 70upx;border-radius: 300upx;background:  linear-gradient(to right, #fe4e01, #f12400);">
 			 	 <text>消费买单</text>
 			 </view>
 		 </view>
 		</view>
 		
+		<!-- <view style="width: 374upx;border-right: 1upx solid #999999;">
+					  <button open-type="contact" class="contact tui-operation-item flex align-center justify-center" style="height: 100%;display: flex;flex-direction: row;">
+					  	<view style="font-size:44upx" class="hxIcon-zhinengkefu1" hover-class="tui-opcity" :hover-stay-time="150"></view>
+					  	<view class=" " style="font-size: 22upx;margin-left: 20upx;">在线客服</view>
+					  </button>
+		</view>
 		
+		<view style="width: 375upx;">
+					  <view class="contact tui-operation-item flex align-center justify-center" style="height: 100%;display: flex;flex-direction: row;" @tap="gotoreservation">
+						<view style="font-size:44upx;position: relative;" class="hxIcon-yuyue1" hover-class="tui-opcity" :hover-stay-time="150">
+							<view style="position: absolute;top: -10upx;left: 20upx; width: 38upx;height: 20upx;background-color: #fe4e01;border-radius: 40upx;font-size: 16upx;">
+								<text style="color: #ffffff;">免费</text>
+							</view>
+						</view>
+						<view class=" " style="font-size: 22upx;margin-left: 20upx;position: relative">
+							预约到店
+						</view>
+					  </view>
+		</view> -->
 	<!-- 	<view @tap="backIndex" class="padding-lr-xs flex justify-center  align-center" style="width:20%">
 			<view class="flex justify-center flex-direction align-center" style="width:100%">
 				<view style="font- size:50upx" class="cuIcon-home"></view>
@@ -301,7 +319,7 @@
 	}
 	
 	.shouchang{
-		color: #f34e2d;
+		color: #fe4e01;
 	}
 	
 	.tui-top40 {
@@ -361,4 +379,7 @@
 		padding-top: 0;
 	}
 	
+	.shoucs {
+		color: #777777;
+	}
 </style>

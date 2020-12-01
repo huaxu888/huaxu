@@ -3,10 +3,10 @@
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN-->
 		<cu-custom bgColor="bg-transparent" class="text-white" style="position: fixed; z-index: 9;">
 			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content">支付详情</block>
+			<block slot="content"></block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">支付详情</block>
+			<block slot="content"></block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

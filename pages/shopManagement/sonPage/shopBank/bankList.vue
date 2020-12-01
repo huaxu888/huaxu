@@ -6,7 +6,7 @@
 			<block slot="content">商铺对公账户</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">商铺对公账户</block>
+			<block slot="content">商铺对公账户</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

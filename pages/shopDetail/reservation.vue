@@ -77,7 +77,7 @@
 
 <template>
 	<view class="reservation-page">
-		<cu-custom bgColor="bg-white" :isBack="true" class="solid-bottom">
+		<cu-custom bgColor="bg-whitesss" :isBack="true" class="solid-bottom">
 			<block slot="content">在线预约</block>
 		</cu-custom>
 		<form>

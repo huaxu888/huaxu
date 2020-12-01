@@ -1,11 +1,11 @@
 <template>
 	<view class="nick-page">
-		<cu-custom bgColor="bg-white" :isBack="true" class="text-black">
+		<cu-custom bgColor="bg-whitesss" :isBack="true" class="text-black">
 			<!-- #ifdef APP-PLUS || H5-->
 				<block slot="content">修改昵称</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">修改昵称</block>
+				<block slot="content">修改昵称</block>
 			<!-- #endif -->
 		</cu-custom>
 		<view class="input-item flex" :class="focused ? 'active' : ''">

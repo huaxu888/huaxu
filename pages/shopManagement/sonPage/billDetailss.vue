@@ -8,7 +8,7 @@
 				<block slot="content">{{billType==='daili'?'提现':'营收'}}明细</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">{{billType==='daili'?'提现':'营收'}}明细</block>
+				<block slot="content">{{billType==='daili'?'提现':'营收'}}明细</block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->
@@ -267,7 +267,7 @@
 				yYyList: [{
 					Nick: '全部收银员',
 					ID: 0,
-					FaceURL: 'https://img.huaxuapp.com/pig.png',
+					FaceURL: 'https://img.huaxuapp.com/huaxulogo70px.png',
 					shouyingyuan: {
 						UserID: 0
 					},
@@ -489,6 +489,7 @@
 				this.riqi = this.datas
 				this.riqir = this.formatDate(this.riqi, -1 )
 				this.classIndex = 0
+				this.page = 1
 				this.$http.ribao(this.getData.StoreID,0,this.datas,this.page,this.pagesize)
 				.then(res => {
 					console.log(res);
@@ -518,6 +519,7 @@
 				this.riqi = this.timeValue
 				this.riqiy = this.formatDate(this.riqi, -1)
 				this.classIndex = 0
+				this.page = 1
 				this.$http.yuebao(this.getData.StoreID,this.timeValue,0,this.page,this.pagesize)
 				.then(res => {
 					console.log(res);
@@ -914,8 +916,9 @@
 				title: '加载中',
 				mask: false
 			});
+			
 			if(this.curNow == 0) {
-				this.$http.ribao(this.getData.StoreID,0, this.getData.day,this.page,this.pagesize)
+				this.$http.ribao(this.getData.StoreID,0, this.datas,this.page,this.pagesize)
 				.then(res => {
 					if (res.Data.length > 0) {
 						this.infoObjs = this.infoObjs.concat(res.Data)
@@ -1005,7 +1008,7 @@
 	    width: 0;
 	    height: 0;
 	    border-top: 10px solid transparent ;
-	    border-right: 10px solid #EEEEEE;
+	    border-right: 10px solid rgb(242, 242, 242);
 	    border-bottom: 10px solid transparent;
 	    border-left: 10px solid transparent;
 		position: absolute;

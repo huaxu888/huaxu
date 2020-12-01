@@ -7,7 +7,7 @@
 			<block slot="content">账单明细</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">账单明细</block>
+			<block slot="content">账单明细</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -123,7 +123,7 @@
 				yYyList: [{
 					Name: '全部',
 					ID: 0,
-					FaceURL: 'https://img.huaxuapp.com/pig.png',
+					FaceURL: 'https://img.huaxuapp.com/huaxulogo70px.png',
 					shouyingyuan: {
 						UserID: 0
 					},

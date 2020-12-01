@@ -6,15 +6,16 @@
 				<block slot="content">{{title}}</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">{{title}} </block>
+				<block slot="content">{{title}} </block>
 			<!-- #endif -->
 		</cu-custom>	
 		<!-- #endif -->
 		<view>
 			<view class="flex justify-between align-center padding">
-				<text class="text-lg">
-					提现金额
+				<text class="text-lg" @click="showTips">
+					提现金额<!-- <text class="hxIcon-wenhao3" style="font-size: 30upx;margin-left: 10upx;" @click="showTips"></text> -->
 					<text class="text-sm text-gray">【当前可提现{{ wxf > 0 ? wxf : -wxf}}】</text>
+					
 				</text>
 				<text class="text-df text-green" v-if="type==='xiaofeiTX'" @tap="goToBalanceDetail">提现明细</text>
 			</view>
@@ -46,6 +47,7 @@
 	export default{
 		onShow(){
 			this.userInfo=this.$store.state.userInfo
+			this.times()
 		},
 		onLoad(option){
 			this.$http.myStore(this.$store.state.userInfo.ID, option.storeid)
@@ -89,6 +91,18 @@
 			}
 		},
 		methods:{
+			showTips() {
+				uni.showToast({
+					icon:'none',
+				    title: '商家申请提现后,经后台审核需三个工作日方可到账,周末及节假日顺延',
+				    duration: 5000
+				});
+			},
+			times() {
+				var date = new Date();
+				date.setDate(date.getDate() + 3);
+				return date.getFullYear() +"-"+ (date.getMonth()+1) +"-"+ date.getDate()
+			},
 			async hxXfTxian(){//消费提现
 				if (!this.IsBank) {
 					uni.showModal({
@@ -103,31 +117,45 @@
 						}
 					})
 					return
-				}
-				if (!this.StoreRest_ || this.StoreRest_ > this.wxf) {
-					this.StoreRest_ = 0
-					uni.showToast({
-						title: '金额不正确',
-						icon: 'none'
+				} else {
+					uni.showModal({
+						title: '提现说明',
+						content: `提现到账时间${this.times()},如遇周末及法定节假日顺延！`,
+						showCancel:true,
+						confirmText: '继续提现',
+						success: (res) => {
+							if (res.confirm) {
+								console.log('点击确定');
+								if (!this.StoreRest_ || this.StoreRest_ > this.wxf) {
+									this.StoreRest_ = 0
+									uni.showToast({
+										title: '金额不正确',
+										icon: 'none'
+									})
+									return
+								}
+								this.getData.num = this.StoreRest_
+								this.getData.userid = this.$store.state.userInfo.ID
+								return this.$Request.get(this.$store.state.cashOutUrl,this.getData).then(res=>{
+									if(res.IsSuccess){
+										setTimeout(()=>{
+											this.$api.msg(res.Msg,2000,'success')
+										},500)
+										uni.navigateTo({
+											url:`/pages/prestoreDetail/isSuccess?type=tx&money=${this.StoreRest_}`
+										})
+									}else if(!res.IsSuccess){
+										let msg = res.Msg
+										this.$api.msg(res.Msg,2000)
+									}
+									return res
+								})
+							}
+						}
 					})
 					return
 				}
-				this.getData.num = this.StoreRest_
-				this.getData.userid = this.$store.state.userInfo.ID
-				return this.$Request.get(this.$store.state.cashOutUrl,this.getData).then(res=>{
-					if(res.IsSuccess){
-						setTimeout(()=>{
-							this.$api.msg(res.Msg,2000,'success')
-						},500)
-						uni.navigateTo({
-							url:`/pages/prestoreDetail/isSuccess?type=tx&money=${this.StoreRest_}`
-						})
-					}else if(!res.IsSuccess){
-						let msg = res.Msg
-						this.$api.msg(res.Msg,2000)
-					}
-					return res
-				})
+				
 			},
 			async hxYcTxian(){//预存提现
 				let val = await this.$Request.get(this.$store.state.getYccashout,this.getYcData)

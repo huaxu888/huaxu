@@ -2,7 +2,7 @@
 	<view>
 		<view class="margin flex" @tap="goToDetail" >
 			<view style="height:150upx;width:220upx" >
-				<image :src="itemObj.StorePic?itemObj.StorePic:'https://img.huaxuapp.com/pig.png'"  style="height: 100%;" class="radius " :lazy-load="lazyLoad"></image>
+				<image :src="itemObj.StorePic?itemObj.StorePic:'https://img.huaxuapp.com/huaxulogo70px.png'"  style="height: 100%;" class="radius " :lazy-load="lazyLoad"></image>
 			</view>
 			
 			<view class="margin-left" style="width: 100%;" :style="[{width:itemObj.isSmall?'80%':'100%'}]" >
@@ -20,8 +20,8 @@
 					</text>
 				</view>
 				<view class="margin-top-xs flex" style=" color: #666666; height: 65upx; line-height:32upx;">
-					<text class="cuIcon-location text-green" style="font-size: 24upx;"></text>
-					<text class="text-sm margin-left-xs text_hid">
+					<text class="hxIcon-dingwei3 " style="color: #ff5b2e;font-size: 24upx;"></text>
+					<text class="text-sm margin-left-xs text_hid" style="margin-left: 2upx;">
 						{{changeAddress(itemObj.StoreAddress)}}
 					</text>
 				</view>

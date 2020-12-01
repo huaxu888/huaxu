@@ -28,18 +28,40 @@ export function getVerifyCode(phone) {
  * 
  * @return {Promise} 包含请求结果的Promise，需要自行对请求结果进行处理
  */
-export function loginWithCode(phone, yzm, dt, userid, pid = 0) {
+// export function loginWithCode(phone, yzm, dt, userid, pid = 0) {
+// 	console.log(arguments);
+//     return fly.get({
+//         url: 'menber/newloginbyphone',
+//         params: {
+//             phone,
+// 			yzm,
+// 			dt,
+// 			pid,
+// 			userid
+//         }
+//     })
+// }
+
+/// 直接通过手机号登录（现）
+/// <param name="phone"></param>
+/// <param name="yzm"></param>
+/// <param name="dt"></param>
+/// <param name="pid">推荐人id</param>
+/// <param name="storepid">扫店铺码推荐人id</param>
+/// <param name="userid">id</param>
+export function loginWithCode(phone, yzm, dt, pid, userid, storepid) {
 	console.log(arguments);
-    return fly.get({
-        url: 'menber/newloginbyphone',
-        params: {
-            phone,
+	return fly.get({
+		url: 'menber/newloginbyphone',
+		params: {
+			phone,
 			yzm,
 			dt,
 			pid,
-			userid
-        }
-    })
+			userid,
+			storepid
+		}
+	})
 }
 
 /**
@@ -99,7 +121,7 @@ export function loginWithWxNew(phone, openid, unionid, pid = 0, yyyid = 0) {
     })
 }
 
-export function loginWithWx(phone, nickname, headimgurl, openid, unionid, pid = 0, yyyid = 0) {
+export function loginWithWx(phone, nickname, headimgurl, openid, unionid, pid = 0, yyyid = 0, storepid) {
 	console.log('登录参数', arguments)
     return fly.get({
         url: 'menber/newregisterwx',
@@ -111,6 +133,7 @@ export function loginWithWx(phone, nickname, headimgurl, openid, unionid, pid = 
             unionid: unionid,
             pid: pid,
             yyyid: yyyid,
+			storepid:storepid
         }
     })
 }
@@ -155,24 +178,6 @@ export function getWxAppletOrderInfo(total_amount, description, openid, out_trad
 			dkmoney: dkmoney,
 			price: price,
 			sjprice,
-        }, {
-            baseURL: paymentBaseURL
-        }
-    )
-}
-
-export function getWxAppletRechargeOrderInfo(out_trade_no, total_amount, body, userid, storeid = 0, sjprice) {
-    let nowUserInfo = uni.getStorageSync('userInfo')
-    let mid = nowUserInfo.ID
-	return fly.post(
-        'Wechatpay/ChargeAppletPay', {
-            out_trade_no,
-			total_amount: total_amount * 100,
-			body,
-			userid,
-			mid,
-			storeid,
-			sjprice
         }, {
             baseURL: paymentBaseURL
         }
@@ -330,6 +335,7 @@ export function getAppRechargeOrderInfo(userid, out_trade_no, total_amount, body
         }
     )
 }
+
 
 /**
  * @param {Object} usrid								用户 id
@@ -537,33 +543,53 @@ export function sendBookSMS(userid, storeid) {
 	)
 }
 
-export function xinshou() {
+export function xinshou(page,pagesize) {
 	return fly.get(
 		'news/huaxumustsee',
+		{
+			page:page,
+			pagesize:pagesize
+		}
 	)
 }
 
-export function changjian() {
+export function changjian(page,pagesize) {
 	return fly.get(
 		'news/huaxucommonproblem',
+		{
+			page:page,
+			pagesize:pagesize
+		}
 	)
 }
 
-export function gonggao() {
+export function gonggao(page,pagesize) {
 	return fly.get(
 		'news/huaxunotice',
+		{
+			page:page,
+			pagesize:pagesize
+		}
 	)
 }
 
-export function ruzhu() {
+export function ruzhu(page,pagesize) {
 	return fly.get(
 		'news/huaxucheckin',
+		{
+			page:page,
+			pagesize:pagesize
+		}
 	)
 }
 
-export function zixun() {
+export function zixun(page,pagesize) {
 	return fly.get(
 		'news/huaxuadvice',
+		{
+			page:page,
+			pagesize:pagesize
+		}
 	)
 }
 export function getRecharge() {
@@ -711,12 +737,20 @@ export function liubajiguanquans () {
 	return fly.get('coupons/findconponsbyorgtwo')
 }
 
+export function lbZhguans () {
+	return fly.get('coupons/findconponsbyorg')
+}
+
 export function jfskquan () {
 	return fly.get('coupons/findconponsbystore')
 }
 
 export function zykb () {
 	return fly.get('coupons/findconponsbystorezy')
+}
+
+export function cxcheXian () {
+	return fly.get('coupons/findconponsbyhuaxu')
 }
 /**
  * 抢优惠券
@@ -732,6 +766,10 @@ export function robCoupons (userid, yhqid) {
 			yhqid
 		}
 	)
+}
+
+export function lianHequan () {
+	return fly.get('coupons/findconponsbypt')
 }
 
 /**
@@ -754,12 +792,13 @@ export function canRobCouponsList(page = 1, pageSize = 10) {
  * @param {Object} userid				领取人的 id
  * @param {Object} yhqid				要领取的优惠券 id
  */
-export function getCoupon(userid, yhqid) {
+export function getCoupon(userid, yhqid,phone="") {
 	return fly.get(
 		'coupons/getconponsbystoreid',
 		{
 			userid,
-			yhqid
+			yhqid,
+			phone
 		}
 	)
 }
@@ -844,6 +883,77 @@ export function ofThe(out_trade_no, total_amount, body, openid, userid, price, N
 	)
 }
 
+
+// 微信红包充值
+export function getWxAppletRechargeOrderInfo(out_trade_no, total_amount, body, userid, mid, chargeid) {
+    
+	return fly.post(
+        'Wechatpay/ChargeAppletPay', {
+            out_trade_no,
+			total_amount: total_amount,
+			body,
+			userid,
+			mid,
+			chargeid
+        }, {
+            baseURL: paymentBaseURL
+        }
+    )
+}
+
+// 支付宝小程序红包充值
+export function getAppletsPays(userid, out_trade_no, subject, total_amount, body, buyerid, chargeid) {
+	return fly.post(
+        'Alipay/ChargeAlipayAppletPay',  {
+	        userid,
+			out_trade_no,
+	        subject,
+			total_amount,
+	        body,
+	        buyerid,
+			chargeid
+	    },
+		{
+			baseURL: paymentBaseURL
+		}
+	)
+}
+
+// 微信小程序待释放充值
+export function getwxAppletsJFPay(userid,openid,out_trade_no, total_amount, body, phone) {
+	return fly.post(
+		'Wechatpay/PointsPay', {
+	        userid,
+	        openid,
+	        out_trade_no,
+	        total_amount,
+	        body,
+			phone
+	    },
+		{
+			baseURL: paymentBaseURL
+		}
+	)
+}
+
+// 支付宝小程序待释放充值
+export function getAppletsJFPays(userid, out_trade_no, subject, body, buyerid, total_amount, phone) {
+	return fly.post(
+        'Alipay/PointsPay',  {
+	        userid,
+			out_trade_no,
+	        subject,
+	        body,
+	        buyerid,
+			total_amount,
+			phone
+	    },
+		{
+			baseURL: paymentBaseURL
+		}
+	)
+}
+
 /**
  * @description 				国际小姐报名
  * 
@@ -863,6 +973,414 @@ export function applicationConditions () {
 		'news/missagree', 
 		{
 			siteid: 0
+		}
+	)
+}
+
+
+export function tiXian(userid,num,pwd,account,sort) {
+	return fly.get(
+		'scores/fenruntx', 
+		{
+			userid,
+			num,
+			pwd,
+			account,
+			sort
+		}
+	)
+}
+
+export function shanKa(userid) {
+	return fly.get(
+		'scores/delyhk', 
+		{
+			userid,
+		}
+	)
+}
+
+export function tXzd(userid) {
+	return fly.get(
+		'scores/fenruntxdetail', 
+		{
+			userid,
+		}
+	)
+}
+
+export function czZd(userid) {
+	return fly.get(
+		'scores/czdetail', 
+		{
+			userid,
+		}
+	)
+}
+
+export function zzZd(userid) {
+	return fly.get(
+		'scores/czjfdetail', 
+		{
+			userid,
+		}
+	)
+}
+
+export function zzKg() {
+	return fly.get(
+		'mymember/kqzzkg', 
+		{
+		}
+	)
+}
+
+export function zdStore(siteid) {
+	return fly.get(
+		'store/liststorebyzd', 
+		{
+			siteid
+		}
+	)
+}
+
+export function hbZq(siteid,sortid,Location,page,pagesize) {
+	return fly.get(
+		'store/liststorebyhx', 
+		{
+			siteid,
+			sortid,
+			Location,
+			page,
+			pagesize
+		}
+	)
+}
+
+export function getCenterLBLlits(siteID) {
+    return fly.get({
+        url: 'advert/adverthblist',
+		params: {
+			siteID: siteID
+		}
+    })
+}
+
+// 抢券页面二级分类
+export function redBao() {
+	return fly.get(
+		'newcoupons/gethotsearch', 
+		{
+		}
+	)
+}
+
+// 今日新券
+export function todayCou(page,pagesize,location) {
+	return fly.get(
+		'newcoupons/todaycoupons', 
+		{
+			page,
+			pagesize,
+			location
+		}
+	)
+}
+
+// 五折好券
+export function fivCou(zhekou,page,pagesize,location) {
+	return fly.get(
+		'newcoupons/goodcoupons', 
+		{
+			zhekou,
+			page,
+			pagesize,
+			location
+		}
+	)
+}
+
+// 大牌好券
+export function bigCou(page,pagesize,location) {
+	return fly.get(
+		'newcoupons/bigcoupons', 
+		{
+			page,
+			pagesize,
+			location
+		}
+	)
+}
+
+// 商铺类型
+export function storeList() {
+	return fly.get(
+		'newcoupons/getstoresort', 
+		{
+		}
+	)
+}
+
+// 券站点
+export function getSite() {
+	return fly.get(
+		'newcoupons/getstoresite', 
+		{
+		}
+	)
+}
+
+// 抢券接口
+export function qianQuan(keyword,sortid,siteId,paixu,CouponType,page,pagesize,location) {
+	return fly.get(
+		'newcoupons/getallstorecouponslist', 
+		{
+			keyword,
+			sortid,
+			siteId,
+			paixu,
+			CouponType,
+			page,
+			pagesize,
+			location
+		}
+	)
+}
+
+// 抢券二级分类
+export function twoQuan(sortinstoreid,page,pagesize) {
+	return fly.get(
+		'newcoupons/getsortinstore', 
+		{
+			sortinstoreid,
+			page,
+			pagesize
+		}
+	)
+}
+
+// 抢券轮播图
+export function lunbBo(siteID) {
+	return fly.get(
+		'advert/adverqqlist', 
+		{
+			siteID
+		}
+	)
+}
+
+/// <summary>
+/// 我的优惠券
+/// </summary>
+/// <param name="userid">用户ID</param>
+/// <param name="type">1未使用 2已使用 3已过期</param>
+/// <returns>CouponSort 优惠券类型   1红包专区  2站点通用 6满代 7满送</returns>
+
+export function myCoulist(userid,type,page,pagesize) {
+	return fly.get(
+		'newcoupons/mycoupons', 
+		{
+			userid,
+			type,
+			page,
+			pagesize
+		}
+	)
+}
+
+// <summary>
+// 微信小程序短信在线充值
+// </summary>
+// <param name="userid">用户Id</param>
+// <param name="openid">openid</param>
+// <param name="out_trade_no">订单号</param>
+// <param name="total_amount">充值金额</param>
+// <param name="body">描述信息</param>
+// <param name="storeid">店铺id</param>
+// <param name="nums">条数</param>
+export function getWxduanxin(userid, openid, out_trade_no, total_amount, body, storeid, nums) {
+	
+	return fly.post(
+        'Wechatpay/SMSWPay', {
+            userid: userid, 
+			openid: openid, 
+			out_trade_no: out_trade_no,
+			total_amount: total_amount * 100,
+			body: body, 
+			storeid: storeid, 
+			nums: nums
+        }, {
+            baseURL: paymentBaseURL
+        }
+    )
+}
+
+// 车险微信消费
+export function getWxchexian(out_trade_no, total_amount, body, openid, userid, yhqid, phone) {
+	console.log('支付参数：', arguments);
+	
+	return fly.post(
+		'Wechatpay/CliCouponsAppletPay',
+		{
+			out_trade_no,
+			total_amount: total_amount * 100,
+			body,
+			openid,
+			userid,
+			yhqid,
+			phone
+		},
+		{
+			baseURL: paymentBaseURL
+		}
+	)
+}
+
+// 套餐支付
+export function tgWxpay(orderid, openid, out_trade_no, total_amount, body) {
+	console.log('支付参数：', arguments);
+	
+	return fly.post(
+		'Wechatpay/SetMealPay',
+		{
+			orderid, 
+			openid, 
+			out_trade_no, 
+			total_amount: total_amount * 100,
+			body
+		},
+		{
+			baseURL: paymentBaseURL
+		}
+	)
+}
+
+/// 微信App套餐购买
+/// <param name="orderid"></param>
+/// <param name="out_trade_no"></param>
+/// <param name="total_amount"></param>
+/// <param name="body"></param>
+export function tgAppWxpay(orderid, out_trade_no, total_amount, body) {
+	console.log('支付参数：', arguments);
+	
+	return fly.post(
+		'Wechatpay/SetMealAppPay',
+		{
+			orderid, 
+			out_trade_no, 
+			total_amount: total_amount * 100,
+			body
+		},
+		{
+			baseURL: paymentBaseURL
+		}
+	)
+}
+
+/// 支付宝App套餐购买
+/// <param name="orderid">套餐订单ID</param>
+/// <param name="out_trade_no"></param>
+/// <param name="subject"></param>
+/// <param name="body"></param>
+/// <param name="total_amount"></param>
+export function tgAlipay(orderid, out_trade_no, subject, body, total_amount) {
+	console.log('支付参数：', arguments);
+	
+	return fly.post(
+		'Alipay/SteMealAppPay',
+		{
+			orderid, 
+			out_trade_no,
+			subject,
+			body,
+			total_amount: total_amount
+		},
+		{
+			baseURL: paymentBaseURL
+		}
+	)
+}
+
+/// 微信App充值积分
+/// <param name="userid">用户Id</param>
+/// <param name="out_trade_no"></param>
+/// <param name="total_amount"></param>
+/// <param name="body"></param>
+/// <param name="phone">用户手机</param>
+/// Wechatpay/PointsAppPay
+export function zzhbWXpay(userid, out_trade_no, total_amount, body, phone) {
+	console.log('支付参数：', arguments);
+	
+	return fly.post(
+		'Wechatpay/PointsAppPay',
+		{
+			userid, 
+			out_trade_no,
+			total_amount,
+			body,
+			phone
+		},
+		{
+			baseURL: paymentBaseURL
+		}
+	)
+}
+
+/// 支付宝App充值积分（红包）
+/// <param name="userid">用户ID</param>
+/// <param name="out_trade_no">订单号</param>
+/// <param name="subject">订单标题</param>
+/// <param name="body">对交易或商品的描述</param>
+/// <param name="total_amount">订单总金额，单位为元，精确到小数点后两位</param>
+/// <param name="phone">推荐人电话</param>
+export function zzhbZFBpay(userid, out_trade_no, subject, body, total_amount, phone) {
+	console.log('支付参数：', arguments);
+	
+	return fly.post(
+		'Alipay/PointsAppPay',
+		{
+			userid, 
+			out_trade_no,
+			subject,
+			body,
+			total_amount,
+			phone
+		},
+		{
+			baseURL: paymentBaseURL
+		}
+	)
+}
+
+// APP微信红包充值
+export function getWxApplets(userid,out_trade_no, total_amount, body, chargeid) {
+    
+	return fly.post(
+        'Wechatpay/ChargeAppPay', {
+			userid,
+            out_trade_no,
+			total_amount,
+			body,
+			chargeid
+        }, {
+            baseURL: paymentBaseURL
+        }
+    )
+}
+
+// APP支付宝充值
+export function czhbAppPay(userid, out_trade_no, subject, total_amount, body,chargeid) {
+	return fly.post(
+        'Alipay/ChargeAlipayAppPay',  {
+	        userid,
+			out_trade_no,
+	        subject,
+			total_amount,
+	        body,
+			chargeid
+	    },
+		{
+			baseURL: paymentBaseURL
 		}
 	)
 }

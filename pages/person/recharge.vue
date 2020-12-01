@@ -6,7 +6,7 @@
 			<block slot="content">{{ isRecharge ? '充值' : '提现' }}</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">{{ isRecharge ? '充值' : '提现' }}</block>
+			<block slot="content">{{ isRecharge ? '充值' : '提现' }}</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

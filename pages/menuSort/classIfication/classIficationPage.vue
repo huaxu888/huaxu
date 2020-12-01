@@ -3,12 +3,12 @@
 		<view  v-for="(num,i) in 2" :key="i"  :class="i===1?'fixed_top':''" style="width:100%">			
 		
 			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-			<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+			<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 				<!-- #ifdef APP-PLUS || H5-->
 				<block slot="content">分类</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">分类</block>
+				<block slot="content">分类</block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->

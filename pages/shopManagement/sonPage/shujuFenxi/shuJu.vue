@@ -2,61 +2,71 @@
 	<view>
 		<view>
 			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-			<cu-custom bgColor="bg-jingying" class="text-white" backColor="text-white" :isBack="true">
+			<cu-custom bgColor="bg-creams" class="text-white" backColor="text-white" :isBack="true">
 				<!-- #ifdef APP-PLUS || H5-->
 				<block slot="content">经营分析</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">经营分析</block>
+				<block slot="content">经营分析</block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->
 		</view>
 		
 		<view >
-			<view class="bg-jingying" style="padding: 60upx 100upx;padding-bottom: 0;">
-				<u-subsection :list="list" :current="curNow" :animation="true" buttonColor="#e9a555" active-color="#FFFFFF" bgColor="#ffffff" font-size="28" @change="sectionChange"
+			<view class="bg-creams" style="padding: 60upx 100upx;padding-bottom: 0;">
+				<u-subsection :list="list" :current="curNow" :animation="true" buttonColor="#fe5479" active-color="#ffffff" bgColor="#ffffff" font-size="28" @change="sectionChange"
 				style="width: 550upx;color: #333333;"></u-subsection>
 			</view>
-			<view class="bg-jingying" style="padding: 30upx 220upx;padding-bottom: 0;"  v-if="curNow==0">
+			<view class="bg-creams" style="padding: 30upx 220upx;padding-bottom: 0;"  v-if="curNow==0">
 				<view class="bg-white align-center flex" style="width: 320upx;border-radius: 10upx 10upx 0 0;margin-top: 20upx;padding: 8upx 20upx;">
 					<picker mode="date" fields="day" start="1990-01-01" end="2040-01-01" @change="changeDay"  style="padding: 10upx 0upx;color: #333333;">
 						<text>
 							{{datas}}
 						</text>
-						<text style="color: #e9a555;margin-left: 15upx;">|</text>
+						<text style="color: #fbe8e2;margin-left: 15upx;">|</text>
 						<text class="hxIcon-rili1" style="margin-left: 15upx;font-size: 28upx;"></text>
 					</picker>
 				</view>
 			</view>
-			<view class="bg-jingying" style="padding: 30upx 220upx;padding-bottom: 0;"  v-if="curNow==1">
+			<view class="bg-creams" style="padding: 30upx 220upx;padding-bottom: 0;"  v-if="curNow==1">
 				<view class="bg-white align-center flex" style="width: 320upx;border-radius: 10upx 10upx 0 0;margin-top: 20upx;padding: 8upx 20upx;">
 					<picker mode="date" fields="day" start="1990-01-01" end="2040-01-01" @change="changeDays"  style="padding: 10upx 0upx;color: #333333;">
 						<text>
 							{{week}}
 						</text>
-						<text style="color: #e9a555;margin-left:8upx;">|</text>
+						<text style="color: #fbe8e2;margin-left:8upx;">|</text>
 						<text class="hxIcon-rili1" style="margin-left:8upx;font-size: 28upx;"></text>
 					</picker>
 				</view>
 			</view>
-			<view class="bg-jingying" style="padding: 30upx 220upx;padding-bottom: 0;"  v-if="curNow==2">
+			<view class="bg-creams" style="padding: 30upx 220upx;padding-bottom: 0;"  v-if="curNow==2">
 				<view class="bg-white align-center flex" style="width: 320upx;border-radius: 10upx 10upx 0 0;margin-top: 20upx;padding: 8upx 20upx;justify-content:center;">
 					<picker mode="date" fields="month" start="1990-01-01" end="2040-01-01" @change="changeDayss"  style="padding: 10upx 0upx;color: #333333;">
 						<text >
 							{{yue}}
 						</text>
-						<text style="color: #e9a555;margin-left: 10upx;font-weight: 600;">|</text>
+						<text style="color: #fbe8e2;margin-left: 10upx;font-weight: 600;">|</text>
 						<text class="hxIcon-rili1" style="margin-left: 10upx;font-size: 28upx;"></text>
 					</picker>
 				</view>
 			</view>
 			<view style="padding: 30upx;background-color: #FFFFFF;padding-top: 60upx;">
-				<text style="font-size: 30upx;font-weight: 600;background-image: url(https://img.huaxuapp.com/cwfx_03.png);
-				background-repeat: no-repeat;background-size: 114upx 14upx;background-position: bottom;">财务分析</text>
+				<text style="font-size: 30upx;font-weight: 600;background-image: url(https://img.huaxuapp.com/579_07.png);
+				background-repeat: no-repeat;background-size: 114upx 18upx;background-position: bottom;">财务分析</text>
 				<view class="text-center" style="margin-top:30upx;">
-					<text style="font-weight: 600;font-size: 28upx;">营业收入(元)</text>
-					<view  style="font-weight: 600;margin-top: 20upx;margin-bottom: 10upx;">
+					<view class="flex" style="justify-content: center;">
+						<picker @change="classPickerChange" :value="classIndex" range-key="Nick" :range="yYyList" mode="selector">
+							<view class="flex  ">
+								<view class="flex justify-center"  style="color: #333333;height: 50upx;line-height: 50upx;">
+									<text style="font-weight: 600;font-size: 28upx;color: #333333;">{{yYyList[classIndex].Nick}}</text>
+									<text class="cuIcon-triangledownfill" style="font-size: 50upx;"></text>
+								</view>
+							</view>
+						</picker>
+					</view>
+					
+					<view style="font-weight: 600;margin-top: 20upx;margin-bottom: 10upx;">
 						<text style="font-size: 32upx;">￥</text>
 						<text style="font-size: 54upx;">{{jryye}}</text>
 						<text :class="[ZZL >= 0 ? 'hxIcon-jiantoushangsheng greens' : 'hxIcon-jiantouxiajiang reds']" style="font-size: 42upx;"></text>
@@ -100,8 +110,8 @@
 			</view>
 			
 			<view style="padding: 30upx;background-color: #FFFFFF;margin-top: 20upx;padding-bottom: 600upx;padding-top: 30upx;">
-				<text style="font-size: 30upx;font-weight: 600;background-image: url(https://img.huaxuapp.com/cwfx_03.png);
-				background-repeat: no-repeat;background-size: 114upx 14upx;background-position: bottom;margin-top: 30upx;">用户分析</text>
+				<text style="font-size: 30upx;font-weight: 600;background-image: url(https://img.huaxuapp.com/579_07.png);
+				background-repeat: no-repeat;background-size: 114upx 18upx;background-position: bottom;margin-top: 30upx;">用户分析</text>
 				
 				<view class="flex" style="justify-content:space-around;margin-top: 40upx;color: #666666;background-color: #f2f2f2;padding: 30upx 0;border-radius: 12upx;">
 					<view> 
@@ -133,8 +143,8 @@
 		</view>
 		
 		<!-- <view v-if="curNow==1">
-			<view class="bg-jingying" style="padding: 60upx 100upx;padding-bottom: 0;">
-				<u-subsection :list="list" :current="1" :animation="false" buttonColor="#e9a555" active-color="#FFFFFF" bgColor="#ffffff" font-size="28" @change="sectionChange"
+			<view class="bg-creams" style="padding: 60upx 100upx;padding-bottom: 0;">
+				<u-subsection :list="list" :current="1" :animation="false" buttonColor="#fbe8e2" active-color="#FFFFFF" bgColor="#ffffff" font-size="28" @change="sectionChange"
 				style="width: 550upx;color: #333333;"></u-subsection>
 			</view>
 			<view class="bg-jingying" style="padding: 30upx 220upx;padding-bottom: 0;">
@@ -420,7 +430,20 @@
 				dates: '',
 				years: '',
 				dayss: '',
-				tian: ''
+				tian: '',
+				yYyList: [{
+					Nick: '买单收款(元)',
+				},
+				{
+					Nick: '自发券收款(元)',
+					
+				},
+				{
+					Nick: '团购收款(元)',
+					
+				}],
+				classIndex: 0,
+				zfsort: 1
 			}
 		},
 		onLoad(route) {
@@ -431,14 +454,30 @@
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
 			// this.getCurryInfo()
-			
+			this.zfsort = 1
 			this.getTime()
 			this.days()
 			this.huoqu(this.getData.StoreID, this.getData.userid)
 			this.dates = this.getTimess()
-			this.baobiao(this.getData.StoreID, this.dates, this.sorts)
+			this.baobiao(this.getData.StoreID, this.dates, this.sorts, this.zfsort)
 		},
 		methods: {
+			classPickerChange(e) {
+				this.zfsort = Number(e.detail.value) + 1
+				
+				this.baobiao(this.getData.StoreID, this.dates, this.sorts, this.zfsort)
+				console.log(this.zfsort);
+				this.classIndex = e.detail.value
+				console.log(this.classIndex);
+				let value = this.yYyList[this.classIndex]
+				
+				if ('ID' in value) {
+					this.getData.yyyid = value.ID
+				} else {
+					this.getData.yyyid = value.UserID
+				}
+				
+			},
 			xiaoshu(num) {
 				let str= Number(num * 100).toFixed(2);
 				str = this.getReadCount(str)
@@ -479,7 +518,7 @@
 			},
 			baobiao() {
 				
-				this.$http.baobiao(this.getData.StoreID, this.dates, this.sorts)
+				this.$http.baobiao(this.getData.StoreID, this.dates, this.sorts,this.zfsort)
 				.then(res => {
 					if(res.IsSuccess == true){
 						this.BackOrders = res.BackOrders
@@ -521,7 +560,7 @@
 				this.datas = dtsss 
 				this.sorts = 1
 				this.dates = e.detail.value
-				this.baobiao(this.getData.StoreID, this.dates, this.sorts)
+				this.baobiao(this.getData.StoreID, this.dates, this.sorts,this.zfsort)
 			},
 			changeDays(e) {
 				console.log(e)
@@ -532,7 +571,7 @@
 				this.years = dts
 				this.sorts = 2
 				this.dates = e.detail.value
-				this.baobiao(this.getData.StoreID, this.dates, this.sorts)
+				this.baobiao(this.getData.StoreID, this.dates, this.sorts,this.zfsort)
 				// let zhou = e.detail.value.split(/,|\-|\s/g)
 				this.getWeek(e.detail.value)
 				let dtss = this.years + '年'+ this.yues + '月第' + this.weeks + '周'
@@ -549,14 +588,17 @@
 				dt = `${dt[0]}-${dt[1]}`
 				
 				this.sorts = 3
-				this.dates = e.detail.value
-				this.baobiao(this.getData.StoreID, this.dates, this.sorts)
+				this.dates = e.detail.value + '-01'
+				console.log(this.dates);
+				this.baobiao(this.getData.StoreID, this.dates, this.sorts,this.zfsort)
 				this.yue = dt
 				let dts = dt.replace("-","年")
 				let dtss = dts + '月';
 				this.yue = dtss
 			},
 			sectionChange(index) {
+				this.classIndex = 0
+				this.zfsort = 1
 				this.curNow = index;
 				if(this.curNow == 0){
 					this.sorts = 1
@@ -568,7 +610,7 @@
 					let dtss = dts.replace("-","月")
 					let dtsss = dtss + '日';
 					this.datas = dtsss 
-					this.baobiao(this.getData.StoreID, this.dates, this.sorts)
+					this.baobiao(this.getData.StoreID, this.dates, this.sorts,this.zfsort)
 				}
 				if(this.curNow == 1){
 					let date = new Date();
@@ -576,13 +618,13 @@
 					this.week = this.getTimes() + '第' + this.weeks + '周'
 					this.sorts = 2
 					this.dates = this.getTimess()
-					this.baobiao(this.getData.StoreID, this.dates, this.sorts)
+					this.baobiao(this.getData.StoreID, this.dates, this.sorts,this.zfsort)
 				}
 				if(this.curNow == 2){
 					this.yue = this.getTimes()
 					this.sorts = 3
 					this.dates = this.getTimess()
-					this.baobiao(this.getData.StoreID, this.dates, this.sorts)
+					this.baobiao(this.getData.StoreID, this.dates, this.sorts,this.zfsort)
 				}
 			},
 			dateFormat(date){
@@ -1120,7 +1162,8 @@
 			if(this.curNow == 0) {
 				this.days()
 				this.sorts = 1
-				this.$http.baobiao(this.getData.StoreID, this.getTimess(), this.sorts)
+				this.zfsort = 1
+				this.$http.baobiao(this.getData.StoreID, this.getTimess(), this.sorts,this.zfsort)
 				.then(res => {
 					if(res.IsSuccess == true){
 						this.BackOrders = res.BackOrders
@@ -1139,7 +1182,7 @@
 				this.getWeek(date)
 				this.week = this.getTimes() + '第' + this.weeks + '周'
 				this.sorts = 2
-				this.$http.baobiao(this.getData.StoreID, this.getTimess(), this.sorts)
+				this.$http.baobiao(this.getData.StoreID, this.getTimess(), this.sorts,this.zfsort)
 				.then(res => {
 					if(res.IsSuccess == true){
 						this.BackOrders = res.BackOrders
@@ -1156,7 +1199,7 @@
 			if(this.curNow == 2) {
 				this.yue = this.getTimes()
 				this.sorts = 3
-				this.$http.baobiao(this.getData.StoreID, this.getTimess(), this.sorts)
+				this.$http.baobiao(this.getData.StoreID, this.getTimess(), this.sorts,this.zfsort)
 				.then(res => {
 					if(res.IsSuccess == true){
 						this.BackOrders = res.BackOrders
@@ -1180,6 +1223,24 @@
 	page{
 		background: #F2F2F2;
 	}
+	
+	.select-panel {
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 0;
+		display: flex;
+		flex-direction: column;
+		background: #F8F8F8;
+		overflow: hidden;
+		z-index: 9;
+		transition: all .3s ease-in-out;
+	}
+	
+	.select-panel-active {
+		height: 300upx;
+	}
+	
 	.qiun-wrap {
 		display: flex;
 		flex-wrap: wrap;

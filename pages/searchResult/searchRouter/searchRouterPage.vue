@@ -1,9 +1,9 @@
 <template>
 	<view>
 		<!-- #ifdef  MP-WEIXIN -->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">搜索</block>
+			<block slot="content">搜索</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

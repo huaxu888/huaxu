@@ -20,6 +20,7 @@ const allUrl={ //所有请求接口
 	zzUrl:`zz/zz`,//赞助接口
 	isGetscUrl:`store/getsc`,//当前用户是否收藏了该店铺
 	getHbUrl:'hb/sc',//获取海报的地址
+	getHbUrls:'hb/setmealposter',//获取海报的地址
 	scUrl:`store/sc`, //收藏当前店铺              
 	qxScUrl:`store/qxsc`,//取消当前收藏
 	rateAndReserveUrl:`zz/rateAndReserve`,//获取收益率与预存额（收益率:rate,预存额:reserve）
@@ -33,9 +34,11 @@ const allUrl={ //所有请求接口
 	storeskewmUrl:`scores/storeskewm`,//商家收款二维码					
 	storexxjlUrl:`mystore/xstorexxjl`,//消费记录列表	（日）	
 	storexxjeUrl:`mystore/xxstorexxje`,//消费记录列表(月份)		
+	// mymemberUrl:`mystore/mynewmember`,//我的会员		
 	mymemberUrl:`mystore/mynewmember`,//我的会员		
 	myMsgListUrl:`mystore/StoreMessageLook`,//短信群发的信息列表
-	msgSendUrl:`mystore/StoreMessageSend`,//短信群发			
+	msgSendUrl:`mystore/StoreMessageSend`,//短信群发	
+	sendDuanUrl:`storemoney/StoreMessageSend`,
 	storexfxqUrl:`mystore/storexfxq`,//账单详情										
 	getsyylistUrl:`mystore/getsyyxlist`,//获取营业员列表           
 	bdsyyUrl:`mystore/bdsyy`,//绑定营业员              
@@ -48,11 +51,13 @@ const allUrl={ //所有请求接口
 	zzUrl:`zz/zz`,//对店铺预存的接口										
 	rebackUrl:`mystore/reback`,//账单明细退款				
 	zzlistUrl:`zz/zzlist`,//店铺申请赞助的列表			
-	editstorepicUrl:`mymember/editstorepic`,//店铺店铺的主图或者幻灯图片         
+	editstorepicUrl:`mymember/editstorepic`,//店铺店铺的主图或者环境图片      
+	editstorepicsUrl:`store/editstorepicargs`,//店铺店铺的主图或者产品图片
 	editlogoUrl:`mymember/editlogo`,//编辑店铺图片logo					
 	editUrl:`mymember/edit`,//编辑店铺内容	
 	myzzUrl:`mymember/myzzx`,//我的赞助								
-	cashOutUrl:`mystore/CashOut`,//消费提现				
+	// cashOutUrl:`mystore/CashOut`,//消费提现	
+	cashOutUrl:`mystore/NewCashOut`,//消费提现
 	resetsmsUrl:`menber/resetsms`,//开启短信提醒			
 	myinfoUrl:`menber/myinfo`,//刷新用户信息         
 	getyzmUrl:`sms/getyzm`,//获取验证码									
@@ -63,21 +68,22 @@ const allUrl={ //所有请求接口
 	getStore:`mystore/getstore`,//根据扫码获取店铺信息			
 	getSys:'scores/sys',
 				
-				
-				
-				
+	addshopCou:`coupon/addstorecouponslist`,//添加优惠券
+	shopCou:`mystore/NewCouponsList`,//商家优惠券列表
+	shopstopCou:`mystore/StopCoupons`,//商家优惠券列表
+	myShop:`mystore/mynewstore`,//我的店铺信息(新版)
 				
 	agentPersonUrl:`agent/newagentperson`,//个人代理详情                
 	agentPoutUrl:`agent/newagentpout`,//个人代理提现               
 	agentPoutDetail:`agent/agentpoutdetail`,//个人代理提现明细				
-	agentPoutMember:`agent/agentpoutmember`,//个人代理团队	
-	agentpmemberdetail:`agent/agentpmemberdetail`,//个人代理的商家详情							
+	agentPoutMember:`agent/getnewagentpoutmember`,//个人代理团队	
+	agentpmemberdetail:`agent/getnewagentpmemberdetail`,//个人代理的商家详情							
 								
 	agenTareaesUrl:`agent/newagentareaes`,//区域代理详情					
 	agenTareaOutUrl:`agent/newagentareaout`,//区域代理提现			
 	agentareaOutDetailUrl:`agent/newagentareaoutdetail`,//区域代理提现明细					
 	getagenTareamemberUrl:`agent/newgetagentareamember`,//区域代理商家队伍	
-	getAgentareashopdetailUrl:`agent/newagentareashopdetail`,//区域代理商家营业详情							
+	getAgentareashopdetailUrl:`agent/getnewagentareashopdetail`,//区域代理商家营业详情							
 	js:`scores/js`,//支付 
 				
 	storeagreeUrl:`news/storeagree`,//转商家协议			
@@ -112,7 +118,7 @@ const allUrl={ //所有请求接口
 }
 
 const allData={ //所有vuex数据
-	dfLogImg:"https://img.huaxuapp.com/pig.png",//默认图片
+	dfLogImg:"https://img.huaxuapp.com/huaxulogo70px.png",//默认图片
 	cuIconList:[],//分类的Icon信息
 	allShopAry:[],//所有商铺的列表				
 	isZZ:false,//记录是否预存

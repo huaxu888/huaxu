@@ -1,7 +1,7 @@
 <template>
 	<view class="to-point-page">
 		<cu-custom bgColor="bg-white solid-bottom" :isBack="true">
-			<block slot="backText">返回</block>
+			<block slot="content">返回</block>
 			<block slot="content">选择自提点</block>
 		</cu-custom>
 		

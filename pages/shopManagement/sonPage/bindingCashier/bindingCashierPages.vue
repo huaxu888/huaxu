@@ -6,7 +6,7 @@
 			<block slot="content">绑定营业员</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">绑定营业员</block>
+			<block slot="content">绑定营业员</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

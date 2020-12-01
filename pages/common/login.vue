@@ -1,34 +1,16 @@
 <template>
-	<view class="login-page" :style="{ backgroundPosition: `center ${move}px` }">
-		<cu-custom bgColor="bg-transparent" :isBack="true" class="text-white"></cu-custom>
-		<view class="cover flex-direction" :style="{ paddingTop: `${pdTop}px` }">
-			<view class="info">
-				<view class="hx-avatar" style="background-image: url(https://img.huaxuapp.com/huaxulogo0830.png);"></view>
-				<text class="text-xxl text-white" style="display: flex; justify-content: center;">实体企业O2O</text>
-				<text class="text-xxl text-white" style="display: flex; justify-content: center;">会员营销体系平台</text>
-			</view>
-			<view class="action-bar" style="margin-top: 180upx;">
-				<!-- #ifdef MP-WEIXIN-->
-				<!-- <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" @tap="disableTab(0)" :disabled="disableBtn[0]"
-                class="cu-btn radius flex shadow large bg-white">
-					<text class="hxIcon-shouji margin-right-xs" style="font-size: 1.1em;"></text>
-					手机号登录
-				</button> -->
-				<view class="">
-					<!-- <button class="cu-btn radius flex shadow large text-white" style="background: rgba(63, 179, 79, .8);"
-					 open-type="getUserInfo" @getuserinfo="userinfo">
-						<text class="hxIcon-weixin margin-right-xs" style="font-size: 1.3em;"></text>
-						微信登录
-					</button> -->
-					<button class="cu-btn radius flex shadow large text-white" style="background: rgba(63, 179, 79, .9); "
-					 open-type="getPhoneNumber" @getphonenumber="phonenumber">
-						<text class="hxIcon-weixin margin-right-xs" style="font-size: 1.3em;"></text>
-						微信登录
-					</button>
-				</view>
+	<view class="login-page">
+		<view class="content">
+			
+			<view class="cuIcon-close" style="font-size: 56upx;position: absolute;top: 100upx;left: 50upx;" @tap="backHui"></view>
+			<view class="login-field">
+				<!-- #ifdef MP-WEIXIN || H5-->
+				<button class="login-btn" open-type="getPhoneNumber" @getphonenumber="phonenumber">
+					<text class=" margin-right-xs" style="font-size: 1.3em;"></text>
+					微信登录
+				</button>
 				<!-- #endif -->
-
-				<!-- #ifndef MP-WEIXIN -->
+				<!-- #ifndef MP-WEIXIN || H5 ||MP-ALIPAY || APP-PLUS-->
 				<view class="info">
 					<view class="input-field text-lg flex align-center" :class=" isFouces[0] || vilidate[0] ? 'active': ''">
 						<view class="flex align-center flex-sub">
@@ -62,17 +44,15 @@
 					</view>
 					<text class="pass" @tap="loginWay">{{ loginWithCode ? '账号密码登录' : '验证码登录' }}</text>
 				</view>
-
+				
 				<!-- #endif -->
-
-				<!-- #ifdef MP-WEIXIN -->
-				<navigator class="change-phone cu-btn radius flex shadow large text-white" hover-class="none" url="/pages/common/chagePhone">
-					使用手机号登陆
+				
+				<navigator class="phone-btn" hover-class="none" url="/pages/common/chagePhone">
+					手机验证登录
 				</navigator>
-				<!-- #endif -->
-
+				
 				<!-- #ifndef MP-WEIXIN -->
-				<view class="action-bar" style="margin-bottom: 0; margin-top: 100upx;">
+				<!-- <view class="action-bar" style="margin-bottom: 0; margin-top: 100upx;">
 					<view class="text-sm margin-top flex align-center justify-center" style="color: #fff;">
 						<view style="transform: scale(.6);">
 							<checkbox-group @change="agree">
@@ -82,11 +62,15 @@
 						同意<text class="i" @tap="toWebview('zc')"> 《用户注册协议》 </text>和<text class="i" @tap="toWebview('ys')"> 《隐私协议》
 						</text>
 					</view>
-				</view>
+				</view> -->
 				<!-- #endif -->
 			</view>
+			<view style="color: #999999;font-size: 24upx;position: fixed;bottom: 100upx;width: 100%;">
+				<view class="flex justify-center">
+					登录注册即代表您已同意<text style="color: #fe4e01;" @tap="toWebview('zc')">注册协议</text>和<text style="color: #fe4e01;" @tap="toWebview('ys')">隐私协议</text>
+				</view>
+			</view>
 		</view>
-		
 	</view>
 </template>
 
@@ -106,7 +90,7 @@
 				move: 0,
 				timer: '',
 				pdTop: 0,
-				isAgree: '0',
+				isAgree: '1',
 				wxInfo: {
 					openid: '',
 					unionid: '',
@@ -182,12 +166,18 @@
 			}
 		},
 		methods: {
+			backHui() {
+				uni.switchTab({
+					url:'/pages/index/index'
+				})
+			},
 			agree() {
-				if (this.isAgree == '0') {
-					this.isAgree = '1'
-				} else {
-					this.isAgree = '0'
-				}
+				// if (this.isAgree == '0') {
+				// 	this.isAgree = '1'
+				// } else {
+				// 	this.isAgree = '0'
+				// }
+				this.isAgree = '1'
 			},
             toWebview(url) {
                 switch (url){
@@ -263,7 +253,7 @@
                 		showCancel: false
                 	})
                 	return
-                }
+                } 
 				this.$api.showLoading_()
                 this.wxInfo.phoneEncryptedData = phonenumber.detail.encryptedData
                 this.wxInfo.phoneIv = phonenumber.detail.iv
@@ -523,21 +513,22 @@
             },
             login() {
 				if (this.isAgree == 0) {
-					uni.showModal({
-						title: '注册须知',
-						content: '请您详细阅读《用户注册协议》和《隐私协议》，并勾选同意才能继续注册',
-						cancelText: '去阅读',
-						confirmText: '已经阅读',
-						success: (res) => {
-							if (res.confirm) {
-								this.isAgree = '1'
-								this.login()
-							} else {
-								return
-							}
+					// uni.showModal({
+					// 	title: '注册须知',
+					// 	content: '请您详细阅读《用户注册协议》和《隐私协议》，并勾选同意才能继续注册',
+					// 	cancelText: '去阅读',
+					// 	confirmText: '已经阅读',
+					// 	success: (res) => {
+					// 		if (res.confirm) {
+								
+					// 		} else {
+					// 			return
+					// 		}
 							
-						}
-					})
+					// 	}
+					// })
+					this.isAgree = '1'
+					this.login()
 				} else {
 					let self = this
 					if (this.loginWithCode) {
@@ -620,154 +611,44 @@
 	};
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 	.login-page {
-		width: 100vw;
-		height: 100vh;
-		background: url(https://img.huaxuapp.com/4545_02.jpg);
-		background-size: cover;
-		background-position: 0;
-		transition: all 0.1s linear;
-	}
-
-	.flex-direction {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-
-	.action-bar {
-		margin-bottom: 300upx;
-
-		.cu-btn {
-			height: 80upx;
-			margin: 30upx 60upx;
-		}
-	}
-
-	.cover {
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		background: rgba(0, 0, 0, 0.6);
-	}
-
-	.hx-avatar {
-		width: 200upx;
-		height: 200upx;
-		border-radius: 50%;
-		border: 5upx solid #fff;
-		background-size: cover;
-		margin: 100upx auto 30upx auto;
-	}
-
-	.change-phone {
-		margin: 0 60upx 0 60upx;
-		background: transparent;
-		border: 1px solid #f8f8f8;
-	}
-
-	.notice {
-		display: flex;
-		margin: 0 60upx;
-		font-size: 20upx;
-		margin-bottom: -20upx;
-		color: #f8f8f8;
-	}
-
-	/* #ifndef MP-ALIPAY */
-	.input-field {
-		margin: 30upx 60upx 30upx 60upx;
-		padding-bottom: 30upx;
-		border-bottom: 1px solid #f0f0f0;
-		transition: border-bottom .3s ease-in-out;
-	}
-
-	/* #endif */
-
-	.with-code {
-		display: flex;
-		flex-wrap: none;
-		overflow: hidden;
-
-		.item {
+		
+		.content {
 			width: 100vw;
-			flex-shrink: 0;
-			transition: margin-left .5s ease-in-out;
+			height: 100vh;
+			background: url(https://img.huaxuapp.com/dengluy.jpg) no-repeat;
+			background-position: 0 0;
+			background-size: cover;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+		
+		.login-field {
+			margin-top: 350upx;
+			display: flex;
+			flex-direction: column;
+			font-size: 33rpx;
+			
+			.login-btn {
+				width: 528upx;
+				margin: 0 110rpx;
+				height: 96rpx;
+				background-color: #fe4e01;
+				border-radius: 100rpx;
+				color: #FFFFFF;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				// box-shadow: 0 1rpx 6rpx lighten($color: #eb5b2a, $amount: 20);
+			}
+			
+			.phone-btn {
+				margin-top: 40rpx;
+				text-align: center;
+				font-size: 28upx;
+			}
 		}
 	}
-
-	.i {
-		color: #FF3000;
-	}
-
-	.action-bar {
-		margin-bottom: 300upx;
-		text-align: center;
-	}
-
-	.active {
-		border-bottom: 1px solid #eb5245;
-	}
-
-	.code {
-		color: #FFFFFF;
-		width: 200upx;
-		text-align: right;
-		transition: all .5s ease-in-out;
-	}
-
-	.vlide {
-		color: #ff3000;
-	}
-
-	.hx-swiper {
-		display: flex;
-		overflow: hidden;
-		flex-wrap: nowrap;
-	}
-
-	.hx-btn {
-		margin: 30upx 0;
-
-		.cu-btn {
-			margin: 0 60upx;
-			color: #ffffff;
-			background: #FF3000;
-			transition: all .3s ease-in-out;
-			opacity: .9;
-		}
-
-		.active {
-			opacity: 1;
-			box-shadow: 6upx 6upx 8upx #333;
-		}
-	}
-
-	.pass {
-		color: #F8F8F8;
-		margin: 0 60upx;
-		display: flex;
-		text-align: left;
-	}
-
-	/* #ifndef MP-WEIXIN */
-	.info {
-		input {
-			text-align: left;
-			color: #fff;
-			background: transparent;
-		}
-	}
-
-	.input-field {
-		margin: 30upx 60upx 30upx 60upx;
-		padding-bottom: 5upx;
-		border-bottom: 1px solid #f0f0f0;
-		transition: border-bottom .3s ease-in-out;
-	}
-
-	/* #endif */
 </style>

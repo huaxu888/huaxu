@@ -1,10 +1,10 @@
 <template>
-	<view>
+	<view >
 		<view class="margin topBanner" @tap="Invitation()">
  
 		</view>
 
-		<view class="margin flex align-center justify-between" style="margin-top: 45upx;">
+		<view class="margin flex align-center justify-between" style="margin-top: 45upx;" @tap="gongLv">
 			<view class="centerBox flex flex-direction">
 				<text style="font-size: 30upx;">新手指南</text>
 				<text style="font-size: 22upx;color: #7e7e7e;margin-top: 5upx;">1分钟了解花蓄</text>
@@ -28,7 +28,7 @@
 			</view>
 		</view>
 
-		<view class="padding-lr flex align-end justify-between margin-tb">
+		<view class="padding-lr flex align-end justify-between margin-tb" @tap="gongLv">
 			<view class=" text-bold" style="font-size: 32upx;">精选攻略</view>
 			<view  style="font-size: 28upx;">更多<text class="margin-left-xs cuIcon-right"></text></view>
 		</view>
@@ -110,6 +110,11 @@
 
 		},
 		methods:{
+			gongLv(){
+				uni.navigateTo({
+					url:'/pages/person/strategy/helps'
+				})
+			},
 			Invitation(){
 				if(this.$store.state.userInfo.ID){
 					// #ifdef APP-PLUS || H5

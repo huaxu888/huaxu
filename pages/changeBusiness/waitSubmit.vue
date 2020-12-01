@@ -6,7 +6,7 @@
 			<block slot="content">信息审核</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">信息审核</block>
+			<block slot="content">信息审核</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

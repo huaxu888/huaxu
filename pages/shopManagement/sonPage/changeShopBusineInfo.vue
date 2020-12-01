@@ -6,7 +6,7 @@
 			<block slot="content">修改商铺商圈信息</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">修改商铺商圈信息</block>
+			<block slot="content">修改商铺商圈信息</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

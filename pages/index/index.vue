@@ -7,10 +7,15 @@
 * @email:1103992447@qq.com
 -->
 <template>
-	<view>
+	<view style="background: #ffffff;">
 		<view v-if="showKaiPing"></view>
-		<view v-if="!showKaiPing">
-			<view class="fixed_top" style="z-index: 9;">
+		
+		<view v-if="!showKaiPing" style="background: #ffffff;">
+			<view style="background-image: url(https://img.huaxuapp.com/1012-645_01.png);background-repeat: no-repeat;background-size: cover;position: absolute;top: 0;
+			width: 750upx;height: 645upx;">
+			
+			 </view>
+			<view class="fixed_top" style="z-index: 99;">
 
 				<!-- #ifdef APP-PLUS -->
 				<view class="status_bar">
@@ -57,7 +62,7 @@
 						<text class="hxIcon-xiaoxi3 " style="font-size: 50upx;color: #ffffff;">
 							
 						</text>
-						 <view class=" cu-tag badge " v-if="tagID > 0 " style="background: #f34e2d;color:#FFFFFF; display: flex; justify-content: center; align-items: center; border-radius: 50%; width:28upx; height: 28upx;font-size: 18upx;position: absolute; z-index: 50; top: 22upx; right: 14upx;">{{tagID}}</view>
+						 <view class=" cu-tag badge " v-if="tagID > 0 " style="background: #ff7443;color:#FFFFFF; display: flex; justify-content: center; align-items: center; border-radius: 50%; width:28upx; height: 28upx;font-size: 18upx;position: absolute; z-index: 50; top: 22upx; right: 14upx;">{{tagID}}</view>
 						<!--tagID > 0  -->
 						
 					</view>
@@ -129,62 +134,62 @@
 				</view>
 			</view>
 
-			<!-- 下级消费红包的遮罩 ShowXJXFHB -->
-			<view class="cu-modal" :class="ShowXJXFHB ? 'show' : ''" @touchmove.stop.prevent="moveHandle">
-				<view class="cu-dialog" style="width:80%;border-radius: 4%;background: transparent;">
-					<view class="cu-bar flex flex-direction justify-start" style="background-image: url('https://img.huaxuapp.com/xfjl.png');background-repeat: no-repeat; background-size:contain; background-position:center;height: 715upx;  width: 600upx;">
-						<view style="color:yellow;margin-top:425upx;">
-							<text class="text-sl">{{ changeMoney(XJXFMoney)}}</text><text>元</text>
+			<!-- 下级消费红包的遮罩 @touchmove.stop.prevent="moveHandle"  -->
+			<view class="cu-modal " :class="TodayESScores ? 'show' : ''"  @touchmove.stop.prevent="moveHandle">
+				<view class="cu-dialog" style="width:50%;border-radius: 4%;background: transparent;">
+					<view  class="cu-bar flex flex-direction justify-start" style="background-image: url('https://img.huaxuapp.com/tgsy_03.png');background-repeat: no-repeat; background-size:contain; background-position:center;height: 460upx;  width: 376upx;" @tap="hideCHBModal"  >
+						<view style="color:yellow;margin-top:250upx;">
+							<text class="text-sl">{{ changeMoney(TodayESScores)}}</text><text>元</text>
 						</view>
-						<view class="text-red" style="margin-top: 100upx;color:#de1a27;">
+						<!-- <view class="text-red" style="margin-top: 100upx;color:#de1a27;">
 							<text class="text-lg text-red" style="font-weight: 600;">{{XFStore}}</text>
-						</view>
+						</view> -->
 					</view>
-					<view>
-						<image @tap="hideCHBModal" src="http://img.huaxuapp.com/xfjllq.png" mode="aspectFit" style="margin-top: 50upx; height: 60upx;"></image>
-					</view>
+					<!-- <view>
+						<imagesrc="http://img.huaxuapp.com/xfjllq.png" mode="aspectFit" style="margin-top: 50upx; height: 60upx;"></image>
+					</view> -->
 				</view>
 			</view>
 
 			<!--  =======================页面的开始==上面是红包=========================== -->
 			<view style="position: relative;">
-				<scroll-view scroll-x class=" nav text-bold" scroll-with-animation style="background-color: #fa5837;">
+				<scroll-view scroll-x class=" nav text-bold" scroll-with-animation style="">
 					<view class="lastmargin cur-text-red text-bold" style="color: #ffffff;font-weight: 600;font-size: 32upx;">
 						<text style="position: absolute;top:20upx;left: 50upx;color: #FFFFFF;">__</text>
 						精选
 					</view>
 					<view class="cur-text-black lastmargin" v-for="(topSliderItem,topSliderIndex) in tradingAreaList" :key="topSliderIndex"
-					 @tap="topTabSelect(topSliderItem)"  style="margin-left: 16upx;margin-right: 16upx;color: #FFFFFF;">
+					 @tap="topTabSelect(topSliderItem)"  style="margin-left: 16upx;margin-right: 16upx;color: #ffffff;">
 						{{topSliderItem.BusName}}
 					</view>
 				</scroll-view>
-				<view class="flex align-center justify-center" style="width: 90upx; height: 87upx; background:#FFFFFF; position: absolute;right: 0;top: 0;background-color: #fa5837;"
+				<view class="flex align-center justify-center" style="width:60upx; height:60upx; background:#fa590f; position: absolute;right: 0;top: 16upx;"
 				 @tap="toBusineCssList()">
-					<text class="hxIcon-fenlei1 " style="line-height: 1em; font-size: 32upx;color: #FFFFFF;"></text>
+					<text class="hxIcon-fenlei1 " style="line-height: 1em; font-size: 32upx;color: #ffffff;"></text>
 				</view>
 			</view>
 			<!-- 上方轮播图 -->
-			<view class=" bg-white" style="width: 750upx;background-color: #fa5837;">
-				<swiper style="height: 310upx;width: 100%" :indicator-dots="false" :circular="true" :autoplay="true" interval="3000"
+			<view class=" bg-white" style="width: 750upx;padding: 30upx;padding-top: 14upx;padding-bottom: 20upx;">
+				<swiper style="height: 342upx;width: 690upx;border-radius: 20upx;" :indicator-dots="false" :circular="true" :autoplay="true" interval="3000"
 				 duration="1000">
-				 <!-- #ifdef MP-ALIPAY -->
-				 <swiper-item v-for="(topSwiperItem,topSwiperIndex) in topLBLlit" :key="topSwiperIndex">
+				 
+				<!-- <swiper-item v-for="(topSwiperItem,topSwiperIndex) in topLBLlit" :key="topSwiperIndex">
 				 	<navigator :url="topSwiperItem.GGContent">
-						<image :src="topSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 100%; height: 310upx;"></image>
+						<image :src="topSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 690upx; height: 342upx;border-radius: 20upx;"></image>
 					</navigator>
-				 </swiper-item>
-				 <!-- #endif -->
+				 </swiper-item> -->
+				
 					<!-- #ifndef MP-ALIPAY -->
 					<swiper-item v-for="(topSwiperItem,topSwiperIndex) in topLBLlit" :key="topSwiperIndex" @tap="LBTnavigate(topSwiperItem.GGContent)">
-						<image :src="topSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 100%; height: 310upx;"></image>
+						<image :src="topSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 690upx; height: 310upx;border-radius: 20upx;"></image>
 					</swiper-item>
 					<!-- #endif -->
 				</swiper>
 			</view>
-			<view style="background-color: #FFFFFF;width: 750upx;">
+			<!-- <view style="background-color: #FFFFFF;width: 750upx;">
 				<image src="https://img.huaxuapp.com/sybanner_02.png" mode="" style="height: 90upx;width: 750upx;" ></image>
-			</view>
-			<view class="padding-lr padding-bottom-xs flex align-center bg-white " style="padding-top: 40upx;">
+			</view> -->
+			<view class="padding-lr padding-bottom-xs flex align-center bg-white " style="padding-top: 0upx;">
 				<text style="white-space: nowrap;margin-right: 15upx;margin-left: 20upx;line-height: 1em;">花蓄</text>
 				<image src="https://img.huaxuapp.com/notice.png" style="width:90upx; height:30upx;"></image>
 				<swiper class="padding-lr-sm text-sm flex justify-center align-center" style="height:33upx;width:100%; " vertical="true"
@@ -194,7 +199,7 @@
 					</swiper-item>
 				</swiper>
 				<view style="width:2upx; height:30upx;background: #CACACA; border-radius: 1upx;"></view>
-				<text style="white-space: nowrap;margin-right: 15upx;margin-left: 20upx;line-height: 1em;color: #f34e2d;font-size: 24upx;"
+				<text style="white-space: nowrap;margin-right: 15upx;margin-left: 20upx;line-height: 1em;color: #fe4e01;font-size: 24upx;"
 				 @tap="toTopLsit">详情</text>
 			</view>
 			<!-- 表格菜单 -->
@@ -206,7 +211,7 @@
 						<!-- 矢量图替换为图片 -->
 						<!-- <view :class="item.icon" style="font-size: 55upx;"> </view> -->
 						<image :src="tableItem.StoreTitlePic" style="width: 98upx; height: 98upx;" class="tran"  :class="imgIsLoad?'opacity-show'  :'opacity-hidden'" @load="imgLoad()"></image>
-						<text class="text-sm" style="line-height: 1em;margin-top: 0;height: 24upx;">{{tableItem.StoreSortName}}</text>
+						<text class="text-sm" style="line-height: 1em;margin-top: 0;height: 24upx;color: #666666;font-size: 26upx;">{{tableItem.StoreSortName}}</text>
 					</view>
 				</view>
 			</view>
@@ -220,38 +225,253 @@
 						style="padding: 20upx; height: 200upx;border-radius: 15upx;width: 240upx;"></image>
 					</swiper-item>
 				</swiper>
-			</view> -->	
-				
+			</view>	 -->
+			
+			<!-- 红包专区 -->
+			<!-- <view class="padding-lr" style="margin: 20upx 0;padding: 20upx 30upx;background-color: #FFFFFF;padding-top: 30upx;margin-bottom: 0;">
+				<view class="flex" style="justify-content:space-between;align-items:center;margin-bottom: 20upx;">
+					<view class="flex" style="align-items:center;" @tap="hbck()">
+						<image src="https://img.huaxuapp.com/hbzq.png" mode="aspectFit" style="width: 46upx;height: 46upx;"></image>
+						<text style="font-size: 36upx;font-weight: 600;margin: 0 10upx;">VIP商家专区</text>
+						<text style="color: #999999;">|</text>
+						<text style="font-size: 26upx;color: #999999;margin: 0 10upx;">余额充值 立享优惠</text>
+					</view>
+					<view>
+						<text style="font-size: 26upx;color: #999999;" @tap="hbck()">查看更多 <text class="hxIcon-rightArrow" style="font-size: 26upx;"></text></text>
+					</view>
+				</view>
+				<view class="flex" style="justify-content:space-between;align-items:center;">
+					<image src="https://img.huaxuapp.com/djqg.png" mode="aspectFit" style="width: 338upx;height: 217upx;" @tap="goCz()"></image>
+					
+					<view style="text-align:center;position: relative;" v-for="(item,index) in zdStorelist" :key="index" @tap="goStore(item)" v-if="zdStorelist">
+						<image :src="item.StorePic" mode="scaleToFill" style="width: 160upx;height: 160upx;border-radius: 5upx;"></image>
+						<view style="margin-top: 2upx;"> 
+							<text style="font-size: 24upx;">{{yinHang(item.StoreName)}}</text>
+						</view>
+					</view>
+					
+					<view style="text-align:center;position: relative;" v-if="zdStorelist == false">
+						<image src="https://img.huaxuapp.com/pict2_03.png" mode="scaleToFill" style="width: 160upx;height: 160upx;border-radius: 5upx;"></image>
+						<view style="margin-top: 2upx;">
+							<text style="font-size: 24upx;">一茶一坐</text>
+						</view>
+					</view>
+					<view style="text-align:center;position: relative;" v-if="zdStorelist == false">
+						<image src="https://img.huaxuapp.com/pict1_06.png" mode="scaleToFill" style="width: 160upx;height: 160upx;border-radius: 5upx;"></image>
+						<view style="margin-top: 2upx;">
+							<text style="font-size: 24upx;">鲜椒火辣鱼</text>
+						</view>
+					</view>
+				</view>
+			</view> -->
 			<!-- 轮播图 -->
-			<view class="padding-lr margin-top" style="width: 100%;background-color: #FFFFFF;margin-top: 0;padding-bottom: 30upx;">
+			<!-- <view class="padding-lr margin-top" style="width: 100%;background-color: #FFFFFF;margin-top: 0;padding-bottom: 30upx;">
 				<swiper style="height: 200upx;width: 100%" :indicator-dots="false" :circular="true" :autoplay="true" interval="6000"
-				 duration="800">
+				 duration="800"> -->
 					<!-- #ifdef MP-ALIPAY -->
-					<swiper-item v-for="(centerSwiperItem,centerSwiperIndex) in centerLBLlit" :key="centerSwiperIndex">
+				<!-- 	<swiper-item v-for="(centerSwiperItem,centerSwiperIndex) in centerLBLlit" :key="centerSwiperIndex">
 						<navigator :url="centerSwiperItem.GGContent">
 							<image :src="centerSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 100%; height: 200upx;border-radius: 15upx;"></image>
 						</navigator>
-					</swiper-item>
+					</swiper-item> -->
 					<!-- #endif -->
 					<!-- #ifndef MP-ALIPAY -->
-					<swiper-item v-for="(centerSwiperItem,centerSwiperIndex) in centerLBLlit" :key="centerSwiperIndex" @tap="navTo(centerSwiperItem.GGContent)">
+					<!-- <swiper-item v-for="(centerSwiperItem,centerSwiperIndex) in centerLBLlit" :key="centerSwiperIndex" @tap="navTo(centerSwiperItem.GGContent)">
 						<image :src="centerSwiperItem.GGPicUrl" mode="scaleToFill" style="width: 100%; height: 200upx;border-radius: 15upx;"></image>
-					</swiper-item>
+					</swiper-item> -->
 					<!-- #endif -->
-				</swiper>
-			</view>
+				<!-- </swiper>
+			</view> -->
 			
+			<!-- 今日主推 -->
+			<!-- <view style="background-color: #FFFFFF;padding-top: 40upx;">
+				<view class=" padding-lr align-center  flex justify-between" style="margin-bottom: 30upx;">
+					<view class="text-bold" style="font-size: 40upx;">今日主推</view>
+					<view>
+						<text style="font-weight: 600;font-size: 50upx;">1</text>
+						<text style="color: #999999;font-size: 36upx;">/3</text>
+					</view>
+				</view>
+				<view class="" style="padding: 0 30upx;">
+					<swiper :indicator-dots="false" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
+						<swiper-item style="display: flex;text-align: center;justify-content:space-around;overflow: hidden;">
+							<view class="swiper-item" style="position: relative;">
+								<image src="https://img.huaxuapp.com/jrzt_03.png" mode="aspectFit" style="width: 220upx;height: 220upx;border-radius: 15upx;margin-bottom: 30upx;"></image>
+								<image src="https://img.huaxuapp.com/sjlogo_03.png" mode="aspectFit" style="position: absolute;top: 140upx;left: 20upx;width: 88upx;
+								height: 88upx;border-radius: 10upx;"></image>
+								<view style="width: 210upx; padding-bottom: 30upx 0;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">荷与禾餐厅(陕实打实大苏打</view>
+							</view>
+							<view class="swiper-item" style="position: relative;">
+								<image src="https://img.huaxuapp.com/jrzt_05.png" mode="aspectFit" style="width: 220upx;height: 220upx;border-radius: 15upx;margin-bottom: 30upx;"></image>
+								<image src="https://img.huaxuapp.com/sjlogo_05.png" mode="aspectFit" style="position: absolute;top: 140upx;left: 20upx;width: 88upx;
+								height: 88upx;border-radius: 10upx;"></image>
+								<view style="width: 210upx; padding-bottom: 30upx 0;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">荷与禾餐厅(陕实打实大苏打</view>
+							</view>
+							<view class="swiper-item" style="position: relative;">
+								<image src="https://img.huaxuapp.com/jrzt_07.png" mode="aspectFit" style="width: 220upx;height: 220upx;border-radius: 15upx;margin-bottom: 30upx;"></image>
+								<image src="https://img.huaxuapp.com/sjlogo_07.png" mode="aspectFit" style="position: absolute;top: 140upx;left: 20upx;width: 88upx;
+								height: 88upx;border-radius: 10upx;"></image>
+								<view style="width: 210upx; padding-bottom: 30upx 0;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">荷与禾餐厅(陕实打实大苏打</view>
+							</view>
+						</swiper-item>
+						<swiper-item style="display: flex;text-align: center;justify-content:space-around;overflow: hidden;">
+							<view class="swiper-item" style="position: relative;">
+								<image src="https://img.huaxuapp.com/jrzt_03.png" mode="aspectFit" style="width: 220upx;height: 220upx;border-radius: 15upx;margin-bottom: 30upx;"></image>
+								<image src="https://img.huaxuapp.com/sjlogo_03.png" mode="aspectFit" style="position: absolute;top: 140upx;left: 20upx;width: 88upx;
+								height: 88upx;border-radius: 10upx;"></image>
+								<view style="width: 210upx; padding-bottom: 30upx 0;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">荷与禾餐厅(陕实打实大苏打</view>
+								
+							</view>
+							<view class="swiper-item" style="position: relative;">
+								<image src="https://img.huaxuapp.com/jrzt_05.png" mode="aspectFit" style="width: 220upx;height: 220upx;border-radius: 15upx;margin-bottom: 30upx;"></image>
+								<image src="https://img.huaxuapp.com/sjlogo_05.png" mode="aspectFit" style="position: absolute;top: 140upx;left: 20upx;width: 88upx;
+								height: 88upx;border-radius: 10upx;"></image>
+								<view style="width: 210upx; padding-bottom: 30upx 0;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">荷与禾餐厅(陕实打实大苏打</view>
+							</view>
+							<view class="swiper-item" style="position: relative;">
+								<image src="https://img.huaxuapp.com/jrzt_07.png" mode="aspectFit" style="width: 220upx;height: 220upx;border-radius: 15upx;margin-bottom: 30upx;"></image>
+								<image src="https://img.huaxuapp.com/sjlogo_07.png" mode="aspectFit" style="position: absolute;top: 140upx;left: 20upx;width: 88upx;
+								height: 88upx;border-radius: 10upx;"></image>
+								<view style="width: 210upx; padding-bottom: 30upx 0;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">荷与禾餐厅(陕实打实大苏打</view>
+							</view>
+						</swiper-item>
+						<swiper-item style="display: flex;text-align: center;justify-content:space-around;overflow: hidden;">
+							<view class="swiper-item" style="position: relative;">
+								<image src="https://img.huaxuapp.com/jrzt_03.png" mode="aspectFit" style="width: 220upx;height: 220upx;border-radius: 15upx;margin-bottom: 30upx;"></image>
+								<image src="https://img.huaxuapp.com/sjlogo_03.png" mode="aspectFit" style="position: absolute;top: 140upx;left: 20upx;width: 88upx;
+								height: 88upx;border-radius: 10upx;"></image>
+								<view style="width: 210upx; padding-bottom: 30upx 0;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">荷与禾餐厅(陕实打实大苏打</view>
+								
+							</view>
+							<view class="swiper-item" style="position: relative;">
+								<image src="https://img.huaxuapp.com/jrzt_05.png" mode="aspectFit" style="width: 220upx;height: 220upx;border-radius: 15upx;margin-bottom: 30upx;"></image>
+								<image src="https://img.huaxuapp.com/sjlogo_05.png" mode="aspectFit" style="position: absolute;top: 140upx;left: 20upx;width: 88upx;
+								height: 88upx;border-radius: 10upx;"></image>
+								<view style="width: 210upx; padding-bottom: 30upx 0;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">荷与禾餐厅(陕实打实大苏打</view>
+							</view>
+							<view class="swiper-item" style="position: relative;">
+								<image src="https://img.huaxuapp.com/jrzt_07.png" mode="aspectFit" style="width: 220upx;height: 220upx;border-radius: 15upx;margin-bottom: 30upx;"></image>
+								<image src="https://img.huaxuapp.com/sjlogo_07.png" mode="aspectFit" style="position: absolute;top: 140upx;left: 20upx;width: 88upx;
+								height: 88upx;border-radius: 10upx;"></image>
+								<view style="width: 210upx; padding-bottom: 30upx 0;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">荷与禾餐厅(陕实打实大苏打</view>
+							</view>
+						</swiper-item>
+					</swiper>
+				</view>
+			</view> -->
+			
+			<view style="background-color: #FFFFFF;height: 14upx;"></view>
+			
+			<!-- 人气精选(VIP)-->
+			<!-- <view style="padding: 0 30upx;background-color: #FFFFFF;margin-top: 0upx;" @tap="hbck()">
+				<view style="background-image: url(https://img.huaxuapp.com/vipnew_03.png);width: 692upx;height: 570upx;
+				background-repeat: no-repeat;background-size: cover;">
+					<view style="padding-top: 216upx;height: 340upx;margin-left: 11upx;">
+						<view class="flex" style="background-color: #FFFFFF;width: 670upx;height: 70upx;border-radius: 15upx 15upx 0 0;padding-top: 20upx;
+						justify-content:space-between;">
+							<view class="flex">
+								<view class="hxIcon-iconfontshangjia" style="margin-left: 30upx;font-size: 42upx;color: #fd3824;margin-top: 2upx;"></view>
+								<view style="color: #333333;font-size: 32upx;font-weight: 600;margin-left: 20upx;margin-bottom: 5upx;
+								width: 240upx; overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">{{Viplist.StoreName}}</view>
+							</view>
+							<view style="margin-right: 20upx;border: 2upx solid #fd3824;border-radius: 10upx;display: flex;height: 40upx;">
+								<view style="background-color: #fd3824;color: #FFFFFF;padding: 0 10upx;border-radius: 8upx;font-size: 24upx;">余额充值</view>
+								<view style="color: #fd3824;padding: 0 10upx;font-size: 24upx;">立享优惠</view>
+							</view>
+						</view>
+						<view  style="background-color: #FFFFFF;width: 670upx;height: 270upx;padding-right: 30upx;padding-top: 10upx;border-radius:  0 0 15upx 15upx;">
+							<view>
+								<scroll-view class="scroll-view_H" scroll-x="true">
+									<view class="scroll-view-item_H" v-for="(huadong,index) in huadongs" :key="index" style="margin: 16upx 8upx;">
+										<view><image :src="huadong.img" mode="scaleToFill" style="width: 164upx;height: 146upx;border-radius: 10upx;"></image></view>
+										<view style="font-size: 24upx;height: 40upx;">{{huadong.name}}</view>
+										<view style="color: #fe4e01;font-size: 30upx;font-weight: 600;"><text style="font-size: 24upx;">￥</text>{{huadong.info}}</view>
+									</view>
+								</scroll-view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view> -->
 			<!-- <view class="wrap">
 				<u-swiper :list="lists" mode="none" :effect3d="true" img-mode="aspectFit"></u-swiper>
 			</view> -->
-			
-			<!-- 精选商家标题 -->
-			<view class="" style="height: 30upx;padding-top: 30upx;padding-bottom: 50upx;background-color: #FFFFFF;" v-if="!isChristmas && !isYD && !isXN">
-				<view class=" padding-lr align-center justify-center">
-					<view class="text-bold" style="font-size: 40upx;">附近商家</view>
+			<view style="background-color: #FFFFFF;height: 20upx;"></view>
+			<!-- 本周热卖爆品 -->
+			<view style="background-color: #FFFFFF;padding-top: 40upx;">
+				<view class=" padding-lr align-center  flex justify-between" style="margin-bottom: 5upx;" @tap="saleHot()" >
+					<view class="text-bold" style="font-size: 40upx;">热卖爆品,滑动更多</view>
+					<view>
+						<text style="font-size: 26upx;color: #999999;color: #fe4e01;">查看更多 <text class="hxIcon-rightArrow" style="font-size: 26upx;"></text></text>
+					</view>
+				</view>
+				<view style="padding: 20upx 0upx; width: 100%;height: 390upx;padding-bottom: 0;padding-top: 10upx;">
+					<scroll-view class="scroll-view_H" scroll-x="true" :scroll-with-animation="true" style="margin-left: 0;border-radius: 10upx;">
+						<view style="width: 2260upx;padding-right: 0upx;">
+							<view class="yin" style="width: 2200upx;overflow: hidden;padding-top: 20upx;
+								-moz-box-shadow:0px 0px 4px 0px #E4E4E4;-webkit-box-shadow:0px 0px 4px 0px #E4E4E4;box-shadow:0px 0px 4px 0px #E4E4E4;">
+								<view class="scroll-view-item_H"  v-for="(baoPin,index) in baoPin" :key="index" style="margin: 0 12upx;" @tap="baoPingoto(baoPin.StoreID,baoPin.ID)">
+									<view style="position: relative;width: 290upx;height: 174upx;">
+										<image :src="baoPin.Imgs" mode="" style="width: 290upx;height: 174upx;border-radius: 10upx;">
+											<text style="background-color: rgba(0,0,0,.6);font-size: 24upx;position: absolute;left: 0;bottom: 0upx;
+												color: #FFFFFF;padding: 4upx 12upx;border-radius: 0 10upx 0 10upx;">{{baoPin.LikeNum || 0}}<text style="font-size: 22upx;">喜欢</text></text>
+										</image>
+										
+									</view>
+									<view class="shengLv" style="width: 290upx;height: 76upx;margin-top: 18upx;font-size: 28upx;">
+										{{baoPin.Title}}
+									</view>
+									<!-- <view style="text-align: left;margin-top: 14upx;">
+										<text style="background-color: #000000;color: #ddb996;padding: 10upx;padding-top: 6upx;padding-bottom: 6upx; font-size: 24upx;padding-left: 20upx;padding-right: 20upx;">会员</text>
+										<text style="background-color: #ddb996;padding: 10upx;padding-top: 6upx;padding-bottom: 6upx;font-size: 24upx;border-radius: 0 30upx 30upx 0;">立减20元</text>
+									</view> -->
+									<view style="text-align: left;margin-top: 20upx;">
+										<text style="color: #fe4e01;font-size: 24upx;margin-left: 10upx;font-weight: 600;">￥</text>
+										<text style="color: #fe4e01;font-weight: 600;font-size: 34upx;">{{changeMoney(baoPin.DiscountedPrice)}}</text>
+										<text style="text-decoration: line-through;margin-left: 10upx;color: #aaaaaa;font-size: 24upx;">￥{{changeMoney(baoPin.OrderPrice)}}</text>
+									</view>
+								</view>
+							</view>
+						</view>
+					</scroll-view>
 				</view>
 			</view>
-			<view v-if="isChristmas && !isYD" class="margin-lr margin-top" style="height: 80upx;background: url('https://img.huaxuapp.com/huaxujingxuanshangjia_03.png') no-repeat; background-size: cover;">
+			
+			<!-- 超值专区 -->
+			<!-- <view style="background-color: #FFFFFF;padding: 40upx 0;padding-top: 30upx;">
+				<view style="padding: 0 30upx;background-color: #FFFFFF;margin-top: 30upx;" @tap="tishi()">
+					<view style="background-image: url(https://img.huaxuapp.com/czzq_03.png);width: 692upx;height: 570upx;
+					background-repeat: no-repeat;background-size: cover;position: relative;">
+						<view style="width: 670upx;height: 340upx;display: flex;position: absolute;top: 212upx;left: 0upx;
+							margin-left: 13upx;justify-content:space-between;">
+							<view v-for="(chaoZhi,index) in chaoZhi" :key="index" >
+								<view style="width: 216upx;height:176upx;">
+									<image :src="chaoZhi.img" mode="" style="width: 216upx;height:176upx;border-radius: 12upx 12upx 0 0;"></image>
+								</view>
+								<view style="text-align: center;width: 216upx;height:42upx;margin-top: 4upx;">
+									<text style="color: #FFFFFF;font-size: 24upx;line-height: 42upx;">{{chaoZhi.shou}}</text>
+								</view>
+								<view style="text-align: center;margin-top: 16upx;">
+									<text >{{chaoZhi.name}}</text>
+								</view>
+								<view style="text-align: center;margin-top: 16upx;">
+									<text style="color: red;font-size: 24upx;margin-left: 10upx;font-weight: 600;">￥</text>
+									<text style="color: red;font-weight: 600;font-size: 32upx;">{{chaoZhi.info}}</text>
+									<text style="text-decoration: line-through;margin-left: 10upx;color: #aaaaaa;font-size: 24upx;">￥{{chaoZhi.sale}}</text>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view> -->
+			
+			<!-- 精选商家标题 -->
+			<!-- <view class="" style="height: 30upx;padding-top: 30upx;padding-bottom: 50upx;background-color: #FFFFFF;" v-if="!isChristmas && !isYD && !isXN">
+				<view class=" padding-lr align-center justify-center">
+					<view class="text-bold" style="font-size: 40upx;">VIP商家</view>
+				</view>
+			</view> -->
+			<!-- <view v-if="isChristmas && !isYD" class="margin-lr margin-top" style="height: 80upx;background: url('https://img.huaxuapp.com/huaxujingxuanshangjia_03.png') no-repeat; background-size: cover;">
 			</view>
 			<view style="position: relative;" v-if="isYD">
 				<view class="margin-top" style="height: 80upx;background: url('https://img.huaxuapp.com/ydjxsj_03.png') no-repeat; background-size: cover;position: relative;top: 0;"></view>
@@ -259,7 +479,7 @@
 
 			<view style="position: relative;" v-if="isXN">
 				<view class="margin-top" style="height: 80upx;background: url('https://img.huaxuapp.com/nyjxsj.png') no-repeat; background-size: cover;position: relative;top: 0;"></view>
-			</view>
+			</view> -->
 			<!-- 精选商铺list -->
 					
 			<!-- <scroll-view scroll-x class="bg-white nav">
@@ -274,9 +494,9 @@
 				</view>
 			</scroll-view> -->
 			
-			<!-- <u-tabs name="cate_name" :list="list" :is-scroll="false" :current="current" @change="change" :duration="0.1" inactive-color="rgb(51, 51, 51)" active-color="rgb(243, 78, 45)" 
+			<!-- <u-tabs name="cate_name" :list="list" :is-scroll="false" :current="current" @change="change" :duration="0.1" inactive-color="rgb(51, 51, 51)" active-color="rgb(254, 78, 1)" 
 			style="margin-bottom: 20upx;" bar-width="35" bar-height="8"></u-tabs> -->
-			<view style="height: 80upx;padding-top: 26upx;background-color: #FFFFFF;">
+			<!-- <view style="height: 80upx;padding-top: 26upx;background-color: #FFFFFF;">
 				<view class="flex">
 					<view :class="[current==0?'liss':'lis']" @tap="change(0)"><text>综合排序</text></view>
 					<view :class="[current==1?'liss':'lis']" @tap="change(1)"><text>距离最近</text></view>
@@ -301,18 +521,18 @@
 					
 						<view  class="flex" style="border-radius: 8upx;background: #FFFFFF; padding-top: 20upx; padding-bottom:20upx; padding-left: 30upx; padding-right: 30upx;">
 							<view style="position: relative;">
-								<image :src="item.GGpics || item.StorePic" mode="aspectFill" style="width: 160rpx;height:160rpx;border-radius: 8upx;"></image>
+								<image :src="item.GGpics || item.StorePic" mode="aspectFill" style="width: 160rpx;height:160rpx;border-radius: 8upx;"></image> -->
 								<!-- <view v-if="isChristmas && !isYD" style="position: absolute;width: 100%;height:300upx;top: 0;background: url('https://img.huaxuapp.com/merrychristmas_03.png') no-repeat; background-size: cover;z-index: 7;"></view> -->
-								<image v-if="item.IsSY" src="https://img.huaxuapp.com/160-160.png" mode="aspectFit" style="position: absolute; width: 160rpx; height: 160rpx; top: 0; left: 0;"></image>
+								<!-- <image v-if="item.IsSY" src="https://img.huaxuapp.com/sy160-160.png" mode="aspectFit" style="position: absolute; width: 160rpx; height: 160rpx; top: 0; left: 0;"></image> -->
 								<!-- <view v-if="isChristmas && !isYD"  style="position: absolute;width: 282upx;height:154upx;bottom:-28upx; left: -30upx; background: url('https://img.huaxuapp.com/shengdanlaoren_03.png') no-repeat; background-size: cover;z-index: 8;"></view> -->
-								<view v-if="isYD || isXN" style="position: absolute;width:132upx;height:110upx;bottom:-42upx; left: -18upx; background: url('https://img.huaxuapp.com/jiaozi_03.png') no-repeat; background-size: cover;z-index: 8;"></view>
+								<!-- <view v-if="isYD || isXN" style="position: absolute;width:132upx;height:110upx;bottom:-42upx; left: -18upx; background: url('https://img.huaxuapp.com/jiaozi_03.png') no-repeat; background-size: cover;z-index: 8;"></view>
 							</view>
 							
 							<view class="" style="margin-left:20upx;width:80%; border-bottom:0.5upx solid #eeeeee;">
-								<view class="text-bold text-cut" style="color: #333333;font-size: 30upx;">{{item.StoreName}}</view>
+								<view class="text-bold text-cut" style="color: #333333;font-size: 30upx;">{{item.StoreName}}</view> -->
 								
 								<!-- <text class="text-gray text-xs">{{item.GGContent}}</text> -->
-								<view class="flex align-center justify-between" style="margin-top:12upx">
+								<!-- <view class="flex align-center justify-between" style="margin-top:12upx">
 									<view class="flex align-center justify-start">
 										<view class="flex align-center">
 											<view class="flex align-center">
@@ -324,24 +544,24 @@
 												 :key="grayStartIndex" style="margin-right: 4upx; font-size: 27upx;line-height: 1em;"  v-if="(5-item.StoreStart)>0"></view>
 											</view>
 											<view style="color: red;margin-left: 8upx;">{{item.StoreStart}}.0</view>
-										</view>
+										</view> -->
 										<!-- 月售 -->
 										<!-- <view style="margin-left: 15upx;font-size: 26upx;color: #5e5e5e;"><text style="color: #c7c7c7;margin-right: 15upx;">|</text>月售123</view> -->
 										<!-- 距离   -->
-										<view style="position: absolute;right: 30upx;color: #999999;font-size: 20upx;" v-if="item.distance != 0">{{getDistance(item.distance)}}</view>
-									</view>
+										<!-- <view style="position: absolute;right: 30upx;color: #999999;font-size: 20upx;" v-if="item.distance != 0">{{getDistance(item.distance)}}</view>
+									</view> -->
 									<!-- <view style="line-height: 1em;color: #999999;font-size: 24upx;">
 										<text class="hxIcon-huo"></text> <text class="margin-left-xs" style="font-size: 26upx;">{{item.ReadCount==null?0:item.ReadCount}}</text>
 									</view> -->
-								</view>
+								<!-- </view> -->
 								
 								<!-- 商圈 -->
-								<view class="flex" style="color: #999999;font-size: 24upx;line-height: 1em;margin-top: 12upx;">
+								<!-- <view class="flex" style="color: #999999;font-size: 24upx;line-height: 1em;margin-top: 12upx;">
 									<text style="color:#f50b0b;line-height: 1em;">{{item.StoreSortName}}</text><text style="margin-left: 5upx;margin-right: 5upx;line-height: 1em;">·</text><text>{{item.BusinessName}}</text>
-								</view>
+								</view> -->
 								
 								<!-- 地址 -->
-								<view style="padding-bottom: 20upx;">
+								<!-- <view style="padding-bottom: 20upx;">
 									<view class="text-df map_info flex" style="margin-top: 15upx;">
 										<view  style="color: #999999;margin-top: 6upx;font-size: 24upx;"><text class="cuIcon-locationfill marghin-right-sm"></text></view>
 										<view style="width:800upx;text-overflow :ellipsis;white-space :nowrap; overflow : hidden;font-size: 24upx; ">
@@ -355,10 +575,261 @@
 					</view>
 					
 				</view>
+			</view> -->
+			
+			<!-- <view style="background-color: #ffffff;padding-top: 40upx;padding-bottom: 0upx;" @tap="userShop">
+				<view class=" padding-lr align-center  flex justify-between" style="margin-bottom: 15upx;">
+					<view class="text-bold" style="font-size: 40upx;">大家都在买</view>
+					<view>
+						<text style="font-size: 26upx;color: #fe4e01;">查看更多 <text class="hxIcon-rightArrow" style="font-size: 26upx;"></text></text>
+					</view>
+				</view>
+				<image src="https://img.huaxuapp.com/rmjx3_03.png"  mode="scaleToFill" style="width: 690upx;height: 160upx;border-radius: 5upx;margin-left: 30upx;margin-top: 20upx;"></image>
+			</view> -->
+			
+			<!-- <view class="flex " style="background-color: #ffffff;" v-for="(item,index) in userAllsale" :key="index">
+				<view @tap="baoPingoto(item[0].StoreID,item[0].ID)" style="border-radius: 10upx;width: 375upx;margin:30upx;margin-top: 20upx;background-color: #ffffff;margin-bottom: 11upx;margin-right: 10upx;padding-bottom: 20upx;-moz-box-shadow:0px 0px 4px 0px #E4E4E4;-webkit-box-shadow:0px 0px 4px 0px #E4E4E4;box-shadow:0px 0px 4px 0px #E4E4E4;">
+					<view style="width: 336upx;height: 184upx;">
+						<image :src="item[0].Imgs" style="border-radius: 10upx;width: 336upx;height: 184upx;"  mode="scaleToFill"></image>
+					</view>
+					<view class="shengLv" style="padding:12upx 14upx;font-size: 26upx;width: 336upx;height: 80upx;">
+						<text>{{item[0].Title}}</text>
+					</view>
+					
+					<view style="color: #fe4e01;margin-top: 6upx;margin-left: 10upx;">
+						<text style="font-size: 24upx;">￥</text>
+						<text style="font-size: 36upx;font-weight: 600;">{{changeMoney(item[0].DiscountedPrice)}}</text>
+					</view>
+					<view class="flex align-center justify-between" style="margin-top: 10upx;padding: 0 10upx;">
+						<view class="flex align-center">
+							<view class="flex align-center" style="font-size: 24upx;text-decoration: line-through;color: #999999;">
+								<text>{{changeMoney(item[0].OrderPrice)}}</text>
+							</view>
+							<view class="flex align-center" style="font-size: 24upx;color: #fe4e01;background-color: #fbf0ea;padding: 0 12upx;border-radius: 50upx;margin-left: 6upx;">
+								<text>{{jiSuan(item[0].ZK)}}折</text>
+							</view>
+						</view>
+						<view  class="flex align-center" style="font-size: 24upx;color: #999999;">
+							<text>{{item[0].GetNum}}人购买</text>
+						</view>
+					</view>
+				</view>
+				
+				<view @tap="baoPingoto(item[1].StoreID,item[1].ID)" style="border-radius: 10upx;width: 375upx;margin:30upx;margin-top: 20upx;background-color: #ffffff;margin-bottom: 14upx;margin-left: 10upx;padding-bottom: 20upx;-moz-box-shadow:0px 0px 4px 0px #E4E4E4;-webkit-box-shadow:0px 0px 4px 0px #E4E4E4;box-shadow:0px 0px 4px 0px #E4E4E4;">
+					<view style="width: 336upx;height: 184upx;">
+						<image :src="item[1].Imgs" style="border-radius: 10upx;width: 336upx;height: 184upx;" mode="scaleToFill"></image>
+					</view>
+					<view class="shengLv" style="padding:12upx 14upx;font-size: 26upx;width: 336upx;height: 80upx;">
+						<text>{{item[1].Title}}</text>
+					</view>
+					<view style="color: #fe4e01;margin-top: 6upx;margin-left: 10upx;">
+						<text style="font-size: 24upx;">￥</text>
+						<text style="font-size: 36upx;font-weight: 600;">{{changeMoney(item[1].DiscountedPrice)}}</text>
+					</view>
+					<view class="flex align-center justify-between" style="margin-top: 10upx;padding: 0 10upx;">
+						<view class="flex align-center">
+							<view  class="flex align-center" style="font-size: 24upx;text-decoration: line-through;color: #999999;">
+								<text>{{changeMoney(item[1].OrderPrice)}}</text>
+							</view>
+							<view class="flex align-center" style="font-size: 24upx;color: #fe4e01;background-color: #fbf0ea;padding: 0 12upx;border-radius: 50upx;margin-left: 6upx;">
+								<text>{{jiSuan(item[1].ZK)}}折</text>
+							</view>
+						</view>
+						<view  class="flex align-center" style="font-size: 24upx;color: #999999;">
+							<text>{{item[1].GetNum}}人购买</text>
+						</view>
+					</view>
+				</view>
+			</view> -->
+			
+			
+			<view style="background-color: #ffffff;padding-top: 40upx;padding-bottom: 0upx;">
+				<view class=" padding-lr align-center  flex justify-between" style="padding-bottom: 5upx;">
+					<view>
+						<view class="" style="font-size: 40upx;font-weight: 600;">最新活动
+						</view>
+						<view style="font-size: 24upx;color: #999999; ">
+							更划算、更优质、更靠谱
+						</view>
+					</view>
+					
+					<!-- <view class="flex" style="width: 240upx;">
+						<view @tap="actQ(1)" :class="[actInx==1?'act':'dbact']" class="flex justify-center align-center">
+							推荐
+						</view>
+						<view @tap="actQ(2)" :class="[actInx==2?'dbacts':'acts']" class="flex justify-center align-center">
+							附近
+						</view>
+					</view> -->
+				</view>
+			</view>
+			
+			<view class="padding" style="background-color: #ffffff;padding-top: 0;">
+				<view  v-for="(item,index) in centerLBLlits" :key="index" class=""  @tap="baoPingoto(item.StoreID,item.ID)"  style="border-radius: 10upx;width: 690upx;margin-top: 30upx;padding-top: 0upx;background-color: #ffffff;-moz-box-shadow:0px 0px 4px 0px #E4E4E4;-webkit-box-shadow:0px 0px 4px 0px #E4E4E4;box-shadow:0px 0px 4px 0px #E4E4E4;">
+					<view class="" style="background-color: #ffffff;padding-bottom: 0upx;">
+						<image  :src="item.Imgs" mode="scaleToFill" style="width: 690upx;height: 390upx;border-radius: 10upx;"></image>
+					</view>
+				
+					<view class="" style="padding-bottom: 30upx;border-radius:0 0 10upx 10upx;background-color: #ffffff;margin-top: 0upx;padding-top: 10upx; ">
+						<view class="flex justify-between align-center" style="padding-top: 4upx;">
+							<view class="flex align-center" style="color: #999999;font-size: 24upx;">
+								<view style="width: 6upx;height:24upx;background-color: rgb(254, 217, 66);"></view>
+								<view style="margin-left: 20upx;">
+									{{item.StoreName}}
+								</view>
+							</view>
+							<view style="color: #999999;font-size: 24upx;margin-right: 20upx;">
+								{{item.SortName}} | {{getDistance(item.distance)}}
+							</view>
+						</view>
+						
+						<view class="flex justify-between align-center" style="padding: 15upx;margin-top: 4upx;">
+							<view class="flex justify-between align-center" style="">
+								<text class="flex align-center" style="">
+									<text class="shengLv" style="line-height: 50upx;align-self: center ;">
+										<text style="height: 36upx; border-radius: 5upx;background-color: rgb(254, 217, 66);font-size: 22upx;padding: 4upx 8upx;">
+											{{item.Tags}}
+										</text>
+										<text class="" style="line-height: 36upx;background-color: #ffffff;font-size: 31upx;">
+											{{item.Title}}
+										</text>
+									</text>
+								</text>
+							</view>
+						</view>
+						
+						<view class="flex justify-between align-center" style="padding: 12upx;padding-top: 0upx;">
+							<view style="font-weight: 600;">
+								<text style="font-size: 26upx;color: #fe4e01;">￥</text>
+								<text style="font-size: 44upx;color: #fe4e01;">{{changeMoney(item.DiscountedPrice)}}</text>
+							</view>
+							<view class="flex justify-center align-center" style="width: 160upx;height: 60upx;background-color: #f85144;border-radius: 12upx;color: #ffffff;">
+								马上抢
+							</view>
+						</view>
+						
+						<view class="flex align-center justify-between" style="margin-top: 3upx;padding: 0 10upx;">
+							<view class="flex align-center">
+								<view  class="flex align-center" style="font-size: 24upx;text-decoration: line-through;color: #999999;">
+									<text>原价￥{{changeMoney(item.OrderPrice)}}</text>
+								</view>
+								<view class="flex align-center" style="font-size: 24upx;color: #fe4e01;background-color: #fbf0ea;padding: 0 12upx;border-radius: 50upx;margin-left: 6upx;">
+									<text>{{jiSuan(item.ZK)}}折</text>
+								</view>
+							</view>
+							<view  class="flex align-center" style="font-size: 24upx;color: #999999;margin-right: 20upx;">
+								<text>{{item.GetNum}}人购买</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+			<view id="submit" style="padding-top: 40upx;background-color: #ffffff;">
+				<view class="flex justify-around " style="padding: 0 20upx;background-color: #ffffff;" >
+					<view @tap="shopmsgs(1)" :class="[ shopmsg == 1 ? 'kuang' : 'kuangs']" class="flex justify-center align-center" style="width: 142upx;height: 62upx;line-height: 62up;font-size: 28upx;border-radius: 5upx;">
+						商家
+					</view>
+					<view @tap="shopmsgs(2)" :class="[ shopmsg == 2 ? 'kuang' : 'kuangs']" class="flex justify-center align-center" style="width: 142upx;height: 62upx;line-height: 62up;font-size: 28upx;border-radius: 5upx;">
+						超值套餐
+					</view>
+					<view @tap="shopmsgs(3)" :class="[ shopmsg == 3 ? 'kuang' : 'kuangs']" class="flex justify-center align-center" style="width: 142upx;height: 62upx;line-height: 62up;font-size: 28upx;border-radius: 5upx;">
+						优惠买单
+					</view>
+					<view @tap="shopmsgs(4)" :class="[ shopmsg == 4 ? 'kuang' : 'kuangs']" class="flex justify-center align-center" style="width: 142upx;height: 62upx;line-height: 62up;font-size: 28upx;border-radius: 5upx;">
+						抢代金券
+					</view>
+				</view>
+				<view style="width: 750upx; height: 15upx;background-color: #ffffff;"></view>
+				<view class="container" offset-top="0" style="border-bottom: 1upx solid #EEEEEE;padding-top: 6upx;background-color: #ffffff;z-index:1;">
+					<view style="background-color: #FFFFFF;" >
+						<u-dropdown activeColor="#000000" inactiveColor="#999999">
+							<u-dropdown-item v-model="value1" :title="value1==-1 ? label1 : options1[value1s].label || '品类'" :options="options1" @change="gaSe(value1,value1s)"></u-dropdown-item>
+							<u-dropdown-item v-model="value2" :title="value2==-1 ? label2 : options2[value2s].label" :options="options2" @change="gaSew(value2,value2s)"></u-dropdown-item>
+							<u-dropdown-item v-model="value3" :title="value3==-1 ? label3 : options3[value3s].label || '汉台区'" :options="options3" @change="gaSet(value3,value3s)"></u-dropdown-item>
+							<u-dropdown-item v-model="value4" :title="value4==-1 ? label4 : options4[value4s].label" :options="options4" @change="gaSef(value4,value4s)"></u-dropdown-item>
+						</u-dropdown>
+					</view>
+				</view>
+			</view>
+			
+			<view class="padding" style="padding-top: 0;">
+				<view v-for="(item,index) in homeList" :key="index" @tap="gotoShops(item.StoreID)" style="margin-top: 30upx;width: 690upx;border-radius: 20upx;-moz-box-shadow:0px 0px 4px 0px #E4E4E4;-webkit-box-shadow:0px 0px 4px 0px #E4E4E4;box-shadow:0px 0px 4px 0px #E4E4E4;">
+					<view class="flex" style="margin:0 20upx;padding: 20upx 0;padding-bottom: 30upx;">
+						<view style="width: 180upx;height: 160upx;position: relative;">
+							<image src="https://img.huaxuapp.com/160-160shouye.png" mode="aspectFit" class="cover-img" v-if="item.IsSY"></image>
+							<image  style="width: 160upx;height: 160upx;border-radius: 10upx;" :src="item.StorePic || 'https://img.huaxuapp.com/wctp_03.png'" mode="scaleToFill" ></image>
+						</view>
+						<view style="width: 460upx;">
+							<view class="flex justify-between align-center">
+								<view class="shengLvs" style="font-size: 34upx;color: #000000;font-weight: 600;width: 350upx;">
+									{{item.StoreName}}
+								</view>
+								<view style="height: 34upx;line-height: 34upx;font-size: 26upx;">
+									<text class="hxIcon-tubiaozhizuomoban" style="color: #fe4e01;font-size: 24upx;"></text>
+									<text style="color: #777777;">{{item.StoreStart}}.0分</text>
+								</view>
+							</view>
+							<view class="flex justify-between align-center" style="margin-top: 16upx;font-size: 26upx;">
+								<view style="color: #999999;font-size: 28upx;">￥{{item.RJ || 0}}<text style="font-size: 26upx;">/人</text></view>
+								<view style="color: #333333;">{{getDistance(item.distance)}}</view>
+							</view>
+							<view class="flex" style="margin-top: 16upx;justify-content: flex-start;">
+								<view  v-if="item.StoreTags" v-for="(items,is) in qieHuan(item.StoreTags)" :key="is" class="flex justify-center align-center" style="margin-right: 10upx;border:2upx solid #f6d8dc;color: #fd3824; padding: 0 10upx;font-size: 24upx;border-radius: 5upx;">
+									<text style="height: 36upx;line-height: 36upx;">{{items}}</text>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view style="margin:0 20upx;height: 1.5upx;background-color: #e4e4e4;" v-if="item.Coupons.length >= 1">
+						
+					</view>
+					<!-- <view v-if="item.zk < 1" class="flex align-center" style="border-bottom: 1.5upx solid #e4e4e4;background-color: #FFFFFF;text-align: center;margin: 20upx;padding-bottom: 20upx;margin-left: 30upx;">
+						<view style="width: 30upx;color: #ffffff;font-size: 22upx;background-color: #fb685a;margin-left: 20upx;border-radius: 5upx;">
+							<text>买</text>
+						</view>
+						<view style="font-size: 28upx;margin-left: 14upx;color: #999999;">
+							<text>买单</text>
+						</view>
+						<text style="margin-left: 50upx;font-size: 28upx;color: #333333;">今日买单{{jiSuan(item.zk)}}折</text>
+					</view> -->
+					
+					<view  v-if="item.Coupons.length >= 1" class="flex align-center" style="border-bottom: 1.5upx solid #e4e4e4;background-color: #FFFFFF;text-align: center;margin: 20upx;padding-bottom: 20upx;margin-left: 30upx;">
+						<view style="width: 30upx;color: #ffffff;font-size: 22upx;background-color: #febf3b;text-align: center;margin-left: 20upx;border-radius: 5upx;">
+							<text>券</text>
+						</view>
+						
+						<view style="font-size: 28upx;margin-left: 14upx;color: #999999;">
+							<text>优惠</text>
+						</view>
+						<text style="margin-left: 50upx;font-size: 28upx;color: #333333;">
+							<text style="margin-left: 10upx;" v-if="item.Coupons.length == 1">{{changG(item.Coupons[0],0)}}</text>
+							<text style="margin-left: 10upx;" v-if="item.Coupons.length > 1">{{changG(item.Coupons[0],0)}},</text>
+							<text style="margin-left: 10upx;" v-if="item.Coupons.length == 2">{{changG(item.Coupons[1],1)}}</text>
+							<text style="margin-left: 10upx;" v-if="item.Coupons.length > 2">{{changG(item.Coupons[1],1)}},</text>
+							<text style="margin-left: 10upx;" v-if="item.Coupons.length == 3">{{changG(item.Coupons[2],2)}}</text>
+							<text style="margin-left: 10upx;" v-if="item.Coupons.length > 3">{{changG(item.Coupons[2],2)}},</text>
+							<text style="margin-left: 10upx;" v-if="item.Coupons.length == 4">{{changG(item.Coupons[3],3)}}</text>
+						</text>
+					</view>
+					
+					<view v-if="item.SeatMeal.length >= 1" class="flex align-center" style="background-color: #FFFFFF;text-align: center;margin: 20upx;padding-bottom: 20upx;margin-left: 30upx;">
+						<view style="width: 30upx;color: #ffffff;font-size: 22upx;background-color: #fb685a;margin-left: 20upx;border-radius: 5upx;">
+							<text>团</text>
+						</view>
+						<view style="font-size: 28upx;margin-left: 14upx;color: #999999;">
+							<text>套餐</text>
+						</view>
+						<text style="margin-left: 50upx;font-size: 28upx;color: #333333;">
+							<text class="shengLvs" style="margin-left: 10upx;font-size: 28upx;color: #333333;width: 400upx;">{{item.SeatMeal[0].Title}}</text>
+						</text>
+					</view>
+				</view>
 			</view>
 		</view>
+		
 		<!-- #ifdef APP-PLUS -->
-		<view class="gl" @touchmove.stop.prevent="moveHandle" v-if="showGL" @tap="hideGL">
+		<view class="gl" @touchmove.stop.prevent="moveHandle" v-if="showGL">
 			<view class="gl-content">
 				<view class="gl-img" style="background-image: url(https://img.huaxuapp.com/yszc);"></view>
 				<view class="text-xs margin-top">点击同意即表示已阅读<text class="xy-text" @tap="toWebview('zc')">《花蓄用户注册服务协议》</text>和<text class="xy-text" @tap="toWebview('ys')">《花蓄用户隐私服务协议》</text></view>
@@ -375,17 +846,36 @@
 		<!-- #endif -->
 		 
 		
-		<navigator url="/pages/ad/couponRedemption">
+		<!-- <navigator url="/pages/ad/couponRedemption">
 			<view class="coupons shake"></view>
-		</navigator>
+		</navigator> -->
+		
+		<!-- <navigator url="/pages/ad/cheXian" v-if="shows == false">
+			<view class="couponss shake"></view>
+		</navigator> -->
 		
 		<!-- #ifdef APP-PLUS -->
-		<navigator url="/pages/ad/couponRedemption">
+		<!-- <navigator url="/pages/ad/couponRedemption">
 			<view class="dong shake" style="width: 170rpx;height: 166rpx;background: url(https://img.huaxuapp.com/qyhq_03.png) no-repeat;background-position: center;
 			background-size: cover;position: fixed;bottom: 50upx;right: 30rpx;animation-timing-function: ease-in-out;animation-iteration-count: infinite;animation-duration: 3s;
 		"></view>
-		</navigator>
+		</navigator> -->
 		<!-- #endif -->
+		
+		<view class="couponsss shake flex justify-between align-center" v-if="shows" @tap="pDuan" >
+			<view style="color: #ffffff;font-size: 26upx;margin-left: 30upx;">
+				<text>如果你不登录，我就霸占这里不离开</text>
+			</view>
+			
+			<view class="flex align-center justify-center bg-blue margin-lr-xs padding-lr-sm"  style="margin-right: 30upx;width: 136upx;height: 54upx;border-radius: 10upx;background:  linear-gradient(to right, #fe4e01, #f12400);
+				font-size: 24upx;margin-left: 80upx;line-height: 54upx;">
+				<text>马上登录</text>
+			</view>
+		</view>
+		
+		<view v-if="scrollTop > 600"  @tap="backtops" class="flex align-center justify-center flex-direction huiqu">
+			<text class="hxIcon-shangla" style="font-size: 90upx;color: rgba(0,0,0,0.2);"></text>
+		</view>
 	</view>
 
 </template>
@@ -470,10 +960,118 @@
 					}
 				],
 				kfindex: 0,
-				getsort: 1
+				getsort: 1,
+				huadongs:[
+					{img:'https://img.huaxuapp.com/290174_03.png',name:'蒜香排骨',info:'98'},
+					{img:'https://img.huaxuapp.com/290174_05.png',name:'鲍鱼海参粥',info:'70'},
+					{img:'https://img.huaxuapp.com/2901741_03.png',name:'麻辣牛肉',info:'50'},
+					{img:'https://img.huaxuapp.com/174216_05.png',name:'蒜香排骨',info:'60'},
+					{img:'https://img.huaxuapp.com/174216_07.png',name:'鲍鱼海参粥',info:'70'},
+					{img:'https://img.huaxuapp.com/174216_03.png',name:'麻辣牛肉',info:'22'},
+					{img:'https://img.huaxuapp.com/cpzs_10.png',name:'蒜香排骨',info:'88'},
+					{img:'https://img.huaxuapp.com/cpzs_03.png',name:'鲍鱼海参粥',info:'91'},
+				],
+				baoPin:[
+					
+				],
+				chaoZhi:[
+					{img:'https://img.huaxuapp.com/174216_05.png',shou:'2-4人餐',name:'胡桃里音乐餐厅',info:'98',sale:'288'},
+					{img:'https://img.huaxuapp.com/174216_07.png',shou:'5-6人餐',name:'京府涮羊肉',info:'59.9',sale:'148'},
+					{img:'https://img.huaxuapp.com/174216_03.png',shou:'2-4人餐',name:'胡桃里音乐餐厅',info:'98',sale:'288'},
+				],
+				zdStorelist:[],
+				shows:false,
+				TodayESScores: 0,
+				actInx:1,
+				value1: -1,
+				value1s: -1,
+				value2s: -1,
+				value3s: -1,
+				value4s: -1,
+				value2: -1,
+				value3: -1,
+				value4: -1,
+				label1:'品类',
+				label2:'距离最近',
+				label3:'附近站点',
+				label4:'筛选',
+				options1: [
+					{
+						label: '',
+						value: '',
+						id: 0
+					}
+				],
+				options2: [
+					{
+						label: '距离最近',
+						value: 0,
+						getsorts: 0,
+					},
+					{
+						label: '销量最高',
+						value: 1,
+						getsorts: 1,
+					}
+				],
+				options3: [
+					{
+						label: '',
+						value: '',
+					}
+				],
+				options4: [
+					{
+						label: '全部',
+						value: 0,
+						selects: 0
+					},
+					{
+						label: '星级优先',
+						value: 1,
+						selects: 1
+					},
+					// {
+					// 	label: '代金券',
+					// 	value: 1,
+					// 	selects: 6
+					// },
+					{
+						label: '人气优先',
+						value: 2,
+						selects: 2
+					}
+				],
+				scrollTop: 0,
+				isSticky: false,
+				StoreSortID:0,
+				
+				siteId: 0,
+				getsorts: 0,
+				selects: 0,
+				shopmsg: 1,
+				Viplist: {},
+				hotBaoList:[],
+				userAllsale:[],
+				sorts:1,
+				centerLBLlits:[],
+				storesortid:1,
+				sortids:23,
+				getsorts: 1,
+				selects: 0,
+				homeList:[],
+				pagef:1,
+				CustomBar:this.CustomBar,
+				gao:0
 			}
 		},
 		async onShow() {
+			
+			if (this.$store.state.userInfo.ID) {
+				this.shows = false
+			} else {
+				this.shows = true
+			}
 			setTimeout(() => {
 				if (this.$store.state.userInfo.ID) {
 					this.selectHB();
@@ -512,6 +1110,85 @@
 			if (this.$store.state.userInfo.ID) {
 				await this.getMsgCount()
 			}
+			
+			
+			this.$http.mRhb(this.$store.state.userInfo.ID).then(res => {
+				console.log(res);
+			})
+			
+			// #ifdef H5
+			this.location = '107.02,33.07'
+			// #endif
+			
+			await this.$http.storeList().then(res => {
+				console.log(res);
+				this.options1 = res.Data
+				
+				this.options1.forEach((item, i) => {
+					this.options1[i].label = item.StoreSortName
+					this.options1[i].value = i
+				})
+			})
+			
+			await this.$http.getSite().then(res => {
+				console.log(res.Data);
+				this.options3 = res.Data
+				res.Data.forEach((item, i) => {
+					this.options3[i].label = item.SiteName
+					this.options3[i].value = i
+				})
+			})
+			
+			await this.$http.hotSalethings().then(res => {
+				if(res.IsSuccess){
+					this.baoPin = res.SetDataMeal
+				}
+			})
+			
+			await this.$http.userAllsale().then(res => {
+				if(res.IsSuccess){
+					var arr = [];
+					for(var i=0;i<res.SetDataMeal.length;i+=2){
+					    arr.push(res.SetDataMeal.slice(i,i+2));
+					}
+					this.userAllsale = arr
+				}
+			})
+			
+			await this.$http.homeVip().then(res => {
+				console.log(res);
+				if(res.IsSuccess){
+					this.Viplist = res.Store[0]
+				}
+			})
+			
+			await this.$http.newAct(1,this.location).then(res => {
+				this.centerLBLlits = res.SetDataMeal
+			})
+			
+			await this.$http.storeList().then(res => {
+				console.log(res);
+				this.options1 = res.Data
+				
+				this.options1.forEach((item, i) => {
+					this.options1[i].label = item.StoreSortName
+					this.options1[i].value = i
+				})
+			})
+			
+			await this.$http.getSite().then(res => {
+				console.log(res.Data);
+				this.options3 = res.Data
+				res.Data.forEach((item, i) => {
+					this.options3[i].label = item.SiteName
+					this.options3[i].value = i
+				})
+			})
+			
+			await this.$http.gethomePage(1,0,0,1,0,1,10,this.location).then(res => {
+				console.log(res);
+				this.homeList = res
+			})
 		},
 		async onLoad(options) {
 			
@@ -522,20 +1199,18 @@
 			}
 			//获取地址 接着获取站点
 			// await this.getSiteLocation();
+			
 			// #ifdef H5 || MP-ALIPAY  || APP-PLUS
 				await this.getSite();
 			// #endif
 			
-			// #ifndef H5 || MP-ALIPAY
+			// #ifndef H5
 			//获取行政区划码
-				await this.getRegeo();
+				await this.getRegeo();
 				// 通过行政区划获取站点
 				await this.newGetSite();
 			// #endif
 
-			
-			//  获取站点 ,没有传参的
-			// await this.getSite();
 			// 获取顶部部轮播图
 			await this.getTopBanner();
 			// 获取中部轮播图
@@ -560,6 +1235,36 @@
 			} else {
 				this.userInfo = null;
 			}
+			
+			await this.$http.zdStore(this.$store.state.userInfo.SiteID).then(res => {
+				console.log(res);
+				this.zdStorelist = res
+			})
+			// #ifdef H5
+			this.location = '107.02,33.07'
+			// #endif
+			
+			
+		},
+		onPageScroll: function(Object) {
+			this.scrollTop = Object.scrollTop;
+			// uni.createSelectorQuery().selectViewport().scrollOffset(res => {
+			// 	console.log("竖直滚动位置" + res.scrollTop);
+			// }).exec();
+			
+			// let view = uni.createSelectorQuery().in(this).select("#submit");
+			
+			// let _this = this
+			// view.boundingClientRect(data => {
+			// 	console.log("节点离页面顶部的距离为" + data.top);
+			// 	_this.gao = Number(data.top)
+			// }).exec();
+			
+			// if(this.gao <= 70){
+			// 	this.isSticky = true;
+			// } else {
+			// 	this.isSticky = false;
+			// }
 		},
 		async onPullDownRefresh() {
 			//下拉刷新
@@ -569,9 +1274,9 @@
 				await this.getSite();
 			// #endif
 			
-			// #ifndef H5 || MP-ALIPAY
+			// #ifndef H5
 			//获取行政区划码
-				await this.getRegeo();
+				await this.getRegeo();
 				// 通过行政区划获取站点
 				await this.newGetSite();
 			// #endif
@@ -593,25 +1298,311 @@
 			uni.stopPullDownRefresh();
 			this.current = 0
 			this.getsort = 1
+			
+			await this.$http.hotSalethings().then(res => {
+				if(res.IsSuccess){
+					this.baoPin = res.SetDataMeal
+				}
+			})
+			
+			await this.$http.userAllsale().then(res => {
+				if(res.IsSuccess){
+					var arr = [];
+					for(var i=0;i<res.SetDataMeal.length;i+=2){
+					    arr.push(res.SetDataMeal.slice(i,i+2));
+					}
+					this.userAllsale = arr
+				}
+			})
+			
+			await this.$http.homeVip().then(res => {
+				console.log(res);
+				if(res.IsSuccess){
+					this.Viplist = res.Store[0]
+				}
+			})
+			
+			await this.$http.newAct(1,this.location).then(res => {
+				this.centerLBLlits = res.SetDataMeal
+			})
+			
+			await this.$http.gethomePage(1,0,0,1,0,1,10,this.location).then(res => {
+				console.log(res);
+				this.homeList = res
+			})
+			
+			await this.$http.hotSalethings().then(res => {
+				if(res.IsSuccess){
+					this.baoPin = res.SetDataMeal
+				}
+			})
+			
 		},
 		async onReachBottom() {
-			this.page += 1;
+			// this.page += 1;
+			// uni.showLoading({
+			// 	title: '加载中',
+			// 	mask: false
+			// });
+			// await this.$http.getNewJXBusiness(this.site_.SiteID,this.location,this.page, 10, this.getsort).then(res => {
+				
+			// 	if (res.length > 0) {
+			// 		this.StoreList = this.StoreList.concat(res);
+			// 		console.log(this.StoreList);
+			// 	} else {
+			// 		this.$api.msg('已经到最底啦~')
+			// 	}
+			// 	uni.hideLoading()
+			// });
+			this.pagef += 1;
 			uni.showLoading({
 				title: '加载中',
 				mask: false
 			});
-			await this.$http.getNewJXBusiness(this.site_.SiteID,this.location,this.page, 10, this.getsort).then(res => {
-				
+			await this.$http.gethomePage(this.storesortid,this.sortids,this.siteId,this.getsorts,this.selects,this.pagef,10,this.location).then(res => {
+				console.log(res);
 				if (res.length > 0) {
-					this.StoreList = this.StoreList.concat(res);
-					console.log(this.StoreList);
+					this.homeList = this.homeList.concat(res)
 				} else {
 					this.$api.msg('已经到最底啦~')
 				}
 				uni.hideLoading()
 			});
 		},
+		onReady() {
+			
+		},
 		methods: {
+			gotoShops(a){
+				uni.navigateTo({
+					url:'/pages/shopDetail/shopDetailPage?StoreID=' + a
+				})
+			},
+			xiDing(e){
+				console.log(e);
+			},
+			backtop(submit){
+				if(submit.currentTarget.offsetTop > 9000){
+					console.log(submit);
+					console.log(submit.currentTarget.offsetTop );
+					this.gao = Number(submit.currentTarget.offsetTop - 128) 
+					console.log(this.gao);
+					let thas = this
+					uni.pageScrollTo({
+						scrollTop: thas.gao,
+						duration: 300
+					});
+				} else {
+					let thas = this
+					if(thas.gao > 9000){
+						uni.pageScrollTo({
+							scrollTop: thas.gao,
+							duration: 300
+						});
+					}
+				}
+				
+				// uni.pageScrollTo({
+				//   scrollTop: 0,
+				//   duration: 0
+				// });
+				// uni.createSelectorQuery().select('#submit').boundingClientRect(function(rect){
+				// 	console.log(rect, 'rect')
+				// 	thas.gao = rect.top
+				// 	uni.pageScrollTo({
+				// 		scrollTop: thas.gao,
+				// 		duration: 300
+				// 	});
+				// }).exec()
+			},
+			qieHuan(item){
+				return item.split(',')
+			},
+			changG(item,i){
+				console.log(item,i);
+				if(item.Sort == 1){
+					if(item.Num1 == 0){
+						return `消费立减${item.Num2}`
+					} else {
+						return `满${item.Num1}减${item.Num2}`
+					}
+				} else {
+					return `满${item.Num1}立送${item.Num2}`
+				}
+			},
+			jieQu(basic){
+				basic = basic.substring(0, basic.length - 1);
+				
+				return basic
+			},
+			jiSuan(number){
+				return Math.round(number * 100) / 10
+			},
+			baoPingoto(a,b){
+				this.$http.xhAdd(this.$store.state.userInfo.ID,b).then(res => {
+					console.log(res);
+				})
+				uni.navigateTo({
+					url:'/pages/shopDetail/shopDetailsorder?storeId=' + a + '&tcID=' + b
+				})
+			},
+			userShop(){
+				uni.navigateTo({
+					url:'/pages/userShopping/userShopping'
+				})
+			},
+			saleHot(){
+				uni.navigateTo({
+					url:'/pages/hotSale/hotSale'
+				})
+			},
+			backtops(){
+				uni.pageScrollTo({
+				    scrollTop: 0,
+				    duration: 300
+				});
+			},
+			shopmsgs(e){
+				this.shopmsg = e
+				this.storesortid = e
+				this.$http.gethomePage(this.storesortid,0,0,1,0,1,10,this.location).then(res => {
+					console.log(res);
+					this.homeList = res
+				})
+				
+			},
+			gaSe(index,value1s){
+				console.log(index);
+				console.log(value1s);
+				console.log(this.value1);
+				
+				if(index == value1s){
+					this.value1 = -1
+					this.value1s = -1
+					this.sortids = 0
+				} else {
+					this.value1 = index
+					this.value1s = index
+					console.log(this.value1s);
+					if(this.value1s == 0){
+						this.sortids = 0
+					} else {
+						this.sortids = this.options1[index].StoreSortID
+					}
+				}
+				this.pagef = 1
+				this.$http.gethomePage(this.storesortid,this.sortids,this.siteId,this.getsorts,this.selects,this.pagef,10,this.location).then(res => {
+					console.log(res);
+					this.homeList = res
+				})
+				
+			},
+			gaSew(index,value2s){
+				if(index == value2s){
+					this.value2 = -1
+					this.value2s = -1
+					this.getsorts = 0
+				} else {
+					this.value2 = index
+					this.value2s = index 
+					console.log(this.value2s);
+					if(this.value2s == 0){
+						this.getsorts = 0
+					} else {
+						this.getsorts = this.options2[index].getsorts
+					}
+				}
+				this.pagef = 1
+				this.$http.gethomePage(this.storesortid,this.sortids,this.siteId,this.getsorts,this.selects,this.pagef,10,this.location).then(res => {
+					console.log(res);
+					this.homeList = res
+				})
+				
+			},
+			gaSet(index,value3s){
+				if(index == value3s){
+					this.value3 = -1
+					this.value3s = -1
+					this.siteId = 0
+				} else {
+					this.value3 = index
+					this.value3s = index 
+					if(this.value3s == 0){
+						this.siteId = 0
+					} else {
+						this.siteId = this.options3[index].SiteID
+					}
+				}
+				this.pagef = 1
+				this.$http.gethomePage(this.storesortid,this.sortids,this.siteId,this.getsorts,this.selects,this.pagef,10,this.location).then(res => {
+					console.log(res);
+					this.homeList = res
+				})
+				
+			},
+			gaSef(index,value4s){
+				console.log(index);
+				console.log(value4s);
+				console.log(this.selects);
+				if(index == value4s){
+					this.value4 = -1
+					this.value4s = -1
+					this.selects = 0
+				} else {
+					this.value4 = index
+					this.value4s = index 
+					if(this.value4s == 0){
+						this.selects = 0
+					} else {
+						this.selects = this.options4[index].selects
+					}
+					console.log(this.selects);
+				}
+				this.pagef = 1
+				this.$http.gethomePage(this.storesortid,this.sortids,this.siteId,this.getsorts,this.selects,this.pagef,10,this.location).then(res => {
+					console.log(res);
+					this.homeList = res
+				})
+				
+			},
+			actQ(e){
+				this.actInx = e 
+				this.sorts = e
+				this.$http.newAct(this.sorts,this.location).then(res => {
+					this.centerLBLlits = res.SetDataMeal
+				})
+			},
+			yinHang(bankNumber){
+				if(bankNumber.length > 5){
+					return bankNumber.substr(0,5)+"...";
+				} else {
+					return bankNumber;
+				}
+			},
+			goStore(item) {
+				console.log(item.StoreID);
+				uni.navigateTo({
+					url: `/pages/shopDetail/shopDetailPage?StoreID=${item.StoreID}`
+				})
+			},
+			tishi() {
+				this.$api.msg('功能即将上线，敬请期待')
+			},
+			scroll: function(e) {
+				console.log(e)
+				this.old.scrollTop = e.detail.scrollTop
+			},
+			hbck(e) {
+				uni.navigateTo({
+					url: `/pages/menuSort/hongBao?StoreSortID=23&StoreSortName=全部分类`,
+					// url: `/pages/menuSort/sort?StoreSortID=23&StoreSortName=特色美食`,
+				})
+			},
+			goCz(){
+				uni.navigateTo({
+					url: '/pages/person/czHb',
+				})
+			},
 			big(e) {
 				console.log(e);
 				console.log(e.detail.current);
@@ -678,13 +1669,14 @@
 				if (km < 1) {
 					return distance.toFixed(2) + ' m'
 				} else {
-					return `${km}.${(distance % 1000).toString().substr(0, 2)} Km`
+					return `${km}.${(distance % 1000).toString().substr(0, 2)} km`
 				}
 			},
 			imgLoad(){
 				this.imgIsLoad =true;
 			},
 			hideGL() {
+				console.log('asdasasdasasdassaass');
 				this.showGL = false
 				this.$store.commit('setShowGL', false)
 			},
@@ -708,6 +1700,7 @@
 						key: this.key
 					}).getRegeo({
 						success: (data) => {
+							console.log(data,'地址显示在这');
 							let locathinData = {
 								location : data[0].longitude+','+data[0].latitude,
 								addressName : data[0].regeocodeData.addressComponent.adcode
@@ -722,7 +1715,7 @@
 			async getMsgCount() {
 				await this.$http.getMsgCount(this.userInfo.ID).then(res => {
 					if (res.IsSuccess) {
-						console.log(res,709);
+						console.log(res,'709');
 						this.tagID = res.Data;
 					} else {
 						this.tagID = 0;
@@ -739,15 +1732,16 @@
 				});
 			},
 			async getStoreSortList() {
-				await this.$http.getStoreSortList().then(res => {
+				await this.$http.getStoreSortList(0,0).then(res => {
+					console.log(res);
 					this.cuIconList = res
 					var storeList = [];
 					//把所有的图标都替换了
-					// this.cuIconList.forEach((item, i) => {
-					// 	item.StoreTitlePic = this.testList[i];
-					// });
+					this.cuIconList.forEach((item, i) => {
+						item.StoreTitlePic = this.testList[i];
+					});
 					//遍历数组在每个数组对象加入字段icon
-					this.$store.commit('setIconInfo', this.cuIconList)
+					// this.$store.commit('setIconInfo', this.cuIconList)
 				}).catch(res => {
 
 				});
@@ -769,6 +1763,7 @@
 			},
 			async getTopBanner() {
 				await this.$http.getTopBanner(this.site_.SiteID).then(res => {
+					console.log(res.Data);
 					if (res.IsSuccess) {
 						this.topLBLlit = res.Data;
 					}
@@ -980,6 +1975,10 @@
 				await this.getTopBanner();
 				// 获取中部轮播图
 				await this.getCenterLBLlit();
+				await this.$http.zdStore(this.site_.SiteID).then(res => {
+					console.log(res);
+					this.zdStorelist = res
+				})
 			},
 			toScan() {
 				//二维码
@@ -1070,6 +2069,18 @@
 					}, 2000);
 				}
 			},
+			pDuan(){
+				if (this.$store.state.userInfo.ID) {
+					this.shows = false
+					return
+				} else {
+						setTimeout(() => {
+						uni.navigateTo({
+							url: '/pages/common/login'
+						})
+					}, 1000);
+				}
+			},
 			goTosearch() { //点击搜索的时候
 				uni.navigateTo({
 					url: `/pages/searchResult/searchRouter/searchRouterPage`
@@ -1108,6 +2119,7 @@
 				this.ShowXJXFHB = false;
 				this.loginHB = false;
 				this.YHQhb = false;
+				this.TodayESScores = 0
 				if (this.XRhb == true) {
 					this.XRhb = false;
 					if (this.userInfo.IsCoupons) {
@@ -1175,7 +2187,9 @@
 					},
 					success: (res) => {
 						console.log(res);
+						this.TodayESScores = res.data.TodayESScores
 						if (res.data.IsSuccess) {
+							
 							var HBdata = res.data.Data;
 							if (HBdata.length > 0) {
 								this.$store.commit('setHBList', HBdata);
@@ -1204,6 +2218,8 @@
 								} else if (this.$store.state.HBList[this.$store.state.HBindex].Sort == 4) {
 									//下级消费红包
 									console.log("我查到下级消费了个人红包");
+									this.TodayESScores = res.data.TodayESScores
+									console.log(this.TodayESScores);
 									console.log(this.$store.state.HBList[this.$store.state.HBindex].Info);
 									let info = this.$store.state.HBList[this.$store.state.HBindex].Info;
 									let list = info.split('*');
@@ -1384,13 +2400,36 @@
 				imageUrl: 'https://img.huaxuapp.com/xcxfm.jpg',
 				path: `/pages/common/login?tjrid=${this.$store.state.userInfo.ID || 0}`
 			}
-		}
+		},
+		onShareTimeline: function () {
+			return {
+				title: '您有一个VIP待领取，注册有惊喜！',
+				imageUrl: 'https://img.huaxuapp.com/xcxfm.jpg',
+				path: `/pages/common/login?tjrid=${this.$store.state.userInfo.ID || 0}`
+			}
+		},
 	}
 </script>
 
 <style scoped>
+	.kuang {
+		background-color: rgb(254, 217, 66);
+		color: #333333;
+		font-weight: 600;
+	}
+	
+	.kuangs {
+		background-color: #ffffff;
+		color: #333333;
+		border: 1upx solid #cccccc;
+	}
+	
+	.wrap {
+		padding: 40rpx;
+	}
+		
 	page {
-		background-color: #F8F8F8;
+		background-color: #ffffff;
 		width: 750rpx;
 		overflow: hidden;
 	}
@@ -1415,6 +2454,35 @@
 		animation-duration: 3s;
 	}
 	
+	.couponss {
+		width: 184rpx;
+		height: 182rpx;
+		background: url(https://img.huaxuapp.com/yjdbf.png) no-repeat;
+		background-position: center;
+		background-size: cover;
+		position: fixed;
+		/* #ifdef H5 */
+		bottom: 150rpx;
+		/* #endif */
+		/* #ifdef MP-WEIXIN */
+		bottom: 20rpx;
+		/* #endif */
+		right: 30rpx;
+	}
+	.couponsss {
+		width: 100%;
+		height: 90rpx;
+		line-height: 90upx;
+		position: fixed;
+		/* #ifdef H5 */
+		bottom: 200rpx;
+		/* #endif */
+		/* #ifdef MP-WEIXIN */
+		bottom: 0rpx;
+		/* #endif */
+		background-color: rgba(0,0,0,0.7);
+		z-index: 10;
+	}
 	.tran{
 		transition: all .8s  ease-in-out;
 	}
@@ -1453,7 +2521,7 @@
 	}
 
 	.cur-text-red {
-		color: #f34e2d;
+		color: #fe4e01;
 		font-size: 28upx;
 	}
 
@@ -1583,7 +2651,9 @@
 		width: 100%;
 		background: white;
 		z-index: 1;
-		background-color: #fa5837;
+		background-image: url(https://img.huaxuapp.com/1012-270_01.png);
+		background-repeat: no-repeat;
+		background-size: 750upx 270upx;
 		color: #FFFFFF;
 	}
 
@@ -1912,14 +2982,14 @@
 		text-align: center;
 		font-size: 28upx;
 		font-weight: 600;
-		color: rgb(243, 78, 45);
+		color: rgb(254, 78, 1);
 	}
 	
 	.xian {
 		margin-top: 12upx;
 		width: 45upx;
 		height: 8upx;
-		background-color: rgb(243, 78, 45);
+		background-color: rgb(254, 78, 1);
 		transform: translateX(0);
 		transition: transform .3s ease-in-out; 
 	}
@@ -1929,4 +2999,144 @@
 		height: 26upx;
 		background-color: rgb(255, 255, 255);
 	}
+	
+	.scroll-view_H {
+			/* 文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。 */
+			white-space: nowrap;
+			width: 100%;
+		}
+		.scroll-view-item_H {
+			display: inline-block;
+			
+			height: 300upx;
+			text-align: center;
+			font-size: 36upx;
+			/* margin: 2%  1% 2% 1%; */
+		}
+		.scroll-view-item_H view{
+			box-sizing: border-box;
+		}
+		.scroll-view-item_H view:nth-child(1){
+			width: 100%;
+			text-align: right;
+		}
+		.scroll-view-item_H view:nth-child(2){
+			width: 100%;
+			height: 120upx;
+		}
+		.scroll-view-item_H view:nth-child(2) image{
+			width: 100upx;
+			height: 100upx;
+		}
+		.scroll-view-item_H view:nth-child(3){
+			width: 100%;
+			height: 50upx;
+		}
+		.scroll-view-item_H view:nth-child(4){
+			width: 100%;
+			height: 50upx;
+		}
+		
+		.yin{
+			border-radius: 15upx;
+			margin-left: 30upx;
+			margin-right: 30upx;
+			height: 370upx;
+			padding: 12upx;
+			background-color: #ffffff;
+			border: 1upx solid #f5f5f5;
+		}
+		
+		.shengLv{
+			color: #333333;
+			text-align: left;
+			word-wrap:break-word;
+			white-space:pre-line;
+			display: -webkit-box;
+			text-overflow: ellipsis;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow:hidden;
+		}
+		
+		.shengLvs{
+			color: #333333;
+			text-align: left;
+			word-wrap:break-word;
+			white-space:pre-line;
+			display: -webkit-box;
+			text-overflow: ellipsis;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1;
+			overflow:hidden;
+		}
+		
+		.act{
+			background: #fed942;
+			color:#333333;
+			height: 64upx; 
+			line-height: 64upx;
+			font-size: 26upx;
+			width: 120upx;
+			border-radius: 8upx 0 0 8upx;
+		}
+		
+		.acts{
+			background: #ffffff;
+			color:#333333;
+			height: 64upx; 
+			line-height: 64upx;
+			font-size: 26upx;
+			width: 120upx;
+			border-radius:  0 8upx 8upx 0;
+			border: 2upx solid #fed942;
+		}
+		
+		.dbact{
+			background: #ffffff;
+			color:#333333;
+			height: 64upx; 
+			line-height: 64upx;
+			font-size: 26upx;
+			width: 120upx;
+			border-radius: 8upx 0 0 8upx;
+			border: 2upx solid #fed942;
+		}
+		
+		.dbacts{
+			background: #fed942;
+			color:#333333;
+			height: 64upx; 
+			line-height: 64upx;
+			font-size: 26upx;
+			width: 120upx;
+			border-radius:  0 8upx 8upx 0;
+		}
+		
+		.fixed-top {
+			position: fixed;
+			width: 100%;
+			z-index: 99990;
+		}
+		
+		.huiqu {
+			position: fixed;
+			right: 30upx;
+			bottom:140upx;
+			z-index: 66;
+			width: 90upx; 
+			height:90upx;
+			 -webkit-transition: all 0.5s;
+		}
+		
+		.cover-img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 160rpx;
+			width: 160upx;
+			z-index: 9;
+		}
 </style>

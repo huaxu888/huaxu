@@ -2,22 +2,22 @@
 	<view>
 		<view v-if="infoObj.list.length == 0">
 			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-			<cu-custom bgColor="bg-colors" class="text-black" :isBack="true">
+			<cu-custom bgColor="bg-xings" style="color: #ffffff;" class="text-black" :isBack="true">
 				<!-- #ifdef APP-PLUS || H5-->
 				<block slot="content"></block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText"></block>
+				<block slot="content"></block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->
 			
-			<view class="flex flex-direction align-center" style="width: 100%;background-color: rgb(250, 222, 189);height: 800upx;margin-bottom: 50upx;">
-				<text style="background-image: url(https://img.huaxuapp.com/yggl_03.png);width: 90upx;height: 90upx;
+			<view class="flex flex-direction align-center" style="width: 100%;background-color: #fe5479;height: 800upx;margin-bottom: 50upx;">
+				<text style="background-image: url(https://img.huaxuapp.com/4555-07.png);width: 90upx;height: 90upx;
 				background-repeat: no-repeat;background-size: cover;margin-top: 80upx;" ></text>
-				<text style="font-size: 42upx;font-weight: 800;margin-top: 30upx;">员工管理</text>
-				<text style="margin-top: 40upx;font-size: 28upx;">添加店员到员工管理，可以协助门店生意</text>
-				<view style="width: 380upx;padding: 20upx 0;text-align: center;background-color: #a36926;color: #FFFFFF;
+				<text style="font-size: 42upx;font-weight: 800;margin-top: 30upx;color: #ffffff;">员工管理</text>
+				<text style="margin-top: 40upx;font-size: 28upx;color: #ffffff">添加店员到员工管理，可以协助门店生意</text>
+				<view style="width: 380upx;padding: 20upx 0;text-align: center;background-color: #ffffff;color: #fe5479;
 					margin-top: 50upx;border-radius: 16upx;font-size: 34upx;" @tap="goAdd"><text>添加员工</text>
 				</view>
 			</view>
@@ -46,7 +46,7 @@
 				<block slot="content">员工管理</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">员工管理</block>
+				<block slot="content">员工管理</block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->

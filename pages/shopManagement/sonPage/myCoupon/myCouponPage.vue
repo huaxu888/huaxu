@@ -5,7 +5,7 @@
 			<block slot="content">我的优惠券</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">我的优惠券</block>
+			<block slot="content">我的优惠券</block>
 			<!-- #endif -->
 		</cu-custom>
 		<view>

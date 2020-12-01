@@ -177,7 +177,7 @@
 									
 									<view class="flex justify-start flex-direction" style="margin-top: 30upx;position: relative;">
 										<view>
-											<text class="text-bold"  style="color: #f34e2d;margin-right: 2upx;">&yen;</text> <text class="text-bold menu-info-money" style="color: #f34e2d;font-size: 38upx;">{{item.Price}}</text>
+											<text class="text-bold"  style="color: #fe4e01;margin-right: 2upx;">&yen;</text> <text class="text-bold menu-info-money" style="color: #fe4e01;font-size: 38upx;">{{item.Price}}</text>
 											<text class="margin-left-xs menu-info-sale-money" v-if="item.SalePrice">&yen;&nbsp;{{item.SalePrice}}</text>	
 										</view>
 									</view>

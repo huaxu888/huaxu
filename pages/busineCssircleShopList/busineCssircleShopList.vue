@@ -7,9 +7,9 @@
 		<!-- #endif -->
 
 		<!-- #ifdef MP-WEIXIN -->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true" v-if="showNavigation">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true" v-if="showNavigation">
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">商圈详情</block>
+			<block slot="content">商圈详情</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

@@ -1,15 +1,15 @@
 <template>
 	<view>
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-		<cu-custom bgColor="balance-nav" class="text-white" :isBack="true" >
+		<cu-custom bgColor="bg-whitesss" class="text-white" :isBack="true" style="border-bottom: 2upx solid #e4e4e4;">
 			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content">我的商家</block>
+			<block slot="content">我的商户列表</block>
 			
 			<!-- {{agentType==='2'?'我的团队':agentType==='3'?'我的商家':''}} -->
 			
 			<!-- #endif --> 
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">我的商家</block>
+			<block slot="content">我的商户列表</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -17,24 +17,41 @@
 			<view class="padding flex justify-between align-center" v-for="(item,i) of infoList" :key="i" style="border-bottom: 2upx solid #F0F0F0;" @tap="goToDetail(item)">
 				
 				<view class="flex align-center">
-					<view 
+					<view v-if="agentType==='4'">
+						<view v-if="item.StoreList.IsLock" style="margin-right: 10upx;line-height: 26upx;text-align: center;width: 70upx;height: 26upx;border-radius: 20upx;background-color: #999999;font-size: 22upx;color: #ffffff;">
+							下架
+						</view>
+					</view>
+					<view v-if="agentType==='2' || agentType==='3'">
+						<view v-if="item.IsLock" style="margin-right: 10upx;line-height: 26upx;text-align: center;width: 70upx;height: 26upx;border-radius: 20upx;background-color: #999999;font-size: 22upx;color: #ffffff;">
+							下架
+						</view>
+					</view>
+					<view  style="border-radius: 10upx;"
 						:style="{backgroundImage:`url(${agentType==='2' || agentType=== '3'?item.StorePic:agentType==='4'?item.LogoPic:''})`}" 
 						
 						class="title_img_log margin-right-sm">
+					
 					</view>
-					
 						<!-- //2是个贷 3高代 4//区代理 -->
-					
-					<view class="flex flex-direction align-start margin-left-sm">
-						<text>{{item.StoreName}}</text>
-						<text class="margin-top-sm text-gray text-xs">添加日期:{{beTime(item.AddDate)}}</text>
+					<!-- <text v-if="defaultDiscount != 1 || itemObj.IsZK"  >{{ itemObj.IsZK && itemObj.zk != 1 ? itemObj.zk * 10000/1000 : defaultDiscount * 10 }}折</text> -->
+					<view class="flex flex-direction align-start margin-left-sm" style="margin-left: 10upx;">
+						<text>{{yinHangs(item.StoreName)}}<text class=" bg-orange radius" style="padding: 4upx;font-size: 22upx;margin-left: 10upx;" v-if="item.ZK<1">{{ item.ZK * 10000/1000 }}折</text></text>
+						<text class="margin-top-sm text-gray " style="font-size: 22upx;">入驻日期:{{beTime(item.AddDate)}}</text>
 					</view>
 				</view>
 				
 				<view class="flex flex-direction align-end text-sm">
-					<text>店铺总营业额</text>
-					<text class="text-red margin-top-sm">{{agentType==='2' || agentType=== '3'?item.ShopTotalNum:agentType==='4'?item.Totalprice:''}}元</text>
+					<text>总营业额</text>
+					<text class=" margin-top-sm" style="color: #fe4e01;">{{agentType==='2' || agentType=== '3'?item.ShopTotalNum:agentType==='4'?item.Totalprice:''}}元</text>
 				</view>
+			</view>
+		</view>
+		
+		<view style="text-align: center;height: 400upx;margin-top: 180upx;" v-if="!infoList">
+			<image src="https://img.huaxuapp.com/wukong.png" mode="aspectFill" style="width: 376upx;height: 250upx;"></image>
+			<view style="margin-top: 20upx;">
+				<text style="font-size: 28upx;color: #333333;">您还没有推广的商户哦~</text>
 			</view>
 		</view>
 	</view>
@@ -82,13 +99,13 @@
 							if(this.agentType==='2'|| this.agentType==='3'){
 								if('StorePic' in it){
 									if(it.StorePic===''){
-										it.StorePic = 'https://img.huaxuapp.com/pig.png'
+										it.StorePic = 'https://img.huaxuapp.com/huaxulogo70px.png'
 									}
 								}
 							}else if(this.agentType==='4'){
 								if('LogoPic' in it){
 									if(it.LogoPic===''){
-										it.LogoPic = 'https://img.huaxuapp.com/pig.png'
+										it.LogoPic = 'https://img.huaxuapp.com/huaxulogo70px.png'
 									}
 								}
 							}
@@ -113,7 +130,14 @@
 				uni.navigateTo({
 					url
 				})
-			}
+			},
+			yinHangs(bankNumber){
+				if(bankNumber.length > 8){
+					return bankNumber.substr(0,8)+"...";
+				} else {
+					return bankNumber;
+				}
+			},
 		},
 		onPullDownRefresh() { //下拉时刷新
 			this.getCurryInfo(false).then(res=>{

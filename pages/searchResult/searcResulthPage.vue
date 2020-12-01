@@ -1,12 +1,12 @@
 <template>
 	<view class="search_result">
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
 			<block slot="content">搜索结果</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">搜索结果</block>
+			<block slot="content">搜索结果</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

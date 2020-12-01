@@ -6,7 +6,7 @@
 			<block slot="content">提现</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">提现</block>
+			<block slot="content">提现</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -18,9 +18,9 @@
 					<view class="text-sm margin-bottom-xl" style="color: #CCCCCC;">所提现的金额必须为100的整数倍</view>
 				</view>
 
-				<view class="flex align-center justify-center ">
+				<view class="flex align-center ">
 
-					<view class="margin-right-sm selectRadio" :class="withdrawalType == 1 ? 'hoverborder' : 'grayborder' " @tap="selectType(1)">
+					<!-- <view class="margin-right-sm selectRadio" :class="withdrawalType == 1 ? 'hoverborder' : 'grayborder' " @tap="selectType(1)">
 						<view class="checkBorder">
 							<view class="text-white flex align-center justify-start " :class="withdrawalType == 1 ? 'checkTriangle' : '' ">
 								<view style="transform: rotate(315deg);margin-left: 4upx;">
@@ -31,9 +31,9 @@
 						<view class="flex align-center justify-center " style="height: 160upx;">
 							<text class="hxIcon-zhifubao" style="font-size: 55upx; color: #4eb3f7;"></text> <text class="text-bold margin-left-sm">支付宝</text>
 						</view>
-					</view>
+					</view> -->
 
-					<view class="margin-left-sm selectRadio" :class="withdrawalType == 3 ? 'hoverborder' : 'grayborder' " @tap="selectType(3)">
+					<view class="selectRadio" :class="withdrawalType == 3 ? 'hoverborder' : 'grayborder' " @tap="selectType(3)">
 						<view class="checkBorder">
 							<view class="text-white flex align-center justify-start " :class="withdrawalType == 3 ? 'checkTriangle' : '' ">
 								<view style="transform: rotate(315deg);margin-left: 4upx;">
@@ -119,12 +119,12 @@
 				}],
 				isSelect: false,
 				index: 0,
-				withdrawalType: 1,
+				withdrawalType: 3,
 				money: '', //充值金额
 				showYue: false,
 				radio: 1,
 				inputPassWord: false,
-				Score: '', //可提现金额
+				Score: 0, //可提现金额
 				type: ''
 			}
 		},
@@ -346,9 +346,9 @@
 
 	}
 
-	.grayborder {
-		border: 1px solid #DDDDDD;
-	}
+	// .grayborder {
+	// 	border: 1px solid #DDDDDD;
+	// }
 
 	.hoverborder {
 		border: 1px solid #EC3B46;

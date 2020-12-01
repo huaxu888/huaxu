@@ -5,7 +5,7 @@
 			<block slot="content">公码绑定</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">公码绑定</block>
+			<block slot="content">公码绑定</block>
 			<!-- #endif -->
 		</cu-custom>
 		<view>
@@ -27,8 +27,8 @@
 					<text v-if="yyyState===1 " style="color: #333333;font-size: 32upx;">{{bandYyY.Name}}</text>
 
 				</view>
-				<view @tap="scan" class="flex align-center justify-center margin-tb scan-button" >
-					<text class="text-white" style="font-size: 33upx;">点击扫码</text>
+				<view @tap="scan" class="flex align-center justify-center margin-tb scan-button" style="background-color: #fe5479;">
+					<text class="text-white" style="font-size: 33upx;font-weight: 600;">点击扫码</text>
 				</view>
 			</view>
 		</view>
@@ -59,7 +59,7 @@
 				yYyList: [{
 					Name: '店铺主收款码',
 					UserID: 0,
-					FaceURL: 'https://img.huaxuapp.com/pig.png',
+					FaceURL: 'https://img.huaxuapp.com/huaxulogo70px.png',
 					shouyingyuan: {
 						UserID: 0
 					},
@@ -126,13 +126,13 @@
 
 <style>
 	page {
-		background: #E8C091;
+		background: #fe5479;
 	}
 </style>
 
 <style scoped lang="scss">
 	page {
-		background: #E8C091;
+		background: #fe5479;
 	}
 
 	.scan-card {

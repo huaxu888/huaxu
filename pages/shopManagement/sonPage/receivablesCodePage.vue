@@ -1,26 +1,26 @@
 <template>
 	<view>
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
 			<block slot="content">店铺收款码</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">店铺收款码</block>
+			<block slot="content">店铺收款码</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
 
 
 		<!-- :style="[{height:  'calc(100vh - '+CustomBar+'px)'}]" -->
-		<view class="flex align-center justify-center margin-top">
+		<view class="flex align-center justify-center margin-top" style="padding-top: 20upx;">
 			<view class="flex align-center justify-center topCard">
 				<view class="cardImg"></view>
 
 			</view>
 		</view>
 
-		<view class="flex align-center justify-center flex-direction">
+		<view class="flex align-center justify-center flex-direction"  style="margin-top: 0upx;">
 			<text class="text-bold margin-top-xl storeName" >{{StoreName}}</text>
 			<view class="flex align-center justify-center margin-top-xl ewmBorder" >
 				<tki-qrcode ref="qrcode" :val="val" :size="qrcode.size" :unit="qrcode.unit" :pdground="qrcode.pdground" @result="qrR" />
@@ -108,6 +108,7 @@
 			getCurryInfo() {
 				this.$Request.get(this.$store.state.storeskewmUrl, this.getData).then(res => {
 					if (res.IsSuccess) {
+						console.log(res);
 						this.val = res.Data // 赋值
 					}
 				})
@@ -139,7 +140,7 @@
 		width: 668upx; 
 		height: 254upx;
 		border-radius: 25upx;
-		background: #f8d1a3; 
+		background: #ffd7d7; 
 		box-shadow:2px 2px 3px -2px #333333;
 	}
 	
@@ -152,16 +153,14 @@
 	.topCard .cardImg{
 		height: 136upx;
 		 width: 246upx;
-		 background: url('https://img.huaxuapp.com/shouqianmm_03.png') no-repeat;
+		 background: url('https://img.huaxuapp.com/sqm1011_03.png') no-repeat;
 		  background-size: 100% 100%;
 	}
-	
-	
 	
 	.ewmBorder{
 		width: 550upx;
 		height: 550upx;
-		border: 2upx solid #f8d1a3;
+		border: 2upx solid #ffd7d7;
 		border-radius: 10upx;
 	}
 	

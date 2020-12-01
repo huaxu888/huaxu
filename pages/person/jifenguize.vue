@@ -5,7 +5,7 @@
 			<block slot="content">奖励规则</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">奖励规则</block>
+			<block slot="content">奖励规则</block>
 			<!-- #endif -->
 		</cu-custom>
 		<view>

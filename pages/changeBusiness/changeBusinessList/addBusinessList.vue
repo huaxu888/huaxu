@@ -2,12 +2,12 @@
 	<view>
 		<view style="border-bottom:  0.6px solid #E4E4E4;">
 			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-			<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+			<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 				<!-- #ifdef APP-PLUS || H5-->
 				<block slot="content">切换店铺</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">切换店铺</block>
+				<block slot="content">切换店铺</block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->

@@ -5,7 +5,7 @@
 			<block slot="content">绑定收款码</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">绑定收款码</block>
+			<block slot="content">绑定收款码</block>
 			<!-- #endif -->
 		</cu-custom>
 		<view class="animate">

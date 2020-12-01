@@ -1,6 +1,6 @@
 <template>
 	<view class="swiper_">
-		<swiper  class="screen-swiper" style="min-height:500upx;position: relative;" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
+		<swiper  class="screen-swiper" style="min-height:472upx;position: relative;" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="false" :circular="true"
 	 :autoplay="true" interval="3000" duration="500">
 			<swiper-item v-for="(item,index) in swiperList" :key="index">
 				<image :src="item" mode="aspectFill" :lazy-load="lazyLoad"></image>					

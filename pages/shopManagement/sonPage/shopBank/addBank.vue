@@ -6,7 +6,7 @@
 			<block slot="content">绑定银行卡</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">绑定银行卡</block>
+			<block slot="content">绑定银行卡</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

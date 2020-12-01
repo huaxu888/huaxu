@@ -1,11 +1,11 @@
 <template>
 	<view class="order-managment-page">
-		<cu-custom bgColor="bg-white" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
 			<block slot="content"><text>订单管理</text></block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText"><text>订单管理</text></block>
+			<block slot="content"><text>订单管理</text></block>
 			<!-- #endif -->
 		</cu-custom>
 		

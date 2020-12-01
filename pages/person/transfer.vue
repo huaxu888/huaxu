@@ -6,7 +6,7 @@
             <block slot="content">转账</block>
             <!-- #endif -->
             <!-- #ifdef MP-WEIXIN -->
-            <block slot="backText">转账</block>
+            <block slot="content">转账</block>
             <!-- #endif -->
         </cu-custom>
         <!-- #endif -->

@@ -1,34 +1,37 @@
 <template>
-	
-	<!--  -->
-	<view class="cu-modal padding-lr-xl " :class="showModal?'show':''" @touchmove.stop.prevent="moveHandle">
-		<view class="cu-dialog" style="background:transparent; margin-top:80upx;">
-			
-			
-				<view class="flex justify-center" >
-					<image :src="imgUrl" mode="scaleToFill" style="width:1000upx;height:1100upx;">
-						
-					</image>
+	<view class="cu-modal  " :class="showModal?'show':''" @touchmove.stop.prevent="moveHandle">
+		<view class="cu-dialog" style="background:transparent; ">
+			<view class="flex justify-center" >
+				<image :src="imgUrl" mode="scaleToFill" style="width:450upx;height:800upx;">
 					
-				</view>
-			<view class="flex  align-center justify-between padding" style="height: 120upx;background: #FFFFFF;">
-				<view class="flex flex-treble  justify-between padding-lr">
-					<!-- <view class="flex align-center justify-center">
-						<text class="hxIcon-weixin4" style="font-size: 52upx;color: #50b674;"></text><text style="margin-left: 10upx; font-size: 28upx;color: #333333;">微信</text>
-					</view> -->
-					<view  class="flex align-center justify-center" @tap="downLoadImage">
-						<text class="hxIcon-baocun" style="font-size: 52upx;color:#f94e43 ;"></text><text style="margin-left: 5upx;  font-size: 28upx;color: #333333;">保存到相册</text>
-					</view>
-				</view>
-				<view class="flex flex-sub align-center justify-center"  @tap="hideModal(-1)">
-					<view style="height: 45upx;border-right: 1px solid #bfbfbf;"></view>
-					<text class="margin-left-lg" style="color: #666666;">取消</text>
-				</view>
-			
+				</image>
 			</view>
-			
-			
 		</view>
+		
+		<!-- <view class="flex align-center" style="height: 260upx;background: #FFFFFF;position: absolute;bottom: 0;width: 750upx;border-radius: 40upx 40upx 0 0;">
+			<button class="cu-btn  flex " open-type="share"  style="flex-direction: column;border: none;background: none;">
+				<view style="background-color: #e4e4e4;border-radius: 25upx;width: 50upx;height: 50upx;">
+					<text class="hxIcon-weixin4" style="font-size: 52upx;color: #50b674;"></text>
+				</view>
+				<view style="font-size: 28upx;color: #333333;margin-top: 20upx;">
+					<text>分享给好友</text>
+				</view>
+			</button>
+			
+			<view @tap="downLoadImage">
+				<view>
+					<text class="hxIcon-baocun" style="font-size: 52upx;color:#f94e43 ;"></text>
+				</view>
+				<view style="margin-top: 20upx;">
+					<text style="font-size: 28upx;color: #333333;">保存海报</text>
+				</view>
+			</view>
+			<view class="flex flex-sub align-center justify-center"  @tap="hideModal(-1)">
+				<view style="height: 45upx;border-right: 1px solid #bfbfbf;"></view>
+				<text class="margin-left-lg" style="color: #666666;">取消</text>
+			</view>
+		
+		</view> -->
 	</view>
 </template>
 

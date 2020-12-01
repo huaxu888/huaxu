@@ -1,43 +1,45 @@
 <template>
-	<view>
+	<view style="background-color: #F2F2F2;">
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN-->
-		<cu-custom bgColor="bg-white" :isBack="true" class="text-black">
+		<cu-custom bgColor="bg-whitesss" :isBack="true" class="text-black"  style="border-bottom: 1upx solid #e4e4e4;">
 			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content">绑定银行卡</block>
+			<block slot="content">添加银行卡</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">绑定银行卡</block>
+			<block slot="content">添加银行卡</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
 
-
-		<view class="cu-form-group margin-top">
-			<view class="title" style="width: 210upx;">
-				姓名：
+		<view style="background-color: #ffffff;padding-top: 30upx;">
+			
+			<view class="cu-form-group">
+				<view class="title" style="width: 210upx;">
+					开户人姓名：
+				</view>
+				<input placeholder="请输入银行卡持卡人姓名" name="input" v-model="name"></input>
 			</view>
-			<input placeholder="请输入银行卡持卡人姓名" name="input" v-model="name"></input>
+			<view class="cu-form-group">
+				<view class="title" style="width: 210upx;">银行卡号：</view>
+				<input placeholder="请输入银行卡号" name="input" maxlength="23" v-model="cardNum"></input>
+			</view>
+			<view class="cu-form-group">
+				<view class="title" style="width: 210upx;">开户银行：</view>
+				<input placeholder="请输入开户行名称" name="input" v-model="bank"></input>
+			</view>
+			<view class="cu-form-group">
+				<view class="title" style="width: 210upx;">开户手机号：</view>
+				<input placeholder="请输入手机号" name="input" maxlength="11" type="number" v-model="ylPhone"></input>
+			</view>
+			<view class="cu-form-group" style="border-bottom: 1upx solid #eeeeee;">
+				<view class="title" style="width: 210upx;">验证码：</view>
+				<input placeholder="请输入验证码" name="input" type="number" maxlength="6" v-model="code"></input>
+				<button class='cu-btn shadow text-white' style="background-color: #ff5b2e;font-size: 24upx;padding: 10upx;" @tap="getCode">{{ codeBth }}</button>
+			</view>
 		</view>
-		<view class="cu-form-group">
-			<view class="title" style="width: 210upx;">银行卡号：</view>
-			<input placeholder="请输入银行卡号" name="input" maxlength="23" v-model="cardNum"></input>
-		</view>
-		<view class="cu-form-group">
-			<view class="title" style="width: 210upx;">开户行：</view>
-			<input placeholder="请输入开户行名称" name="input" v-model="bank"></input>
-		</view>
-		<view class="cu-form-group">
-			<view class="title" style="width: 210upx;">预留手机号：</view>
-			<input placeholder="请输入预留手机号" name="input" v-model="ylPhone"></input>
-		</view>
-		<view class="cu-form-group">
-			<view class="title" style="width: 210upx;">验证码：</view>
-			<input placeholder="请输入验证码" name="input" type="number" maxlength="6" v-model="code"></input>
-			<button class='cu-btn bg-hx-red shadow  text-white' @tap="getCode">{{ codeBth }}</button>
-		</view>
-		<view class="text-gray text-xs margin-lr margin-top">提示：请确保持卡人各项信息填写正确，以便后续提现正常进行</view>
-		<view class="padding flex flex-direction">
-			<button class="cu-btn bg-hx-red margin-tb-sm lg text-white shadow" @tap="submit">{{font}}</button>
+		<view class="text-gray text-xs margin-lr margin-top"><text class="hxIcon-icon" style="font-size: 30upx;"></text><text style="margin-left: 12upx;font-size: 24upx;">提示：请确保持卡人各项信息填写正确，以便后续提现正常进行</text></view>
+		<view class="padding flex flex-direction" style="margin-top: 0upx;">
+			<button class="cu-btn bg-hx-red margin-tb-sm lg text-white shadow sure" @tap="submit">{{font}}</button>
 		</view>
 
 	</view>
@@ -113,8 +115,8 @@
 																_self.$api.refreshUserInfo(_self.userInfo.ID, _self)
 																setTimeout(() => {
 																	if (_self.type === 0) {
-																		uni.switchTab({
-																			url: '/pages/index/index'
+																		uni.navigateBack({
+																			 delta: 3
 																		});
 																	} else if (_self.type === '2') {
 																		uni.navigateBack({
@@ -196,9 +198,21 @@
 	}
 </script>
 
-<style>
+<style scoped lang="scss">
 	page{
-		background: #FFFFFF;
+		background: #F2F2F2;
+	}
+	
+	.sure {
+		margin-top: 60upx;
+		height: 88upx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(to right, #fb9c67, #fc6660);
+		color: #fff;
+		border-radius: 100upx;
+		box-shadow: 2upx 2upx 14upx lighten($color: #FC7265, $amount: 10);
 	}
 </style>
 

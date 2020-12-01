@@ -1,0 +1,213 @@
+<template>
+	<view style="min-height:100vh;background:white;">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true" style="border-bottom: 2upx solid #e4e4e4;">
+			<block slot="content">商户明细</block>
+		</cu-custom>
+		
+		<view class="" style="background-color: #f6f6f6;height: 120upx;padding-top: 45upx;">
+			<view class="flex justify-between " style="margin-left: 20upx;">
+				<view class="flex align-center" style="width: 750upx;">
+					<view @tap="changeDayss">
+						<picker mode="date" fields="month" start="1990-01-01" end="2040-01-01" @change="changeDayss"  style="background-color: #f6f6f6;color: #222222;font-size: 32upx;">
+							<text >
+								{{yue}}
+							</text>
+							<text class="cuIcon-triangledownfill" style="font-size: 36upx;margin-left: 6upx;" @tap="changeDayss"></text>
+						</picker>
+					</view>
+				</view>
+					
+				<view @click="show = true" style="font-size: 26upx;color: #999999;width: 200upx;" class="flex align-center ">
+					<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
+					<view><text style="margin-right: 30upx;color: #e5e5e5;">|</text></view>
+					<view><text style="">筛选</text></view>
+					<view><text class="cuIcon-right" style="margin-left: 10upx;"></text></view>
+				</view>
+			</view>
+		</view>
+		
+		<view style="" v-if="infoList.length  > 0">
+			<view class="flex padding justify-between align-center" v-for="(item,i) of infoList" :key="i" style="border-bottom: 0.1px solid #e4e4e4;"> 
+				<view class="flex align-center">						
+					
+					<image :src="item.LogoPic || 'https://img.huaxuapp.com/6454608_.pic.jpg'" mode=""style="border-radius: 76upx;width: 76upx;height: 76upx;"></image>
+					
+					<view class="margin-left-sm">
+						<view style="font-size: 30upx;">
+							{{item.StoreName}}
+						</view>
+						<view class="text-sm margin-top-xs" style="color: #999999;font-size: 24upx;">
+							{{beTime(item.AddDate)}}
+						</view>
+					</view>
+				</view>
+				
+				<view class="text-bold text-black flex align-center" style="font-size: 34upx;">
+					<view>+</view>
+					<view>{{item.XFJE}}</view>
+				</view>
+			</view>
+		</view>
+		
+		<view style="text-align: center;height: 400upx;margin-top: 180upx;background-color: #ffffff;" v-if="infoList.length == 0">
+			<image src="https://img.huaxuapp.com/wukong.png" mode="aspectFill" style="width: 376upx;height: 250upx;"></image>
+			<view style="margin-top: 20upx;">
+				<text style="font-size: 28upx;color: #333333;">没有商户明细哦~</text>
+			</view>
+		</view>	
+	</view>
+</template>
+
+<script>
+	export default{
+		data(){
+			return {
+				pikerData:{
+					mode:'date',
+					fields:'month',
+					value:'2019-08',
+					start:'2015-01',
+					end:'2100-01'
+				},
+				getData:{
+					day:'',
+					storeid:'',
+					page:1,
+					pagesize:15
+				},
+				infoList:[],
+				yue:'',
+				show: false,
+				mode: 'date',
+				ckday:'',
+				pages:1
+			}
+		},
+		onLoad(e){
+			this.yue = this.getTimes()
+			this.ckday = []
+			this.getData.storeid = e.storeid*1
+			this.getTime()
+			this.$http.personShopTeam(this.$store.state.userInfo.ID,this.yue,this.ckday,1,10).then(res => {
+				console.log(res);
+				if(res.IsSuccess){
+					this.infoList = res.Data
+				} else {
+					this.infoList = []
+				}
+			})
+			
+		},
+		onShow() {
+			
+		},
+		methods:{
+			change(e) {
+				console.log(e);
+				this.ckday =  e.result
+				this.yue = e.result
+				this.pages = 1
+				this.$http.personShopTeam(this.$store.state.userInfo.ID,this.yue,this.ckday,1,10).then(res => {
+					console.log(res);
+					if(res.IsSuccess){
+						this.infoList = res.Data
+					} else {
+						this.infoList = []
+					}
+				})
+			},
+			getTimes() {
+				let day = (new Date()).Format("yyyy-MM")
+				return day
+			},
+			changeDayss(e) {
+				console.log(e)
+				let dt = e.detail.value
+				dt = dt.split('-')
+				dt = `${dt[0]}-${dt[1]}`
+				this.yue = dt
+				this.ckday =  []
+				this.pages = 1
+				this.$http.personShopTeam(this.$store.state.userInfo.ID,this.yue,this.ckday,1,10).then(res => {
+					console.log(res);
+					if(res.IsSuccess){
+						this.infoList = res.Data
+					} else {
+						this.infoList = []
+					}
+				})
+			},
+			after4(str){//截取银行卡后四位
+				let strAry = str.split(' ')
+				let newStr = ''
+				strAry.forEach((it,i)=>{
+					newStr += it
+			    })
+				let flag = 0
+				let str_ = ''
+				for(let i = newStr.length-1 ; i >=0 ; i--){
+					flag +=1 
+					if(flag<5){
+			            str_ += newStr[i]
+					}else{
+			            break
+			        }
+					
+			    }
+				return str_.split('').reverse().join('')
+			},
+			async changeTime(e){
+				this.pikerData.value = e.detail.value
+				this.getData.day = e.detail.value
+				this.getData.page=1
+				this.getData.pagesize=10
+				
+			},
+			getTime(){
+				let day = (new Date()).Format("yyyy-M")
+				this.getData.day = day	
+				this.pikerData.value = day
+			},
+		 	
+		},
+		onPullDownRefresh(){//下拉时刷新
+			this.pages = 1
+			this.$http.personShopTeam(this.$store.state.userInfo.ID,this.yue,this.ckday,1,10).then(res => {
+				console.log(res);
+				if(res.IsSuccess){
+					this.infoList = res.Data
+				} else {
+					this.infoList = []
+				}
+			})
+		},
+		onReachBottom(){//上拉加载
+			this.pages += 1
+			uni.showLoading({
+				title: '加载中',
+				mask: false
+			});
+			
+			this.$http.personShopTeam(this.$store.state.userInfo.ID,this.yue,this.ckday,this.pages,10).then(res => {
+				if (res.length > 0) {
+					this.zdList = this.zdList.concat(res);
+				} else {
+					this.$api.msg('已经到最底啦~')
+				}
+				uni.hideLoading()
+			})
+		},
+	}
+</script>
+
+<style>
+	page{
+		background: #F2F2F2;
+	}
+</style>
+<style scoped>
+	.bbggii{
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+	}
+</style>

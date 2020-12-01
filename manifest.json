@@ -185,6 +185,7 @@
         }
     },
     "mp-alipay" : {
-        "usingComponents" : true
+        "usingComponents" : true,
+        "appid" : "2019070765759807"
     }
 }

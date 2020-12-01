@@ -6,7 +6,7 @@
 			<block slot="content">添加店铺图片信息</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">添加店铺图片信息</block>
+			<block slot="content">添加店铺图片信息</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

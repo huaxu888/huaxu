@@ -7,7 +7,7 @@
 				<block slot="content">会员消费详情</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">会员消费详情</block>
+				<block slot="content">会员消费详情</block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->

@@ -179,11 +179,11 @@
 	}
 
 	.cu-btn {
-		background: #EC3B46;
+		background: #ffffff;
 		opacity: .3;
-		color: #fff;
+		color: #fc6660;
 		width: 200upx;
-
+		font-size: 26upx;
 		&.active {
 			opacity: 1;
 		}

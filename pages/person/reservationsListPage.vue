@@ -6,7 +6,7 @@
 			<block slot="content">我的订单</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">我的订单</block>
+			<block slot="content">我的订单</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -309,7 +309,7 @@
 </style>
 
 <style scoped lang="scss">
-	$reservation-red: #f34e2d;
+	$reservation-red: #fe4e01;
 	$reservation-pink: #fae6e1;
 	$content-title-img-size: 64upx;
 

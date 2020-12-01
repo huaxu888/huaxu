@@ -9,12 +9,12 @@
 <template>
 	<view style="height: 100vh;">
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN-->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
 			<block slot="content">绑定支付宝</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">绑定支付宝</block>
+			<block slot="content">绑定支付宝</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

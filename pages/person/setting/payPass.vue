@@ -2,12 +2,12 @@
 	<view class="login-page flex flex-direction justify-between">
 		<view class="panel">
 			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN-->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content">设置交易密码</block>
+			<block slot="content">设置支付密码</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">设置交易密码</block>
+			<block slot="content">设置支付密码</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -22,7 +22,7 @@
 				</view>
 			</view>
 			<view class="get-code">
-				<view class="cu-btn lg flex-sub radius text-white hx-btn" :class="isPhone ? '' : 'normal'"
+				<view class="cu-btn lg flex-sub radius text-white hx-btn sure" :class="isPhone ? '' : 'normal'"
 					@tap="getCode">
 					获取验证码
 				</view>
@@ -166,5 +166,16 @@
 		&.normal {
 			opacity: .3
 		}
+	}
+	
+	.sure {
+		height: 88upx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(to right, #f88160, #ff5b2e);
+		color: #fff;
+		border-radius: 100upx;
+		box-shadow: 2upx 2upx 14upx lighten($color: #FC7265, $amount: 10);
 	}
 </style>

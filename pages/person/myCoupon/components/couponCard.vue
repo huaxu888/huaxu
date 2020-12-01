@@ -82,6 +82,22 @@
 				<text class="padding-lr-sm padding-tb-xs btn_coupon"  style="font-size: 24upx;" :class="state.class"   @tap="goToDetail">{{state.text}}</text>
 			</view>
 		</view>
+		
+		<view class="flex flex-direction align-center justify-between" style="border-radius: 10upx 10upx 20upx 20upx;width: 696upx; overflow: hidden;"  v-if="itemObj.SortID == 100 && type === 'noShop' ">
+		    <image src="https://img.huaxuapp.com/qczhq1_03.png" style="width: 699rpx ;height: 255rpx;"  mode="widthFix"></image>
+			<view class="flex align-center justify-between padding-tb-sm padding-lr-xs bg-white" style="width: 100%;" >
+				<view class="text-sm text-gray">使用期限：{{BDate}} - {{EDate}}</view>
+				<text class="padding-lr-sm padding-tb-xs btn_coupon"  style="font-size: 24upx;" :class="state.class"   @tap="goToDetail">{{state.text}}</text>
+			</view>
+		</view>
+		
+		<view class="flex flex-direction align-center justify-between" style="border-radius: 10upx 10upx 20upx 20upx;width: 696upx; overflow: hidden;"  v-if="itemObj.SortID == 101 && type === 'noShop' ">
+		    <image src="https://img.huaxuapp.com/cxyhq.png" style="width: 699rpx ;height: 184rpx;"  mode="widthFix"></image>
+			<view class="flex align-center justify-between padding-tb-sm padding-lr-xs bg-white" style="width: 100%;" >
+				<view class="text-sm text-gray">使用期限：{{BDate}} - {{EDate}}</view>
+				<text class="padding-lr-sm padding-tb-xs btn_coupon"  style="font-size: 24upx;" :class="state.class"   @tap="goToDetail">{{state.text}}</text>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -111,7 +127,8 @@
 				if (this.itemObj.StoreName) {
 					return this.itemObj.SortName
 				} else {
-					return this.itemObj.SortName ? `政府惠民消费券 (${this.itemObj.SortName}可用)` : '政府惠民消费券 (指定商家专用)'
+					// return this.itemObj.SortName ? `政府惠民消费券 (${this.itemObj.SortName}可用)` : '政府惠民消费券 (指定商家专用)'
+					return this.itemObj.SortName ? `花蓄联合商家红包专区优惠券` : '花蓄联合商家红包专区优惠券'
 				}
 			},
 			StoreName(){
@@ -191,9 +208,15 @@
 							url:`/pages/shopDetail/shopDetailPage?StoreID=${this.itemObj.StoreID}`
 						});
 					} else {
-						uni.navigateTo({
-							url:`/pages/menuSort/sort?StoreSortID=${this.itemObj.SortID || 23}&StoreSortName=${ this.itemObj.SortName ||'特色美食'}`
-						});
+						if(this.itemObj.SiteID == 0){
+							uni.navigateTo({
+								url:`/pages/menuSort/hongBao?StoreSortID=23&StoreSortName=特色美食`,
+							});
+						} else {
+							uni.navigateTo({
+								url:`/pages/menuSort/sort?StoreSortID=${this.itemObj.SortID || 23}&StoreSortName=${ this.itemObj.SortName ||'特色美食'}`,
+							});
+						}
 					}
 				}else{
 					return 
@@ -203,7 +226,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.touxiang_{
 		background-repeat: no-repeat;
 		background-size: 100% 100%;

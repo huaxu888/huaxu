@@ -1,252 +1,172 @@
 <template>
 	<view>
-		<view v-if="!showLoading">
+		<view v-if="!showLoading"  style="padding-bottom: 150upx;">
 
 			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-			<cu-custom bgColor="bg-cream" class="text-black" :isBack="true">
+			<cu-custom bgColor="bg-creamsss" class="text-black" :isBack="false" style="position: absolute;top: 0;">
 				<!-- #ifdef APP-PLUS || H5-->
-				<block slot="content"><text class="text-bold" style="line-height: 1em;color: #8d5b20;" v-if="showTitle">{{StoreName}}</text> </block>
+				<block slot="content"><text class="text-bold" style="line-height: 1em;color: #333333;" v-if="showTitle">{{StoreName}}</text> </block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText"><text class="text-bold" style="line-height: 1em;color: #8d5b20;"  v-if="showTitle">{{StoreName}}</text></block>
+				<block slot="content"><text class="text-bold" style="line-height: 1em;color: #333333;"  v-if="showTitle">{{StoreName}}</text></block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->
 			
-			<view class="flex justify-center flex-direction" style="background: #f8d1a3;">
-				<view class="padding-lr padding-bottom-sm padding-top-xs flex align-center justify-between">
-					<view class="flex align-center justify-center" style="height: 130upx">
-						<view class="flex align-center justify-center">
-							<image :src="LogoPic" mode="scaleToFill" class="touxiang"  @tap="personRouter('/pages/shopManagement/sonPage/addShopInfo/addShopInfoPage?StoreID='+StoreID)"></image>
-						</view>
-						<view class="flex flex-direction align-start justify-end margin-left">
-							<view class=" flex align-center margin-top-xs">
-								<text class="text-bold" style="font-size: 36upx;color: #b9792e; max-width: 330upx;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
-									<text>{{StoreName}}</text>
-									<text class="cu-tag round sm bg-red margin-left-xs" v-if="storeObj.StoreSort == 1">电商</text>
-								</text>
-							</view>
-							<view class="flex align-center">
-								<text style="font-size: 24upx;color: #b9792e;">营业时间：{{StartWorkDate}}-{{EndWorkDate}}</text>
+			<view class="flex justify-center flex-direction" style="background-image: url(https://img.huaxuapp.com/dpgl474_01.png);background-size: cover;
+			background-repeat: no-repeat;width: 750upx;height: 474upx;">
+				<view class="padding-lr padding-bottom-sm padding-top-xs flex align-center justify-between" style="margin-top: 30upx;">
+					<view class="flex align-center justify-center" style="">
+						<view class="flex align-center justify-center" style="position: relative;">
+							<image :src="LogoPic || 'https://img.huaxuapp.com/huaxulogo.jpg'" mode="scaleToFill" class="touxiang"  @tap="personRouter('/pages/shopManagement/sonPage/addShopInfo/addShopInfoPage?StoreID='+StoreID)"></image>
+							<view style="position: absolute;bottom: -20upx; width: 70upx;height: 40upx;border-radius: 50upx;background-color: #252b41;border: 1upx solid #ffead7;text-align: center;"  @tap="personRouter('/pages/shopManagement/sonPage/addShopInfo/addShopInfoPage?StoreID='+StoreID)">
+								<text style="color: #ffd7d7;font-size: 22upx;">编辑</text>
 							</view>
 						</view>
-					</view>
-					<!-- <view style="height: 130upx;position: absolute;right: 120upx;">
-						<view class="flex justify-center align-center " style="position: relative;">
-							<view class="flex align-center justify-center" style="height: 46upx;width: 46upx;border: 1.8px solid #f1b556;border-radius: 50%;background: #FFFFFF;position: relative; z-index: 14; ">
-								<text :class="'hxIcon-shangpu' " style="font-size: 26upx;color: #f1b556;"></text>
+						<view class="margin-left">
+							<view class="flex align-center text-bold" @tap="switchAndAdd">
+								<view style="font-size: 38upx;color: #333333; max-width: 370upx;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+									{{StoreName}}
+									<!-- <text class="cu-tag round sm bg-red margin-left-xs" v-if="storeObj.StoreSort == 1">电商</text> -->
+								</view>
+								<view style="margin-left: 10upx;color: #333333;font-size: 28upx;">
+									<text class="text-bold hxIcon-rightArrow" style=""></text>
+								</view>
+							</view>
+							
+							<view class="flex align-center" @tap="switchAndAdd" style="margin-top: 10upx;">
+								<text style="font-size: 24upx;color: #666666;">营业时间：{{StartWorkDate}}-{{EndWorkDate}}</text>
+							</view>
+							
+							<!-- <view class="flex justify-center align-center" style="position: absolute;right: 30upx;">
+								<view>
+									<text style="font-size: 24upx;margin-right: 14upx;">预览</text>
+								</view>
+								<view>
+									<text class="hxIcon-rightArrow" style="font-size: 28upx;"></text>
+								</view>
 							</view> -->
-						<!-- <switch class='brown switch-status' @change="SwitchB" :class="switchB?'checked':''" :checked="switchB?true:false"
-						 style="margin-top: 23upx;"></switch> -->
-						 <!-- <view class="flex align-center justify-center" style="height: 36upx;width: 140upx; padding-left: 13upx; border-radius:1000upx;background: #f1b556;position: absolute;left: 20upx; z-index: 10;"> -->
-						 	<!-- <text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;">{{ '联盟商家' }}</text> -->
-						 	<!-- <text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 0">{{ '一级商家' }}</text>
-						 	<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 1">{{ '二级商家' }}</text>
-						 	<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 2">{{ '三级商家' }}</text>
-						 	<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 3">{{ '四级商家' }}</text>
-						 	<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 4">{{ '五级商家' }}</text>
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 5">{{ '六级商家' }}</text>
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 6">{{ '七级商家' }}</text>
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 7">{{ '八级商家' }}</text>
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "StoreLevel == 8">{{ '九级商家' }}</text> -->
-						 <!-- </view> -->
-						 <!-- </view>
-					</view> -->
-				</view>
-				<view class="flex align-center justify-center margin-top-sm" style="background: url('https://img.huaxuapp.com/sjxym.png') no-repeat; height: 150upx;  background-size: 100% 100%;">
-					<view class=" flex align-center" style="width: 100%;height: 120upx;margin-bottom: 28upx; margin-left: 60upx; margin-right: 60upx;">
-						<view class="flex align-center justify-center flex-direction" style="width: 25%;">
-							<view style="background:url('https://img.huaxuapp.com/xxts_03.png') no-repeat ; background-size: 100% 100%; width: 48upx; height: 48upx;"></view>
-							<text style="color: #edd7bd;font-size: 24upx;">消息推送</text>
 						</view>
-						<view style="border-right: 1px solid #edd7bd; width: 2upx; height: 60upx;"></view>
-						<view class="flex align-center justify-center  padding-lr" style="width: 75%;">
-							<swiper class=" text-sm flex justify-center align-center" style="height:33upx;width:85%;" vertical="true"
-							 circular="true" autoplay="autoplay" interval="3000">
-								<swiper-item class="flex align-center">
-									<text class="text-cut" style="color: #edd7bd;line-height: 1em;font-size: 28upx;">预约功能已上线</text>
-								</swiper-item>
-								<swiper-item class="flex align-center">
-									<text class="text-cut" style="color: #edd7bd;line-height: 1em;font-size: 28upx;">欢迎商家使用！</text>
-								</swiper-item>
-							</swiper>
-
-							<view style="background:url('https://img.huaxuapp.com/ydxx_06.png') no-repeat ; background-size: 100% 100%; width: 48upx; height: 48upx;"></view>
+						<view class="" style="text-align: center;margin-left: 20upx;position: absolute;right: 40upx;" @tap="personRouter('/pages/shopManagement/sonPage/gongMaBand?StoreID=' + StoreID + '&SqSort=' + SqSort)">
+							<view class="hxIcon-erweima3" style="font-size: 56upx;"></view>
+							<view style="font-size: 22upx;">公码绑定</view>
 						</view>
 					</view>
-				</view>
-			</view>
-
-			<view class=" margin-lr margin-tb-sm-big  margin-bottom padding-lr-sm padding-tb-xs flex align-center justify-between revenue-block">
-				<view class="flex align-center justify-between padding-tb-xs  revenue-block-left">
-					<view class="flex align-center justify-between flex-direction" style="width: 25%;"  @tap="tiaozhuan(1)">
-						<text class="hxIcon-daifukuan" style="font-size: 54upx;color: #4a4a4a;">
-
-						</text>
-						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">预约订单</text>
-					</view>
-					<view class="flex align-center justify-between flex-direction" style="width: 25%; position: relative;"  @tap="tiaozhuan(2)">
-						<!-- <view style="height: 28upx;width: 92upx;position: absolute;top: -20upx;right: -34upx;background: url('https://img.huaxuapp.com/jxxx_03.png') no-repeat; background-size: cover;">
-						</view> -->
-						<text class="hxIcon-yuding" style="font-size: 54upx;color: #4a4a4a;">
-
-						</text>
-						<!-- <text class="margin-top-sm" style="font-size: 24upx;color: #444444;">{{ storeObj.StoreSort == 1 ? '待发货' : '预定' }}</text> -->
-						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">待评价</text>
-					</view>
-					<view class="flex align-center justify-between flex-direction" style="width: 25%;"   @tap="tiaozhuan(3)">
-						<text class="hxIcon-pingjia" style="font-size: 54upx;color: #4a4a4a;">
-
-						</text>
-						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">已取消</text>
-					</view>
-					<view class="flex align-center justify-between flex-direction" style="width: 25%;" @tap="tiaozhuan(4)">
-						<text class="hxIcon-tuikuan" style="font-size: 54upx;color: #4a4a4a;">
-
-						</text>
-						<text class="margin-top-sm" style="font-size: 24upx;color: #444444;">售后</text>
-					</view>
-				</view>
-				<view class="margin-left-xs" style="background: url('https://img.huaxuapp.com/dakuohao_03.png') no-repeat; background-size: 100% 100%;  width: 16upx; min-height: 110upx;"></view>
-
-				<view class="flex align-center justify-between flex-direction padding-sm " style="min-height:110upx;padding-left: 10upx;padding-right: 10upx;"
-				 @tap="personRouter('/pages/shopManagement/sonPage/orderManager?storeid=' + StoreID + '&sort=' + storeObj.StoreSort)">
-					<view style="background: url('https://img.huaxuapp.com/ddys_03.png') no-repeat; background-size: 100% 100%;  width: 54upx; height: 62upx;"></view>
-					<text style="font-size: 24upx;margin-top: 15upx;color: #444444;">订单管理</text>
 				</view>
 			</view>
 
 			<!-- 营收概览 -->
-			<view class=" margin-lr  margin-tb-sm-big padding-lr-sm padding-tb-xs  flex align-center justify-between revenue-block">
-				<view class="flex align-center justify-between padding-tb-xs revenue-block-left">
-					<view class="flex align-center justify-center flex-direction" style="width: 33%;" @tap="personRouter()">
-						<text class="revenue-block-leftAmount">{{rounding(jrxf)}}</text>
-						<text class="revenue-block-leftTitle">今日营业额</text>
+			<view style="position: absolute;top: 350upx;width: 690upx;">
+				<image src="https://img.huaxuapp.com/6901011_03.png" mode="aspectFit" style="width: 692upx;height: 104upx;margin: 0 30upx;"  @tap="personRouter('/pages/shopManagement/sonPage/vipGuan?StoreID=' + StoreID)"></image>
+				<view class=" margin-lr  margin-tb-sm-big padding-lr-sm padding-tb-xs  flex align-center justify-between revenue-block" style="position: absolute;top: 102upx;width: 690upx;padding-top: 10upx;padding-bottom: 20upx;margin-top: 0;">
+					
+					<view class="flex align-center justify-between padding-tb-xs revenue-block-lefts" >
+						<view class="flex align-center justify-center flex-direction" style="width: 25%;" @tap="personRouter('/pages/shopManagement/sonPage/acCount?StoreID=' + StoreID + '&SqSort=' + SqSort)">
+							<image src="https://img.huaxuapp.com/pink1012tub-03.png" mode="aspectFit" style="width: 50upx;height: 50upx;"></image>
+							<text class="revenue-block-leftTitle" style="margin-top: 16upx;">商户结算</text>
+						</view>
+						<view class="flex align-center justify-center flex-direction" style="width: 25%;" @tap="personRouter('/pages/shopManagement/sonPage/receivablesCodePage?StoreID=' + StoreID)">
+							<image src="https://img.huaxuapp.com/pink1012tub-04.png" mode="aspectFit" style="width: 50upx;height: 50upx;"></image>
+							<text class="revenue-block-leftTitle" style="margin-top: 16upx;">收款码</text>
+						</view>
+						<view class="flex align-center justify-center flex-direction" style="width: 25%;" @tap="personRouter('/pages/shopManagement/sonPage/shujuFenxi/shuJu?StoreID=' + StoreID)">
+							<image src="https://img.huaxuapp.com/pink1012tub-05.png" mode="aspectFit" style="width: 50upx;height: 50upx;"></image>
+							<text class="revenue-block-leftTitle" style="margin-top: 16upx;">经营分析</text>
+						</view>
+						<view class="flex align-center justify-center flex-direction" style="width: 25%;" @tap="personRouter('/pages/shopManagement/sonPage/bindingCashier/bindingCashierPage?StoreID=' + StoreID + '&SqSort=' + SqSort)">
+							<image src="https://img.huaxuapp.com/pink1012tub-06.png" mode="aspectFit" style="width: 50upx;height: 50upx;"></image>
+							<text class="revenue-block-leftTitle" style="margin-top: 16upx;">员工管理</text>
+						</view>
 					</view>
-					<view class="flex align-center justify-center flex-direction" style="width: 33%;" @tap="personRouter()">
-						<text class="revenue-block-leftAmount">{{jrdd}}</text>
-						<text class="revenue-block-leftTitle">今日订单</text>
-					</view>
-					<view class="flex align-center justify-center flex-direction" style="width: 33%;" @tap="personRouter()">
-						<text class="revenue-block-leftAmount">{{rounding(xfze)}}</text>
-						<text class="revenue-block-leftTitle">总营业额</text>
-					</view>
-				</view>
-				<view class="margin-left-xs" style="background: url('https://img.huaxuapp.com/dakuohao_03.png') no-repeat; background-size: 100% 100%;  width: 16upx; min-height: 110upx;"></view>
-
-				<view class="flex align-center justify-center flex-direction padding-sm " style="min-height:110upx;padding-left: 10upx;padding-right: 10upx;"
-				 @tap="personRouter('/pages/shopManagement/sonPage/billDetailss','营收概览')">
-					<view style="background: url('https://img.huaxuapp.com/ysgailan_07.png') no-repeat; background-size: 100% 100%;  width: 54upx; height: 54upx;"></view>
-					<text style="font-size: 24upx;margin-top: 10upx;color: #444444;">营收明细</text>
 				</view>
 			</view>
 
-			<!-- 提现 -->
-			<view class=" margin-lr margin-tb-sm-big padding-left flex align-center justify-between" style=" padding-top: 45upx; padding-bottom: 45upx; border-radius: 10upx; background-image: linear-gradient(to right, #fba15a, #fc821b);">
-				<view class="flex align-center justify-center" style="height: 80upx;">
-					<!-- <text>&yen;</text> -->
-					<text class="text-white">当前可提现
-						<text class="margin-left-sm cu-tag round text-white bg-red text-bold">{{ wxf }}</text>
-					</text>
-					<!-- <text class="margin-left-sm" style=" font-size: 26upx;line-height: 1em;color: #FFFFFF;">全部提现</text> -->
+			<!-- 今日数据 -->
+			<view class="margin-lr margin-tb-sm-big padding bg-white" style="margin-top: 180upx;padding-bottom:0upx;border-radius: 15upx;padding-top: 30upx;">
+				<view class="flex justify-between" @tap="personRouter('/pages/shopManagement/sonPage/shuShou?StoreID=' + StoreID)">
+					<text class="heading ">今日收款</text>
+					<text style="font-size: 24upx;color: #999999;">查看更多<text class="hxIcon-rightArrow" style="font-size: 24upx;margin-left: 8upx;"></text></text>
 				</view>
-				<view @tap="personRouter('/pages/shopManagement/sonPage/balanceWithdrawal?storeid=' + StoreID)" class="padding-lr flex align-center justify-center " style="padding-top: 18upx; padding-bottom: 18upx; border-radius:  50upx 0 0 50upx;background: #fc6f24;">
-					<text style="font-size: 26upx; line-height: 1em;color: #FFFFFF;">提现到银行卡</text>
+				<view class="padding-lr-sm padding-tb-xs  flex align-center justify-between revenue-block">
+					<view class="flex align-center justify-between padding-tb-xs revenue-block-lefts">
+						<view class="flex align-center justify-center flex-direction" @tap="personRouter('/pages/shopManagement/sonPage/zkShou?StoreID=' + StoreID)">
+							<text class="revenue-block-leftAmount" style="color: #202020;">{{rounding(jrxf)}}</text>
+							<text class="revenue-block-leftTitle">买单收款(元)</text>
+						</view>
+						<view class="flex align-center justify-center flex-direction" @tap="personRouter('/pages/shopManagement/sonPage/zfShou?StoreID=' + StoreID)">
+							<text class="revenue-block-leftAmount" style="color: #202020;">{{rounding(jryhqxf)}}</text>
+							<text class="revenue-block-leftTitle">自发券收款(元)</text>
+						</view>
+						<view class="flex align-center justify-center flex-direction" @tap="personRouter('/pages/shopManagement/sonPage/tgShou?StoreID=' + StoreID)">
+							<text class="revenue-block-leftAmount" style="color: #202020;">{{rounding(tgxf)}}</text>
+							<text class="revenue-block-leftTitle">团购收款(元)</text>
+						</view>
+					</view>
 				</view>
 			</view>
 
 			<!-- 门店管理 -->
 			<view class="margin-lr margin-tb-sm-big padding bg-white" style="border-radius: 20upx;" v-if="state == 2">
 				<view class="heading">
-					门店管理
+					营销推广
 				</view>
 				<view class="margin-top flex align-center justify-between">
-					<view class="flex align-center justify-center flex-direction padding-bottom-sm  Shop-Manager-block " @tap="personRouter('/pages/person/share')">
-						<view style="margin: 11rpx; width: 100rpx; height: 100rpx; background: url(https://img.huaxuapp.com/qmlq.png);background-size: cover">
+					<view class="flex align-center justify-center flex-direction padding-bottom-sm Shop-Manager-block" @tap="personRouter('/pages/shopManagement/sonPage/msgAllSend/dxGuanli?StoreID='+StoreID)">
+						<view style="margin: 11upx; width: 100upx; height: 100upx;background: url(https://img.huaxuapp.com/dxyxtb_03.png) ;background-size: 100% 100%;background-repeat: no-repeat;">
+					
 						</view>
-						<text class=" Shop-Manager-Title">全民领现金</text>
-						<text class="Shop-Manager-GrayTitle">锁客好工具</text>
+						<text class=" Shop-Manager-Title">短信营销</text>
+						<text class="Shop-Manager-GrayTitle">商家营销好利器</text>
 						<view class="flex align-center justify-center margin-top-xs Shop-Manager-button">
-							<text class="button-text">去邀请</text>
+							<text class="button-text">去发布</text>
 						</view>
 					</view>
-					<view class="flex align-center justify-center flex-direction padding-bottom-sm Shop-Manager-block" @tap="personRouter('/pages/shopManagement/sonPage/goodsManagmentPage?StoreID=' + StoreID)">
+					<view class="flex align-center justify-center flex-direction padding-bottom-sm  Shop-Manager-block " @tap="personRouter('/pages/shopManagement/shopCou?StoreID='+StoreID)">
+						<view style="margin: 11rpx; width: 100rpx; height: 100rpx; background: url(https://img.huaxuapp.com/qmlq.png);background-size: cover">
+						</view>
+						<text class=" Shop-Manager-Title">自发券</text>
+						<text class="Shop-Manager-GrayTitle">消费满额立减</text>
+						<view class="flex align-center justify-center margin-top-xs Shop-Manager-button">
+							<text class="button-text">去发券</text>
+						</view>
+					</view>
+					<view class="flex align-center justify-center flex-direction padding-bottom-sm Shop-Manager-block" @tap="personRouter('/pages/shopManagement/shopManage?StoreID='+StoreID)">
 						<view style="margin:11upx;  width: 100upx; height: 100upx; background: url(https://img.huaxuapp.com/mdgl_05.jpg);background-size: 100% 100%;">
 						</view>
 						<text class=" Shop-Manager-Title">商品管理</text>
-						<text class="Shop-Manager-GrayTitle">优/快/好/省</text>
+						<text class="Shop-Manager-GrayTitle">展示店铺热卖品</text>
 						<view class="flex align-center justify-center margin-top-xs Shop-Manager-button">
 							<text class="button-text">去添加</text>
 						</view>
 					</view>
-					<view class="flex align-center justify-center flex-direction padding-bottom-sm Shop-Manager-block" @tap="personRouter('/pages/shopManagement/sonPage/addShopInfo/addShopInfoPage?StoreID='+StoreID)">
-						<view style="margin: 11upx; width: 100upx; height: 100upx;background: url(https://img.huaxuapp.com/mdgl_07.png) ;background-size: 100% 100%;">
-
-						</view>
-						<text class=" Shop-Manager-Title">门店推广</text>
-						<text class="Shop-Manager-GrayTitle">展示店铺风采</text>
-						<view class="flex align-center justify-center margin-top-xs Shop-Manager-button">
-							<text class="button-text">去设置</text>
-						</view>
-					</view>
-				</view>
-			</view>
-				<!-- //1是收银员，2店长 -->
-			<view class="bg-white margin-lr margin-tb-sm-big " style="padding: 30upx;margin-top: 20upx; border-radius: 20upx;"
-			 v-for="(item, index) of marketingTools" :key="index" v-if="(state == 1 && index == 1) || state == 2" >  
-				<view class="heading">{{ item.title }}</view>
-				<view class="flex align-center justify-start flex-wrap ">
-					<view class="flex flex-direction align-center " style="width: 25%;position: relative;" v-for="(tool_i, tool_j) of item.list"  v-if="(state == 1 && tool_j != 8) || state == 2" 
-					 :key="tool_j" @tap="personRouter(tool_i.navigate,tool_i.title)" >
-						<image :src="tool_i.picUrl" :style="{width:getUpx(tool_i.size),height:getUpx(tool_i.size)}" 
-							style="margin-top: 36upx;" v-if="tool_i.picUrl"></image>
-						<text style="font-size: 24upx;margin-top:15upx ;color: #333333;">{{ tool_i.title }}</text>
-					</view>
+					
 				</view>
 			</view>
 		</view>
-		<!-- showLoading -->
+		
+		<!-- <view  @tap="personRouter('/pages/shopManagement/sonPage/orderManager?storeid=' + StoreID + '&sort=' + storeObj.StoreSort)">
+			<view class="couponss shake text_center" style="font-size:32upx;color: #ffffff;">订单</view>
+		</view> -->
+		
 		<view v-if="showLoading">
 			<load-ing></load-ing>
 		</view>
-
+		
+		<view >
+			<phone-buttom :StoreID="StoreID" :IsLock="IsLock" :isShopowner="routObj.isShopowner" :Inx="Inx" style="z-index: 99;">
+			</phone-buttom>
+		</view>
 	</view>
 </template>
 
 <script>
+	import phoneButtom from './components/poWers'
 	export default {
 		data() {
 			return {
-				marketingTools: [{
-						title: '营销工具',
-						list: [{
-								picUrl: 'https://img.huaxuapp.com/mdglx_06.png',
-								title: '优惠券包 ',
-								navigate: '/pages/shopManagement/sonPage/myCoupon/myCouponPage', //StoreID
-								size:96
-							},
-							{
-								picUrl: 'https://img.huaxuapp.com/mdglx_08.png',
-								title: '海报设计',
-								navigate: '/pages/shopManagement/sonPage/poster/posterPage',
-								size:96
-							},
-							{
-								picUrl: 'https://img.huaxuapp.com/dxyxg.png',
-								title: '短信营销',
-								navigate: 'msgAllSendOne',
-								size:96
-							},
-							{
-								picUrl: 'https://img.huaxuapp.com/mdglx_03.png',
-								title: '趣味拼团',
-								navigate: '-1',
-								size:96
-							}
-						]
-					},
+				marketingTools: [
 					{
-						title: '我的服务',
+						title: '常用功能',
 						list: [
 							{
 								picUrl: 'https://img.huaxuapp.com/wdfw_03.jpg',
@@ -254,22 +174,10 @@
 								navigate: '/pages/shopManagement/sonPage/receivablesCodePage', //StoreID StoreName LogoPic StoreAddress
 								size:74
 							},
-							// {
-							// 	picUrl: 'https://img.huaxuapp.com/hexiao-02.png',
-							// 	title: '扫码核销',
-							// 	navigate: 'scan', //StoreID StoreName LogoPic StoreAddress
-							// 	size:74
-							// },
 							{
 								picUrl: 'https://img.huaxuapp.com/wdfw_05.jpg',
 								title: '亲密用户',
 								navigate: '/pages/shopManagement/sonPage/myMember', //StoreID
-								size:74
-							},
-							{
-								picUrl: 'https://img.huaxuapp.com/wdfw_15.jpg',
-								title: '员工管理',
-								navigate: '/pages/shopManagement/sonPage/bindingCashier/bindingCashierPage', // StoreID
 								size:74
 							},
 							{
@@ -279,36 +187,11 @@
 								size:74
 							},
 							{
-								picUrl: 'https://img.huaxuapp.com/wdfw_07.jpg',
-								title: '经营分析',
-								navigate: '/pages/shopManagement/sonPage/shujuFenxi/shuJu', //billType state StoreID myStoreID
-								size:74
-							},
-							{
 								picUrl: 'https://img.huaxuapp.com/wdfw_16.jpg',
 								title: '结算明细',
 								navigate: '-1',
 								size:74
-							},
-							{
-								picUrl: 'https://img.huaxuapp.com/wdfw_21.jpg',
-								title: '菜品销量',
-								navigate: '-1',
-								size:74
-							},
-							// {
-							// 	picUrl: 'https://img.huaxuapp.com/wdfw_09.jpg',
-							// 	title: '营收报表',
-							// 	navigate: '/pages/shopManagement/sonPage/shujuFenxi/shujuFenxi', //StoreID
-							// 	size:74
-							// },
-							{
-								picUrl: 'https://img.huaxuapp.com/czjl_03.png',
-								title: '充值奖励',
-								navigate: '-1',  // StoreID
-								size:74
-							}
-							
+							},			
 						]
 					}
 				],
@@ -335,14 +218,17 @@
 				money:'',
 				StoreLevel:'',
 				wxf: 0,
-				SqSort: 0
+				SqSort: 0,
+				jryhqxf:0,
+				tgxf:0,
+				Inx:1
 			}
 		},
 		onLoad(routObj) {
 			this.StoreID = routObj.StoreID;
 			this.IsLock = routObj.IsLock
 			this.routObj = routObj;
-		
+			
 			// this.getCurryInfo();
 			if (this.routObj.isShopowner == 'true') {
 					this.state = 2
@@ -361,8 +247,17 @@
 					})
 				}, 1000);
 			}
+			
 		},
 		methods: {
+			tishi() {
+				this.$api.msg('功能即将上线，敬请期待')
+			},
+			switchAndAdd(){
+				uni.navigateTo({
+					url: '/pages/shopDetail/shopDetailPage?StoreID=' + this.StoreID
+				})
+			},
 			tiaozhuan(e) {
 				uni.navigateTo({
 					url:'/pages/shopManagement/sonPage/orderManager?storeid=' + this.StoreID + '&sort='+ e,
@@ -384,12 +279,41 @@
 				this.isTx = !this.isTx
 			},
 			getCurryInfo() {
+				// let self = this;
+				// return self.$Request.get(self.$store.state.mystoreUrl, {
+				// 	userid: self.$store.state.userInfo.ID,
+				// 	storeid: self.StoreID
+				// }, false).then(res => {
+				// 	if (res.IsSuccess) {
+				// 		self.infoObj = res
+				// 		self.showLoading = false;
+				// 		self.jrxf = res.Jrxf; //今日营业额
+				// 		self.jrdd = res.jrdd; //今日订单数
+				// 		self.xfze = res.xfze; //消费总额
+				// 		self.StoreID = res.Store.StoreID;
+				// 		self.storeObj = res.Store;
+				// 		self.StoreName = self.storeObj.StoreName;
+				// 		this.StartWorkDate = self.storeObj.StartWorkDate;
+				// 		this.EndWorkDate = self.storeObj.EndWorkDate;
+				// 		self.LogoPic = self.storeObj.LogoPic;
+				// 		this.StoreLevel = res.Store.StoreLevel;
+				// 		this.wxf = res.Wxf
+				// 		this.SqSort = res.SqSort
+				// 	} else if (!res.IsSuccess) {
+				// 		self.$api.msg(res.Msg, 2000)
+				// 		uni.switchTab({ //跳去首页
+				// 			url: '/pages/index/person'
+				// 		})
+				// 	}
+				// 	return
+				// })
 				let self = this;
-				return self.$Request.get(self.$store.state.mystoreUrl, {
+				return self.$Request.get(this.$store.state.myShop, {
 					userid: self.$store.state.userInfo.ID,
 					storeid: self.StoreID
 				}, false).then(res => {
 					if (res.IsSuccess) {
+						console.log(res);
 						self.infoObj = res
 						self.showLoading = false;
 						self.jrxf = res.Jrxf; //今日营业额
@@ -404,6 +328,8 @@
 						this.StoreLevel = res.Store.StoreLevel;
 						this.wxf = res.Wxf
 						this.SqSort = res.SqSort
+						this.jryhqxf = res.jryhqxf
+						this.tgxf = res.tgxf
 					} else if (!res.IsSuccess) {
 						self.$api.msg(res.Msg, 2000)
 						uni.switchTab({ //跳去首页
@@ -487,7 +413,7 @@
 							content: '群发信息将会扣除您的信息费用，单条费用：0.1元/条',
 							confirmText: '取消',
 							confirmColor: "#333333",
-							cancelColor: '#f34e2d',
+							cancelColor: '#fe4e01',
 							cancelText: '确定',
 							showCancel: true
 						}).then(res => {
@@ -516,10 +442,6 @@
 					}
 				}
 				
-					
-					
-					
-					
 				uni.navigateTo({
 					url: url
 				})
@@ -668,6 +590,9 @@
 				uni.stopPullDownRefresh()
 			})
 		},
+		components: {
+			phoneButtom,
+		}
 	}
 </script>
 
@@ -682,21 +607,39 @@
 		background: #f2f2f2 !important;
 	}
 	.touxiang {
-		width: 130upx;
-		height: 130upx;
+		width: 100upx;
+		height: 100upx;
 		border-radius: 50%;
 	}
-
+	
+	.couponss {
+		line-height: 120upx;
+		background-color: #f9745a;
+		width: 120upx;
+		height: 120upx;
+		border-radius: 100upx;
+		-moz-box-shadow:0px 0px 5px #f9745a; 
+		-webkit-box-shadow:0px 0px 5px #f9745a; 
+		box-shadow:0px 0px 5px #f9745a;
+		position: fixed;
+		/* #ifdef H5 */
+		bottom: 150rpx;
+		/* #endif */
+		/* #ifndef H5 */
+		bottom: 140rpx;
+		/* #endif */
+		right: 60upx;
+	}
 
 	.heading {
-		font-size: 28upx;
+		font-size: 30upx;
 		font-weight: 700;
 		color: #333333;
 	}
 
 
 	.revenue-block {
-		border-radius: 20upx;
+		border-radius: 0 0 20upx 20upx;
 		background: #FFFFFF;
 		margin-bottom: 20upx;
 	}
@@ -706,6 +649,11 @@
 		min-height: 110upx;
 	}
 
+	.revenue-block .revenue-block-lefts {
+		width: 100%;
+		min-height: 150upx;
+	}
+	
 	.revenue-block .revenue-block-left .revenue-block-leftAmount {
 		font-size: 36upx;
 		font-weight: bold;
@@ -713,15 +661,27 @@
 		white-space: nowrap;
 		margin-top: 10upx;
 	}
-
+	.revenue-block .revenue-block-lefts .revenue-block-leftAmount {
+		font-size: 36upx;
+		font-weight: bold;
+		color: #333333;
+		white-space: nowrap;
+		margin-top: 10upx;
+	}
 	.revenue-block .revenue-block-left .revenue-block-leftTitle {
 		font-size: 24upx;
 		color: #444444;
 		margin-top: 10upx;
 	}
 
+	.revenue-block .revenue-block-lefts .revenue-block-leftTitle {
+		font-size: 24upx;
+		color: #444444;
+		margin-top: 10upx;
+	}
+
 	.Shop-Manager-block {
-		border: 0.8px solid #f6be7b;
+		border: 0.8px solid #ffd7d7;
 		border-radius: 10upx;
 		width: 202upx;
 	}
@@ -729,7 +689,7 @@
 
 
 	.Shop-Manager-block .Shop-Manager-Title {
-		color: #ff5b2e;
+		color: #fe5479;
 		font-size: 28upx;
 	}
 
@@ -737,20 +697,20 @@
 
 	.Shop-Manager-block .Shop-Manager-GrayTitle {
 		font-size: 24upx;
-		color: #999999;
+		color: #333333;
 	}
 
 
 	.Shop-Manager-block .Shop-Manager-button {
-		border: 0.5px solid #f6be7b;
+		border: 0.5px solid #fe5479;
 		width: 118upx;
 		height: 40upx;
-		background: #fbede9;
+		background: #ffe6e8;
 		border-radius: 100upx;
 	}
 
 	.Shop-Manager-block .Shop-Manager-button .button-text {
-		color: #ff5b2e;
+		color: #fe5479;
 		font-size: 24upx;
 		line-height: 1em;
 	}

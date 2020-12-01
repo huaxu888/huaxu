@@ -1,6 +1,6 @@
 <template>
 	<view class="history-item-component" @tap="gotoStore(item.StoreID)">
-		<image :src="item.StorePic || 'https://img.huaxuapp.com/pig.png' " mode="aspectFill" class="store-avatar"></image>
+		<image :src="item.StorePic || 'https://img.huaxuapp.com/huaxulogo70px.png' " mode="aspectFill" class="store-avatar"></image>
 		<view class="store-info">
 			<view class="name">
 				<text>{{ item.StoreName }}</text>

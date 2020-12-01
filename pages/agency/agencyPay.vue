@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN-->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
 			<block slot="content">代理支付</block>
 			<!-- #endif -->
@@ -24,17 +24,17 @@
 		<view>
 			<view>
 				<radio-group class="block margin-top-sm" @change="RadioChange">
-					<view class="cu-form-group">
+					<!-- <view class="cu-form-group">
 						<view class="flex  align-center  margin-left-sm">
-							<view class="hxIcon-yue1 text-yellow" style="font-size:65upx;"></view>
+							<view class="hxIcon-yue1 text-yellow" style="font-size:50upx;"></view>
 							<view class="margin-left-sm">余额支付</view>
 						</view>
 						<radio class='red margin-left-sm ' :class="radio==3?'checked':''" :checked="radio==3?true:false" value="3"></radio>
-					</view>
+					</view> -->
 					<!-- #ifndef MP-WEIXIN -->
 					<view class="cu-form-group">
 						<view class="flex align-center margin-left-sm">
-							<view class="hxIcon-zhifubao2 text-blue" style="font-size:65upx;"></view>
+							<view class="hxIcon-zhifubao2 text-blue" style="font-size:50upx;"></view>
 							<view class="margin-left-sm">支付宝支付</view>
 						</view>
 						<radio class='red margin-left-sm ' :class="radio==1?'checked':''" :checked="radio==1?true:false" value="1"></radio>
@@ -44,7 +44,7 @@
 					<!-- #ifndef MP-ALIPAY -->
 					<view class="cu-form-group">
 						<view class="flex  align-center margin-left-sm ">
-							<view class="hxIcon-weixin2 text-green" style="font-size:65upx;"></view>
+							<view class="hxIcon-weixin2 text-green" style="font-size:50upx;"></view>
 							<view class="margin-left-sm ">微信支付</view>
 						</view>
 						<view>
@@ -58,7 +58,7 @@
 		</view>
 
 		<view class="flex justify-center">
-			<button @tap="topay" class="cu-btn  bg-red shadow text-xl" style="width: 70%;height: 40px;">
+			<button @tap="topay" class="cu-btn  bg-red shadow text-xl sure" style="width: 690upx;">
 				确认支付
 				<text>&yen;</text>
 				<text class="text-xxl">{{money}}</text>
@@ -306,5 +306,17 @@
 		border-top: 1px solid #cccccc;
 		width: 100upx;
 		margin: 25upx;
+	}
+	
+	.sure {
+		margin-top: 40upx;
+		height: 88upx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(to right, #fb9c67, #fc6660);
+		color: #fff;
+		border-radius: 100upx;
+		box-shadow: 2upx 2upx 14upx lighten($color: #FC7265, $amount: 10);
 	}
 </style>

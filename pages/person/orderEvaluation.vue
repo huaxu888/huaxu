@@ -5,7 +5,7 @@
             <block slot="content">{{ store.StoreName || '发表评价' }}</block>
             <!-- #endif -->
             <!-- #ifdef MP-WEIXIN || MP-ALIPAY -->
-            <block slot="backText">{{ store.StoreName || '发表评价' }}</block>
+            <block slot="content">{{ store.StoreName || '发表评价' }}</block>
             <!-- #endif -->
         </cu-custom>
         <view class="cu-card case bg-white margin">

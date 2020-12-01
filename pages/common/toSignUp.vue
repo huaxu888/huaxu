@@ -282,9 +282,9 @@
 							})
 							return
 						}
-						registrationPayment( this.data.UserID, this.data.Name, this.data.Birth,
-							this.data.Phone, this.data.BigHeadPhoto, this.data.Area)
-							.then( res => {
+						// registrationPayment( this.data.UserID, this.data.Name, this.data.Birth,
+						// 	this.data.Phone, this.data.BigHeadPhoto, this.data.Area)
+						// 	.then( res => {
 								 this.$http.signUp(this.data)
 									.then(res => {
 										if (res.IsSuccess) {
@@ -301,7 +301,7 @@
 											})
 										}
 									})
-							})
+							// })
 				} else {
 					uni.showModal({
 						title: '信息错误',

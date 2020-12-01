@@ -7,7 +7,10 @@
 			</view>
 		<!-- #endif -->
 		
+		
+		
 		<view style="" v-show="!showFlag">
+			
 			<view class="flex align-center flex-direction bg" >
 				<!-- <view class="flex justify-center align-center bg-orange text-white Card-banner" @tap="save">
 				<text class="hxIcon-s margin-right-xs" style="font-size: 36upx;"></text><text>分享</text>
@@ -18,11 +21,11 @@
 				</view>
 				<view class="flex align-center flex-direction margin-bottom">
 					
-					<!-- #ifdef MP-WEIXIN || APP-PLUS -->
-						<image :src="ewmLink" mode="scaleToFill" style="width:340rpx;height:380rpx;margin-top: 457rpx;"></image>
+					<!-- #ifdef MP-WEIXIN || APP-PLUS || H5 -->
+						<image :src="ewmLink" mode="scaleToFill" style="width:300rpx;height:340rpx;margin-top: 564rpx;margin-left: 10upx;"></image>
 					<!-- #endif -->
-					
 				</view>
+				
 				
 				<view style="margin-top:480upx; font-size: 32upx;font-weight: 600;color: #665A5A;" v-show="false">
 					<!-- <text>平台已有</text>	<text style="color: #f63629;font-size: 40upx;">{{pepoleNum}}</text>	<text>位用户赚到了红包</text> -->
@@ -33,6 +36,7 @@
 			</view>
 			
 		</view>
+		
 		
 		<view v-show="showFlag">
 			<load-ing></load-ing>
@@ -203,21 +207,28 @@
 		},
 		onShareAppMessage(obj) {
 		   return {
-				title: '百日促消费，百店大促销，惠民消费券等你来领！',
-				// imageUrl: 'https://img.huaxuapp.com/xcxfm.jpg',
-				path: `/pages/index/index?tjrid=${this.$store.state.userInfo.ID || 0}`
+				title: '买车险用花蓄，满3000立减500！',
+				imageUrl: '',
+				path:'/pages/ad/cheXian'
 			}
-		 }
+		 },
+		 onShareTimeline: function () {
+		 	return {
+		 		title: '买车险用花蓄，满3000立减500！',
+		 		imageUrl: 'https://img.huaxuapp.com/qwfuli.jpg',
+		 		path:'/pages/ad/cheXian'
+		 	}
+		 },
 	}
 </script>
 
 <style>
 	.bg {
-		background-image: url('https://img.huaxuapp.com/713tjewm.png') ;
+		background-image: url('https://img.huaxuapp.com/cxhb1004.jpg') ;
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 750rpx;
-		height: 4800rpx;
+		height: 2500rpx;
 	}
 
 	.Card-banner {

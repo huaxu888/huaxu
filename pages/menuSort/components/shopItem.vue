@@ -1,37 +1,39 @@
 <template>
-		<view class="show_list_item padding-bottom-sm"  @tap="goToDetails">
+		<view class="show_list_item "  @tap="goToDetails">
 			<view class="shop_img" style="position: relative;">
-				<image :lazy-load="lazyLoad" :src="itemObj.StorePic===''?'https://img.huaxuapp.com/pig.png':itemObj.StorePic"  class="shop_image" ></image>
-				<image src="https://img.huaxuapp.com/zdsj.png" mode="aspectFit" class="cover-img" v-if="itemObj.IsSY"></image>
+				<image :lazy-load="lazyLoad" :src="itemObj.StorePic===''?'https://img.huaxuapp.com/huaxulogo70px.png':itemObj.StorePic"  class="shop_image" ></image>
+				<!-- <image src="https://img.huaxuapp.com/zdsj.png" mode="aspectFit" class="cover-img" v-if="itemObj.IsSY"></image> -->
+				<image src="https://img.huaxuapp.com/zdsj-1008gai2.png" style="width: 336upx;height: 240upx;;" mode="aspectFit" class="cover-img" v-if="itemObj.IsSY"></image>
 			</view>  
 			
 			
-			<view class="info_ padding-lr-sm">
+			<view class="info_ padding-lr-sm" style="padding-bottom: 20upx;">
 				<view class="shop_name text-df text-bold padding-sx">
-					<text>{{itemObj.StoreName}}</text> 
+					<text style="font-size: 26upx;color: #333333;">{{itemObj.StoreName}}</text> 
 					
 					<!-- #ifdef MP-WEIXIN || H5 || APP-PLUS -->
-						<text v-if="defaultDiscount != 1 || itemObj.IsZK" class="text-white bg-orange radius" style="margin-left: 4upx;font-size: 6upx; padding: 4upx;font-size: .6rem;">{{ itemObj.IsZK && itemObj.zk != 1 ? itemObj.zk * 10000/1000 : defaultDiscount * 10 }}折</text>
+						<!-- <text v-if="defaultDiscount != 1 || itemObj.IsZK" class="text-white bg-orange radius" style="margin-left: 4upx;font-size: 6upx; padding: 4upx;font-size: .6rem;">{{ itemObj.IsZK && itemObj.zk != 1 ? itemObj.zk * 10000/1000 : defaultDiscount * 10 }}折</text> -->
 					<!-- #endif -->
 					
 					<!-- #ifdef MP-ALIPAY -->
-						<text v-if="defaultDiscount != 1 || itemObj.IsZK" class="text-white bg-orange radius" style="margin-left: 4upx;font-size: 6upx; padding: 4upx;font-size: .2rem;">{{ itemObj.IsZK && itemObj.zk != 1 ? itemObj.zk * 10000/1000 : defaultDiscount * 10 }}折</text>
+						<!-- <text v-if="defaultDiscount != 1 || itemObj.IsZK" class="text-white bg-orange radius" style="margin-left: 4upx;font-size: 6upx; padding: 4upx;font-size: .2rem;">{{ itemObj.IsZK && itemObj.zk != 1 ? itemObj.zk * 10000/1000 : defaultDiscount * 10 }}折</text> -->
 					<!-- #endif -->
 					
 					
 				</view>
 				
 				<view>
-					<text class="hxIcon-tubiaozhizuomoban start-red" style="font-size: 28upx;" v-for="(it,i) in itemObj.StoreStart" :key="i"></text>
+					<text class="hxIcon-tubiaozhizuomoban start-red" style="font-size: 24upx;margin-left: 4upx" v-for="(it,i) in itemObj.StoreStart" :key="i"  v-if="(itemObj.StoreStart)>0"></text>
+					<text class="hxIcon-tubiaozhizuomoban " style="font-size: 24upx;color: #cccccc;margin-left: 4upx" v-for="(it,i) in (5-itemObj.StoreStart)" :key="i"  v-if="(5-itemObj.StoreStart)>0"></text>
 				</view>
 	
 				<view class="text-cut padding-sx" v-show="itemObj.StoreDesc">
-					<text class="shop_Info text-cut">{{itemObj.StoreDesc}}</text>
+					<text class="shop_Info text-cut"  style="font-size: 22upx;">{{itemObj.StoreDesc}}</text>
 				</view>				
 			
-				<view class="shop_map  text-sm " style="line-height: 1.5em;"> 
-					<text class="cuIcon-location text-green"></text>
-					{{changeAddress(itemObj.StoreAddress)}}        
+				<view class="shop_map  text-sm " style="line-height: 1.5em;margin-top: 10upx;"> 
+					<text class="hxIcon-dingwei3 " style="color: #ff5b2e;font-size: 24upx;margin-right: 4upx;"></text>
+					<text style="font-size: 24upx;">{{changeAddress(itemObj.StoreAddress)}}</text>   
 				</view>
 			</view>
 		</view>
@@ -42,7 +44,8 @@ export default{
 	data(){
 		return{
 			lazyLoad:true,
-			defaultDiscount: 1
+			defaultDiscount: 1,
+			xXing:0
 		}
 	},
 	props:{
@@ -52,7 +55,9 @@ export default{
 		}
 	},
 	mounted() {
-		console.log(this.itemObj);
+		
+		this.xXing  = 5 - this.itemObj.StoreStart
+		
 		this.$http.getDefaultDiscount()
 		.then( res => {
 			if(res.IsSuccess) {
@@ -76,15 +81,14 @@ export default{
 <style scoped>
 	
 	.start-red{
-		color: #f34e2d;
+		color: #fe4e01;
 	}
 	
 	.show_list_item{
 		border-radius:10upx;
 		width:100%;
-		box-shadow: 4upx 4upx 4upx 4upx #EEEEEE;
-		border-left: 2upx solid  #EEEEEE;
-		border-top: 2upx solid  #EEEEEE;
+		background-color: #FFFFFF;
+		margin-bottom: 18upx;
 	}
 	.shop_image{
 		border-radius:10upx 10upx 0 0;

@@ -631,7 +631,7 @@ export function wxAppletsPay(total_amount, description, out_trade_no, storeid = 
 	console.log("total_amount: " + total_amount);
 	console.log("price: " + price);
 	if ( !description.includes('代理')) {
-		if ( (total_amount == price && ccouponsid != 0) || price == '0.00') {
+		if ( price == '0.00') {
 			// uni.showModal({
 			// 	title: '支付出错',
 			// 	content: '请检查您的付款金额和优惠券，确认无误后再试',
@@ -657,6 +657,7 @@ export function wxAppletsPay(total_amount, description, out_trade_no, storeid = 
 			.then(res => {
 				$http.getWxAppletOrderInfo(total_amount, description, res.data.openid, out_trade_no, storeid, yyyid, ccouponsid, dkmoney, price, sjprice)
 					.then(res => {
+						console.log(res);
 						let data
 						try {
 							data = JSON.parse(res.OrderInfo)
@@ -715,6 +716,84 @@ export function wxAppletsPay(total_amount, description, out_trade_no, storeid = 
 			})
 	})
 }
+// 微信小程序充值积分
+export function wxAppletsJFPay(userid,out_trade_no, total_amount, body, phone) {
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+	// 处理订单编号，未传参时使用当前时间戳
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+	// 获取 openid
+	return new Promise((resovle, reject) => {
+		getWxAppletsOpenid()
+			.then(res => {
+				$http.getwxAppletsJFPay(userid,res.data.openid,out_trade_no, total_amount, body ,phone)
+					.then(res => {
+						console.log(res);
+						let data
+						try {
+							data = JSON.parse(res.OrderInfo)
+							data.timeStamp = data.timeStamp.toString()
+							uni.hideLoading()
+						} catch (e) {
+							console.log('解析订单失败：', e);
+							reject({
+								status: false,
+								msg: '解析订单失败',
+								err: e
+							})
+						}
+						uni.requestPayment({
+							provider: 'wxpay',
+							orderInfo: res.OrderInfo,
+							...data,
+							success: async (res) => {
+								resovle({
+									status: true,
+									msg: '支付成功',
+									data: res
+								})
+							},
+							fail: async (err) => {
+								if (err.errMsg.includes('cancel')) {
+									uni.showModal({
+										title: '支付失败',
+										content: '用户取消支付',
+										showCancel: false
+									})
+								} else {
+									reject({
+										status: false,
+										msg: '支付失败',
+										err: err
+									})
+								}
+							}
+						})
+					})
+					.catch(err => {
+						reject({
+							status: false,
+							msg: '创建订单失败',
+							err: err
+						})
+					})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					msg: '获取 openid 失败',
+					err: err
+				})
+			})
+	})
+}
+
 
 /**
  * @description 					国际小姐报名
@@ -786,7 +865,7 @@ export async function registrationPayment(userid, Name, Birth, Phone, BigHeadPho
 	})
 }
 
-export function wxAppletsRechargePay(out_trade_no, total_amount, body, userid, storeid, sjprice) {
+export function wxAppletsRechargePay(out_trade_no, total_amount, body, chargeid,mid) {
 	uni.showLoading({
 		title: '加载中',
 		// #ifndef MP-ALIPAY
@@ -801,8 +880,17 @@ export function wxAppletsRechargePay(out_trade_no, total_amount, body, userid, s
 	return new Promise((resovle, reject) => {
 		getWxAppletsOpenid()
 			.then(res => {
-				$http.getWxAppletRechargeOrderInfo(out_trade_no, total_amount, body, userid, storeid, sjprice)
+				console.log(res);
+				console.log(out_trade_no);
+				console.log(total_amount);
+				console.log(body);
+				let userid = res.data.openid
+				console.log(userid);
+				console.log(chargeid);
+				console.log(mid);
+				$http.getWxAppletRechargeOrderInfo(out_trade_no, total_amount, body, userid, mid, chargeid)
 					.then(res => {
+						console.log(res);
 						let data
 						try {
 							data = JSON.parse(res.OrderInfo)
@@ -939,6 +1027,7 @@ export function wxAppletsDDPay(out_trade_no, total_amount, body, userid, SelfAdd
 			})
 	})
 }
+
 
 /**
  * @@description 						特殊商品的支付
@@ -1078,7 +1167,7 @@ export function getAlipayAppletsUserid() {
  */
 export function alipayAppletsPay(total_amount, description, userid, out_trade_no, storeid = 0, yyyid = 0, ccouponsid = 0, dkmoney = 0, price = 0) {
 	console.log('支付参数 handle.js：', arguments);
-	if ( total_amount == price && ccouponsid != 0) {
+	if (  price == '0.00') {
 		uni.showModal({
 			title: '支付出错',
 			content: '请检查您的付款金额和优惠券，确认无误后再试',
@@ -1150,6 +1239,224 @@ export function alipayAppletsPay(total_amount, description, userid, out_trade_no
 }
 // #endif
 
+// 红包支付宝充值
+
+export function alipayPay(total_amount, description, userid, chargeid,out_trade_no ,storeid = 0, yyyid = 0, ccouponsid = 0, dkmoney = 0, price = 0) {
+	console.log('支付参数 handle.js：', arguments);
+	if ( total_amount == price && ccouponsid != 0) {
+		uni.showModal({
+			title: '支付出错',
+			content: '请检查您的付款金额和优惠券，确认无误后再试',
+			showCancel: false
+		})
+		return
+	}
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+	// 处理订单编号，未传参时使用当前时间戳
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+	
+	return new Promise((resolve, reject) => {
+		getAlipayAppletsUserid()
+			.then(res => {
+				let subject = description
+				let body = '支付宝'
+				console.log(userid);
+				console.log(out_trade_no);
+				console.log(subject);
+				console.log(total_amount);
+				console.log(body);
+				console.log(res.data.user_id);
+				console.log(chargeid);
+				$http.getAppletsPays(userid, out_trade_no, subject, total_amount, body, res.data.user_id, chargeid)
+					.then(res => {
+						uni.hideLoading()
+						uni.requestPayment({
+							provider: 'alipay',
+							orderInfo: res.TradeNo,
+							success: res => {
+								if (res.resultCode.includes('6001')) {
+									uni.showModal({
+										title: '支付失败',
+										content: '用户取消支付',
+										showCancel: false
+									})
+								} else {
+									resolve({
+										status: true,
+										msg: '支付成功',
+										data: res
+									})
+								}
+							},
+							fail: err => {
+								reject({
+									status: false,
+									msg: '支付失败',
+									err: err
+								})
+							}
+						})
+					})
+					.catch(err => {
+						reject({
+							status: false,
+							msg: '获取订单信息出错',
+							err: err
+						})
+					})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					err: err,
+					msg: '获取 userid 出错'
+				})
+			})
+	})
+
+}
+
+// 待释放红包支付宝
+export function alipayAppletsPays(total_amount, description, userid, out_trade_no , phone) {
+	console.log('支付参数 handle.js：', arguments);
+	
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+	// 处理订单编号，未传参时使用当前时间戳
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+	
+	return new Promise((resolve, reject) => {
+		getAlipayAppletsUserid()
+			.then(res => {
+				let subject = description
+				let body = '支付宝'
+				let buyerid = userid
+				console.log(userid);
+				console.log(out_trade_no);
+				console.log(subject);
+				console.log(body);
+				console.log(res.data.user_id);
+				console.log(total_amount);
+				$http.getAppletsJFPays(userid, out_trade_no, subject, body, res.data.user_id, total_amountm, phone)
+					.then(res => {
+						uni.hideLoading()
+						uni.requestPayment({
+							provider: 'alipay',
+							orderInfo: res.TradeNo,
+							success: res => {
+								if (res.resultCode.includes('6001')) {
+									uni.showModal({
+										title: '支付失败',
+										content: '用户取消支付',
+										showCancel: false
+									})
+								} else {
+									resolve({
+										status: true,
+										msg: '支付成功',
+										data: res
+									})
+								}
+							},
+							fail: err => {
+								reject({
+									status: false,
+									msg: '支付失败',
+									err: err
+								})
+							}
+						})
+					})
+					.catch(err => {
+						reject({
+							status: false,
+							msg: '获取订单信息出错',
+							err: err
+						})
+					})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					err: err,
+					msg: '获取 userid 出错'
+				})
+			})
+	})
+
+}
+
+// 待释放红包支付宝APP
+export function zzhbalipayApp(total_amount, description, userid, out_trade_no , phone) {
+	
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+	// 处理订单编号，未传参时使用当前时间戳
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+	
+	return new Promise((resolve, reject) => {
+		
+		let subject = description
+		let body = '支付宝'
+		let buyerid = userid
+		$http.zzhbZFBpay(userid, out_trade_no, subject, body, total_amount, phone)
+		.then(res => {
+			uni.hideLoading()
+			uni.requestPayment({
+				provider: 'alipay',
+				orderInfo: res.TradeNo,
+				success: res => {
+					if (res.resultCode.includes('6001')) {
+						uni.showModal({
+							title: '支付失败',
+							content: '用户取消支付',
+							showCancel: false
+						})
+					} else {
+						resolve({
+							status: true,
+							msg: '支付成功',
+							data: res
+						})
+					}
+				},
+				fail: err => {
+					reject({
+						status: false,
+						msg: '支付失败',
+						err: err
+					})
+				}
+			})
+		})
+		.catch(err => {
+			reject({
+				status: false,
+				msg: '获取订单信息出错',
+				err: err
+			})
+		})
+	})
+}
 // #ifdef APP-PLUS || H5
 /**
  * @description 微信和支付宝的 APP 支付
@@ -1435,4 +1742,575 @@ export const getLocalTime = {
 			return _getLocalTime(nS)
 		}
 	}
+}
+
+
+// 短信充值
+export function duanPayment(userid,total_amount, body, storeid, nums,out_trade_no) {
+
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+
+	return new Promise((resolve, reject) => {
+		getWxAppletsOpenid()
+		.then(res => {
+			console.log(userid);
+			console.log(res.data.openid);
+			console.log(out_trade_no);
+			console.log(total_amount);
+			console.log(body);
+			console.log(storeid);
+			console.log(nums);
+			$http.getWxduanxin(userid, res.data.openid, out_trade_no, total_amount, body, storeid, nums)
+			.then(res => {
+				console.log(res);
+				let data
+				try {
+					data = JSON.parse(res.OrderInfo)
+					data.timeStamp = data.timeStamp.toString()
+					uni.hideLoading()
+				} catch (e) {
+					console.log('解析订单失败：', e);
+					reject({
+						status: false,
+						msg: '解析订单失败',
+						err: e
+					})
+				}
+				uni.requestPayment({
+					provider: 'wxpay',
+					orderInfo: res.OrderInfo,
+					...data,
+					success: async (res) => {
+						resovle({
+							status: true,
+							msg: '支付成功',
+							data: res
+						})
+					},
+					fail: async (err) => {
+						if (err.errMsg.includes('cancel')) {
+							uni.showModal({
+								title: '支付失败',
+								content: '用户取消支付',
+								showCancel: false
+							})
+						} else {
+							reject({
+								status: false,
+								msg: '支付失败',
+								err: err
+							})
+						}
+					}
+				})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					msg: '创建订单失败',
+					err: err
+				})
+			})
+		})
+	})
+}
+
+// 车险预存
+export function chexianFu(total_amount, body, userid, yhqid, phone, out_trade_no) {
+
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+
+	return new Promise((resolve, reject) => {
+		getWxAppletsOpenid()
+		.then(res => {
+			console.log(out_trade_no);
+			console.log(total_amount);
+			console.log(body);
+			console.log(res.data.openid);
+			console.log(userid);
+			console.log(yhqid);
+			console.log(phone);
+			$http.getWxchexian(out_trade_no, total_amount, body, res.data.openid, userid, yhqid, phone)
+			.then(res => {
+				console.log(res);
+				let data
+				try {
+					data = JSON.parse(res.OrderInfo)
+					data.timeStamp = data.timeStamp.toString()
+					uni.hideLoading()
+				} catch (e) {
+					console.log('解析订单失败：', e);
+					reject({
+						status: false,
+						msg: '解析订单失败',
+						err: e
+					})
+					uni.showModal({
+						title: '已经领过该优惠券',
+						content: '请去优惠券列表查看',
+						showCancel: false
+					})
+					uni.hideLoading()
+				}
+				uni.requestPayment({
+					provider: 'wxpay',
+					orderInfo: res.OrderInfo,
+					...data,
+					success: async (res) => {
+						resolve({
+							status: true,
+							msg: '支付成功',
+							data: res
+						})
+						
+					},
+					fail: async (err) => {
+						if (err.errMsg.includes('cancel')) {
+							uni.showModal({
+								title: '支付失败',
+								content: '用户取消支付',
+								showCancel: false
+							})
+						} else {
+							reject({
+								status: false,
+								msg: '支付失败',
+								err: err
+							})
+						}
+					}
+				})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					msg: '创建订单失败',
+					err: err
+				})
+			})
+		})
+	})
+}
+
+// 团购付款
+export function tgPays(orderid, total_amount, body, storeid, tcId, out_trade_no) {
+
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+
+	return new Promise((resolve, reject) => {
+		getWxAppletsOpenid()
+		.then(res => {
+			console.log(orderid);
+			console.log(out_trade_no);
+			console.log(total_amount);
+			console.log(res.data.openid);
+			console.log(body);
+			$http.tgWxpay(orderid, res.data.openid, out_trade_no, total_amount, body,tcId)
+			.then(res => {
+				console.log(res);
+				let data
+				try {
+					data = JSON.parse(res.OrderInfo)
+					data.timeStamp = data.timeStamp.toString()
+					uni.hideLoading()
+				} catch (e) {
+					console.log('解析订单失败：', e);
+					reject({
+						status: false,
+						msg: '解析订单失败',
+						err: e
+					})
+				}
+				uni.requestPayment({
+					provider: 'wxpay',
+					orderInfo: res.OrderInfo,
+					...data,
+					success: async (res) => {
+						resolve({
+							status: true,
+							msg: '支付成功',
+							data: res
+						})
+						
+					},
+					fail: async (err) => {
+						if (err.errMsg.includes('cancel')) {
+							uni.showModal({
+								title: '支付失败',
+								content: '用户取消支付',
+								showCancel: false,
+								success: function (res) {
+									uni.redirectTo({
+										url:'/pages/shopDetail/orderDtime?Ids=' + orderid + '&storeid=' + storeid + '&tcId=' + tcId
+									})
+								}
+							})
+						} else {
+							reject({
+								status: false,
+								msg: '支付失败',
+								err: err
+							})
+						}
+					}
+				})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					msg: '创建订单失败',
+					err: err
+				})
+			})
+		})
+	})
+}
+
+
+// 团购App微信付款
+export function tgAppPays(orderid, total_amount, body, storeid, tcId, out_trade_no) {
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif 
+	})
+	
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+
+	return new Promise((resolve, reject) => {
+	
+		$http.tgAppWxpay(orderid, out_trade_no, total_amount, body,tcId)
+			.then(res => {
+				uni.hideLoading()
+				
+				uni.requestPayment({
+					provider: 'wxpay',
+					orderInfo: res.OrderInfo,
+					success: res => {
+						resolve({
+							status: true,
+							data: res,
+							msg: '支付成功'
+						})
+					}, 
+					fail: err => {
+						if (err.errMsg.includes('cancel')) {
+							uni.showModal({
+								title: '支付失败',
+								content: '用户取消支付',
+								showCancel: false,
+								success: function (res) {
+									uni.redirectTo({
+										url:'/pages/shopDetail/orderDtime?Ids=' + orderid + '&storeid=' + storeid + '&tcId=' + tcId
+									})
+								}
+							})
+						} else {
+							reject({
+								status: false,
+								msg: '支付失败',
+								err: err
+							})
+						}
+					}
+				})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					err: err,
+					msg: '获取订单信息失败'
+				})
+			})
+	})
+}
+
+// 团购App支付宝付款
+export function tgAlipays(orderid, total_amount, body, storeid, tcId, out_trade_no) {
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+
+	return new Promise((resolve, reject) => {
+		$http.tgAlipay(orderid, out_trade_no, body, body, total_amount, tcId)
+		.then(res => {
+			uni.hideLoading()
+			
+			uni.requestPayment({
+				provider: 'alipay',
+				orderInfo: res.TradeNo,
+				success: res => {
+					if (res.resultCode.includes('6001')) {
+						uni.showModal({
+							title: '支付失败',
+							content: '用户取消支付',
+							showCancel: false,
+							success: function (res) {
+								uni.redirectTo({
+									url:'/pages/shopDetail/orderDtime?Ids=' + orderid + '&storeid=' + storeid + '&tcId=' + tcId
+								})
+							}
+						})
+					} else {
+						resolve({
+							status: true,
+							msg: '支付成功',
+							data: res
+						})
+					}
+				},
+				fail: err => {
+					reject({
+						status: false,
+						msg: '支付失败',
+						err: err
+					})
+					uni.showModal({
+						title: '支付失败',
+						content: '用户取消支付',
+						showCancel: false,
+						success: function (res) {
+							uni.redirectTo({
+								url:'/pages/shopDetail/orderDtime?Ids=' + orderid + '&storeid=' + storeid + '&tcId=' + tcId
+							})
+						}
+					})
+				}
+			})
+		})
+		.catch(err => {
+			reject({
+				status: false,
+				err: err,
+				msg: '获取订单信息失败'
+			})
+		})
+	})
+}
+
+// 微信APP充值积分
+export function wxAppJFPays(userid,total_amount, body, phone,out_trade_no) {
+	uni.showLoading({
+		title: '加载中',
+	}) 
+	// 处理订单编号，未传参时使用当前时间戳
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+	// 获取 openid
+	return new Promise((resovle, reject) => {
+		$http.zzhbWXpay(userid,out_trade_no, total_amount, body ,phone)
+			.then(res => {
+				uni.hideLoading();
+				console.log(res);
+				let data 
+				try {
+					data = JSON.parse(res.OrderInfo)
+					data.timeStamp = data.timeStamp.toString()
+					uni.hideLoading()
+				} catch (e) {
+					console.log('解析订单失败：', e);
+					reject({
+						status: false,
+						msg: '解析订单失败',
+						err: e
+					})
+				}
+				uni.requestPayment({
+					provider: 'wxpay',
+					orderInfo: res.OrderInfo,
+					...data,
+					success: async (res) => {
+						resovle({
+							status: true,
+							msg: '支付成功',
+							data: res
+						})
+					},
+					fail: async (err) => {
+						if (err.errMsg.includes('cancel')) {
+							uni.showModal({
+								title: '支付失败',
+								content: '用户取消支付',
+								showCancel: false
+							})
+						} else {
+							reject({
+								status: false,
+								msg: '支付失败',
+								err: err
+							})
+						}
+					}
+				})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					msg: '创建订单失败',
+					err: err
+				})
+			})
+	})
+}
+
+export function wxAppletsRechargePays(out_trade_no, total_amount, body, chargeid,mid) {
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+	// 处理订单编号，未传参时使用当前时间戳
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+	// 获取 openid
+	return new Promise((resovle, reject) => {
+		$http.getWxApplets(mid, out_trade_no, total_amount, body, chargeid)
+			.then(res => {
+				uni.hideLoading();
+				console.log(res);
+				let data
+				try {
+					data = JSON.parse(res.OrderInfo)
+					uni.hideLoading()
+				} catch (e) {
+					console.log('解析订单失败：', e);
+					reject({
+						status: false,
+						msg: '解析订单失败',
+						err: e
+					})
+				}
+				uni.requestPayment({
+					provider: 'wxpay',
+					orderInfo: res.OrderInfo,
+					...data,
+					success: async (res) => {
+						resovle({
+							status: true,
+							msg: '支付成功',
+							data: res
+						})
+					},
+					fail: async (err) => {
+						if (err.errMsg.includes('cancel')) {
+							uni.showModal({
+								title: '支付失败',
+								content: '用户取消支付',
+								showCancel: false
+							})
+						} else {
+							reject({
+								status: false,
+								msg: '支付失败',
+								err: err
+							})
+						}
+					}
+				})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					msg: '创建订单失败',
+					err: err
+				})
+			})
+	})
+}
+export function alipayPays(total_amount, description, userid, chargeid,out_trade_no ) {
+	console.log('支付参数 handle.js：', arguments);
+	
+	uni.showLoading({
+		title: '加载中',
+		// #ifndef MP-ALIPAY
+		mask: true
+		// #endif
+	})
+	// 处理订单编号，未传参时使用当前时间戳
+	if (!out_trade_no) {
+		out_trade_no = (new Date()).getTime()
+	}
+	
+	return new Promise((resolve, reject) => {
+		
+		let subject = description
+		let body = '支付宝'
+		$http.czhbAppPay(userid, out_trade_no, subject, total_amount, body, chargeid)
+			.then(res => {
+				uni.hideLoading()
+				uni.requestPayment({
+					provider: 'alipay',
+					orderInfo: res.TradeNo,
+					success: res => {
+						if (res.resultCode.includes('6001')) {
+							uni.showModal({
+								title: '支付失败',
+								content: '用户取消支付',
+								showCancel: false
+							})
+						} else {
+							resolve({
+								status: true,
+								msg: '支付成功',
+								data: res
+							})
+						}
+					},
+					fail: err => {
+						reject({
+							status: false,
+							msg: '支付失败',
+							err: err
+						})
+					}
+				})
+			})
+			.catch(err => {
+				reject({
+					status: false,
+					msg: '获取订单信息出错',
+					err: err
+				})
+			})
+	})
+
 }

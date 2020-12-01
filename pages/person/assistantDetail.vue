@@ -7,7 +7,7 @@
 			<block slot="right" @tap="share"><text class="hxIcon-fenxiang padding-right"></text></block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">花蓄助手</block>
+			<block slot="content">花蓄助手</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

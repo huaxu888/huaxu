@@ -6,13 +6,11 @@
 		
 		<view v-if="!showLoading">
 		
-			<cu-custom bgColor="bg-white" :isBack="true" class="text-black">
+			<!-- <cu-custom bgColor="bg-whitesss" :isBack="true" class="text-black">
 				<block slot="left">返回</block>
 				<block slot="content">发现详情</block>
-				<!-- #ifdef APP-PLUS || H5 -->
 					<block slot="right"><text class="hxIcon-s padding-right" style="font-size:40upx" @tap="share"></text></block>
-				<!-- #endif -->
-			</cu-custom>
+			</cu-custom> -->
 		
 			<view style="overflow: hidden;width: 100%;" class="flex justify-center padding animate">
 				<view class="bg-white">
@@ -69,6 +67,7 @@
 				return this.$Request.get(this.$store.state.findDetailUrl, {
 					id:this.shareId
 				},false).then(res => {
+					console.log(res);
 					var richtext = res.Content //取出富文本字符串
 					const regex = new RegExp('<img', 'gi'); //找到找对img标签
 					richtext = richtext.replace(regex, `<img style="max-width: 100%;"`) //正则替换
@@ -98,9 +97,16 @@
 		},
 		onShareAppMessage(obj) {
 			return {
-				title: '在吗？花出去的钱还能变储蓄，你知道吗？',
-				imageUrl: 'http://img.huaxuapp.com/xcxtr.jpg',
-				path: `/pages/index/index?tjrid=${this.$store.state.userInfo.ID || 0}`
+				title: '在家吃遍美食，领红包还赚收益！',
+				imageUrl: '',
+				path: '/pages/findDetail/findDetailPage?id=' + this.shareId
+			}
+		},
+		onShareTimeline(obj) {
+			return {
+				title: '在家吃遍美食，领红包还赚收益！',
+				imageUrl: 'https://img.huaxuapp.com/glnglue.jpg',
+				path: '/pages/findDetail/findDetailPage?id=' + this.shareId
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 			<block slot="content">转账</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">转账</block>
+			<block slot="content">转账</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -40,10 +40,10 @@
 			</view>
 			<view class="text-gray margin-top-xs" style="margin-bottom: 140upx;">请确认对方的手机号码无误，避免损失</view>
 
-			<view class="flex justify-center  margin-top-xl">
-				<button class="cu-btn bg-red shadow text-lg" style="width: 100%;height: 40px;" @tap="toTransfer()">
+			<view class="flex sure text-center">
+				<text class="" style="font-size: 32upx;" @tap="toTransfer()">
 					确认转账
-				</button>
+				</text>
 			</view>
 		</view>
 
@@ -136,6 +136,7 @@
 				this.inputPassWord = false;
 			},
 			fullclose: async function(res) {
+				console.log(res);
 				this.inputPassWord = false;
 				let self = this;
 				let pwd2 = res.pwd;
@@ -329,5 +330,17 @@
 		&.active {
 			opacity: 1;
 		}
+	}
+	
+	.sure {
+		margin-top: 20upx;
+		height: 88upx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(to right, #fb9c67, #fc6660);
+		color: #fff;
+		border-radius: 100upx;
+		box-shadow: 2upx 2upx 14upx lighten($color: #FC7265, $amount: 10);
 	}
 </style>

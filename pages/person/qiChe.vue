@@ -6,7 +6,7 @@
 			<block slot="content">汽车保养卡</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">汽车保养卡</block>
+			<block slot="content">汽车保养卡</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

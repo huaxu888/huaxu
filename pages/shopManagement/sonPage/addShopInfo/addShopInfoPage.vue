@@ -1,14 +1,14 @@
 <template>
 	<view>
-		<view style="height: 274upx;background:url('https://img.huaxuapp.com/mdxq.png') no-repeat; background-size: cover;"
+		<view style="height: 274upx;background:url('https://img.huaxuapp.com/1012bgn_01.png') no-repeat; background-size: cover;"
 		 @tap="toBottom">
 			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-			<cu-custom bgColor="bg-transparent" class="text-black" :isBack="true">
+			<cu-custom bgColor="bg-transparent" style="color: #ffffff;" class="text-black" :isBack="true">
 				<!-- #ifdef APP-PLUS || H5-->
 				<block slot="content"></block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText"></block>
+				<block slot="content"></block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->
@@ -19,7 +19,7 @@
 			<view class="tran1" :class="!showTop ? 'opacity-hidden ' :''" >
 				<view>
 					<view class="flex align-start flex-direction  padding-lr  padding-top-sm" style="position: relative;padding-bottom: 16upx;">
-						<text class="text-bold" style="font-size: 36upx;color: #8d5b20;height: 36upx;">{{StoreName}}</text>
+						<text class="text-bold" style="font-size: 36upx;color: #333333;height: 36upx;">{{StoreName}}</text>
 						<view class="flex align-start justify-start margin-top" style="width: 360upx;">
 							<text class="hxIcon-dingwei1" style="color: #999999;font-size: 26upx;margin-top: 4upx;"></text>
 							<text style="font-size: 24upx;color: #333333;line-height: 1.5em;height: 24upx;margin-left: 5upx;">{{StoreAddress}}</text>
@@ -29,10 +29,10 @@
 							 type="text" maxlength="20" style="font-size: 24upx;color: #999999;width: 360upx;" />
 							<text class="hxIcon-bianji" style="color: #999999;" @tap="tofocus"> </text>
 						</view>
-						<view class="flex align-center justify-center flex-direction" style="position: absolute; right: 40upx; top: -87upx;">
+						<view class="flex align-center justify-center flex-direction" style="position: absolute; right: 40upx; top: -87upx;" @tap="insertImg">
 							<image :src="changeLogoPic?changeLogoPic:LogoPic" mode="scaleToFill" style=" width: 174upx;height: 174upx; border: 6upx solid #FFFFFF;border-radius: 50%;"></image>
-							<view @tap="insertImg" class="margin-top-sm-big flex align-center justify-center" style="width: 88upx; height: 42upx;  background: #f9eddf;border-radius: 10upx;">
-								<text style="font-size: 24upx;color: #8d5b20;line-height: 1em;">编辑</text>
+							<view  class="margin-top-sm-big flex align-center justify-center" style="width: 88upx; height: 42upx;  background: #fe5479;border-radius: 10upx;">
+								<text style="font-size: 24upx;color: #ffffff;line-height: 1em;">门头图</text>
 							</view>
 						</view>
 					</view>
@@ -46,23 +46,23 @@
 						<text class="text-bold" style="color: #333333;">
 							品牌资料竞争力：
 						</text>
-						<text class="text-bold" style="color: #f34e2d;">{{progressLevel}}</text>
+						<text class="text-bold" style="color: #fe5479;">{{progressLevel}}</text>
 						<text style="color: #666666;font-size:30upx">（完成度{{progressNum}}%）</text>
 					</view>
 
 					<view style="position: relative">
 						<view class="cu-progress round margin-top-xl ">
-							<view :style="{width:progressNum+'%'}" style="background:linear-gradient(to right,#eedcc6,#eeb068) ;"></view>
+							<view :style="{width:progressNum+'%'}" style="background:linear-gradient(to right,#ffe6e8,#fe5479) ;"></view>
 						</view>
 
-						<view class="flex align-center justify-center " style="position: absolute;background: #FFFFFF; width:38upx;height: 38upx;bottom:0;border:2upx solid #e8c091; left: 20%;  border-radius: 50%;">
-							<text class="hxIcon-gouxuan" style="font-size: 24upx;color:#e8c091; margin-top: 1upx;"></text>
+						<view class="flex align-center justify-center " style="position: absolute;background: #FFFFFF; width:38upx;height: 38upx;bottom:0;border:2upx solid #fa7b7b; left: 20%;  border-radius: 50%;">
+							<text class="hxIcon-gouxuan" style="font-size: 24upx;color:#fe5479; margin-top: 1upx;"></text>
 						</view>
-						<view class="flex align-center justify-center " style="position: absolute;background: #FFFFFF; width:38upx;height: 38upx;bottom:0;border:2upx solid #e8c091; left: 47%; border-radius: 50%;">
-							<text class="hxIcon-gouxuan" style="font-size: 24upx;color:#e8c091; margin-top: 1upx;"></text>
+						<view class="flex align-center justify-center " style="position: absolute;background: #FFFFFF; width:38upx;height: 38upx;bottom:0;border:2upx solid #fa7b7b; left: 47%; border-radius: 50%;">
+							<text class="hxIcon-gouxuan" style="font-size: 24upx;color:#fe5479; margin-top: 1upx;"></text>
 						</view>
-						<view class="flex align-center justify-center " style="position: absolute; background: #FFFFFF; width:38upx;height: 38upx;bottom:0;border:2upx solid #e8c091; left: 73%; border-radius: 50%;">
-							<text class="hxIcon-gouxuan" style="font-size: 24upx;color:#e8c091; margin-top: 1upx;"></text>
+						<view class="flex align-center justify-center " style="position: absolute; background: #FFFFFF; width:38upx;height: 38upx;bottom:0;border:2upx solid #fa7b7b; left: 73%; border-radius: 50%;">
+							<text class="hxIcon-gouxuan" style="font-size: 24upx;color:#fe5479; margin-top: 1upx;"></text>
 						</view>
 					</view>
 				</view>
@@ -75,7 +75,7 @@
 				<view>
 					<view class="tui-mtop">
 						<tui-tabs :tabs="tabs2" :currentTab="currentTab" color="#cccccc" :bold="true" selectedColor="#222222"
-						 sliderBgColor="#e8c091" @change="change"></tui-tabs>
+						 sliderBgColor="#fe5479" @change="change"></tui-tabs>
 					</view>
 				</view>
 
@@ -169,26 +169,42 @@
 					<view class="flex align-center justify-center" style="color: #8d5b20;margin-top: 75upx;" @tap="addImgList">
 						<text class="hxIcon-guanbi margin-right-sm text-bold" style="display: inline-block; transform: rotate(45deg);font-size: 43upx; "></text>
 						<text style="font-size:30;">添加</text>
-						<text style="font-size:30;" v-if="currentTab==1">展示图</text>
-						<text style="font-size:30;" v-if="currentTab==2">幻灯图集</text>
+						<text style="font-size:30;" v-if="currentTab==1">环境图</text>
+						<text style="font-size:30;" v-if="currentTab==2">产品图</text>
 					</view>
 
 					<view class="flex align-center justify-center margin-top-xl ">
-						<text style="font-size:24upx;color: #5b677f;"  v-if="currentTab==1">完美的展示图更容易吸引顾客的眼球哦~</text>
+						<text style="font-size:24upx;color: #5b677f;"  v-if="currentTab==1">完美的环境图更容易吸引顾客的眼球哦~</text>
 						<text style="font-size:24upx;color: #5b677f;"  v-if="currentTab==2">上传店铺不同类型的图片更容易吸引顾客的眼球哦~</text>
 					</view>
 				</view>
 
-				<view v-if="(currentTab == 1 ||currentTab == 2 ) && imgList.length > 0">
+				<view v-if="(currentTab == 1) && imgList1.length > 0">
 					<view class="cu-form-group margin-top margin-bottom-lg">
 						<view class="grid col-4 grid-square flex-sub">
-							<view class="bg-img" v-for="(item,index) in imgList" :key="index" @tap="ViewImage" :data-url="imgList[index]">
-								<image :src="imgList[index]" mode="aspectFill"></image>
+							<view class="bg-img" v-for="(item,index) in imgList1" :key="index" @tap="ViewImage" :data-url="imgList1[index]">
+								<image :src="imgList1[index]" mode="aspectFill"></image>
 								<view class="cu-tag bg-red" @tap.stop="DelImg" :data-index="index">
 									<text class='cuIcon-close'></text>
 								</view>
 							</view>
-							<view class="solids" style="background: #EEEEEE;" @tap="addImgList" v-if="imgList.length<count">
+							<view class="solids" style="background: #EEEEEE;" @tap="addImgList" v-if="imgList1.length<count">
+								<text class='cuIcon-cameraadd'></text>
+							</view>
+						</view>
+					</view>
+				</view>
+				
+				<view v-if="(currentTab == 2 ) && imgList2.length > 0">
+					<view class="cu-form-group margin-top margin-bottom-lg">
+						<view class="grid col-4 grid-square flex-sub">
+							<view class="bg-img" v-for="(item,index) in imgList2" :key="index" @tap="ViewImage" :data-url="imgList2[index]">
+								<image :src="imgList2[index]" mode="aspectFill"></image>
+								<view class="cu-tag bg-red" @tap.stop="DelImg" :data-index="index">
+									<text class='cuIcon-close'></text>
+								</view>
+							</view>
+							<view class="solids" style="background: #EEEEEE;" @tap="addImgList" v-if="imgList2.length<count">
 								<text class='cuIcon-cameraadd'></text>
 							</view>
 						</view>
@@ -226,9 +242,9 @@
 
 
 				<view class="flex align-center justify-center ">
-					<view class="flex align-center justify-center" style="width: 690upx ; height: 88upx; background: #E8C091;border-radius: 15upx;"
+					<view class="flex align-center justify-center" style="width: 690upx ; height: 88upx; background: #fe5479;border-radius: 15upx;"
 					 @tap="submit">
-						<text style="color: #8d5b20;font-size: 33upx;">发布</text>
+						<text style="color: #ffffff;font-size: 33upx;">发布</text>
 					</view>
 				</view>
 			</view>
@@ -256,9 +272,9 @@
 				allContents: {},
 				allImages: [],
 				count: 1, //传照片的个数
-				imgList: [], //展示图 测试
-				imgList1: [], //展示图
-				imgList2: [], //幻灯图
+				imgList: [], //环境图 测试
+				imgList1: [], //环境图
+				imgList2: [], //产品图
 				type: 'banner',
 				content: '',
 				timeValue1: '', //开始
@@ -266,11 +282,16 @@
 				currentTab: 0, //标签的下标
 				tabs2: [{
 					name: "商家信息"
+				// }, {
+				// 	name: "环境图"
+				// }, {
+				// 	name: "产品图"
+				// },
 				}, {
-					name: "展示图"
+					name: "环境图"
 				}, {
-					name: "幻灯图"
-				}, {
+					name: "产品图"
+				},{
 					name: "详情图"
 				}],
 				StoreID: '',
@@ -573,25 +594,25 @@
 						}
 						break;
 					case 1:
-						if (this.imgList1.length > 1 || this.imgList1.length <= 0) {
-							this.$api.msg('上传的展示图有且仅有一张')
+						if (this.imgList1.length <= 0) {
+							this.$api.msg('上传的环境图至少上传一张')
 							break;
 						}
 						if (this.isChangeTheme) {
 							await this.uploadThemePic();
 						} else {
-							this.$api.msg('您的展示图木有变化呢~')
+							this.$api.msg('您的环境图木有变化呢~')
 						}
 						break;
 					case 2:
 						if (this.imgList2.length <= 0) {
-							this.$api.msg('幻灯图至少上传一张')
+							this.$api.msg('产品图至少上传一张')
 							break;
 						}
 						if (this.isChangeBanner) {
 							await this.uploadBanner();
 						} else {
-							this.$api.msg('您的幻灯图木有变化呢~')
+							this.$api.msg('您的产品图木有变化呢~')
 						}
 						break;
 					case 3:
@@ -620,22 +641,45 @@
 				});
 			},
 			async uploadThemePic() {
-				let data = {
-					StoreID: this.StoreID,
-					mainurl: '',
-					storepiculrs: ''
-				}
-				var valuePath = this.imgList1[0];
-				setTimeout(() => {
-					this.promiseUpload(valuePath).then(path => {
-						data.mainurl = path
+				// let data = {
+				// 	StoreID: this.StoreID,
+				// 	mainurl: '',
+				// 	storepiculrs: ''
+				// }
+				// var valuePath = this.imgList1[0];
+				// setTimeout(() => {
+				// 	this.promiseUpload(valuePath).then(path => {
+				// 		data.mainurl = path
+				// 		this.$Request.get(this.$store.state.editstorepicUrl, data).then(res => {
+				// 			if (res.IsSuccess) {
+				// 				this.$api.msg(res.Msg, 2000)
+				// 			}
+				// 		})
+				// 	}).catch(err => {
+				// 		console.log(err);
+				// 	})
+				// });
+				return Promise.resolve(true).then(res => {
+					let promiseAry = [] //异步上传
+					this.$api.showLoading_()
+					this.imgList1.forEach((it) => {
+						promiseAry.push(this.promiseUpload(it))
+					})
+					return Promise.all(promiseAry)
+				}).then(res => {
+					this.$api.hidLoading_()
+					let data = {
+						StoreID: this.StoreID,
+						mainurl: '',
+						storepiculrs: ''
+					}
+					data.storepiculrs = res.join(',');
+					setTimeout(() => {
 						this.$Request.get(this.$store.state.editstorepicUrl, data).then(res => {
 							if (res.IsSuccess) {
 								this.$api.msg(res.Msg, 2000)
 							}
 						})
-					}).catch(err => {
-						console.log(err);
 					})
 				});
 			},
@@ -651,12 +695,11 @@
 					this.$api.hidLoading_()
 					let data = {
 						StoreID: this.StoreID,
-						mainurl: '',
-						storepiculrs: ''
+						piculrs: ''
 					}
-					data.storepiculrs = res.join(',');
+					data.piculrs = res.join(',');
 					setTimeout(() => {
-						this.$Request.get(this.$store.state.editstorepicUrl, data).then(res => {
+						this.$Request.get(this.$store.state.editstorepicsUrl, data).then(res => {
 							if (res.IsSuccess) {
 								this.$api.msg(res.Msg, 2000)
 							}
@@ -688,9 +731,9 @@
 					case 0:
 						break;
 					case 1:
-						if (this.imgList.length >= 1) {
-							break;
-						}
+						// if (this.imgList.length >= 1) {
+						// 	break;
+						// }
 						uni.chooseImage({
 							count: this.count, //默认9
 							sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -778,7 +821,7 @@
 					content: '确定要删除这张图片吗？',
 					cancelText: '再看看',
 					confirmText: '再见',
-					confirmColor: '#f34e2d',
+					confirmColor: '#fe4e01',
 					success: res => {
 						if (res.confirm) {
 							this.imgList.splice(e.currentTarget.dataset.index, 1)
@@ -819,10 +862,10 @@
 					this.Phone = data.Phone; //电话
 					this.timeValue1 = data.StartWorkDate ? data.StartWorkDate : '';
 					this.timeValue = data.EndWorkDate ? data.EndWorkDate : '';
-					this.imgList2 = data.StorePics.split(',');
-					let list = []
-					list[0] = data.StorePic
-					this.imgList1 = list;
+					this.imgList2 = data.Arg.split(',');
+					// let list = []
+					// list[0] = data.StorePic
+					this.imgList1 = data.StorePics.split(',');
 				});
 			},
 			async getBusineList() {
@@ -882,7 +925,7 @@
 					case 0:
 						break;
 					case 1:
-						this.count = 1;
+						this.count = 9;
 						this.imgList = this.imgList1;
 						break;
 					case 2:

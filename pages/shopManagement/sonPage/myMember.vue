@@ -13,7 +13,7 @@
 					<block slot="content">我的会员</block>
 					<!-- #endif -->
 					<!-- #ifdef MP-WEIXIN -->
-					<block slot="backText">我的会员</block>
+					<block slot="content">我的会员</block>
 					<!-- #endif -->
 				</cu-custom>
 				<!-- #endif -->

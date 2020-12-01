@@ -1,12 +1,12 @@
 <template>
 	<view class="pass-page">
 	<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN-->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content">修改密码</block>
+			<block slot="content">修改登录密码</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">修改密码</block>
+			<block slot="content">修改登录密码</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -23,7 +23,7 @@
 					v-if="clear[0]" @tap="clearPass(0)"></view>
 			</view>
 			
-			<view class="input-item flex" style="margin-top: 30upx;" :class="focus[1] || isuse[1]? 'active' : ''">
+			<view class="input-item flex" style="margin-top: 60upx;" :class="focus[1] || isuse[1]? 'active' : ''">
 				<input :type="cate === 'pay' ? 'number' : 'text'" :password="isPassword[1]" v-model="confirmPass" :placeholder="cate === 'pay' ? '请确认交易密码' : '请确认新密码' "
 					placeholder-style="color: #ddd" class="flex-sub" :focus="focus[1]" :maxlength="cate === 'pay' ? 6 : 20"
 					@focus="pFocus(1)" @blur="pBlur(1)" style="border: 0upx;" />
@@ -40,7 +40,7 @@
         </view>
 		
 		<view style="margin: 70upx;">
-			<view @tap="confirm" class="flex cu-btn lg hx-btn text-white radius" 
+			<view @tap="confirm" class="flex cu-btn lg hx-btn text-white radius sure" 
 				:class="isuse[0] && isuse[1] ? 'active' : ''">
 				确认修改
 			</view>
@@ -263,5 +263,15 @@
 			opacity: 1
 		}
 	}
-
+	
+	.sure {
+		height: 88upx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(to right, #f88160, #ff5b2e);
+		color: #fff;
+		border-radius: 100upx;
+		box-shadow: 2upx 2upx 14upx lighten($color: #FC7265, $amount: 10);
+	}
 </style>

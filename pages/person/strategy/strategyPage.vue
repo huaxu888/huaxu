@@ -11,7 +11,7 @@
 					<block slot="content">玩转花蓄</block>
 					<!-- #endif -->
 					<!-- #ifdef MP-WEIXIN || MP-ALIPAY -->
-					<block slot="backText">玩转花蓄</block>
+					<block slot="content">玩转花蓄</block>
 					<!-- #endif -->
 				</cu-custom>
 				<!-- #endif -->

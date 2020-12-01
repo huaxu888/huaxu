@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-		<cu-custom bgColor="bg-white" class="text-white" :isBack="true" >
+		<cu-custom bgColor="bg-whitesss" class="text-white" :isBack="true" >
 			<!-- #ifdef APP-PLUS || H5-->
 			<block slot="content">账单详情</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">账单详情</block>
+			<block slot="content">账单详情</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -43,13 +43,20 @@
 						<text class="text-gray">{{item.text}}</text>
 						<text class="text-black">{{item.value}}</text>
 					</view>
+					<view class="flex justify-between  align-center" style="margin: 0 40upx;margin-top: 30upx;padding-bottom: 40upx;">
+						<text class="text-gray">消费类型</text>
+						<text class="text-black">{{infos}}</text>
+					</view>
 					<view class="flex justify-between  align-center" style="margin: 0 40upx;margin-top: 30upx;padding-bottom: 40upx;border-bottom: 1upx solid #EEEEEE;">
 						<text class="text-gray">收款人</text>
 						<text class="text-black">{{SYName}}</text>
 					</view>
 					<view class="flex" style="justify-content:space-between;padding: 0 40upx;font-size: 30upx;margin-top: 55upx;">
-						<text style="font-weight: 600;">收款总额</text>
-						<text style="color: red;font-size: 48upx;font-weight: 600;"><text style="font-size: 30upx;font-weight: normal;">￥</text>{{XFJE}}</text>
+						
+						<text style="font-weight: 600;" v-if="sqt == 0">订单金额</text>
+						<text style="font-weight: 600;" v-if="sqt == 9">实收金额</text>
+						<text style="color: #fe5479;font-size: 48upx;font-weight: 600;" v-if="sqt == 0"><text style="font-size: 30upx;font-weight: normal;">￥</text>{{XFJE}}</text>
+						<text style="color: #fe5479;font-size: 48upx;font-weight: 600;" v-if="sqt == 9"><text style="font-size: 30upx;font-weight: normal;">￥</text>{{SJXFJE}}</text>
 					</view>
 				</view>
 				
@@ -105,15 +112,15 @@
 					// 	key:'XFZK'
 					// },
 					{
-						text:'消费类型',
-						value:'线下消费',
-						key:''
-					},
-					{
 						text:'订单金额',
 						value:'100',
 						key:'XFJE',
 					},
+					// {
+					// 	text:'消费类型',
+					// 	value:'买单收款',
+					// 	key:'infos'
+					// },
 					// {
 					// 	text:'消费状态',
 					// 	value:'抢单?',
@@ -132,19 +139,30 @@
 				infoObj:{
 					
 				},
+				infos:'',
+				SJXFJE:0,
+				sqt: 0
 			}
 		},
 		onLoad(route){
 			console.log(route)
 			this.typeFlag = route.Sort === '2' ? true:false 
 			this.timeFlag = route.Sort === '2' ? true:false 
-			this.XFJE = route.XFJE
+			
 			this.UserID = route.UserID
 			this.getData.XFID = route.XFID
 			this.Name = route.Name
-			this.yyyPhone = route.yyyPhone
-			this.Info = route.info
+			this.infos = route.info
 			
+			if(route.sqt == 9){
+				this.SJXFJE = route.SJXFJE
+				this.XFJE = 0
+				this.sqt = 9
+			} else {
+				this.XFJE = route.XFJE
+				this.SJXFJE = 0
+				this.sqt = 0
+			}
 			let val = route.yyyPhone*1
 			if(val===val){
 				this.yyyPhone = val
@@ -161,11 +179,15 @@
 		},
 		methods:{
 			getCurryInfo(){
-				this.$Request.get(this.$store.state.storexfxqUrl,this.getData).then(res=>{
+				this.$http.xfXq(this.getData.XFID).then(res =>{
+					console.log(res);
+				// this.$Request.get(this.$store.state.storexfxqUrl,this.getData).then(res=>{
 					if(res.IsSuccess){
 						this.Nick = res.Nick
+						this.infos = res.info
 						this.SYName = res.SYName
 						this.infoObj=res.Data
+						
 						for(let item  of  this.valueList){
 							var key = item.key
 							if(key in this.infoObj){
@@ -180,7 +202,7 @@
 								}
 								if(key === 'Sort'){
 									if(value === 2){
-										value='正常消费'
+										value='买单'
 									}else{
 										value = '退款'
 									}
@@ -241,7 +263,7 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 660upx;
-		height: 1080upx;
+		height: 1100upx;
 	}
 	
 </style>

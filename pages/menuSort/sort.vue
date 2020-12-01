@@ -1,28 +1,29 @@
 <template>
 	<view class="bg-gray">
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content" class="text-bold">为您服务</block>
+			<block slot="content" class="text-bold">店铺分类</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText" class="text-bold">为您服务</block>
+			<block slot="content" class="text-bold">店铺分类</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
 		 <!--分类-->
-		 <view class="top_swiper padding-tb-sm bg-white">
+		 <view class="top_swiper padding-tb-sm bg-white" style="width: 100%;background-color: #FFFFFF;margin-top: 0;position: fixed;z-index: 9;">
 			 <swiper-icon :inconListAll="inconListAll" :judge="judge"  @iconTap="iconTap" :scrollLeft="scrollLeft"></swiper-icon>
 		 </view>
 		 
-		 <view class="margin-top-sm bg-white padding-tb">
+		 <view class="margin-top-sm bg-white padding-tb" style="margin-top: 190upx">
 			 <!--标签-->
 			 <view>
 			 	<view class="hx_tab flex  padding-lr">
 			 		<view class="flex justify-center align-center padding-sx tab_item" @tap="tabSelects" :class="index===0?'tapClass':''">
 			 			<view class="text-sm">全部</view>
 			 		</view>
-			 		<view v-for="(item,i) of tabList" :key="i" style="margin-left: 20upx;" class="flex justify-center align-center padding-sx tab_item" @tap="tabSelect(item,i)" :class="index===i+1?'tapClass':''">
+			 		
+					<view v-for="(item,i) of tabList" :key="i" style="margin-left: 20upx;" class="flex justify-center align-center padding-sx tab_item" @tap="tabSelect(item,i)" :class="index===i+1?'tapClass':''">
 			 			<view class="text-sm">{{item.StoreSortName}}</view>
 			 		</view>
 			 	</view>
@@ -67,7 +68,7 @@
 		data(){
 			return {
 				animateFlag:false,
-				inconList:this.$store.state.cuIconList,//图标库
+				inconList:[],//图标库
 				infoUrl:this.$store.state.listbysortUrl,//请求店铺接口
 				infoList:[],//请求到的信息列表
 				judge:1,//图标跳转的具体位置下标
@@ -85,7 +86,8 @@
 					
 				],
 				StoreSortID:[],
-				index:0
+				index:0,
+				sss:0
 			}
 		},
 		components:{
@@ -98,8 +100,14 @@
 		// 	this.changeAnimateFlag()
 		// },
 		
-		onLoad(option){
+		async onLoad(option){
+			await this.$http.getStoreSortList(0,0).then(res => {
+				console.log(res);
+				this.inconList = res
+				
+			}).catch(res => {
 			
+			}); 
 			uni.getLocation({
 				success: res => {
 					this.location = [
@@ -244,26 +252,40 @@
 			iconTap(infoObj){//图标点击选择事件
 				this.changeAnimateFlag()
 				this.index = 0
-				
-				let obj = infoObj.item
-				obj.indexId = infoObj.index
-				console.log(obj)
-				this.getData.page=1//初始化页面page
-				this.getData.storesortid=obj.StoreSortID*1//初始化分类的storesortid
+				console.log(infoObj.item);
+				this.getData.page=1	//初始化页面page
 				this.getData.getsort=1//初始化getsortID
-				this.judge=obj.indexId//计算图标的index
-				this.scrollLeft=(obj.indexId)*40//计算图标位置
-				console.log(this.getData)
+				if(infoObj.item == 0){
+					this.getData.storesortid = 0
+					this.getData.StoreSortID = 0
+					this.$http.fenLei(0).then(res=>{
+						console.log(res); 
+						this.tabList = res
+					})
+					this.$http.fenLeis(0,0,this.getData.siteid,this.getData.getsort = 1,this.getData.page = 1,this.getData.pagesize =10,this.getData.Location).then(res=>{
+						console.log(res); 
+						this.infoList = res
+					})
+				} else {
+					let obj = infoObj.item
+					obj.indexId = infoObj.index
+					console.log(obj)
+					this.getData.storesortid=obj.StoreSortID*1//初始化分类的storesortid
+					this.judge=obj.indexId//计算图标的index
+					this.scrollLeft=(obj.indexId)*40//计算图标位置
+					console.log(this.getData)
+					
+					this.$http.fenLei(this.getData.storesortid).then(res=>{
+						console.log(res); 
+						this.tabList = res
+					})
+					
+					this.$http.fenLeis(this.getData.storesortid,obj.StoreSortID,this.getData.siteid,this.getData.getsort = 1,this.getData.page = 1,this.getData.pagesize =10,this.getData.Location).then(res=>{
+						console.log(res); 
+						this.infoList = res
+					})
+				}
 				
-				this.$http.fenLei(this.getData.storesortid).then(res=>{
-					console.log(res); 
-					this.tabList = res
-				})
-				
-				this.$http.fenLeis(this.getData.storesortid,obj.StoreSortID,this.getData.siteid,this.getData.getsort = 1,this.getData.page = 1,this.getData.pagesize =10,this.getData.Location).then(res=>{
-					console.log(res); 
-					this.infoList = res
-				})
 			},
 			goToDetails(objInfo){//详情页面的路由跳转
 				if (getApp().globalData.isAudit) {
@@ -310,6 +332,7 @@
 		},
 		onPullDownRefresh(){//下拉时刷新
 			this.index = 0
+			this.getData.page = 1
 			this.$http.fenLeis(this.getData.storesortid,this.getData.StoreSortID = 0,this.getData.siteid,this.getData.getsort = 1,this.getData.page,10,this.getData.Location).then(res=>{
 				this.infoList = res
 			})

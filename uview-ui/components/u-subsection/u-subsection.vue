@@ -19,6 +19,7 @@
 	 * @property {String} inactive-color 未激活时字体的颜色，mode为subsection时无效（默认#606266）
 	 * @property {String} mode 模式选择，见官网"模式选择"说明（默认button）
 	 * @property {String Number} font-size 字体大小，单位rpx（默认28）
+	 * @property {String Number} height 组件高度，单位rpx（默认70）
 	 * @property {Boolean} animation 是否开启动画效果，见上方说明（默认true）
 	 * @property {Boolean} bold 激活选项的字体是否加粗（默认true）
 	 * @property {String} bg-color 组件背景颜色，mode为button时有效（默认#eeeeef）
@@ -59,7 +60,7 @@
 			// 字体大小，单位rpx
 			fontSize: {
 				type: [Number, String],
-				default: 26
+				default: 28
 			},
 			// 是否开启动画效果
 			animation: {
@@ -179,7 +180,7 @@
 					if (this.mode == 'subsection') {
 						// 设置border的样式
 						style.borderColor = this.activeColor;
-						style.borderWidth = '2px';
+						style.borderWidth = '1px';
 						style.borderStyle = 'solid';
 					}
 					return style;
@@ -302,12 +303,13 @@
 </script>
 
 <style lang="scss" scoped>
+	@import "../../libs/css/style.components.scss";
+	
 	.u-subsection {
 		display: flex;
 		align-items: center;
 		overflow: hidden;
 		position: relative;
-		border-radius: 12upx;
 	}
 
 	.u-item {
@@ -320,6 +322,7 @@
 		justify-content: center;
 		color: $u-main-color;
 		display: inline-flex;
+		padding: 0 6rpx;
 	}
 
 	.u-item-bg {
@@ -348,6 +351,6 @@
 		display: flex;
 		align-items: center;
 		position: relative;
-		z-index: 99;
+		z-index: 3;
 	}
 </style>

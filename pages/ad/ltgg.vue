@@ -1,6 +1,6 @@
 <template>
 	<view class="rob-stamps-page">
-		<web-view src="https://m.10010.com"></web-view>
+		<web-view src="https://m.10010.com/queen/tencent/king-tab.html?channel=08-2278-7862-9999&referrerCode=8411338283"></web-view>
 	</view>
 </template>
 

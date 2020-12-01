@@ -6,7 +6,7 @@
 			<block slot="content">添加员工</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">添加员工</block>
+			<block slot="content">添加员工</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -54,7 +54,7 @@
 		</view>
 		<view style="margin-top: 50upx;">
 			<view class="padding flex flex-direction" style="padding-top: 0upx;">
-				<button class="cu-btn margin-tb-sm lg" style="background-color: rgb(250, 222, 189);color: rgb(141, 91, 32);font-size: 33upx;" @tap="submit">保存</button>
+				<button class="cu-btn margin-tb-sm lg" style="background-color: #fe5479;color: #ffffff;font-size: 33upx;" @tap="submit">保存</button>
 			</view>
 		</view>
 	</view>
@@ -104,26 +104,61 @@
 			},
 			submit(){
 				//this.$Request.get(this.$store.state.bdsyyUrl)
-				if(this.getData.phone != this.$store.state.userInfo.Phone){
-					if(!validatePhone(this.getData.phone,this)){
-						this.$api.msg('您输入的电话号码格式有误',2000)
-						return 
-					}else{					
-						return this.$Request.get(this.$store.state.bdsyyUrl,this.getData).then(res=>{
-							if(!res.IsSuccess){
-								this.$api.msg(res.Msg,2000)
-								return 
-							}else{
-								uni.navigateBack({
-									
-								})
+				if(this.index == 1){
+					uni.showModal({
+						title: '添加店长',
+						content: '设置成店长后,将拥有店铺提现权限',
+						showCancel:true,
+						confirmText: '继续添加',
+						success: (res) => {
+							if(res.confirm){
+								if(this.getData.phone != this.$store.state.userInfo.Phone){
+									if(!validatePhone(this.getData.phone,this)){
+										this.$api.msg('您输入的电话号码格式有误',2000)
+										return 
+									}else{					
+										return this.$Request.get(this.$store.state.bdsyyUrl,this.getData).then(res=>{
+											if(!res.IsSuccess){
+												this.$api.msg(res.Msg,2000)
+												return 
+											}else{
+												uni.navigateBack({
+													
+												})
+											}
+										})
+									}
+								} else {
+									this.$api.msg('自己不能添加自己',2000)
+									return
+								}
 							}
-						})
-					}
+							
+						},
+					})
 				} else {
-					this.$api.msg('自己不能添加自己',2000)
-					return
+					if(this.getData.phone != this.$store.state.userInfo.Phone){
+						if(!validatePhone(this.getData.phone,this)){
+							this.$api.msg('您输入的电话号码格式有误',2000)
+							return 
+						}else{					
+							return this.$Request.get(this.$store.state.bdsyyUrl,this.getData).then(res=>{
+								if(!res.IsSuccess){
+									this.$api.msg(res.Msg,2000)
+									return 
+								}else{
+									uni.navigateBack({
+										
+									})
+								}
+							})
+						}
+					} else {
+						this.$api.msg('自己不能添加自己',2000)
+						return
+					}
 				}
+				
 			},
 			dian(){
 				this.index = 1
@@ -143,12 +178,13 @@
 	}
 	
 	.dianshou {
-		background-color: rgb(250, 222, 189);
-		color: rgb(141, 91, 32);
+		background-color: #fe5479;
+		color: #ffffff;
 		border: 1px solid #FFFFFF;
 	}
 	
 	.xians {
-		border:1px solid #b1b1b1;
+		color: #fe5479;
+		border:1px solid #fe5479;
 	}
 </style>

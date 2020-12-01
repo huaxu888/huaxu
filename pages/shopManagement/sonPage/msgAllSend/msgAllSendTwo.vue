@@ -6,7 +6,7 @@
 				<block slot="content">群发短信</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">群发短信</block>
+				<block slot="content">群发短信</block>
 			<!-- #endif -->
 		</cu-custom>	
 		<!-- #endif -->

@@ -53,16 +53,18 @@
 </script>
 
 <style lang="scss" scoped>
-	.u-time-axis-item {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		position: relative;
-		margin-bottom: 32rpx;
-		background-color: rgb(242, 242, 242); ;
-		border-radius: 8upx;
-		padding: 30upx;
-	}
+	// .u-time-axis-item {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	width: 100%;
+	// 	position: relative;
+	// 	margin-bottom: 32rpx;
+	// 	background-color: #eeeeee;
+	// 	border-radius: 8upx;
+	// 	padding-top: 30upx;
+	// 	padding-bottom: 30upx;
+	// 	padding-left: 20upx;
+	// }
 	
 	
 

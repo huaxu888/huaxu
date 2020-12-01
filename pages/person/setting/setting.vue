@@ -1,133 +1,31 @@
 <template>
 	<view class="setting-page">
-		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN-->
-		<cu-custom bgColor="bg-white" :isBack="true" class="text-black">
-			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content">设置中心</block>
-			<!-- #endif -->
-			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">设置中心</block>
-			<!-- #endif -->
+		<cu-custom bgColor="bg-whitesss" :isBack="true" class="text-black" style="border-bottom: 1upx solid #e4e4e4;">
+			<block slot="content">设置</block>
 		</cu-custom>
-		<!-- #endif -->
-		<!-- 基础设置 -->
-		<view class="base-setting little-shadow">
-			<view class="cu-bar bg-white">
-				<view class="action">
-					<text class="cuIcon-title text-red"></text>
-					基础设置
-				</view>
-			</view>
-			<view class="cu-list menu sm-border">
-				<navigator class="cu-item arrow" url="/pages/person/setting/userInfo">
-					<view class="content"><text class="text-black">个人信息</text></view>
-				</navigator>
-				<navigator class="cu-item arrow" url="/pages/person/setting/pass">
-					<view class="content"><text class="text-black">设置密码</text></view>
-				</navigator>
-				<navigator class="cu-item arrow" url="/pages/person/setting/payPass">
-					<view class="content"><text class="text-black">设置交易密码</text></view>
-				</navigator>
-			</view>
-		</view>
-
-		<view class="advance-setting little-shadow">
-			<!-- 高级设置 -->
-			<view class="cu-bar bg-white">
-				<view class="action">
-					<text class="cuIcon-title text-red"></text>
-					高级设置
-				</view>
-			</view>
-			<view class="cu-list menu sm-border">
-				<!-- #ifndef MP-WEIXIN -->
-				<navigator class="cu-item arrow" url="/pages/person/myAlipay">
-					<view class="content"><text class="text-black">绑定支付宝</text></view>
-				</navigator>
-				<!-- #endif -->
-		<!-- 		<navigator class="cu-item arrow" url="/pages/person/bindBank">
-					<view class="content"><text class="text-black">绑定银行卡</text></view>
-				</navigator> -->
-				<view class="cu-item arrow" @tap="clearCache">
-					<view class="content"><text class="text-black">清除缓存</text></view>
-					<view class="action">
-						<text>{{ cacheSize }}M</text>
-					</view>
-				</view>
-			</view>
-		</view>
-
-		<view class="other-setting little-shadow">
-			<!-- 其他设置 -->
-			<view class="cu-bar bg-white">
-				<view class="action">
-					<text class="cuIcon-title text-red"></text>
-					其他设置
-				</view>
-			</view>
-			<view class="cu-list menu sm-border">
-				<!-- 
-				<navigator class="cu-item arrow" url="/pages/person/assistantDetail?id=1063">
-					<view class="content"><text class="text-black">花蓄助手</text></view>
-				</navigator>
-				
-				<navigator class="cu-item arrow" url="/pages/person/aboutUs">
-					<view class="content"><text class="text-black">关于我们</text></view>
-				</navigator> -->
-
-				<!-- #ifdef APP-PLUS -->
-				<view class="cu-item arrow" @tap="outBtn">
-					<view class="content"><text class="text-black">重置引导页</text></view>
-				</view>
-				
-				
-				<view class="cu-item arrow" @tap="getUpdate">
-					<view class="content"><text class="text-black">检查更新</text></view>
-					<view class="action  text-gray">
-						<text>V {{ version }}</text>
-					</view>
-				</view>
-				
-				<!-- #endif -->
-				<!-- <view class="cu-item arrow" @tap="zhuXiaoZhangHao">
-					<view class="content"><text class="text-red">注销账号</text></view>
-				</view> -->
-				
-				<view class="cu-item arrow" @tap="logout">
-					<view class="content"><text class="text-black">退出登录</text></view>
-				</view>
-				
-			</view>
-		</view>
-
-		<view class="cu-modal" :class="isShow?'show':''" @touchmove.stop.prevent="moveHandle">
-			<view class="cu-dialog">
-				<view class="bg-img" style="height: 820upx;background-size: 92%;" :style="'background-image: url(' +imgUrl+ ');'">
-					<view class="cu-bar justify-end text-white">
-						<view class="action">
-							<text class="cuIcon-close "></text>
-						</view>
-					</view>
-				</view>
-				<view class="cu-bar bg-red" >
-					<view class="action margin-0 flex-sub solid-left" @tap="close">关闭</view>
-				</view>
-			</view>
+		
+		<view @tap="userIfo" style="border-top: 1upx solid #e4e4e4;background-color: #ffffff;height: 120upx;line-height: 120upx;display: flex;justify-content: space-between;padding: 0 30upx;border-bottom: 1upx solid #eeeeee;">
+			<view style="font-size: 28upx;font-weight: 600;">个人信息</view>
+			<view class="cuIcon-right" style="font-weight: 600;color: #333333;"></view>
 		</view>
 		
+		<view @tap="zhStatic" style="background-color: #ffffff;height: 120upx;line-height: 120upx;display: flex;justify-content: space-between;padding: 0 30upx;margin-top: 20upx;border-bottom: 1upx solid #eeeeee;">
+			<view style="font-size: 28upx;font-weight: 600;">账户安全</view>
+			<view class="cuIcon-right" style="font-weight: 600;color: #333333;"></view>
+		</view>
+		<view @tap="shopPC" style="background-color: #ffffff;height: 120upx;line-height: 120upx;display: flex;justify-content: space-between;padding: 0 30upx;border-bottom: 1upx solid #eeeeee;">
+			<view style="font-size: 28upx;font-weight: 600;">商家PC版</view>
+			<view><text class="cuIcon-right" style="font-weight: 600;color: #333333;"></text></view>
+		</view>
 		
-		<!-- 弹窗 -->
-		<tui-modal :show="false" @cancel="closeTips" :custom="true">
-			<view class="flex align-center flex-direction justify-center">
-				<view class="margin-top-sm   flex flex-direction" style="color: #999999;font-size: 36upx;font-weight: 600;">
-					<text>设置密码，方便提现！</text>
-				</view>
+		<view @tap="clearCache" style="background-color: #ffffff;height: 120upx;line-height: 120upx;display: flex;justify-content: space-between;padding: 0 30upx;margin-top: 20upx;border-bottom: 1upx solid #eeeeee;">
+			<view style="font-size: 28upx;font-weight: 600;">清除缓存</view>
+			<view><text style="margin-right: 10upx;">{{ cacheSize }}M</text><text class="cuIcon-right" style="font-weight: 600;color: #333333;"></text></view>
+		</view>
 		
-				<view @tap="closeTips" class="margin-top padding-lr-lg  bg-hx-red" style="border-radius: 1000upx;padding-top: 12upx; padding-bottom: 12upx;">
-					<text class="text-white">我知道了</text>
-				</view>
-			</view>
-		</tui-modal>
+		<view @tap="logout" style="text-align: center;background-color: #ffffff;height: 110upx;line-height: 110upx;padding: 0 30upx;margin-top: 20upx;border-bottom: 1upx solid #eeeeee;">
+			<view style="font-size: 28upx;font-weight: 600;color: #f34e2d;">退出登录</view>
+		</view>
 	</view>
 </template>
 <script>
@@ -167,6 +65,21 @@
 			// #endif
 		},
 		methods: {
+			shopPC() {
+				uni.navigateTo({
+					url:'/pages/person/setting/shopPC'
+				})
+			},
+			userIfo() {
+				uni.navigateTo({
+					url:'/pages/person/setting/userInfo'
+				})
+			},
+			zhStatic() {
+				uni.navigateTo({
+					url:'/pages/person/setting/zhStatic'
+				})
+			},
 			moveHandle() {
 
 			},

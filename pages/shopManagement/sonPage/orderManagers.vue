@@ -1,11 +1,11 @@
 <template>
 	<view class="order-managment-page">
-		<cu-custom bgColor="bg-white" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
 			<block slot="content"><text>我的订单</text></block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText"><text>我的订单</text></block>
+			<block slot="content"><text>我的订单</text></block>
 			<!-- #endif -->
 		</cu-custom>
 		
@@ -798,7 +798,7 @@ export default {
 </style>
 
 <style scoped lang="scss">
-	$reservation-red: #f34e2d;
+	$reservation-red: #fe4e01;
 	$reservation-pink: #fae6e1;
 	$content-title-img-size: 64upx;
 

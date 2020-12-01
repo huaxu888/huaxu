@@ -5,7 +5,7 @@
 				<block slot="content">设置交易密码</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">设置交易密码</block>
+				<block slot="content">设置交易密码</block>
 			<!-- #endif -->
 		</cu-custom>
 		<view class="input-field bg-white">

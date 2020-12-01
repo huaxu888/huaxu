@@ -6,7 +6,7 @@
 			<block slot="content">申请预存</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">申请预存</block>
+			<block slot="content">申请预存</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

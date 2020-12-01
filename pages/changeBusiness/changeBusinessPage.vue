@@ -1,12 +1,12 @@
 <template>
 	<view class="changeBusiness_ ">
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-	<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+	<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 		<!-- #ifdef APP-PLUS || H5-->
 		<block slot="content">转商家</block>
 		<!-- #endif -->
 		<!-- #ifdef MP-WEIXIN -->
-		<block slot="backText">转商家</block>
+		<block slot="content">转商家</block>
 		<!-- #endif -->
 	</cu-custom>
 	<!-- #endif -->
@@ -180,15 +180,16 @@
 				FanHuanBL: 5, 		// 返还比例
 				placeholderTitle:'请输入',
 				inputAry:[
-					{
-						textName:'企业名称',
-						placeholder:`请输入营业执照上的全称`,
-						value:'',
-					},{
-						textName:'营业执照',
-						placeholder:'或18位统一信用代码',
-						value:'',
-					},{ 
+					// {
+					// 	textName:'企业名称',
+					// 	placeholder:`请输入营业执照上的全称`,
+					// 	value:'',
+					// },{
+					// 	textName:'营业执照',
+					// 	placeholder:'或18位统一信用代码',
+					// 	value:'',
+					// },
+					{ 
 						textName:'商铺名称',
 						placeholder:`请输入商铺名称`,
 						value:'',
@@ -407,15 +408,15 @@
 			
 			submit(){//提交审核
 				return Promise.resolve(true).then((res)=>{
-					if(this.inputAry[0].value===''){
-						this.$api.msg('请输入企业名称',2000)
-						return 
-					}
+					// if(this.inputAry[0].value===''){
+					// 	this.$api.msg('请输入企业名称',2000)
+					// 	return 
+					// }
 					// if(this.inputAry[1].value.length!=18){
 					// 	this.$api.msg('请输入正确的营业执照编码，18位编码',2000)
 					// 	return 
 					// }
-					if(this.inputAry[2].value===''){
+					if(this.inputAry[0].value===''){
 						this.$api.msg('请输入商铺名称',2000)
 						return 
 					}
@@ -440,12 +441,12 @@
 					
 					getData={//拼接传参需要的data
 						sortid:this.StoreSortID,
-						storename:this.inputAry[2].value,//encodeURIComponent(this.inputAry[2].value),
+						storename:this.inputAry[0].value,//encodeURIComponent(this.inputAry[2].value),
 						location:this.location,
 						phone:this.valuePhone,
-						gsmc:this.inputAry[0].value,//encodeURIComponent(this.inputAry[0].value),
+						// gsmc:this.inputAry[0].value,//encodeURIComponent(this.inputAry[0].value),
 						address:this.valueMap,//encodeURIComponent(this.valueMap),
-						yyzzno:this.inputAry[1].value,
+						// yyzzno:this.inputAry[1].value,
 						pics:'',
 						userid:this.$store.state.userInfo.ID,
 						sheng:this.sheng,//encodeURIComponent(this.sheng),

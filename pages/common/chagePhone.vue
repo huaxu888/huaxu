@@ -3,41 +3,43 @@
         <cu-custom bgColor="bg-transparent" :isBack="true"></cu-custom>
         <view class="cover flex-direction" :style="{ paddingTop: `${pdTop}px` }">
             <view class="info">
-                <text class="text-xxl" style="display: flex; justify-content: center;margin: 100upx;">{{bind ? '绑定手机号码' : '手机号码登录'}}</text>
+                <text class="text-xxl" style="display: flex; justify-content: left;margin: 100upx;margin-left: 120upx;font-weight: 600;color: #333333;margin-bottom: 68upx;">{{loginWithCode ? '验证码登录' : '账号密码登录'}}</text>
                 <view class="input-field text-lg flex align-center" :class=" isFouces[0] || vilidate[0] ? 'active': ''">
-                    <view class="flex align-center flex-sub">
-                        <input type="number" v-model="phone" class="flex align-center" placeholder-style="color: #f0f0f0"
-                        maxlength="11" placeholder="请输入电话号码" @focus="focus(1)" @blur="blur" :disabled="codeText != '获取验证码'"/>
+                    <view class="flex align-center flex-sub" style="color: #333333;">
+                        <input type="number" v-model="phone" class="flex align-center" placeholder-style="color: #cbccd0;fontSize:28upx;"
+                        maxlength="11" placeholder="请输入手机号" @focus="focus(1)" @blur="blur" :disabled="codeText != '获取验证码'"/>
                     </view>
-                    <text class="code vlide" @tap="getCode" v-if="loginWithCode">
-                        {{ codeText }}
-                    </text>
+                  
                 </view>
                 <view class="with-code">
-                    <view class="item" :style="{marginLeft: loginWithCode ? '0' : '-100%'}">
+                    <!-- <view class="item" :style="{marginLeft: loginWithCode ? '0' : '-100%'}"> -->
+					<view class="" v-if="loginWithCode">
                         <view class="input-field text-lg flex align-center" :class=" isFouces[1] || vilidate[1] ? 'active': ''">
-                            <view class="flex align-center flex-sub">
-                                <input type="number" v-model="code" class="flex align-center" placeholder-style="color: #f0f0f0"
+                            <view class="flex align-center flex-sub" style="color: #333333;">
+                                <input type="number" v-model="code" class="flex align-center" placeholder-style="color: #cbccd0;fontSize:28upx;"
                                 maxlength="6" placeholder="请输入验证码" @focus="focus(2)" @blur="blur"/>
                             </view>
+							<text class="code vlide" @tap="getCode" v-if="loginWithCode">
+							    {{ codeText }}
+							</text>
                         </view>
                     </view>
-                    <view class="item">
+                    <view class="" v-if="!loginWithCode" style="width: 750upx;">
                         <view class="input-field text-lg flex align-center" :class=" isFouces[1] || vilidate[1] ? 'active': ''">
-                            <view class="flex align-center flex-sub">
-                                <input type="text" password="true" v-model="pwd" class="flex align-center" placeholder-style="color: #f0f0f0"
+                            <view class="flex align-center flex-sub" style="color: #333333;">
+                                <input type="text" password="true" v-model="pwd" class="flex align-center" placeholder-style="color: #cbccd0;fontSize:28upx;"
                                 placeholder="请输入密码" @focus="focus(2)" @blur="blur"/>
                             </view>
                         </view>
                     </view>
                 </view>
                 <view class="hx-btn">
-                    <button class="cu-btn lg flex" :class="vilidate[0] && vilidate[1] ? 'active' : ''" @tap="login">{{ bind ? '绑定' : '登录' }}</button>
+                    <button class="cu-btn lg flex" :class="vilidate[0] && vilidate[1] ? 'active' : ''" @tap="login">登录</button>
                 </view>
                 <text class="pass" @tap="loginWay" v-if="!bind">{{ loginWithCode ? '账号密码登录' : '验证码登录' }}</text>
             </view>
             
-            <view class="action-bar" v-if="!bind">
+            <!-- <view class="action-bar" v-if="!bind">
                 <view class="text-sm flex align-center justify-center">
                     <view style="transform: scale(.6);">
                     	<checkbox-group @change="agree">
@@ -47,8 +49,13 @@
                     同意<text class="i" @tap="toWebview('zc')"> 《用户注册协议》 </text>和<text class="i" @tap="toWebview('ys')"> 《隐私协议》
                     </text>
                 </view>
-            </view>
+            </view> -->
         </view>
+		<view style="color: #999999;font-size: 24upx;position: fixed;bottom: 100upx;width: 100%;">
+			<view class="flex justify-center" style="width: 100%;">
+				登录注册即代表您已同意<text style="color: #fe4e01;" @tap="toWebview('zc')">注册协议</text>和<text style="color: #fe4e01;" @tap="toWebview('ys')">隐私协议</text>
+			</view>
+		</view>
     </view>
 </template>
 
@@ -65,7 +72,7 @@ export default {
             isCode: false,              // 使用验证码还是密码登录
             codeText: '获取验证码',      // 获取验证码倒计时
             loginWithCode: false,         // 是否采用验证码登录
-			isAgree: 0,
+			isAgree: 1,
 			bind: false,
 			userInfo: this.$store.state.userInfo
         };
@@ -75,7 +82,7 @@ export default {
 			this.loginWithCode = true
 			this.bind = true
 		} else {
-			this.loginWithCode = false
+			this.loginWithCode = true
 			this.bind = false
 		}
 		
@@ -103,6 +110,7 @@ export default {
         },
         getCode(){
             let self = this
+			
             if (this.vilidate[0] && this.codeText == '获取验证码') {
                 this.$store.commit('setTimer', (new Date()).getTime())
                 let timer = 60
@@ -144,20 +152,21 @@ export default {
         },
         login() {
 			if (this.isAgree == 0 && !this.bind) {
-				uni.showModal({
-					title: '注册须知',
-					content: '请您详细阅读《用户注册协议》和《隐私协议》，并勾选同意才能继续注册',
-					cancelText: '去阅读',
-					confirmText: '已经阅读',
-					success: (res) => {
-						if (res.confirm) {
-							this.isAgree = '1'
-							this.login()
-						} else {
-							return
-						}
-					}
-				})
+				// uni.showModal({
+				// 	title: '注册须知',
+				// 	content: '请您详细阅读《用户注册协议》和《隐私协议》，并勾选同意才能继续注册',
+				// 	cancelText: '去阅读',
+				// 	confirmText: '已经阅读',
+				// 	success: (res) => {
+				// 		if (res.confirm) {
+							
+				// 		} else {
+				// 			return
+				// 		}
+				// 	}
+				// })
+				this.isAgree = '1'
+				this.login()
 			} else {
 				let self = this
 				if (this.loginWithCode) {
@@ -273,7 +282,7 @@ export default {
     right: 0;
 }
 .input-field {
-    margin: 30upx 60upx 30upx 60upx;
+    margin: 30upx 120upx 30upx 120upx;
     padding-bottom: 30upx;
     border-bottom: 1px solid #f0f0f0;
     transition: border-bottom .3s ease-in-out;
@@ -292,7 +301,7 @@ export default {
 }
 
 .i {
-    color: #eb5245;
+    color: #fe4e01;
 }
 
 .action-bar {
@@ -301,7 +310,7 @@ export default {
 }
 
 .active {
-    border-bottom: 1px solid #eb5245;
+    border-bottom: 1px solid #fe4e01;
 }
 .code {
     color: #FFFFFF;
@@ -310,7 +319,7 @@ export default {
     transition: all .5s ease-in-out;
 }
 .vlide {
-    color: #eb5245;
+    color: #fe4e01;
 }
 .hx-swiper {
     display: flex;
@@ -319,13 +328,20 @@ export default {
 }
 .hx-btn {
     margin: 60upx 0;
-    
+	margin-top: 50upx;
+    display: flex;
+	justify-content: center;
+	margin-bottom: 40upx;
     .cu-btn {
+		width: 498upx;
+		height: 90upx;
+		border-radius: 50upx;
         margin: 0 60upx;
         color: #ffffff;
-        background: #eb5245;
+        background: #fe4e01;
         transition: all .3s ease-in-out;
         opacity: .5;
+		font-size: 33upx;
     }
     
     .active {
@@ -335,7 +351,10 @@ export default {
 }
 
 .pass {
-    color: #999;
-    margin: 0 60upx;
+    color: #8989a1;
+	font-size: 26upx;
+    margin: 0 40upx;
+	display: flex;
+	justify-content: center;
 }
 </style>

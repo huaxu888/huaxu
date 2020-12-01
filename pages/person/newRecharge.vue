@@ -6,7 +6,7 @@
 			<block slot="content">充值</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">充值</block>
+			<block slot="content">充值</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
@@ -343,7 +343,7 @@
 		transition: all .1s ease-in-out;
 		
 		@at-root .active {
-			background: linear-gradient(to right, #fa7142, #f34e2d);
+			background: linear-gradient(to right, #fa7142, #fe4e01);
 			color: #FFFFFF;
 		}
 	}

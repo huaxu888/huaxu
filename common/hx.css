@@ -19,11 +19,11 @@ uni-radio {
 	color: #fff;
 	height: 80upx;
 	line-height: 80upx;
-	background: #f34e2d;
+	background: #fe4e01;
 	/* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #ec3a46, #f34e2d);
+	background: -webkit-linear-gradient(to right, #ec3a46, #fe4e01);
 	/* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to right, #ec3a46, #f34e2d);
+	background: linear-gradient(to right, #ec3a46, #fe4e01);
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	transition: all 0.3s ease-in-out
 }
@@ -37,11 +37,11 @@ uni-radio {
 }
 
 .bg-hx-red {
-	background: #f34e2d;
+	background: #fe4e01;
 	/* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #ec3a46, #f34e2d);
+	background: -webkit-linear-gradient(to right, #ec3a46, #fe4e01);
 	/* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to right, #ec3a46, #f34e2d);
+	background: linear-gradient(to right, #ec3a46, #fe4e01);
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -54,7 +54,7 @@ uni-radio {
 }
 
 .hx-text-red {
-	color: #f34e2d;
+	color: #fe4e01;
 }
 
 .hx-cur {
@@ -99,11 +99,27 @@ uni-radio {
 }
 
 .bg-cream{
-	background: #f8d1a3;
+	background: linear-gradient(to right, #ffe9d5, #ffceaf);
+}
+
+.bg-creams{
+	background: #fe5479;
+}
+
+.bg-creamss{
+	background: #ffe6e8;
+}
+
+.bg-creamsss{
+	background: #ffd7d7;
+}
+
+.bg-xings{
+	background: #fe5479;
 }
 
 .bg-jingying{
-	background-color: #e9a555;
+	background-color: #ffe6e8;
 }
 
 .bg-dark-yellow{
@@ -111,7 +127,7 @@ uni-radio {
 }
 
 .bg-miyellow{
-	background: #E8C091;
+	background: #fe5479;
 }
 
 .bg-order-yellow{

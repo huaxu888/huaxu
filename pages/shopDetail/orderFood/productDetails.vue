@@ -466,7 +466,7 @@
 			// 		content: '400-6688-352',
 			// 		confirmText: '我知道了',
 			// 		confirmColor: "#333333",
-			// 		cancelColor: '#f34e2d',
+			// 		cancelColor: '#fe4e01',
 			// 		cancelText: '拨打电话',
 			// 		showCancel: true
 			// 	}).then(res => {
@@ -1600,7 +1600,7 @@
 	}
 	
 	.bg-orderRed {
-		background: linear-gradient(to right, #fa7142, #f34e2d);
+		background: linear-gradient(to right, #fa7142, #fe4e01);
 		color: #FFFFFF;
 		padding: 0 30upx;
 		border-radius: 100upx;

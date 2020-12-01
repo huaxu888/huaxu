@@ -5,7 +5,7 @@
 			<block slot="content"><text>商品管理</text></block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText"><text>商品管理</text></block>
+			<block slot="content"><text>商品管理</text></block>
 			<!-- #endif -->
 		</cu-custom>
 		<scroll-view scroll-x scroll-with-animation="ease-in-out" class="tab-view" :scroll-left="scrollLeft">

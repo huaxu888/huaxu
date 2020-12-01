@@ -1,61 +1,44 @@
 <template>
 	<view class="balance-page">
 		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-		<cu-custom bgColor="balance-nav" class="text-white" :isBack="true" style="position: fixed; z-index: 9;">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBack="true">
 			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content">我的余额</block>
+			<block slot="content">余额</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">我的余额</block>
+			<block slot="content">余额</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
-		<view class="banner">
-			<!-- 余额数据 -->
-			<view class="staus-bar-holder"></view>
-			<view class="data-area text-white flex-direction" style="height: 272rpx;">
-				<view class="withdraw flex flex-direction justify-centerW padding-top-sm">
-					<text class="text-xxl">账号余额</text>
-					<text class="data">
-						{{ changeMoney2(withdraw) }}
-					</text>
-				</view>
+		<view style="background-color: #FFFFFF;margin-top: 20upx;text-align: center;padding-top: 30upx;margin-left: 30upx;margin-right: 30upx;border-radius:8upx;padding-bottom: 20upx;">
+			<view >
+				<text style="font-size: 28upx;" @click="showTips">余额(元)</text><text class="hxIcon-wenhao3" style="font-size: 30upx;margin-left: 10upx;" @click="showTips"></text>
 			</view>
-			<view class="action-bar text-white">
-				<view class="recharge-btn " @tap="navTo('/pages/person/newRecharge')" :class="active1?'active':''" v-if="isR && showRecharge"
-				 @touchstart="doTouchstart(1)" @touchend="doTouchend(1)">
-					<view>充值</view>
-				</view>
-				<view class="transfer-btn" @tap="navTo('/pages/person/newTransfer')" :class="active2?'active':''" @touchstart="doTouchstart(2)"
-				 @touchend="doTouchend(2)">
-					<text>转账</text>
-				</view>
-				<!-- <view class="withdraw-btn" @tap="navTo('/pages/person/withdrawal')" :class="active3?'active':''"
-				 @touchstart="doTouchstart(3)" @touchend="doTouchend(3)">
-					<text>提现</text>
-				</view> -->
+			<view style="margin-top: 30upx;">
+				<text style="font-size: 64upx;font-weight: 600;">{{KeTiXian}}</text>
 			</view>
+			
 		</view>
-
-		<view class="holder"></view>
-        
-		<mescroll-uni @init="mescrollInit" @down="downCallback" @up="upCallback" :up="upOption">
-			<view class="detail margin-top">
-				<view class="cu-list menu sm-border">
-					<view class="cu-item" style="padding-top: 20upx;padding-bottom: 20upx;" v-for="(item, index) in recordList" :key="index">
-						<view class="content">
-							<text>{{ editInfo(item.Info) }}</text>
-							<view class="text-gray text-sm">
-								<text>{{ getLocalTime(item.AddDate) }}</text>
+		
+		<view style="background-color: #FFFFFF;margin: 30upx;margin-top: 20upx;border-radius: 8upx;">
+			<mescroll-uni @init="mescrollInit" @down="downCallback" @up="upCallback" :up="upOption">
+				<view class="detail " >
+					<view class="cu-list menu sm-border" style="border-radius: 8upx;justify-content: space-around;">
+						<view class="cu-item" style="padding-top: 20upx;padding-bottom: 20upx;" v-for="(item, index) in recordList" :key="index">
+							<view class="content">
+								<text>{{ editInfo(item.Info) }}</text>
+								<view class="text-gray text-sm">
+									<text>{{ getLocalTime(item.AddDate) }}</text>
+								</view>
 							</view>
-						</view>
-						<view :class="['action', item.IsZC ? 'transfer-text' : 'recharge-text']">
-							{{ changeMoney(item.Score) }}
+							<view :class="['action', item.IsZC ? 'transfer-text' : 'recharge-text']">
+								{{ changeMoney(item.Score) }}
+							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-		</mescroll-uni>
+			</mescroll-uni>
+		</view>
 	</view>
 </template>
 
@@ -80,10 +63,12 @@
 					noMoreSize: 10
 				},
 				isR: true,
-				showRecharge: getApp().globalData.showRechargePage
+				showRecharge: getApp().globalData.showRechargePage,
+				KeTiXian:0,
+				XiaoFeiScore:0
 			}
 		},
-		onShow() {
+		async onShow() {
 			this.init()
 			this.$http.getRecharge()
 				.then( res => {
@@ -96,6 +81,13 @@
 				})
 		},
 		methods: {
+			showTips() {
+				uni.showToast({
+					icon:'none',
+				    title: '余额可通过充值或赠送的方式获得，仅可在VIP商家消费使用！',
+				    duration: 5000
+				});
+			},
 			doTouchstart(index) {
 				switch (index) {
 					case 1:
@@ -172,10 +164,12 @@
 			upCallback: function(mescroll) {
 				let self = this
 				uni.request({
-					url: 'https://newsapp.huaxuapp.com/api/scores/newmyrest',
+					url: 'https://newsapp.huaxuapp.com/api/scores/myzdrest',
 					data: {
 						userid: self.$store.state.userInfo.ID,
-						page: mescroll.num
+						sort: 1,
+						page: mescroll.num,
+						pagesize: 10
 					},
 					success: function(res) {
 						console.log(res);
@@ -185,10 +179,10 @@
 								self.recordList = []
 							}
 							self.recordList = self.recordList.concat(res.data.Data.List)
+							self.KeTiXian = self.$api.formatAmount(res.data.Data.KeTiXian)
 						} else {
 							mescroll.endSuccess(0)
 						}
-
 					},
 					fail: function(res) {
 						mescroll.endErr()
@@ -198,9 +192,16 @@
 			init: function(res) {
 				let self = this
 				uni.request({
-					url: 'https://newsapp.huaxuapp.com/api/scores/newmyrest',
+					// url: 'https://newsapp.huaxuapp.com/api/scores/newmyrest',
+					// data: {
+					// 	userid: self.$store.state.userInfo.ID
+					// },
+					url: 'https://newsapp.huaxuapp.com/api/scores/myzdrest',
 					data: {
-						userid: self.$store.state.userInfo.ID
+						userid: self.$store.state.userInfo.ID,
+						sort: 1,
+						page: mescroll.num,
+						pagesize: 10
 					},
 					success: function(res) {
 						self.consumable = res.data.Data.Total
@@ -284,7 +285,7 @@
 	.banner {
 		position: fixed;
 		width: 750upx;
-		height: 490upx;
+		height: 500upx;
 		top: 0;
 		z-index: 7;
 		background-image: url('http://img.huaxuapp.com/%E6%88%91%E7%9A%84%E4%BD%99%E9%A2%9D_03.png');
@@ -301,7 +302,7 @@
 	}
 
 	.holder {
-		height: 465upx;
+		height: 485upx;
 	}
 
 	.data-area {
@@ -350,7 +351,8 @@
 	}
 
 	.detail {
-		width: 750upx;
+		width: 690upx;
+		border-radius: 8upx;
 	}
 
 	.recharge-text {
@@ -379,4 +381,6 @@
 		color: white;
 		border-radius: 10upx
 	}
+	
 </style>
+

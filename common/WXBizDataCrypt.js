@@ -7,10 +7,13 @@ function WXBizDataCrypt(appId, sessionKey) {
 
 WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
   // base64 decode
+  
+  
   var sessionKey = new Buffer(this.sessionKey, 'base64')
   encryptedData = new Buffer(encryptedData, 'base64')
+  console.log(encryptedData);
   iv = new Buffer(iv, 'base64')
-
+console.log(iv);
   try {
      // 解密
     var decipher = crypto.createDecipheriv('aes-128-cbc', sessionKey, iv)
@@ -22,7 +25,8 @@ WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
     decoded = JSON.parse(decoded)
 
   } catch (err) {
-    throw new Error('Illegal Buffer')
+	  console.log(err);
+    throw new Error('Illegal Buffer,获取失败')
   }
 
   if (decoded.watermark.appid !== this.appId) {

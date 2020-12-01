@@ -1,244 +1,214 @@
 <template>
-	<view class="person-page">
-		<view class=" flex align-end justify-start" style="width: 100%;height: 380upx;background: url('https://img.huaxuapp.com/personBg.png') no-repeat; background-size: cover; position: relative;overflow: hidden;">
-			<view class="flex align-start justify-center margin-bottom " style="">
-				<image :src="userInfo.FaceURL ? userInfo.FaceURL : 'https://img.huaxuapp.com/mrtx.png'" mode="aspectFill" class="touxiang" @tap="personRouter('/pages/person/setting/userInfo')"></image>
-				
-				
-				<!-- <view class="touxiang" @tap="personRouter('/pages/person/setting/userInfo')" style="background-size: cover;" :style="{background: userInfo ? 'url('+userInfo.FaceURL+')' :'url(https://img.huaxuapp.com/mrtx.png) no-repeat' , backgroundSize : 'cover'}"></view> -->
-				<view class="flex flex-direction align-start justify-end margin-left-sm" v-if="userInfo.Phone">
-					<!-- 会员姓名 -->
-					<view class="margin-bottom-xs  flex align-center margin-top-xs  ">
-						<text class="text-white text-bold " style="font-size: 36upx; max-width: 330upx;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
-							{{ userInfo.Nick }}
-						</text>
-					</view>
-					<!-- 会员等级 -->
-					<view class="flex justify-center align-center " style="position: relative;">
-						<view class="flex align-center justify-center" style="height: 46upx;width: 46upx;border: 1.8px solid #f1b556;border-radius: 50%;background: #FFFFFF;position: relative; z-index: 14; ">
-							<!-- <text :class="userInfo.IsMK ? 'hxIcon-shangpu':'hxIcon-personTag' " style="font-size: 26upx;color: #f1b556;"></text> -->
-							<text :class="userInfo.IsMK ? 'hxIcon-personTag':'hxIcon-personTag' " style="font-size: 26upx;color: #f1b556;"></text>
+	<view class="person-page" v-if="IDs">
+		<view class=" flex justify-start" style="width: 750upx;height: 505upx;background: url('https://img.huaxuapp.com/personal_02.png') no-repeat; background-size: cover; position: relative;overflow: hidden;">
+			<view class="" style="margin-top: 198upx;" v-if="userInfo.Phone">
+				<view class="flex align-center justify-between" style="width: 690upx;margin-left: 30upx;" :class="isSticky?'fixed-tops':'fixed-topsx'">
+					<view class="flex align-center justify-center">
+						<view style="width: 100upx;height: 100upx;border-radius: 50%;" @tap="personRouter('/pages/person/setting/userInfo')">
+							<image style="width: 100upx;height: 100upx;border-radius: 50%;" :src="userInfo.FaceURL ? userInfo.FaceURL : 'https://img.huaxuapp.com/6454608_.pic.jpg'" mode="aspectFill"></image>
 						</view>
-						<!-- <view class="flex align-center justify-center" style="height: 36upx;width: 140upx; padding-left: 13upx; border-radius:1000upx;background: #f1b556;position: absolute;left: 20upx; z-index: 10;">
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;">{{ userInfo.IsMK ? '联盟商家' : '普通会员' }}</text>
-						</view> -->
-						<view class="flex align-center justify-center" style="height: 36upx;width: 140upx; padding-left: 13upx; border-radius:1000upx;background: #f1b556;position: absolute;left: 20upx; z-index: 10;">
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;">{{ '普通会员' }}</text>
-							<!-- <text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "MLLevel == 1">{{ '一级会员' }}</text>
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "MLLevel == 2">{{ '二级会员' }}</text>
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "MLLevel == 3">{{ '三级会员' }}</text>
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "MLLevel == 4">{{ '四级会员' }}</text>
-							<text style="line-height: 1em;color: #FFFFFF;font-size: 24upx;" v-if = "MLLevel == 5">{{ '五级会员' }}</text> -->
-						</view>
-					</view>
-				</view>
-				<!-- 未登录用户显示登录按钮 -->
-				<view class="flex flex-direction align-start justify-end margin-left-sm" v-else @tap="toLogin()">
-					<!-- 会员姓名 -->
-					<view class="margin-bottom-xs flex align-center margin-top-xs  ">
-						<text class="text-white text-bold " style="font-size: 40upx; max-width: 330upx;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">点击登录</text>
-					</view>
-					<!-- 会员等级 -->
-
-					<view class="flex justify-center align-center ">
-						<text style="font-size: 24upx; color: #EEEEEE;">登录更精彩</text>
-					</view>
-				</view>
-				<!-- <view class="margin-left-sm margin-top-xs" v-else>
-						<navigator class="text-white text-xl"  hover-class="none" url="/pages/common/login">
-							注册/登录
-						</navigator>
-					</view> -->
-			</view>
-			
-			<image style="margin-top: 20px;" @tap="toShop()" class="topStoreCard tran " v-if="userInfo.ID" :class="[cardImgIsLoad?'opacity-show':'opacity-hidden', cardFloat?'heart':''] " @load="picLoad" :src="sqdpFlag?'https://img.huaxuapp.com/dianpuguanli.png':'https://img.huaxuapp.com/zhuanshangjia.png'" ></image>
-
-		</view>
-
-		<view style="position:relative;top: -75upx;">
-			<view class=" margin padding-sm  flex align-center justify-between" style=" border-radius: 20upx;background: #FFFFFF; margin-bottom: 20upx;">
-				<view class="flex align-center justify-between padding-sm" style="width: 75%;min-height:110upx;">
-					<view class="flex align-center justify-between flex-direction">
-						<text style="font-size: 36upx;font-weight: bold;color: #333333;">{{changeMoney(mainInfo.MySy)}}</text>
-						<text class="margin-top-xs" style="font-size: 24upx;color: #444444;">推广收益</text>
-					</view>
-					<view class="flex align-center justify-between flex-direction" @tap="personRouter('/pages/person/balance')">
-						<text style="font-size: 36upx;font-weight: bold;color: #333333;">{{changeMoney(mainInfo.consumable)}}</text>
-						<text class="margin-top-xs" style="font-size: 24upx;color: #444444;">我的余额</text>
-					</view>
-					<view class="flex align-center justify-between flex-direction" @tap="personRouter('/pages/person/myCoupon/myCouponPage')">
-						<text style="font-size: 36upx;font-weight: bold;color: #333333;">{{mainInfo.ClipCouponsCount}}</text>
-						<text class="margin-top-xs" style="font-size: 24upx;color: #444444;">优惠券</text>
-					</view>
-				</view>
-				<view class="margin-left-xs" style="background: url('https://img.huaxuapp.com/dakuohao_03.png') no-repeat; background-size: 100% 100%;  width: 16upx; min-height: 110upx;"></view>
-
-				<view class="flex align-center justify-between flex-direction padding-sm " style="min-height:110upx;padding-left: 10upx;padding-right: 10upx;"
-				 @tap="personRouter('/pages/person/balance')">
-					<view style="background: url('https://img.huaxuapp.com/wodeqianbao_03.png') no-repeat; background-size: 100% 100%;  width: 51upx; height: 39upx;"></view>
-					<text style="font-size: 24upx;margin-top: 15upx;color: #444444;">我的钱包</text>
-				</view>
-			</view>
-
-
-			<view class="margin" @tap="personRouter('/pages/person/strategy/help')" style="margin-bottom: 30upx; margin-top: 30upx; height: 180upx;border-radius: 20upx; background: url('https://img.huaxuapp.com/sygl_03.png') no-repeat; background-size: cover;">
-
-			</view>
-			<!-- 消费总额 -->
-			<!-- <view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 40upx;" >
-				<view class="padding flex" style=" justify-content:space-between; border-bottom: 0.7px solid #e4e4e4;;padding:15upx 20upx;padding-bottom: 14upx;margin-bottom: 18upx;padding-left: 0;">
-					<text class="hxIcon-gerenzhongxin" style="color: rgb(255,65,48);font-size: 36upx;"><text style="font-size: 30upx;font-weight: 700;color: #333333;margin-left: 14upx;">消费总额</text></text>
-					<text style="color: red;font-size: 40upx;font-weight: 600;"><text style="font-size: 24upx;">￥</text>{{changeMoney(TotalXiaoFei || 0)}}</text>
-				</view>
-				<view class="flex" style="justify-content:space-between;text-align: center;">
-					<view>
-						<view class="yangshi" style="color: rgb(255,65,48);">奖励类型</view>
-						<view  class="yangshi" style="color: #999999">消费奖励</view>
-						<view class="yangshi" style="color: #999999">推广奖励</view>
-					</view>
-					<view>
-						<view class="bgys"><view class="yangshi">累计收益</view></view>
-						<view  class="yangshi yangshis" style="font-weight:600;">{{changeMoney(SavePoints || 0)}}</view>
-						<view class="yangshi yangshis" style="font-weight:600; ">{{changeMoney(SpreadPoints || 0)}}</view>
-					</view>
-					<view>
-						<view class="bgys"><view class="yangshi" >当日收益</view></view>
-						<view class="yangshi yangshis" style="font-weight:600;color: rgb(191, 0, 0);">{{changeMoney(JrChuXu || 0)}}</view>
-						<view class="yangshi yangshis" style="font-weight:600;color: rgb(191, 0, 0);">{{changeMoney(JrTuiGuang || 0)}}</view>
-					</view>
-					<view>
-						<view class="bgys"><view class="yangshi">可用余额</view></view>
-						<view class="yangshi yangshis" style="font-weight:600;">{{changeMoney(ChuXu || 0)}}</view>
-						<view class="yangshi yangshis" style="font-weight:600;" @tap="withdrawal('promotion')">{{changeMoney(TuiGuang || 0)}}</view>
-					</view>
-				</view>	
-			</view> -->
-			
-			<!-- 营业总额 -->
-			<!-- <view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 40upx;" >
-				<view class="padding flex" style=" justify-content:space-between;border-bottom: 1upx solid #d4d4d4;padding:15upx 20upx;padding-bottom: 14upx; margin-bottom: 18upx;padding-left: 0;">
-					<text class="hxIcon-shangjia" style="color: rgb(241,181,86); font-size: 36upx;"><text style="font-size: 30upx;font-weight: 700;color: #333333;margin-left: 14upx;">自营总额</text></text>
-					<text style="color: rgb(255, 0, 0); font-size: 40upx;font-weight: 600;"><text style="font-size: 24upx;">￥</text>{{changeMoney(StoreToatl || 0)}}</text>
-				</view>
-				<view class="flex" style="justify-content:space-between;text-align: center;">
-					<view>
-						<view class="yangshi" style="color: rgb(255,65,48);">奖励类型</view>
-						<view class="yangshi" style="color: #999999">分润奖励</view>
-						<view class="yangshi" style="color: #999999">自营店铺</view>
-					</view>
-					<view>
-						<view class="bgys"><view class="yangshi">净利润</view></view>
-						<view class="yangshi yangshis" style="font-weight:600;">{{changeMoney(ProfitPoints || 0)}}</view>
-						<view class="yangshi yangshis" style="font-weight:600;">{{changeMoney(StoreTotallr || 0)}}</view>
-					</view>
-					<view>
-						<view class="bgys"><view class="yangshi">当日收益</view></view>
-						<view class="yangshi yangshis" style="font-weight:600;color: rgb(191, 0, 0);">{{changeMoney(JrFenRun || 0) }}</view>
-						<view class="yangshi yangshis" style="font-weight:600;color: rgb(191, 0, 0);">{{changeMoney(JrStoreToatl || 0)}}</view>
-					</view>
-					<view>
-						<view class="bgys"><view class="yangshi">可用余额</view></view>
-						<view class="yangshi yangshis" style="font-weight:600;" @tap="withdrawal('earnings')">{{changeMoney(FenRun || 0)}}</view>
-						<view class="yangshi yangshis" style="font-weight:600;" @tap="withdrawal('store')">{{changeMoney(StorePoint || 0)}}</view>
-					</view>
-				</view>
-			</view> -->
-			
-			<!-- 我的订单 -->
-			<view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 40upx;padding-bottom:38upx" >
-				<view class="padding flex" style=" justify-content:space-between; border-bottom: 0.7px solid #e4e4e4;;padding:15upx 20upx;padding-bottom: 20upx;padding-left: 0;margin-bottom: 30upx;padding-right: 0;" @tap="tiaozhuan(0)">
-					<text style="font-size: 30upx;font-weight: 700;color: #333333;">我的订单</text>
-					<text style="font-size: 24upx;color: #999999;">查看全部订单<text class="cuIcon-right"></text></text>
-				</view>
-
-				<view class=" flex align-center justify-between" style="height: 100%;padding: 0 26upx;">
-					<view class="flex align-center justify-between flex-direction" v-for="(centerItem, centerIndex) of centerCardList"
-					 :key="centerIndex" @tap="tiaozhuan(centerIndex+1)">
-						<view style="height: 58upx; width: 58upx;"
-						 :style="{background :  'url('+centerItem.picUrl+') no-repeat' , backgroundSize : 'cover'} "></view>
-						<text class="margin-top-sm" style="font-size: 24upx;">{{centerItem.title}}</text>
-					</view>
-				</view>
-			</view>
-			
-			
-			<!-- 常用工具 -->
-			<view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding:15upx 0;padding-bottom:38upx" >
-				<view class="padding flex" style=" justify-content:space-between; padding:15upx 20upx;padding-bottom: 18upx;padding-left: 40upx;">
-					<text style="font-size: 30upx;font-weight: 700;color: #333333;">常用工具</text>
-				</view>
-			
-			
-			
-				<view class="bg-white " v-for="(items, index) of cardList" :key="index" >
-						
-					<view class="flex align-center justify-start flex-wrap " style="position: relative; padding: 0 20upx;">
-						<view class="flex flex-direction align-center "  v-for="(i, j) of items.list" :key="j" @tap="personRouter(i.navigate)" style="position: relative;width: 25%;">
-							<!-- <image :src="i.picUrl" style="width: 45upx; height: 45upx; margin-top: 36upx;" v-if="i.picUrl"></image> -->
-							<text :class="i.icon" style="font-size: 65upx; margin-top: 35upx;color:#f34e2d;"></text>
-							<!-- <view  style="height: 26upx;width: 87upx;position: absolute;top: 14upx;right: -10upx;background: url('https://img.huaxuapp.com/zhuan10yuan_03.png') no-repeat; background-size: cover;" v-if="j==0">
-							</view> -->
-							<view  style="height: 26upx;width: 87upx;position: absolute;top: 14upx;right: -10upx;background: url('https://img.huaxuapp.com/hdhdh.png') no-repeat; background-size: cover;" v-if="j==0">
+						<view class="margin-left" style="width: 320upx;">
+							<view style="font-size: 32upx;color: #333333;" class="text-bold text-cut">{{userInfo.Nick}}</view>
+							<view class="margin-top-xs" style="font-size: 24upx;color: #666666;">
+								<text class="hxIcon-shouji3" style="font-size: 26upx;"></text><text>{{clPhone(userInfo.Phone)}}</text>
 							</view>
-							<view style="width:45upx;height: 6upx;border-radius: 50%;background: #f9c7c7;"></view>
+						</view>
+					</view>
+					<view @tap="toShop()" v-if="userInfo.ID" class="flex align-center justify-center" style="background-color: #fcefe1;border: 1px solid #fbbb87;  border-radius: 1000upx;width: 160upx;height: 56upx;line-height: 56upx;">
+						<text style="line-height: 1em;font-size: 26upx;color: #333333;margin-left: 12upx;" v-if="sqdpFlag">商家端<text class="cuIcon-right" style="margin-left: 10upx;"></text></text>
+						<text style="line-height: 1em;font-size: 26upx;color: #333333;margin-left: 12upx;" v-if="!sqdpFlag">转商家<text class="cuIcon-right" style="margin-left: 10upx;"></text></text>
+					</view>
+				</view>
+				
+				
+				<view class="flex align-center justify-between" style="width: 750upx;background-color: #fff4e9;height: 100upx;" :class="isSticky?'fixed-top':''"  :style="{top:isSticky?'0px':''}"  v-if="isSticky == true">
+					<view class="flex align-center justify-center" style="margin-left: 30upx;">
+						<view style="width: 48upx;height: 48upx;border-radius: 50%;" @tap="personRouter('/pages/person/setting/userInfo')">
+							<image style="width: 48upx;height: 48upx;border-radius: 50%;" :src="userInfo.FaceURL ? userInfo.FaceURL : 'https://img.huaxuapp.com/6454608_.pic.jpg'" mode="aspectFill"></image>
+						</view>
+						<view class="margin-left" style="width: 320upx;">
+							<view style="font-size: 28upx;color: #333333;" class="text-bold text-cut">{{userInfo.Nick}}</view>
+						</view>
+					</view>
+				</view>
+				
+				<view class="flex align-center justify-between" style="padding: 0 30upx;margin-top: 14upx;margin-left: 30upx;">
+					<view class="flex align-center justify-between padding-sm" style="width: 100%;">
+						<view class="flex align-center justify-between flex-direction" @tap="personRouter('/pages/person/collectStore?inx=1')">
+							<text style="font-size: 32upx;color: #000000;">{{thingNums}}</text>
+							<text class="margin-top-xs" style="margin-top: 2upx;font-size: 24upx;color: #333333;">商品收藏</text>
+						</view>
+						<view style="width: 2upx;background-color: #d2d2d2;height: 26upx;margin-top: 50upx;"></view>
+						<view class="flex align-center justify-between flex-direction" @tap="personRouter('/pages/person/collectStore?inx=2')">
+							<text style="font-size: 32upx;color: #000000;">{{StoreSC}}</text>
+							<text class="margin-top-xs" style="margin-top: 2upx;font-size: 24upx;color: #333333;">店铺收藏</text>
+						</view>
+						<view style="width: 2upx;background-color: #d2d2d2;height: 26upx;margin-top: 50upx;"></view>
+						<view class="flex align-center justify-between flex-direction" @tap="personRouter('/pages/personalAgent/perSonage')">
+							<text style="font-size: 32upx;color: #000000;">{{shopListNum}}</text>
+							<text class="margin-top-xs" style="margin-top: 2upx;font-size: 24upx;color: #333333;">我的足迹</text>
+						</view>
+					</view>
+				</view>
+				<view @tap="gotoVIP" style="width: 710upx;height: 71upx;position: relative;margin-left: 20upx;margin-top: 6upx;">
+					<image src="https://img.huaxuapp.com/hkhy1102_03.png" mode="scaleToFill" style="width: 710upx;height: 71upx;"></image>
+					<view style="font-size: 22upx;color: #fceee0;position: absolute;top: 22upx;left: 85upx;">
+						<text>开通黑卡会员，平均可省680元/年</text>
+					</view>
+				</view>
+			</view>
+			
+		</view>
+		
+		<view style="position:relative;">
+			<view @tap="personRouter('/pages/person/recharges')" class=" margin padding-sm  flex align-center justify-between" style="margin-top: 20upx ;padding-top: 24upx;border-radius: 20upx 20upx 0 0;background: #FFFFFF;margin-bottom: 0;padding-bottom: 0;">
+				<view style="font-size: 30upx;color: #000000;font-weight: 600;margin-left: 10upx;">
+					我的钱包
+				</view>
+			</view>
+			<view class=" margin padding-sm  flex align-center justify-between" style=" margin-top: 0;border-radius:0 0 20upx 20upx;background: #FFFFFF; margin-bottom: 20upx;padding-bottom: 12upx;">
+				<view class="flex align-center justify-between padding-sm" style="width: 100%;min-height:110upx;">
+					<view class="flex align-center justify-between flex-direction" @tap="personRouter('/pages/person/recharges')">
+						<text style="font-size: 32upx;font-weight: bold;color: #000000;">{{changeMoney(mainInfo.consumable)}}<text style="font-size: 22upx;color:#333333;"> 元</text></text>
+						<view class="flex align-center margin-top-xs">
+							<text class="" style="font-size:24upx;color: #333333;">余额</text>
+							<view style="margin-left: 4upx;text-align: center;line-height: 32upx;width: 64upx;height: 32upx;font-size: 20upx;border-radius: 40upx;color: #f8eed0;background: linear-gradient(to right, #4d4d4d, #363636);">充值</view>
+						</view>
+						
+					</view>
+					<view style="position: relative;" class="flex align-center justify-between flex-direction" @tap="personRouter('/pages/person/myCoupon/myCouponPage')">
+						<text style="font-size: 32upx;font-weight: bold;color: #000000;">{{Nums}}<text style="font-size: 22upx;color:#333333;"> 张</text></text>
+						<text class="margin-top-xs" style="font-size: 24upx;color: #333333;">优惠券</text>
+						<view v-if="Nums > 0" style="position: absolute;width: 14upx;height: 14upx;border-radius: 14upx;background-color: #ee3126;left: 66upx;top: -3upx;"></view>
+					</view>
+					<view @tap="jifen" class="flex align-center justify-between flex-direction">
+						<text style="font-size: 32upx;font-weight: bold;color: #000000;">{{changeMoney(HBTotal)}}<text style="font-size: 22upx;color:#333333;">元</text></text>
+						<text class="margin-top-xs" style="font-size: 24upx;color: #333333;">待释放金额</text>
+					</view>
+					<view class="flex align-center justify-between flex-direction" @tap="personRouter('/pages/person/tgSy')">
+						<text style="font-size: 32upx;font-weight: bold;color: #000000;">{{changeMoney(mainInfo.MySy)}}<text style="font-size: 22upx;color:#333333;"> 元</text></text>
+						
+						<view class="flex align-center margin-top-xs">
+							<text class="" style="font-size: 24upx;color: #333333;">收益</text>
+							<view style="text-align: center;line-height: 28upx;margin-left: 4upx;width: 64upx;height: 32upx;font-size: 20upx;border-radius: 40upx;color: #f23e3a; border: 2upx solid #f89b86;background: #fefaf9;">提现</view>
+						</view>
+					</view>
+				</view>
+			</view>
+
+			<view class="" style="border-radius: 10px 10upx 0 0; background: rgb(255, 255, 255);padding-bottom:30upx;margin: 20upx 30upx;margin-top: 0upx;padding-bottom: 0;margin-bottom: 0;" >
+				<view class="padding-sm  flex align-center justify-between" style="padding-bottom: 0;padding-top: 14upx;border-radius: 20upx 20upx 0 0;background: #FFFFFF;margin-bottom: 0;">
+					<view style="font-size: 30upx;color: #000000;font-weight: 600;margin-left: 10upx;">
+						我的服务
+					</view>
+				</view>
+				<view class="bg-white " v-for="(item, ind) of cardList" :key="ind" >
+					<view class="flex align-center justify-start flex-wrap " style="position: relative; padding: 0 15upx;">
+						<view class="flex flex-direction align-center "  v-for="(is, js) of item.list" :key="js" @tap="personRouter(is.navigate)" style="position: relative;width: 20%;">
+							<text :class="is.icon" style="font-size: 50upx; margin-top: 30upx;color:#e87f5d;"></text>
+							<text style="font-size: 24upx;margin-top:15upx ;color: #333333;">{{ is.title }}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="" style="border-radius: 0 0 10px 10upx; background: rgb(255, 255, 255); padding:15upx 0;padding-bottom:30upx;margin: 20upx 30upx;margin-top: 0upx;padding-top: 0;" >
+				<view class="bg-white " v-for="(items, indexs) of tubiao" :key="indexs" >
+					<view class="flex align-center justify-start flex-wrap " style="position: relative; padding: 0 15upx;">
+						<view class="flex flex-direction align-center "  v-for="(i, j) of items.lists" :key="j" @tap="personRouter(i.navigate)" style="position: relative;width: 20%;">
+							<text :class="i.icon" style="font-size: 50upx; margin-top: 30upx;color:#eba53f;"></text>
 							<text style="font-size: 24upx;margin-top:15upx ;color: #333333;">{{ i.title }}</text>
 						</view>
 					</view>
 				</view>
-				
 			</view>
+				
 			
 			
-			
-			
-			
-			<!-- 弹窗 -->
-			<tui-modal :show="isShowTips" @cancel="closeTips" :custom="true">
-				<view class="flex align-center flex-direction justify-center">
-					<view class="margin-top-sm   flex flex-direction" style="color: #999999;font-size: 36upx;font-weight: 600;">
-						<text>购物成功，账户激活！</text>
-					</view>
-			
-					<view @tap="closeTips" class="margin-top padding-lr-lg  bg-hx-red" style="border-radius: 1000upx;padding-top: 12upx; padding-bottom: 12upx;">
-						<text class="text-white">我知道了</text>
-					</view>
-				</view>
-			</tui-modal>
-			
-			
-			
-			<!-- <view class="margin" @tap="personRouter('/pages/person/strategy/help')" style="margin-bottom: 20upx; margin-top: 20upx; height: 180upx;border-radius: 20upx; background: url('https://img.huaxuapp.com/sygl_03.png') no-repeat; background-size: cover;">
-
-			</view> -->
-
-			<!-- <view class="margin padding" style="margin-top: 20upx; margin-bottom: 20upx; padding-left: 50upx; padding-right: 50upx;  border-radius: 20upx; background: url('https://img.huaxuapp.com/wodegn_03.png') no-repeat; background-size: 100% 100%;">
-
-				<view class=" flex align-center justify-between" style="height: 100%;">
+			<view class=" margin" style="border-radius: 10px; background: rgb(255, 255, 255); padding: 30upx 18upx;padding-bottom:38upx;margin-top: 20upx ;" >
+				<view class=" flex align-center justify-between" style="height: 100%;padding: 0 10upx;">
 					<view class="flex align-center justify-between flex-direction" v-for="(centerItem, centerIndex) of centerCardList"
 					 :key="centerIndex" @tap="personRouter(centerItem.navigate)">
-						<view style="height: 58upx; width: 58upx; background-size: 100% 100%;"
+						<view style="height: 80upx; width: 80upx;"
 						 :style="{background :  'url('+centerItem.picUrl+') no-repeat' , backgroundSize : 'cover'} "></view>
-						<text class="margin-top-sm" style="font-size: 24upx;">{{centerItem.title}}</text>
+						<text class="" style="font-size: 24upx;margin-top: 10upx;">{{centerItem.title}}</text>
 					</view>
 				</view>
 			</view>
- -->
-
-			<!-- <view class="bg-white margin" style="padding: 30upx;margin-top: 20upx; border-radius: 20upx;" v-for="(items, index) of cardList"
-			 :key="index">
-				<view style="font-size: 28upx; font-weight: 700;color: #333333;">{{ items.title }}</view>
-				<view class="flex align-center justify-start flex-wrap ">
-					<view class="flex flex-direction align-center " style="width: 25%;position: relative;" v-for="(i, j) of items.list" :key="j" @tap="personRouter(i.navigate)"> -->
-						<!-- <image :src="i.picUrl" style="width: 45upx; height: 45upx; margin-top: 36upx;" v-if="i.picUrl"></image> -->
-						<!-- <text :class="i.icon" style="font-size: 65upx; margin-top: 35upx;color:#f34e2d;"></text>
-						<view  style="height: 26upx;width: 87upx;position: absolute;top: 14upx;right: -10upx;background: url('https://img.huaxuapp.com/zhuan10yuan_03.png') no-repeat; background-size: cover;" v-if="j==0">
+			
+			<swiper style="height: 170upx;width: 710upx;border-radius: 20upx;margin-left: 20upx;margin-top: 20upx ;" :indicator-dots="false" :circular="true" :autoplay="true" interval="3000"
+			 duration="1000">
+				<swiper-item v-for="(topSwiperItem,topSwiperIndex) in topLBLlit" :key="topSwiperIndex" @tap="LBTnavigate(topSwiperItem.GGContent)">
+					<image :src="topSwiperItem.GGPicUrl" mode="scaleToFill" style="height: 170upx;width: 710upx;border-radius: 20upx;"></image>
+				</swiper-item>
+			</swiper>
+		</view>
+		
+		<view class="flex justify-center" style="width: 100%;color: #333333;font-size: 30upx;">
+			<image src="https://img.huaxuapp.com/27460jx_03.png" mode="scaleToFill" style="width: 274upx;height: 60upx;margin-top: 40upx;margin-bottom: 10upx ;"></image>
+		</view>
+		
+		<view class="flex " style="" v-for="(item,indexq) in userAllsale" :key="indexq">
+			<view @tap="baoPingoto(item[0].StoreID,item[0].ID)" style="border-radius: 10upx;width: 336upx;margin:30upx;margin-top: 20upx;background-color: #ffffff;margin-bottom: 11upx;margin-right: 10upx;padding-bottom: 20upx;">
+				<view style="width: 336upx;height: 184upx;">
+					<image :src="item[0].Imgs" style="border-radius: 10upx;width: 336upx;height: 184upx;"  mode="scaleToFill"></image>
+				</view>
+				<view class="shengLv" style="padding:12upx 14upx;font-size: 26upx;width: 336upx;height: 80upx;">
+					<text>{{item[0].Title}}</text>
+				</view>
+				
+				<view style="color: #fe4e01;margin-top: 6upx;margin-left: 10upx;">
+					<text style="font-size: 24upx;">￥</text>
+					<text style="font-size: 36upx;font-weight: 600;">{{changeMoney(item[0].DiscountedPrice)}}</text>
+				</view>
+				<view class="flex align-center justify-between" style="margin-top: 10upx;padding: 0 10upx;">
+					<view class="flex align-center">
+						<view class="flex align-center" style="font-size: 24upx;text-decoration: line-through;color: #999999;">
+							<text>{{changeMoney(item[0].OrderPrice)}}</text>
 						</view>
-						<view style="width:45upx;height: 6upx;border-radius: 50%;background: #f9c7c7;"></view>
-						<text style="font-size: 24upx;margin-top:15upx ;color: #333333;">{{ i.title }}</text>
+						<view class="flex align-center" style="font-size: 24upx;color: #fe4e01;background-color: #fbf0ea;padding: 0 12upx;border-radius: 50upx;margin-left: 6upx;">
+							<text>{{jiSuan(item[0].ZK)}}折</text>
+						</view>
+					</view>
+					<view  class="flex align-center" style="font-size: 24upx;color: #999999;">
+						<text>{{item[0].GetNum}}人购买</text>
 					</view>
 				</view>
-			</view> -->
+			</view>
+			
+			<view v-if="item[1]" @tap="baoPingoto(item[1].StoreID,item[1].ID)" style="border-radius: 10upx;width: 336upx;margin:30upx;margin-top: 20upx;background-color: #ffffff;margin-bottom: 11upx;margin-left: 10upx;padding-bottom: 20upx;">
+				<view style="width: 336upx;height: 184upx;">
+					<image :src="item[1].Imgs" style="border-radius: 10upx;width: 336upx;height: 184upx;"  mode="scaleToFill"></image>
+				</view>
+				<view class="shengLv" style="padding:12upx 14upx;font-size: 26upx;width: 336upx;height: 80upx;">
+					<text>{{item[1].Title}}</text>
+				</view>
+				
+				<view style="color: #fe4e01;margin-top: 6upx;margin-left: 10upx;">
+					<text style="font-size: 24upx;">￥</text>
+					<text style="font-size: 36upx;font-weight: 600;">{{changeMoney(item[1].DiscountedPrice)}}</text>
+				</view>
+				<view class="flex align-center justify-between" style="margin-top: 10upx;padding: 0 10upx;">
+					<view class="flex align-center">
+						<view class="flex align-center" style="font-size: 24upx;text-decoration: line-through;color: #999999;">
+							<text>{{changeMoney(item[1].OrderPrice)}}</text>
+						</view>
+						<view class="flex align-center" style="font-size: 24upx;color: #fe4e01;background-color: #fbf0ea;padding: 0 12upx;border-radius: 50upx;margin-left: 6upx;">
+							<text>{{jiSuan(item[1].ZK)}}折</text>
+						</view>
+					</view>
+					<view  class="flex align-center" style="font-size: 24upx;color: #999999;">
+						<text>{{item[1].GetNum}}人购买</text>
+					</view>
+				</view>
+			</view>
 		</view>
+		
+		<view v-if="scrollTop > 600"  @tap="backtops" class="flex align-center justify-center flex-direction huiqu">
+			<text class="hxIcon-shangla" style="font-size: 90upx;color: rgba(0,0,0,0.2);"></text>
+		</view>
+		<!-- <navigator url="/pages/ad/cheXian">
+			<view class="couponss shake"></view>
+		</navigator> -->
 	</view>
 </template>
 
@@ -252,76 +222,79 @@
 			return {
 				centerCardList: [
 					{
-						picUrl: 'https://img.huaxuapp.com/wdddd_10.png',
-						title: '预约订单',
-						navigate: '/pages/shopManagement/sonPage/orderManagers'
+						picUrl: 'https://img.huaxuapp.com/fwutb_03.jpg',
+						title: '推荐有奖',
+						navigate: '/pages/person/share'
 					},
 					{
-						picUrl: 'https://img.huaxuapp.com/wdddd_03.png',
-						title: '待评价',
-						navigate: '/pages/shopManagement/sonPage/orderManagers'
+						picUrl: 'https://img.huaxuapp.com/fwutb_05.jpg',
+						title: '兑换中心',
+						navigate: '/pages/personalAgent/persons/personChange'
 					},
 					{
-						picUrl: 'https://img.huaxuapp.com/wdddd_07.png',
-						title: '已取消',
-						navigate: '/pages/shopManagement/sonPage/orderManagers'
+						picUrl: 'https://img.huaxuapp.com/fwutb_07.jpg',
+						title: '招商代理',
+						navigate: 'agent'
 					},
 					{
-						picUrl: 'https://img.huaxuapp.com/wdddd_05.png',
-						title: '售后',
-						navigate: '/pages/shopManagement/sonPage/orderManagers'
+						picUrl: 'https://img.huaxuapp.com/fwutb_09.jpg',
+						title: '关于我们',
+						navigate: '/pages/person/aboutUs'
+					},
+					{
+						picUrl: 'https://img.huaxuapp.com/fwutb_11.png',
+						title: '每日签到',
+						navigate: '/pages/personalAgent/persons/personQianDao'
 					},
 				],
 				string: 'cover',
 				cardList: [{
-					title: '常用工具',
 					list: [{
-							icon: 'hxIcon-tuijianyoujiang',
-							title: '推荐有奖',
-							navigate: '/pages/person/share'
+							icon: 'hxIcon-dingdan2',
+							title: '我的订单',
+							navigate:'/pages/shopManagement/sonPage/orderManagerss?index=0'
+						},
+						// {
+						// 	icon: 'hxIcon-jifen1',
+						// 	title: '消费历史',
+						// 	navigate: '/pages/person/historyConsumption'
+						// },
+						{
+							icon: 'hxIcon-zengsong',
+							title: '我的转赠',
+							navigate: '/pages/person/giveOne'
 						},
 						{
-							icon: 'hxIcon-jifen1',
-							title: '消费历史',
-							navigate: '/pages/person/historyConsumption'
-						},
-						{
-							icon: 'hxIcon-zhaoshangdaili1',
-							title: '招商代理',
-							navigate: 'agent'
-						},
-						{
-							icon: 'hxIcon-tuandui1',
+							icon: 'hxIcon-tuanduijianshe',
 							title: '我的粉丝',
 							navigate: '/pages/person/myTeam'
 						},
 						{
-							icon: 'hxIcon-shoucangjia',
-							title: '店铺收藏', 
-							navigate: '/pages/person/collectStore'
-						},
-						{
-							icon: 'hxIcon-kefuzhongxin',
-							title: '客服中心', 
+							icon: 'hxIcon-kefu2',
+							title: '官方客服', 
 							navigate: 'customerService'
 						},
 						{
-							icon: 'hxIcon-guanyuwomen',
-							title: '关于我们',
-							navigate: '/pages/person/aboutUs'
+							icon: 'hxIcon-zhiyin1',
+							title: '新手指引',
+							navigate: '/pages/person/strategy/help'
+						}
+					]
+				}],
+				tubiao: [{
+					lists: [
+						{
+							icon: 'hxIcon-zhangdan',
+							title: '交易记录', 
+							navigate: '/pages/prestoreDetail/transactionDetail'
 						},
 						{
-							icon: 'hxIcon-bangdingyinhangka',
-							title: '绑银行卡',
-							navigate: '/pages/person/bindBank'
+							icon: 'hxIcon-weixin5',
+							title: '关注服务号',
+							navigate: '/pages/personalAgent/gzServe'
 						},
 						{
-							icon: 'hxIcon-chongzhika',
-							title: '充值卡',
-							navigate: '/pages/person/rechargeCard'
-						},
-						{
-							icon: 'hxIcon-shezhi2',
+							icon: 'hxIcon-icon-test',
 							title: '设置',
 							navigate: '/pages/person/setting/setting'
 						},
@@ -357,96 +330,277 @@
 				SavePoints:0,				//总储蓄积分
 				SpreadPoints:0,				//总推广积分
 				ProfitPoints:0,             //总分润积分
-				MLLevel:0					//等级
+				MLLevel:0, 				//等级
+				Nums:0,
+				topLBLlit:[],
+				userAllsale:[],
+				currentPage:1,
+				userAllsales:[],
+				scrollTop:0,
+				thingNums:0,
+				isSticky: false,
+				CustomBar:this.CustomBar,
+				key:'',
+				StoreSC:0,
+				shopListNum:0,
+				IDs:false,
+				HBTotal:0
 			}
+		},
+		computed:{
 		},
 		async onLoad() {
-			console.log(this.$store.state.userInfo, '用户信息');
-			if (this.$store.state.userInfo.ID) {
-				this.userInfo = this.$store.state.userInfo;
-			}
-			// #ifdef H5 || MP-ALIPAY
-				await this.getSite();
-			// #endif
 			
-			// #ifndef H5 || MP-ALIPAY
-			//获取行政区划码
-				await this.getRegeo();
-				// 通过行政区划获取站点
-				await this.newGetSite();
-			// #endif
-			let _this = this;
-			uni.request({
-				url:'https://newsapp.huaxuapp.com/api/menber/myinfo?userId='+  this.$store.state.userInfo.ID,
-				success(e) {
-					console.log(e);
-					_this.ChuXu = e.data.ChuXu;
-					_this.FenRun = e.data.FenRun;
-					_this.JrChuXu = e.data.JrChuXu;
-					_this.JrFenRun = e.data.JrFenRun;
-					_this.JrStoreToatl = e.data.JrStoreToatl;;
-					_this.JrTuiGuang = e.data.JrTuiGuang;
-					_this.StorePoint = e.data.StorePoint;
-					_this.StoreToatl = e.data.StoreToatl;
-					_this.Total = e.data.Total;
-					_this.TotalXiaoFei = e.data.TotalXiaoFei;
-					_this.TuiGuang = e.data.TuiGuang;
-					_this.StoreTotallr = e.data.StoreTotallr;
+			if(this.$store.state.userInfo.ID){
+				
+				this.currentPage = 1
+				await this.$http.personTj(this.currentPage,10).then(res => {
+					console.log(res);
+					this.userAllsales = res.SetDataMeal
+					if(res.IsSuccess){
+						var arr = [];
+						for(var i=0;i<res.SetDataMeal.length;i+=2){
+						    arr.push(res.SetDataMeal.slice(i,i+2));
+						}
+						this.userAllsale = arr
+					}
+				})
+				
+				console.log(this.$store.state.userInfo, '用户信息');
+				if (this.$store.state.userInfo.ID) {
+					this.userInfo = this.$store.state.userInfo;
 				}
-			});
-			
+				// #ifdef H5 || MP-ALIPAY
+					await this.getSite();
+				// #endif
+				
+				// #ifndef H5 || MP-ALIPAY
+				//获取行政区划码
+					// await this.getRegeo();
+					// 通过行政区划获取站点
+					await this.newGetSite();
+				// #endif
+				this.IDs = true
+			}
 		},
 		onShow() {
-			//XXX 留下 userinfo 赋值
-			let self = this;
-			if (this.$store.state.userInfo.ID) {
-				self.userInfo = this.$store.state.userInfo;
-				this.agentState = 4;
-				
-				this.cardFloat = false;
-				
-				setTimeout(() => {
-					this.cardFloat = true;
-				}, 100);
-				
-				this.isSqdp();
-				//余额，收益的展示
-				this.getMyinfo();
-				//收益 余额 优惠券个数
-				this.getIsAgent();
-				//是否为代理
-			} else {
-				self.userInfo = '';
-				self.mainInfo.ClipCouponsCount = 0
-				// self.mainInfo.MyZz = 0;
-				self.mainInfo.MySy = 0;
-				self.mainInfo.consumable = 0;
-			}
 			
-			
-			uni.request({
-				url:'https://newsapp.huaxuapp.com/api/menber/myinfo?userId='+  this.$store.state.userInfo.ID,
-				success(e) {
-					console.log(e);
-					self.ChuXu = e.data.ChuXu;
-					self.FenRun = e.data.FenRun;
-					self.JrChuXu = e.data.JrChuXu;
-					self.JrFenRun = e.data.JrFenRun;
-					self.JrStoreToatl = e.data.JrStoreToatl;;
-					self.JrTuiGuang = e.data.JrTuiGuang;
-					self.StorePoint = e.data.StorePoint;
-					self.StoreToatl = e.data.StoreToatl;
-					self.Total = e.data.Total;
-					self.TotalXiaoFei = e.data.TotalXiaoFei;
-					self.TuiGuang = e.data.TuiGuang;
-					self.StoreTotallr = e.data.StoreTotallr;
+			if(this.$store.state.userInfo.ID){
+				let _this = this;
+				uni.request({
+					url:'https://newsapp.huaxuapp.com/api/menber/myinfo?userId='+  this.$store.state.userInfo.ID,
+					success(e) {
+						console.log(e);
+						_this.ChuXu = e.data.ChuXu;
+						_this.FenRun = e.data.FenRun;
+						_this.JrChuXu = e.data.JrChuXu;
+						_this.JrFenRun = e.data.JrFenRun;
+						_this.JrStoreToatl = e.data.JrStoreToatl;;
+						_this.JrTuiGuang = e.data.JrTuiGuang;
+						_this.StorePoint = e.data.StorePoint;
+						_this.StoreToatl = e.data.StoreToatl;
+						_this.Total = e.data.Total;
+						_this.TotalXiaoFei = e.data.TotalXiaoFei;
+						_this.TuiGuang = e.data.TuiGuang;
+						_this.StoreTotallr = e.data.StoreTotallr;
+						_this.HBTotal = e.data.HBTotal
+					}
+				});
+				
+				this.$http.shoppingLove(this.$store.state.userInfo.ID,1,10).then(res => {
+					console.log(res);
+					this.thingNums = res.Num
+				})
+				
+				this.$http.getCenterLBLlit(0).then(res => {
+					console.log('轮播图', res);
+					if (res.IsSuccess) {
+						this.topLBLlit = res.Data;
+					}
+				});
+				this.currentPage = 1
+				//XXX 留下 userinfo 赋值
+				let self = this;
+				if (this.$store.state.userInfo.ID) {
+					self.userInfo = this.$store.state.userInfo;
+					this.agentState = 4;
+					
+					this.cardFloat = false;
+					
+					setTimeout(() => {
+						this.cardFloat = true;
+					}, 100);
+					
+					this.isSqdp();
+					//余额，收益的展示
+					this.getMyinfo();
+					//收益 余额 优惠券个数
+					this.getIsAgent();
+					//是否为代理
+				} else {
+					self.userInfo = '';
+					self.mainInfo.ClipCouponsCount = 0
+					// self.mainInfo.MyZz = 0;
+					self.mainInfo.MySy = 0;
+					self.mainInfo.consumable = 0;
 				}
-			});
+				
+				this.$http.myCoulist(this.$store.state.userInfo.ID,1,1,10).then(res => {
+					this.Nums = res.Num
+				})
+				
+				uni.request({
+					url:'https://newsapp.huaxuapp.com/api/menber/myinfo?userId='+  this.$store.state.userInfo.ID,
+					success(e) {
+						console.log(e);
+						self.ChuXu = e.data.ChuXu;
+						self.FenRun = e.data.FenRun;
+						self.JrChuXu = e.data.JrChuXu;
+						self.JrFenRun = e.data.JrFenRun;
+						self.JrStoreToatl = e.data.JrStoreToatl;;
+						self.JrTuiGuang = e.data.JrTuiGuang;
+						self.StorePoint = e.data.StorePoint;
+						self.StoreToatl = e.data.StoreToatl;
+						self.Total = e.data.Total;
+						self.TotalXiaoFei = e.data.TotalXiaoFei;
+						self.TuiGuang = e.data.TuiGuang;
+						self.StoreTotallr = e.data.StoreTotallr;
+						self.StoreSC = e.data.StoreSC
+					}
+				});
+				
+				this.$http.userSlot(this.$store.state.userInfo.ID,1,10).then(res => {
+					this.shopListNum = res.Num
+				})
+				
+				this.IDs = true
+			} else {
+				this.IDs = false
+				// #ifdef APP-PLUS
+				uni.navigateTo({
+					url: '/pages/common/chagePhone'
+				})
+				// #endif
+				// #ifndef APP-PLUS
+				uni.navigateTo({
+					url: '/pages/common/login'
+				})
+				// #endif
+			}
+		},
+		onPageScroll(e) {
+			this.scrollTop = e.scrollTop
+			if (e.scrollTop >= 90) {
+				this.isSticky = true;
+			} else {
+				this.isSticky = false;
+			}
+			console.log(this.isSticky);
 		},
 		methods: {
-			tiaozhuan(e) {
+			Qiandao(){
 				uni.navigateTo({
-					url:'/pages/shopManagement/sonPage/orderManagers?index=' + e,
+					url:'/pages/personalAgent/persons/personQianDao'
+				})
+			},
+			jifen(){
+				// uni.navigateTo({
+				// 	url:'/pages/personalAgent/persons/personJifen'
+				// })
+				uni.navigateTo({
+					url:'/pages/prestoreDetail/zzhbRecord'
+				})
+			},
+			gotoVIP(){
+				uni.navigateTo({
+					url:'/pages/personalAgent/persons/personVIP'
+				})
+			},
+			gotoChange(){
+				uni.navigateTo({
+					url:'/pages/personalAgent/persons/personChange'
+				})
+			},
+			LBTnavigate(content) {
+				if (content.indexOf('/') >= 0) {
+					if (content.indexOf('share') != -1) {
+						if (this.userInfo != null && this.userInfo != '') {
+							uni.navigateTo({
+								url: content
+							});
+						} else {
+							this.$api.msg("分享请先登录");
+						}
+					} else {
+						if (content.indexOf('applicationAgency') != -1) {
+							//说明有代理
+							if (this.userInfo != null && this.userInfo != '') {
+								if (this.userInfo.ManagerType == 1) {
+									uni.request({
+										url: "https://newsapp.huaxuapp.com/api/agent/isagenttype",
+										//不依据类别获得商铺列表
+										data: {
+											userid: this.userInfo.ID
+										},
+										method: "GET",
+										success: (res) => {
+											console.log(res);
+											if (res.data.IsSuccess) {
+												uni.navigateTo({
+													url: '/pages/personalAgent/personalAgentPage'
+												});
+			
+											} else {
+												//不是代理
+												uni.navigateTo({
+													url: '/pages/agency/applicationAgency'
+												});
+											}
+										},
+										fail: () => {
+											this.$api.msg('网络异常');
+										}
+									})
+								} else {
+									uni.navigateTo({
+										url: '/pages/personalAgent/personalAgentPage'
+									});
+								}
+							} else {
+								this.$api.msg("请先登录");
+							}
+						} else {
+							uni.navigateTo({
+								url: content
+							});
+						}
+					}
+				}
+			},
+			backtops(){
+				uni.pageScrollTo({
+				    scrollTop: 0,
+				    duration: 300
+				});
+			},
+			jiSuan(number){
+				return Math.round(number * 100) / 10
+			},
+			baoPingoto(a,b){
+				this.$http.xhAdd(this.$store.state.userInfo.ID,b).then(res => {
+					console.log(res);
+				})
+				uni.navigateTo({
+					url:'/pages/shopDetail/shopDetailsorder?storeId=' + a + '&tcID=' + b
+				})
+			},
+			clPhone(e){
+				return e.replace(/^(1[34578]\d)(\d{4})(\d{4})$/, "$1 **** $3")
+			},
+			tiaozhuan(e) {
+				console.log(e);
+				uni.navigateTo({
+					url:'/pages/shopManagement/sonPage/orderManagerss?index=' + e,
 					success() {
 						console.log("1")
 					}
@@ -568,7 +722,7 @@
 							content: '400-6688-352',
 							confirmText: '我知道了',
 							confirmColor: "#333333",
-							cancelColor: '#f34e2d',
+							cancelColor: '#fe4e01',
 							cancelText: '拨打电话',
 							showCancel: true
 						}).then(res => {
@@ -621,8 +775,17 @@
 						}
 
 						if (this.agentState == 2) {
-							uni.navigateTo({
-								url: '/pages/personalAgent/personalAgentPage'
+							this.$http.puanDuan(this.$store.state.userInfo.ID).then(res => {
+								console.log(res);
+								if(res.Data == 4){
+									uni.navigateTo({
+										url: '/pages/personalAgent/araeAgentPage'
+									})
+								} else {
+									uni.navigateTo({
+										url: '/pages/personalAgent/personalAgentPage'
+									})
+								}
 							})
 							return
 						}
@@ -694,6 +857,24 @@
 			// 		}, 1200);
 			// 	}
 			// }
+		},
+		onReachBottom() {
+			this.currentPage += 1
+			this.$http.personTj(this.currentPage,10).then(res => {
+				console.log(res);
+				if (res.SetDataMeal.length > 0) {
+					this.userAllsales = this.userAllsales.concat(res.SetDataMeal)
+					var arr = [];
+					for(var i=0;i<this.userAllsales.length;i+=2){
+					    arr.push(this.userAllsales.slice(i,i+2));
+					}
+					this.userAllsale = arr
+				} else {
+					this.$api.msg('到底了~')
+				}
+				
+				uni.hideLoading()
+			})
 		}
 	};
 </script>
@@ -705,6 +886,22 @@
 </style>
 
 <style scoped lang="scss">
+	.couponss {
+		width: 184rpx;
+		height: 182rpx;
+		background: url(https://img.huaxuapp.com/yjdbf.png) no-repeat;
+		background-position: center;
+		background-size: cover;
+		position: fixed;
+		/* #ifdef H5 */
+		bottom: 150rpx;
+		/* #endif */
+		/* #ifdef MP-WEIXIN */
+		bottom: 20rpx;
+		/* #endif */
+		right: 30rpx;
+	}
+	
 	.yangshi {
 		height: 46upx;
 		margin:15upx 0;
@@ -787,14 +984,14 @@
 
 
 	.person-page {
-
+		padding-bottom: 120upx;
 		[class*='hxIcon-'] {
 			font-size: 44upx;
 		}
 
 		.person-info {
 			position: relative;
-			background-image: url(../../static/bgimg.png);
+			
 			background-size: 100%;
 			background-repeat: no-repeat;
 
@@ -866,5 +1063,43 @@
 				height: auto;
 			}
 		}
+	}
+	
+	.shengLv{
+		color: #333333;
+		text-align: left;
+		word-wrap:break-word;
+		white-space:pre-line;
+		display: -webkit-box;
+		text-overflow: ellipsis;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow:hidden;
+	}
+	
+	.huiqu{
+		position: fixed;
+		right: 30upx;
+		bottom:170upx;
+		z-index: 66;
+		width: 90upx; 
+		height:90upx;
+		 -webkit-transition: all 0.5s;
+	}
+	
+	.fixed-top {
+		position: fixed;
+		width: 100%;
+		z-index: 99990;
+		padding-top: 120upx;
+		padding-bottom: 40upx;
+	}
+	
+	.fixed-tops {
+		opacity: 0;
+	}
+	
+	.fixed-topsx {
+		opacity: 1;
 	}
 </style>

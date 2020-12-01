@@ -96,3 +96,27 @@ export function getConsumptionList(userid, page = 1, pageSize = 10, sort = 2) {
 		}
 	)
 }
+
+
+// 返回充值列表
+export function czList() {
+	return fly.get(
+		'charge/getlist',
+	)
+}
+
+// 返回充值积分列表
+export function jfList() {
+	return fly.get(
+		'charge/getjflist',
+	)
+}
+
+export function mRhb(userid) {
+	return fly.get(
+		'scores/mrhb',
+		{
+			userid
+		}
+	)
+}

@@ -6,7 +6,7 @@
 			<block slot="content">绑定支付宝</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">绑定支付宝</block>
+			<block slot="content">绑定支付宝</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

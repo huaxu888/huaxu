@@ -6,7 +6,7 @@
 				<block slot="content">修改手机号码</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">修改手机号码</block>
+				<block slot="content">修改手机号码</block>
 			<!-- #endif -->
 			</cu-custom>
 			

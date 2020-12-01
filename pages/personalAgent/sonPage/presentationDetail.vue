@@ -6,7 +6,7 @@
 			<block slot="content">提现明细</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">提现明细</block>
+			<block slot="content">提现明细</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

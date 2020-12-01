@@ -7,7 +7,7 @@
 				<block slot="content">新手必看</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN || MP-ALIPAY -->
-				<block slot="backText">新手必看</block>
+				<block slot="content">新手必看</block>
 				<!-- #endif -->
 			</cu-custom>
 			<view style="width: 100%;border:2upx solid #F0F0F0"></view>

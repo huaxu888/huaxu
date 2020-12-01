@@ -9,7 +9,7 @@
 				</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">
+				<block slot="content">
 					<view style="font-size: 36upx;font-weight: 800;color: #FFFFFF;">{{Store.StoreName}}</view>
 				</block>
 				<!-- #endif -->
@@ -291,6 +291,41 @@
 			
 		},
 		methods: {
+			chooseGGDetail(item, isbanner) {
+				if (item) {
+			
+					if (typeof(item.Spec) == 'string') {
+						let Spec = JSON.parse(item.Spec);
+						item.Spec = Spec;
+						this.chooseGGobj.title = Spec[0].title
+						this.chooseGGobj.price = Spec[0].price
+					} else {
+						this.chooseGGobj.title = item.Spec[0].title
+						this.chooseGGobj.price = item.Spec[0].price
+					}
+					this.chooseGGItem = item;
+					let isFind = false;
+					isFind = this.basketList.shopContent.some((Listitem, index) => {
+						if (item.Spec && Listitem.Tags.title && item.Spec[0].title == Listitem.Tags.title) {
+							this.chooseGGItem = Listitem;
+							return true;
+						}
+					})
+			
+					if (!isFind) {
+						this.chooseGGItem = item;
+						this.showOption = false;
+					}
+			
+					//这里可以处理一下吧 规格重新存储到一个变量里
+			
+					if (isbanner) {
+						this.dishModel = false;
+					}
+					this.selectGGModel = true;
+				}
+			
+			},
 			changeStarInfo(star) {
 				var info;
 				switch (star) {

@@ -7,7 +7,7 @@
 				<block slot="content">数据分析</block>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
-				<block slot="backText">数据分析</block>
+				<block slot="content">数据分析</block>
 				<!-- #endif -->
 			</cu-custom>
 			<!-- #endif -->

@@ -1,15 +1,6 @@
 <template>
 	<view>
-		<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN-->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
-			<!-- #ifdef APP-PLUS || H5-->
-			<block slot="content">花蓄头条</block>
-			<!-- #endif -->
-			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">花蓄头条</block>
-			<!-- #endif -->
-		</cu-custom>
-		<!-- #endif -->
+		
 		<view>
 			<rich-text v-if="listItem!=null" :nodes="listItem.Content"></rich-text>
 		</view>
@@ -52,6 +43,20 @@
 						})
 					},
 				});
+			}
+		},
+		onShareAppMessage(obj) {
+			return {
+				title: '看这里，花蓄又有大动作！',
+				imageUrl: '',
+				path: '/pages/index/topList/topListDetailed?ID' + this.id
+			}
+		},
+		onShareTimeline(obj) {
+			return {
+				title: '看这里，花蓄又有大动作！',
+				imageUrl: 'https://img.huaxuapp.com/tzhi.jpg',
+				path: '/pages/index/topList/topListDetailed?ID' + this.id
 			}
 		}
 	}

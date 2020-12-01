@@ -3,7 +3,7 @@
 		<view class="header-img">
 			<!-- #ifdef MP-WEIXIN -->
 			<cu-custom bgColor="bg-white" :isBack="true" v-if="showNavigation">
-				<block slot="backText">所有商圈</block>
+				<block slot="content">所有商圈</block>
 			</cu-custom>
 			<!-- #endif -->
 		</view>

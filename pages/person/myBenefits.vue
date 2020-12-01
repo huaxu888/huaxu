@@ -6,7 +6,7 @@
 			<block slot="content">我的收益</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">我的收益</block>
+			<block slot="content">我的收益</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

@@ -5,7 +5,7 @@
 			<block slot="content">添加收货地址</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">添加收货地址</block>
+			<block slot="content">添加收货地址</block>
 			<!-- #endif -->
 		</cu-custom>
 

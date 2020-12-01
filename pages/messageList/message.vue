@@ -14,7 +14,7 @@
 			<block slot="content">消息列表</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">消息列表</block>
+			<block slot="content">消息列表</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

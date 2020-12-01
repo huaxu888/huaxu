@@ -1,16 +1,16 @@
 <template>
 	<view>
 		<!-- #ifndef MP-ALIPAY -->
-		<cu-custom bgColor="bg-white" class="text-black" :isBack="true">
+		<cu-custom bgColor="bg-whitesss" class="text-black" :isBacks="true" :isBack="false">
 			<!-- #ifdef APP-PLUS || H5-->
 			<block slot="content"> {{ title }}</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">{{ title }}</block>
+			<block slot="content">{{ title }}</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
-
+		
 		<view class="padding-lr hx-bg-gray" style="padding-top: 25upx;">
 			<view class="flex flex-direction  padding-tb justify-center  bg-white " style="border-radius: 20upx;">
 				<view class="flex align-center justify-center flex-direction " style="width: 100%;margin-top: 10upx;">
@@ -26,7 +26,7 @@
 				<view class="margin margin-top-sm  flex align-center padding-bottom-xs" style="border-bottom: 1px solid #F0F0F0; margin-bottom: 0upx;">
 					<text style="font-size: 40upx;" class="margin-right-xs align-start">&yen;</text>
 					<input type="digit" placeholder-style="font-size: 45upx;" maxlength="11" :adjust-position="false"
-					 confirm-type="done" @input="changeMoney" style="font-size: 65upx;height: 80upx;" :value="money" />
+					 confirm-type="done" @input="changeMoney" @blur="closeIn" style="font-size: 65upx;height: 80upx;" :value="money" />
 				</view>
 			</view>
 		</view>
@@ -55,9 +55,9 @@
 					<view class="title">优惠额<text class="hxIcon-tishi margin-left-sm" style="font-size: 32upx;" @tap="showTips"></text></view>
 					<view class="text-gray" style="font-size: 26upx;">{{toformatAmount(discountPay)}}元</view>
 				</view>
-
-				<view class="cu-form-group-switch padding">
-
+				<block v-if="hbXs">
+				<view class="cu-form-group-switch padding" v-if="isSy">
+					
 					<view class="title">余额 <text class="text-gray margin-left" style="font-size: 24upx;">共{{KTXbalance}}元</text></view>
 					<!-- #ifdef MP-ALIPAY -->
 					<switch class='red' @change="SwitchB" :class="switchB?'checked':''" :checked="switchB?true:false"
@@ -68,6 +68,20 @@
 					<switch class='red' @change="SwitchB" :class="switchB?'checked':''" :checked="switchB?true:false" style="transform:scale(0.8)"></switch>
 					<!-- #endif -->
 				</view>
+				
+				<view class="cu-form-group-switch padding" v-if="!isSy">
+					
+					<view class="title">可用余额 <text class="text-gray margin-left" style="font-size: 24upx;">共{{kyYE}}元</text></view>
+					<!-- #ifdef MP-ALIPAY -->
+					<switch class='red' @change="SwitchB" :class="switchB?'checked':''" :checked="switchB?true:false"
+					 style="transform:scale(0.8)"></switch>
+					<!-- #endif -->
+				
+					<!-- #ifndef MP-ALIPAY -->
+					<switch class='red' @change="SwitchB" :class="switchB?'checked':''" :checked="switchB?true:false" style="transform:scale(0.8)"></switch>
+					<!-- #endif -->
+				</view>
+				</block>
 			</view>
 		</view>
 
@@ -81,25 +95,38 @@
 				<text style="color: #eb5245;font-size: 40upx;line-height: 1em;margin-left: 10upx;" v-if="needPay > 0"> <text style="font-size: 28upx;font-weight: 600;">￥</text>
 					{{ needPay }} </text>
 			</view>
-
+			
+			<!-- #ifdef APP-PLUS -->
+			<view class="bg-white padding-bottom" style="border-bottom-left-radius: 20upx; border-bottom-right-radius: 20upx;">
+				<payradio @getRadio="getRadio" :radio='radio' :yue="false"></payradio>
+				<text class="padding text-red">{{ info }}</text>
+			</view>
+			<!-- #endif -->
+			
+			<!-- #ifndef APP-PLUS -->
 			<view class="bg-white padding-bottom" style="border-bottom-left-radius: 20upx; border-bottom-right-radius: 20upx;">
 				<payradio @getRadio="getRadio" :radio='radio' :yue="false" :disabled="!canSelectPaymentWay"></payradio>
 				<text class="padding text-red">{{ info }}</text>
 			</view>
-
+			<!-- #endif -->
+		
 			<view class="flex justify-center padding margin-top">
-				<button @tap="preNewToPay()" class="cu-btn bg-red shadow text-xl" style="width: 100%;height: 40px;">
+				<button @tap="preNewToPay()" class="cu-btn bg-red shadow text-xl sure" style="width: 100%;height: 100upx;">
 					确认支付
 				</button>
 			</view>
-			<view class="flex justify-center padding-lr margin-bottom">
+			
+			<!-- #ifdef H5 -->
+			<!-- <view class="flex justify-center padding-lr margin-bottom">
 				<button @tap="gotoHome" class="cu-btn bg-gray goto-home" style="width: 100%;height: 40px;">
 					去首页逛逛
 				</button>
-			</view>
+			</view> -->
+			<!-- #endif -->
+			
 		</view>
 
-		<!-- 输入密码的支付窗口 -->
+		 <!-- 输入密码的支付窗口 -->
 		<view class="cu-modal bottom-modal" :class="modalNameShow ? 'show' : ''">
 			<view class="cu-dialog">
 				<uni-grid @close="hideModal" @fullclose="fullclose" />
@@ -107,13 +134,15 @@
 		</view>
 
 		<!-- 登录 -->
-		<view class="login-panel" :style="{transform: loginPanle ? 'scale(1)' : 'scale(0)',  background: loginPanle ? 'rgba(0, 0, 0, .3)' : 'transparent'}">
+		<view class="login-panel" :style="{transform: loginPanle ? 'scale(1)' : 'scale(0)',  background: loginPanle ? 'rgba(0, 0, 0, .8)' : 'transparent'}">
 			<view class="login">
 				<view class="login-notice">
-					<text>登录</text>
-					<view style="float: right;">
-						<text class="cuIcon-close" @tap="loginPanle = false" style="font-size: 40upx;"></text>
-					</view>
+					<view style="text-align: center;position: relative;font-size: 34upx;" >
+						<text>请先登录</text> 
+						<view style="position: absolute;right: 0upx;top: 0;">
+							<text class="cuIcon-close" @tap="loginPanle = false" style="font-size: 40upx;"></text>
+						</view>
+					</view> 
 				</view>
 
 				<view class="flex flex-direction" style="overflow: hidden; height: 500upx;">
@@ -122,19 +151,25 @@
 						<view style="margin-top: 30upx;">
 							<text>
 								<text class="sign">1</text>
-								登录您的微信
+								获取您的微信
 							</text>
 							<button class="phone-login-btn" open-type="getUserInfo" @getuserinfo="getUserInfo" style="margin-top: 10upx;"
 							 :disabled="getWxUserInfo">
-								微信登录
+								微信授权
 								<text class="cuIcon-check margin-left" v-if="getWxUserInfo"></text>
 							</button>
 						</view>
 
-						<view style="margin-bottom: -20upx; margin-top: 30upx;">
+						<view style="margin-bottom: -20upx; margin-top: 60upx;" v-if="getWxUserInfo">
 							<text>
 								<text class="sign">2</text>
-								登录您的账号
+								选择您的账号
+							</text>
+						</view>
+						<view style="margin-bottom: -20upx; margin-top: 60upx;color: #999999;" v-if="!getWxUserInfo">
+							<text>
+								<text class="signs">2</text>
+								选择您的账号
 							</text>
 						</view>
 						<button class="phone-login-btn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" :disabled="!getWxUserInfo">
@@ -146,10 +181,10 @@
 					 v-if="loginbyPhone">
 						<view class="input-field text-lg flex align-center" :class=" isFouces[0] || vilidate[0] ? 'active': ''">
 							<view class="flex align-center flex-sub">
-								<input type="number" v-model="phone" placeholder-style="color: #CCCCCC" maxlength="11" placeholder="请输入电话号码"
+								<input type="number" v-model="phone" placeholder-style="color: #CCCCCC" maxlength="11" placeholder="请输入手机号"
 								 @focus="focus(1)" @blur="blur" :disabled="codeText != '获取验证码'" />
 							</view>
-							<text class="code vlide" @tap="getCode" v-if="loginWithCode">
+							<text class="code vlide" @tap="getCode" v-if="loginWithCode" style="font-size: 26upx;color: #fe4e01;">
 								{{ codeText }}
 							</text>
 						</view>
@@ -171,9 +206,9 @@
 								</view>
 							</view>
 						</view>
-						<text class="pass margin-top" @tap="loginWay">{{ loginWithCode ? '账号密码登录' : '验证码登录' }}</text>
+						<!-- <text style="font-size: 26upx;" class="pass margin-top" @tap="loginWay">{{ loginWithCode ? '密码登录' : '验证码登录' }}</text> -->
 						<view class="hx-btn">
-							<button class="cu-btn lg flex" :class="vilidate[0] && vilidate[1] ? 'active' : ''" @tap="login">登录</button>
+							<button class="cu-btn lg flex" :class="vilidate[0] && vilidate[1] ? 'active' : ''" @tap="login" style="font-size: 30upx;border-radius: 60upx;">登录</button>
 						</view>
 					</view>
 
@@ -188,11 +223,11 @@
 					</view>
 					<view class="flex align-center justify-center margin-top" @tap="loginPage">
 						<view class="flex align-center justify-center bg-white" style="height: 100upx;width: 200upx;" v-if="!loginbyPhone">
-							<text class="hxIcon-shouji1" style="font-size: 50upx;color: gray;"></text> <text class="margin-left-xs">手机</text>
+							<text class="hxIcon-shouji1" style="font-size: 40upx;color: gray;"></text> <text class="margin-left-xs">验证码登录</text>
 						</view>
 						<!-- #ifdef MP-WEIXIN -->
 						<view class="flex align-center justify-center bg-white" style="height: 100upx;width: 200upx;" v-if="loginbyPhone">
-							<text class="hxIcon-weixin1" style="font-size: 50upx;color: #39B54A;"></text><text class="margin-left-xs">微信</text>
+							<text class="hxIcon-weixin1" style="font-size: 50upx;color: #39B54A;"></text><text class="margin-left-xs">微信登录</text>
 						</view>
 						<!-- #endif -->
 					</view>
@@ -320,7 +355,13 @@
 				zk: 1,
 				isSy: false,				// 是否是指定店铺
 				canSelectPaymentWay: true,
-				SortID: 0
+				SortID: 0,
+				hbXs: true,
+				cxIndex: 0,
+				sorts:0,
+				kyYE:0,
+				inx:0,
+				storeids:''
 			};
 		},
 		async onShow() {
@@ -370,6 +411,7 @@
 							_self.zk = res.Data.zk
 							_self.isSY = res.Data.IsSY
 							_self.SortID = res.Data.SortID
+							_self.isSy = res.Data.IsSY
 							await _self.getBalance()
 							await _self.getCoupons()
 						}
@@ -396,7 +438,7 @@
 			}
 		},
 		onLoad(option) {
-
+			this.inx = 0
 			// #ifdef MP-ALIPAY
 			// 获取支付宝扫码参数，并赋值给 option.q ，方便后边统一处理
 			this.needWxVerify = false
@@ -415,24 +457,29 @@
 			} else {
 				_self.needWxVerify = true
 				//如果用户没有登录，所以需要微信授权
-				uni.navigateTo({
-					url:`/pages/common/login?isBack=back`
+				// uni.navigateTo({
+				// 	url:`/pages/common/login?isBack=back`
 					
-				})
+				// })
 			}
 			// #endif
 
 			// 获取扫描二维码参数
 			if (option.q) {
+				console.log(option.q);
 				let t = option.q
 				t = decodeURIComponent(t)
 				let arr = t.split('?')
 				let param = arr[1].split('&')
+				let params = param[0].split('=')
+				console.log(params);
+				this.storeids = params[1]
 				if (param[0].includes('ewmid')) {
 					param = param[0].split('=')
 					this.$http.getStoreByEWM(param[1])
 						.then(res => {
 							if (res.IsSuccess) {
+								console.log(res);
 								_self.StoreID = res.Data.StoreID
 								_self.userid = res.Data.yyyid
 								_self.yyyid = _self.userid
@@ -468,6 +515,10 @@
 			} else if (option.storeid) {
 				_self.StoreID = option.storeid
 			}
+			
+			// #ifdef APP-PLUS
+			this.radio = 3
+			// #endif
 		},
 		methods: {
 			async getBalance() {
@@ -506,13 +557,28 @@
 				this.loginWithCode = !this.loginWithCode
 			},
 			SwitchB(e) {
-				this.switchB = !this.switchB;
-
+				console.log(this.switchB);
+				if(this.switchB){
+					this.switchB = false
+				} else {
+					this.switchB = true
+				}
+				console.log(this.switchB);
 				let inputMoney = this.money //输入的金额
 				if (Number(inputMoney) > 0) {
 					//说明里面输入的有值
 					this.changeMoney();
 				}
+				
+				if(this.switchB == false) {
+					// #ifdef MP-WEIXIN || H5 || APP-PLUS
+					this.radio = 3
+					// #endif
+					// #ifdef MP-ALIPAY
+					this.radio = 2
+					// #endif
+				}
+				
 			},
 			focus(index) {
 				if (index === 1) {
@@ -564,7 +630,7 @@
 					if (endTime - startTime >= 1000 * 60 * 3) {
 						this.$api.msg('验证码超时')
 					} else {
-						this.$http.loginWithCode(this.phone, this.code, endTime, this.StoreID ||  this.$store.state.tjrid)
+						this.$http.loginWithCode(this.phone, this.code, endTime,0,this.$store.state.userInfo.ID || 0,this.storeids || 0)
 							.then(async res => { 
 								if (res.IsSuccess) {
 									self.$store.commit('login', res.Data)
@@ -679,11 +745,9 @@
 							return
 						}
 					} else if (this.radio == 2) {
-
 						this.newMixPay('支付宝', this.needPay);
 
 					} else if (this.radio == 3) {
-
 						this.newMixPay('微信', this.needPay);
 
 					}
@@ -852,7 +916,7 @@
 					.then(res => {
 						console.log(this.wxInfo, '560');
 						this.$http.loginWithWx(this.wxInfo.phone, this.wxInfo.nickName, this.wxInfo.avatar,
-								this.wxInfo.openid, this.wxInfo.unionid, this.StoreID, this.yyyid)
+								this.wxInfo.openid, this.wxInfo.unionid, 0, this.yyyid, this.storeids || 0)
 							.then(res => {
 								if (res.IsSuccess) {
 									this.$store.commit('login', res.Data)
@@ -880,7 +944,7 @@
 					Object.assign(this.wxInfo, this.wxInfo, res.data)
 					this.$http.loginWithWx(this.wxInfo.purePhoneNumber, this.wxInfo.nickName,
 							this.wxInfo.avatarUrl, this.wxInfo.unionId, this.wxInfo.openId,
-							this.StoreID || 0, this.yyyid || 0)
+							0, this.yyyid || 0, this.storeids || 0)
 						.then(async res => {
 							if (res.IsSuccess) {
 								console.log('登录', res);
@@ -938,7 +1002,7 @@
 									_self.yhqList.forEach(item => {
 										let dataNum = parseInt(item.EDate.replace("/Date(", "").replace(")/", ""));
 
-										if ( (item.StoreID == this.StoreID || item.StoreID === 0 ) && item.IsLock == false && (dataNum - (new Date().getTime())) > 0) {
+										if ( (item.StoreID == this.StoreID || item.StoreID === 0 )  && (dataNum - (new Date().getTime())) > 0) {
 											
 											let obj = {
 												CCouponsIDStore: item.youhuiquan.CCouponsID,
@@ -951,9 +1015,18 @@
 											
 											switch (item.Sort) {
 												case 1:
-													obj.Num1 = item.Num1
-													obj.Num2 = item.Num2
-													obj.info = '满' + item.Num1 + '减' + item.Num2 + tmp
+													
+													if(item.Num1){
+														obj.Num1 = item.Num1
+														obj.Num2 = item.Num2
+														obj.info = '满' + item.Num1 + '减' + item.Num2 
+													} else {
+														obj.Num1 = item.Num2
+														obj.Num2 = item.Num2
+														obj.info = '消费立减' + item.Num2 
+													}
+													
+													
 													console.log('优惠券', obj);
 													if (this.SortID == 3 && item.Num2 === 50) {
 														
@@ -963,15 +1036,26 @@
 													break
 												case 2:
 													obj.Num2 = item.Num2
-													obj.info = item.Num2 + '元代金券' + tmp
+													obj.info = item.Num2 + '元代金券' 
 													console.log('代金券', obj)
 													_self.DJQList.push(obj);
 													break
 												case 3:
 													obj.Num2 = item.Num2
-													obj.info = item.Num2 + '元代金券' + tmp
+													obj.info = item.Num2 + '元代金券' 
 													console.log('代金券', obj)
 													_self.DJQList.push(obj);
+													break
+												case 7:
+													obj.Num1 = item.Num1
+													obj.Num2 = 0
+													obj.info = '满' + item.Num1 + '元赠' + item.Num2 + '元余额'
+													console.log('优惠券', obj);
+													if (this.SortID == 3 && item.Num2 === 50) {
+														
+													} else {
+														_self.YHQlist.push(obj);
+													}
 													break
 												default:
 											}
@@ -1009,9 +1093,27 @@
 					_self.$api.msg('用户信息获取失败，请重新登录')
 				}
 			},
+			getFloat(num, n) {
+				n = n ? parseInt(n) : 0;
+				if(n <= 0) {
+					return Math.round(num);
+				}
+				num = Math.round(num * Math.pow(10, n)) / Math.pow(10, n); //四舍五入
+				num = Number(num).toFixed(n); //补足位数
+				return num;
+			},
 			bindPickerChange(e) {
+				console.log(e);
+				// #ifdef MP-WEIXIN || H5 || APP-PLUS
+				this.radio = 3
+				// #endif
+				// #ifdef MP-ALIPAY
+				this.radio = 2
+				// #endif
+				this.inx = e.target.value
 				let Num1 = this.YHQlist[e.target.value].Num1;
 				if(this.money>=Num1){
+					this.switchB = false
 					this.pickerIndex = e.target.value
 					if (e.target.value != 0) {
 						this.$set(this.disabled, 1, true)
@@ -1025,13 +1127,82 @@
 					this.CCouponsIDStore = this.YHQlist[this.pickerIndex].CCouponsIDStore;
 					this.Showmoney = this.Num2
 					this.changeMoney();
+					
+					if(this.discountPay > 0){
+						if(this.zk){
+							if(this.pickerIndex == 0){
+								this.hbXs = true
+								this.switchB = false
+							} else {
+								this.needPay = this.getFloat(this.money - this.Showmoney, 2)
+								this.discountPay = this.Num2
+								this.hbXs = false
+								this.switchB = false
+							}
+							this.cxIndex = this.pickerIndex
+						} else {
+							this.hbXs = false
+							this.switchB = false
+							console.log(this.pickerIndex);
+							this.cxIndex = this.pickerIndex
+						}
+						
+					} 
+					if(this.discountPay <= 0){
+						if(this.Num1){
+							console.log('1596666666666666666666666666666895189418');
+							this.hbXs = false
+							this.switchB = false
+							console.log(this.pickerIndex);
+							this.cxIndex = this.pickerIndex
+							this.needPay = this.money
+						} else {
+							console.log('12121212122121212121212121212122121');
+							this.hbXs = true
+							this.switchB = false
+						}
+					}
+					// #ifdef MP-WEIXIN || H5 || APP-PLUS
+					this.radio = 3
+					// #endif
+					// #ifdef MP-ALIPAY
+					this.radio = 2
+					// #endif
 				}else{
-					this.pickerIndex = 0
+					// #ifdef MP-WEIXIN || H5 || APP-PLUS
+					this.radio = 3
+					// #endif
+					// #ifdef MP-ALIPAY
+					this.radio = 2
+					// #endif
+					this.pickerIndex = this.cxIndex
 					this.$api.msg('您支付的金额不满足优惠条件',2000)
+					console.log(this.discountPay);
+					if(this.discountPay > 0){
+						this.hbXs = false
+						this.switchB = false
+						console.log(this.pickerIndex);
+					} 
+					if(this.discountPay == 0){
+						
+						if(this.switchB){
+							this.hbXs = true
+							this.pickerIndex = 0
+							this.switchB = true
+							console.log('1651446848664864');
+						}  else {
+							this.hbXs = true
+							this.pickerIndex = 0
+							this.switchB = false
+							console.log('2222222222222222222222');
+						}
+					}
+					
 				}
 			},
 			selectDJQ: function (e) {
 				this.CurrentDJQ = e.detail.value
+				this.inx = e.detail.value
 				if (e.target.value != 0) {
 					this.$set(this.disabled, 0, true)
 					this.$set(this.YHQlist[0], 'info', '不可使用')
@@ -1045,6 +1216,7 @@
 				this.changeMoney()
 			},
 			getRadio(e) {
+				console.log(e);
 				this.radio = e.radio;
 
 				if (Number(this.needPay) <= 0) {
@@ -1086,21 +1258,94 @@
 			toformatAmount(money) {
 				return this.$api.formatAmount(money);
 			},
+			closeIn(){
+				this.pickerIndex = 0
+				
+				if(!this.isSy){
+					if(this.inx == 0){
+						if(this.zk){
+							if(this.switchB){
+								console.log(this.money,'我在这里');
+								this.needPay = this.getFloat(this.money * this.zk,2) - this.kyYE
+								this.switchB = true
+							} else {
+								this.needPay = this.getFloat(this.money * this.zk,2)
+								this.switchB = false
+							}
+							console.log(this.needPay);
+							this.discountPay = this.getFloat( this.money - this.money * this.zk,2) 
+						} else {
+							if(this.switchB){
+								this.needPay = this.money - this.kyYE
+								this.switchB = true
+							} else {
+								this.needPay = this.money
+								this.switchB = false
+							}
+							this.discountPay = 0
+							console.log(this.needPay);
+						}
+					} else {
+						if(this.zk){
+							this.needPay = this.getFloat(this.money * this.zk,2)
+							this.discountPay = this.getFloat( this.money - this.money * this.zk,2) 
+						} else {
+							this.needPay = this.money
+							this.discountPay = 0
+						}
+					}
+					
+				} else {
+					if(this.inx > 0){
+						if(this.zk){
+							this.needPay = this.getFloat(this.money * this.zk,2)
+							this.discountPay = this.getFloat( this.money - this.money * this.zk,2) 
+						} else {
+							this.needPay = this.money
+							this.discountPay = 0
+						}
+					}
+				}
+				
+				this.hbXs = true
+				
+				
+				// // #ifdef MP-WEIXIN || H5
+				// this.radio = 3
+				// // #endif
+				// // #ifdef MP-ALIPAY
+				// this.radio = 2
+				// // #endif
+				
+			},
 			changeMoney(e) {
+				this.hbXs = true
+				console.log(e,'1515151515151515151515');
+				
 				this.canSelectPaymentWay = true
-				// #ifdef MP-WEIXIN
+				
+				// #ifdef MP-WEIXIN || H5 || APP-PLUS
 				this.radio = 3
 				// #endif
 				// #ifdef MP-ALIPAY
 				this.radio = 2
 				// #endif
 				if (e) {
+					e.detail.value = e.detail.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3')
+					console.log(e.detail.value);
 					this.money = e.detail.value
 					if (!e.detail.value) {
 						this.pickerIndex = 0
 						this.Showmoney = 0
 					}
 					this.Num2 = 0
+					
+					this.$http.scanPayafter(this.userInfo.ID,Number(this.money)).then(res => {
+						console.log(res,'普通商家可用余额');
+						if(res.IsSuccess){
+							this.kyYE = this.toformatAmount(Number(res.Data.UseScore))
+						}
+					})
 				}
 
 				if (this.CurrentDJQ !== 0) {
@@ -1118,23 +1363,71 @@
 				     this.canSelectPaymentWay = false
 				}
 				this.discountPay = (this.money * 10000 - this.needPay * 10000) / 10000
-				if (this.switchB) {
-					/* 选了余额支付 */
-					if (Number(this.KTXbalance) >= Number(this.needPay)) {
-						this.canSelectPaymentWay = false
-						this.radio = 1
-					} else {
-						this.canSelectPaymentWay = false
-						// #ifdef MP-ALIPAY
-						this.radio = 2
-						// #endif
-						// #ifdef MP-WEIXIN
-						this.radio = 3
-						// #endif
-						this.needPay = (this.needPay * 10000 - this.KTXbalance * 10000 ) / 10000
+				
+				if(!this.isSy){
+					if(this.inx == 0){
+						this.$http.scanPayafter(this.userInfo.ID,Number(this.money)).then(res => {
+							console.log(res,'普通商家可用余额');
+							if(res.IsSuccess){
+								this.kyYE = this.toformatAmount(Number(res.Data.UseScore))
+								this.canSelectPaymentWay = false
+								// #ifdef MP-ALIPAY
+								this.radio = 2
+								// #endif
+								// #ifdef MP-WEIXIN || H5 || APP-PLUS
+								this.radio = 3
+								// #endif
+								if (this.switchB) {
+									this.needPay = this.toformatAmount((this.money * 10000 - this.kyYE * 10000 ) / 10000)
+								} else {
+									this.needPay = (this.money * 10000 ) / 10000
+								}
+							}
+						})
 					}
-				} else {
-					/* 没选余额支付 */
+				}
+				
+				if(this.isSy){
+					if (this.switchB) {
+						/* 选了余额支付 */
+						if (Number(this.KTXbalance) >= Number(this.needPay)) {
+							this.canSelectPaymentWay = false
+							this.radio = 1
+						} else {
+							this.canSelectPaymentWay = false
+							// #ifdef MP-ALIPAY
+							this.radio = 2
+							// #endif
+							// #ifdef MP-WEIXIN || H5 || APP-PLUS
+							this.radio = 3
+							// #endif
+							
+							if(((this.needPay * 10000 - this.KTXbalance * 10000 )) / 10000 < 0.01){
+								this.needPay = this.changeTwoDecimal((this.needPay * 10000 - this.KTXbalance * 10000 ) / 10000)
+							} else {
+								this.needPay = (this.needPay * 10000 - this.KTXbalance * 10000 ) / 10000
+							}
+						}
+					} else { 
+						if (Number(this.KTXbalance) >= Number(this.needPay)) {
+							this.canSelectPaymentWay = false
+							this.radio = 1
+						} else {
+							this.canSelectPaymentWay = false
+							// #ifdef MP-ALIPAY
+							this.radio = 2
+							// #endif
+							// #ifdef MP-WEIXIN || H5 || APP-PLUS
+							this.radio = 3
+							// #endif
+							this.needPay = (this.needPay * 10000 ) / 10000
+							if(((this.needPay * 10000 ) / 10000) < 0.01){
+								this.needPay = this.changeTwoDecimal((this.needPay * 10000 ) / 10000)
+							} else {
+								this.needPay = (this.needPay * 10000 ) / 10000
+							}
+						}
+					}
 				}
 				return
 				setTimeout(() => {
@@ -1157,6 +1450,7 @@
 					if (this.pickerIndex > 0) {
 						this.discountPay = 0;
 						//说明选中了优惠券，那么计算消费额  
+						
 						if (Number(this.money) >= this.Num1) {
 							//说明输入金钱大于达到减免的金额时候，使用优惠券
 							realPay = Number(this.$api.formatAmount(this.$api.accSub(this.money, this.Num2)));
@@ -1248,11 +1542,11 @@
 
 					if (Number(this.needPay) > 0) {
 						if (this.radio == 1) {
-							// #ifdef APP-PLUS || MP-ALIPAY || H5
+							// #ifdef MP-ALIPAY
 							this.radio = 2;
 							// #endif
 
-							// #ifdef MP-WEIXIN
+							// #ifdef MP-WEIXIN || H5 || APP-PLUS
 							this.radio = 3;
 							// #endif
 						}
@@ -1260,6 +1554,14 @@
 						this.radio = 1;
 					}
 				}, 0);
+			},
+			changeTwoDecimal(x){
+				var f_x = parseFloat(x);
+				if (isNaN(f_x)){
+					return false;
+				}
+				f_x = Math.round(f_x *100)/100;
+				return f_x;
 			},
 			async toPay(pwd) {
 				//判断密码
@@ -1299,6 +1601,7 @@
 			},
 			hxPay() {
 				let self = this;
+				console.log('sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf');
 				uni.navigateTo({
 					url: `/pages/scan/paySuccess?dealType=交易成功&StoreName=${self.StoreName}&opeFunction=` + self.radio +
 						`&money=` + self.toformatAmount(self.money) + `&retrunMoney=0` 
@@ -1323,7 +1626,19 @@
 	.b {
 		border: 1px solid #39b54a;
 	}
-
+	
+	.sure {
+		margin-top: 20upx;
+		height: 88upx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(to right, #fb9c67, #fc6660);
+		color: #fff;
+		border-radius: 100upx;
+		box-shadow: 2upx 2upx 14upx lighten($color: #FC7265, $amount: 10);
+	}
+		
 	page {
 		display: flex;
 		flex-direction: column;
@@ -1465,14 +1780,14 @@
 		.cu-btn {
 			margin: 0 60upx;
 			color: #ffffff;
-			background: #eb5245;
+			background: #fe4e01;;
 			transition: all .3s ease-in-out;
 			opacity: .5;
 		}
 
 		.active {
 			opacity: 1;
-			box-shadow: 6upx 6upx 8upx #333;
+			// box-shadow: 6upx 6upx 8upx #333;
 		}
 	}
 
@@ -1552,13 +1867,13 @@
 		top: 0;
 		height: 100vh;
 		width: 750upx;
-		padding: 0 30upx;
+		padding: 0 70upx;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		transform: scale(1);
 		transition: transform .3s ease-in-out;
-		background: rgba($color: #000000, $alpha: .3);
+		background: rgba($color: #000000, $alpha: .5);
 
 		.liner {
 			position: relative;
@@ -1572,27 +1887,43 @@
 				background: #fff;
 				position: absolute;
 				padding: 10upx 30upx;
-				font-size: 20upx;
+				font-size: 24upx;
 				color: #ccc;
 			}
 		}
 
 		.sign {
 			display: inline-flex;
-			width: 40upx;
+			width: 28upx;
 			align-items: center;
 			justify-content: center;
-			height: 40upx;
-			background: linear-gradient(to right, lighten(#eb5245, 10), #eb5245);
+			height: 28upx;
+			// background: linear-gradient(to right, lighten(#eb5245, 10), #eb5245);
+			border: 2upx solid #333333;
 			border-radius: 100upx;
 			margin-right: 10upx;
-			color: #fff;
+			color: #333333;
+			font-size: 24upx;
+		}
+		
+		.signs {
+			display: inline-flex;
+			width: 28upx;
+			align-items: center;
+			justify-content: center;
+			height: 28upx;
+			// background: linear-gradient(to right, lighten(#eb5245, 10), #eb5245);
+			border: 2upx solid #b5b5b5;
+			border-radius: 100upx;
+			margin-right: 10upx;
+			color: #999999;
+			font-size: 24upx;
 		}
 
 		.login {
 			background: #fff;
 			width: 100%;
-			padding: 30upx;
+			padding: 30upx 40upx;
 			border-radius: 10upx;
 		}
 
@@ -1607,6 +1938,7 @@
 			border-radius: 10upx;
 			text-align: center;
 			color: #fff;
+			font-size: 30upx;
 		}
 	}
 </style>

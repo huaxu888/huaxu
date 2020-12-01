@@ -84,7 +84,8 @@
 				TabCur: 0,
 				scrollLeft: 0,
 				itemObj:[],
-				len:0
+				len:0,
+				page:1
 			}
 		},
 		components: {
@@ -92,10 +93,13 @@
 			hxTab,
 		},
 		onLoad() {
+			if(this.SiteID != this.site_.SiteID){
+							 this.getCurryInfo()
+			}
 			//this.getData.Location=`${this.$store.state.longitude},${this.$store.state.latitude}`
 			this.getCurryInfo();
 			let arr = [];
-			this.$http.getTopLists().then(res => {
+			this.$http.getTopLists(this.page,100).then(res => {
 				if (res) {
 					console.log(res)
 					this.itemObj = res
@@ -103,9 +107,7 @@
 			})
 		},
 		onShow(){
-			 if(this.SiteID != this.site_.SiteID){
-				 this.getCurryInfo()
-			 }
+			 
 		},
 		onPullDownRefresh() { //下拉时刷新
 			this.refresGetInfo()
@@ -119,10 +121,11 @@
 				console.log(e)
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60;
+				this.page = 1
 				if(this.TabCur == 0){
 							
 					let arr = [];
-					this.$http.getTopLists().then(res => {
+					this.$http.getTopLists(this.page,100).then(res => {
 						if (res) {
 							console.log(res)
 							this.itemObj = res
@@ -132,7 +135,7 @@
 				if(this.TabCur == 1){
 							
 					let arr = [];
-					this.$http.xinshou().then(res => {
+					this.$http.xinshou(this.page,100).then(res => {
 						if (res) {
 							this.itemObj = res
 						}
@@ -140,7 +143,7 @@
 				};
 				if(this.TabCur == 2){
 					
-					this.$http.changjian().then(res => {
+					this.$http.changjian(this.page,100).then(res => {
 						if (res) {
 							this.itemObj = res
 						}
@@ -148,7 +151,7 @@
 				};
 				if(this.TabCur == 3){
 					
-					this.$http.gonggao().then(res => {
+					this.$http.gonggao(this.page,100).then(res => {
 						if (res) {
 							this.itemObj = res
 						}
@@ -156,7 +159,7 @@
 				};
 				if(this.TabCur == 4){
 					
-					this.$http.ruzhu().then(res => {
+					this.$http.ruzhu(this.page,100).then(res => {
 						if (res) {
 							this.itemObj = res
 						}
@@ -164,7 +167,7 @@
 				};
 				if(this.TabCur == 5){
 					
-					this.$http.zixun().then(res => {
+					this.$http.zixun(this.page,100).then(res => {
 						if (res) {
 							this.itemObj = res
 						}
@@ -205,6 +208,7 @@
 	}
 	
 	.bgclo {
-		background: linear-gradient(to right, rgb(254, 177, 3), rgb(254, 129, 5));
+		/* background: linear-gradient(to right, rgb(254, 177, 3), rgb(254, 129, 5)); */
+		background-color: #fa5837;
 	}
 </style>

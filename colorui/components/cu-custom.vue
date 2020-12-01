@@ -6,6 +6,13 @@
 					<text class="cuIcon-back"></text>
 					<slot name="backText"></slot>
 				</view>
+				
+				<view class="action" v-if="isBacks" :style="[{fontWeight:600}]">
+					<text class="cuIcon-back" @tap="BackPage"></text>
+					<text class="hxIcon-shouye6"  @tap="BackPages" style="font-size: 42upx;margin-left: 20upx;"></text>
+					<slot name="backText"></slot>
+				</view>
+				
 				<view class="action" v-if="leftAction">
 					<slot name="left"></slot>
 				</view>
@@ -52,6 +59,10 @@
 				type: [Boolean, String],
 				default: false
 			},
+			isBacks: {
+				type: [Boolean, String],
+				default: false
+			},
 			bgImage: {
 				type: String,
 				default: ''
@@ -70,6 +81,11 @@
 				uni.navigateBack({
 					delta: 1
 				});
+			},
+			BackPages() {
+				uni.switchTab({
+					url: '/pages/index/index'
+				})
 			}
 		}
 	}

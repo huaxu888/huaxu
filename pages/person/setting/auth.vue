@@ -6,7 +6,7 @@
 			<block slot="content">实名认证</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">实名认证</block>
+			<block slot="content">实名认证</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

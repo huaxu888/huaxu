@@ -5,7 +5,7 @@
 			<block slot="content">{{ pageTitle }}</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">{{ pageTitle }}</block>
+			<block slot="content">{{ pageTitle }}</block>
 			<!-- #endif -->
 		</cu-custom>
 		

@@ -83,6 +83,7 @@
 		},
 		methods: {
 			RadioChange(e) {
+				console.log('151');
 				let radio = e.detail.value;
 				this.$emit('getRadio', {
 					radio: radio,

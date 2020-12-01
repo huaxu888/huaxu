@@ -6,7 +6,7 @@
 			<block slot="content"></block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText"></block>
+			<block slot="content"></block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

@@ -6,7 +6,7 @@
 			<block slot="content">添加店铺内容</block>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">添加店铺内容</block>
+			<block slot="content">添加店铺内容</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->

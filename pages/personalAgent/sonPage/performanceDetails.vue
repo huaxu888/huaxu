@@ -7,7 +7,7 @@
 			<block slot="content">{{shopName}}</block>
 			<!-- #endif --> 
 			<!-- #ifdef MP-WEIXIN -->
-			<block slot="backText">{{shopName}}</block>
+			<block slot="content">{{shopName}}</block>
 			<!-- #endif -->
 		</cu-custom>
 		<!-- #endif -->
